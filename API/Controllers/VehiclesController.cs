@@ -1,7 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+
+using AutoMapper;
+using Core.Dtos;
 using Core.Entities;
 using Core.Interfaces;
 using Core.Specifications;
@@ -14,26 +13,30 @@ namespace API.Controllers
     public class VehiclesController : ControllerBase
     {
         private readonly IGenericRepository<Vehicle> _vehicleRepo;
+        private readonly IMapper _mapper;
 
-        public VehiclesController(IGenericRepository<Vehicle> vehicleRepo)
+        public VehiclesController(IGenericRepository<Vehicle> vehicleRepo, IMapper mapper )
         {
+            _mapper = mapper;
             _vehicleRepo = vehicleRepo;
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<Vehicle>>> GetVehicles()
+        public async Task<ActionResult<IReadOnlyList<Vehicle>>> GetVehicles()
         {
             var spec = new VehicleWithAllSpecification();
             var vehicles = await _vehicleRepo.ListAsync(spec);
-            return Ok(vehicles);
+            return Ok(_mapper.Map<IReadOnlyList<VehicleDto>>(vehicles));
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Vehicle>> GetVehicle(int id)
+        public async Task<ActionResult<VehicleDto>> GetVehicle(int id)
         {
             var spec = new VehicleWithAllSpecification(id);
 
-            return await _vehicleRepo.GetEntityWithSpec(spec);
+            var vehicle = await _vehicleRepo.GetEntityWithSpec(spec);
+
+            return _mapper.Map<Vehicle, VehicleDto>(vehicle);
         }
     }
 }
