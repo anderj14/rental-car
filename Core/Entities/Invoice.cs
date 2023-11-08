@@ -1,14 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Core.Entities
 {
     public class Invoice : BaseEntity
     {
         public decimal TotalAmount { get; set; }
-        public DateTime DateGenerated { get; set; }
+        public DateTime Date { get; set; }
         public string PaymentType { get; set; }
 
         public int CustomerId { get; set; }

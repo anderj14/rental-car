@@ -1,10 +1,9 @@
 
 namespace Core.Entities
 {
-    public class VehicleType : BaseEntity
+    public class Status: BaseEntity
     {
-        public string VehicleTypeName { get; set; }
+        public string StatusName { get; set; }
         public ICollection<Vehicle> Vehicles { get; set; }
-
     }
 }

@@ -1,0 +1,20 @@
+[
+    {
+        "Id": 1,
+        "StartDate": "2023-10-01",
+        "EndDate": "2023-10-05",
+        "Days": 5,
+        "RentalCost": 100,
+        "CustomerId": 1,
+        "VehicleId": 1
+    },
+    {
+        "Id": 2,
+        "StartDate": "2023-10-02",
+        "EndDate": "2023-10-06",
+        "Days": 5,
+        "RentalCost": 120,
+        "CustomerId": 2,
+        "VehicleId": 2
+    }
+]

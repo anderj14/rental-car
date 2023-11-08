@@ -3,7 +3,7 @@ namespace Core.Entities
 {
     public class Model : BaseEntity
     {
-        public string NameModel { get; set; }
+        public string ModelName { get; set; }
 
         public int BrandId { get; set; }
         public Brand Brand { get; set; }
