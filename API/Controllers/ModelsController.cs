@@ -5,9 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
-    [ApiController]
-    [Route("api/[controller]")]
-    public class ModelsController: ControllerBase
+    public class ModelsController: BaseApiController
     {
         private readonly IGenericRepository<Model> _modelRepo;
 

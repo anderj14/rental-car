@@ -1,4 +1,5 @@
 
+using API.Errors;
 using AutoMapper;
 using Core.Dtos;
 using Core.Entities;
@@ -8,21 +9,19 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
-    [ApiController]
-    [Route("api/[controller]")]
-    public class VehiclesController : ControllerBase
+    public class VehiclesController : BaseApiController
     {
         private readonly IGenericRepository<Vehicle> _vehicleRepo;
         private readonly IMapper _mapper;
 
-        public VehiclesController(IGenericRepository<Vehicle> vehicleRepo, IMapper mapper )
+        public VehiclesController(IGenericRepository<Vehicle> vehicleRepo, IMapper mapper)
         {
             _mapper = mapper;
             _vehicleRepo = vehicleRepo;
         }
 
         [HttpGet]
-        public async Task<ActionResult<IReadOnlyList<Vehicle>>> GetVehicles()
+        public async Task<ActionResult<IReadOnlyList<VehicleDto>>> GetVehicles()
         {
             var spec = new VehicleWithAllSpecification();
             var vehicles = await _vehicleRepo.ListAsync(spec);
@@ -30,11 +29,15 @@ namespace API.Controllers
         }
 
         [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
         public async Task<ActionResult<VehicleDto>> GetVehicle(int id)
         {
             var spec = new VehicleWithAllSpecification(id);
 
             var vehicle = await _vehicleRepo.GetEntityWithSpec(spec);
+
+            if (vehicle == null) return NotFound(new ApiResponse(404));
 
             return _mapper.Map<Vehicle, VehicleDto>(vehicle);
         }
