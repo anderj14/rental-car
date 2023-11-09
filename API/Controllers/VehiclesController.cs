@@ -1,5 +1,6 @@
 
 using API.Errors;
+using API.Helpers;
 using AutoMapper;
 using Core.Dtos;
 using Core.Entities;
@@ -21,11 +22,21 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IReadOnlyList<VehicleDto>>> GetVehicles()
+        public async Task<ActionResult<Pagination<VehicleDto>>> GetVehicles(
+            [FromQuery]VehicleSpecParams vehicleSpecParams
+        )
         {
-            var spec = new VehicleWithAllSpecification();
+            var spec = new VehicleWithAllSpecification(vehicleSpecParams);
+
+            var countSpec = new VehicleWithFiltersForCountSpecification(vehicleSpecParams);
+            var totalItems = await _vehicleRepo.CountAsync(countSpec);
+
             var vehicles = await _vehicleRepo.ListAsync(spec);
-            return Ok(_mapper.Map<IReadOnlyList<VehicleDto>>(vehicles));
+
+            var data = _mapper.Map<IReadOnlyList<VehicleDto>>(vehicles);
+
+            return Ok(new Pagination<VehicleDto>(vehicleSpecParams.PageIndex,
+            vehicleSpecParams.PageSize, totalItems, data));
         }
 
         [HttpGet("{id}")]
