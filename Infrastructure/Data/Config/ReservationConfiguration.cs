@@ -22,6 +22,8 @@ namespace Infrastructure.Data.Config
                 .HasForeignKey(r => r.CustomerId);
             builder.HasOne(r => r.Vehicle).WithMany(c => c.Reservations)
                 .HasForeignKey(r => r.VehicleId);
+            builder.HasOne(i => i.Insurance).WithMany(c => c.Reservations)
+            .HasForeignKey(i => i.InsuranceId);
 
             builder.HasMany(r => r.Invoices).WithOne(i => i.Reservation)
                 .HasForeignKey(i => i.ReservationId);

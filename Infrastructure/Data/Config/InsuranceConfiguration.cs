@@ -13,8 +13,8 @@ namespace Infrastructure.Data.Config
             builder.Property(i => i.InsuranceName).IsRequired();
             builder.Property(i => i.InsurancePrice).IsRequired().HasColumnType("decimal(18,2)");
 
-            builder.HasMany(i => i.Vehicles).WithOne(c => c.Insurance)
-                .HasForeignKey(i => i.FuelId);
+            builder.HasMany(i => i.Reservations).WithOne(c => c.Insurance)
+                .HasForeignKey(i => i.InsuranceId);
         }
     }
 }

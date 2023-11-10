@@ -28,8 +28,6 @@ namespace Core.Dtos
 
         public string Status { get; set; }
 
-        public string Insurance { get; set; }
-
         public string VehicleType { get; set; }
     }
 }

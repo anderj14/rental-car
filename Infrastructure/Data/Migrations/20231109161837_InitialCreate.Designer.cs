@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Data.Migrations
 {
     [DbContext(typeof(RentalContext))]
-    [Migration("20231108140621_InitialCreate")]
+    [Migration("20231109161837_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -169,6 +169,9 @@ namespace Infrastructure.Data.Migrations
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("InsuranceId")
+                        .HasColumnType("INTEGER");
+
                     b.Property<double>("RentalCost")
                         .HasColumnType("decimal(18,2)");
 
@@ -181,6 +184,8 @@ namespace Infrastructure.Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CustomerId");
+
+                    b.HasIndex("InsuranceId");
 
                     b.HasIndex("VehicleId");
 
@@ -225,9 +230,6 @@ namespace Infrastructure.Data.Migrations
                     b.Property<int>("FuelId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("InsuranceId")
-                        .HasColumnType("INTEGER");
-
                     b.Property<int>("ModelId")
                         .HasColumnType("INTEGER");
 
@@ -268,8 +270,6 @@ namespace Infrastructure.Data.Migrations
                     b.HasIndex("BrandId");
 
                     b.HasIndex("FuelId");
-
-                    b.HasIndex("InsuranceId");
 
                     b.HasIndex("ModelId");
 
@@ -334,6 +334,12 @@ namespace Infrastructure.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Core.Entities.Insurance", "Insurance")
+                        .WithMany("Reservations")
+                        .HasForeignKey("InsuranceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Core.Entities.Vehicle", "Vehicle")
                         .WithMany("Reservations")
                         .HasForeignKey("VehicleId")
@@ -341,6 +347,8 @@ namespace Infrastructure.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("Customer");
+
+                    b.Navigation("Insurance");
 
                     b.Navigation("Vehicle");
                 });
@@ -356,12 +364,6 @@ namespace Infrastructure.Data.Migrations
                     b.HasOne("Core.Entities.Fuel", "Fuel")
                         .WithMany("Vehicles")
                         .HasForeignKey("FuelId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Core.Entities.Insurance", "Insurance")
-                        .WithMany("Vehicles")
-                        .HasForeignKey("InsuranceId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -386,8 +388,6 @@ namespace Infrastructure.Data.Migrations
                     b.Navigation("Brand");
 
                     b.Navigation("Fuel");
-
-                    b.Navigation("Insurance");
 
                     b.Navigation("Model");
 
@@ -417,7 +417,7 @@ namespace Infrastructure.Data.Migrations
 
             modelBuilder.Entity("Core.Entities.Insurance", b =>
                 {
-                    b.Navigation("Vehicles");
+                    b.Navigation("Reservations");
                 });
 
             modelBuilder.Entity("Core.Entities.Model", b =>

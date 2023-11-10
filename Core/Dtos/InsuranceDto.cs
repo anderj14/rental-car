@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Core.Entities
+namespace Core.Dtos
 {
-    public class Insurance: BaseEntity
+    public class InsuranceDto
     {
+        public int Id { get; set; }
+
         public string InsuranceName { get; set; }
         public decimal InsurancePrice { get; set; }
-
-        public ICollection<Reservation> Reservations { get; set; }
     }
 }

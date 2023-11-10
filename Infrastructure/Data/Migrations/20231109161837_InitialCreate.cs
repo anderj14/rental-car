@@ -134,7 +134,6 @@ namespace Infrastructure.Data.Migrations
                     BrandId = table.Column<int>(type: "INTEGER", nullable: false),
                     ModelId = table.Column<int>(type: "INTEGER", nullable: false),
                     StatusId = table.Column<int>(type: "INTEGER", nullable: false),
-                    InsuranceId = table.Column<int>(type: "INTEGER", nullable: false),
                     VehicleTypeId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
@@ -150,12 +149,6 @@ namespace Infrastructure.Data.Migrations
                         name: "FK_Vehicles_Fuels_FuelId",
                         column: x => x.FuelId,
                         principalTable: "Fuels",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Vehicles_Insurances_InsuranceId",
-                        column: x => x.InsuranceId,
-                        principalTable: "Insurances",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -189,7 +182,8 @@ namespace Infrastructure.Data.Migrations
                     Days = table.Column<int>(type: "INTEGER", nullable: false),
                     RentalCost = table.Column<double>(type: "decimal(18,2)", nullable: false),
                     CustomerId = table.Column<int>(type: "INTEGER", nullable: false),
-                    VehicleId = table.Column<int>(type: "INTEGER", nullable: false)
+                    VehicleId = table.Column<int>(type: "INTEGER", nullable: false),
+                    InsuranceId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -198,6 +192,12 @@ namespace Infrastructure.Data.Migrations
                         name: "FK_Reservations_Customers_CustomerId",
                         column: x => x.CustomerId,
                         principalTable: "Customers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Reservations_Insurances_InsuranceId",
+                        column: x => x.InsuranceId,
+                        principalTable: "Insurances",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -258,6 +258,11 @@ namespace Infrastructure.Data.Migrations
                 column: "CustomerId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Reservations_InsuranceId",
+                table: "Reservations",
+                column: "InsuranceId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Reservations_VehicleId",
                 table: "Reservations",
                 column: "VehicleId");
@@ -271,11 +276,6 @@ namespace Infrastructure.Data.Migrations
                 name: "IX_Vehicles_FuelId",
                 table: "Vehicles",
                 column: "FuelId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Vehicles_InsuranceId",
-                table: "Vehicles",
-                column: "InsuranceId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Vehicles_ModelId",
@@ -306,13 +306,13 @@ namespace Infrastructure.Data.Migrations
                 name: "Customers");
 
             migrationBuilder.DropTable(
+                name: "Insurances");
+
+            migrationBuilder.DropTable(
                 name: "Vehicles");
 
             migrationBuilder.DropTable(
                 name: "Fuels");
-
-            migrationBuilder.DropTable(
-                name: "Insurances");
 
             migrationBuilder.DropTable(
                 name: "Models");
