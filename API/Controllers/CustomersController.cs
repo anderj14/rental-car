@@ -1,8 +1,10 @@
 
+using API.Helpers;
 using AutoMapper;
 using Core.Dtos;
 using Core.Entities;
 using Core.Interfaces;
+using Core.Specifications;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -19,12 +21,18 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IReadOnlyList<CustomerDto>>> GetCustomers()
+        public async Task<ActionResult<Pagination<CustomerDto>>> GetCustomers(
+            [FromQuery]CustomerSpecParams customerSpecParams)
         {
+            var countSpec = new CustomerWithFilterForCountSpecification(customerSpecParams);
+
+            var totalItems = await _customerRepo.CountAsync(countSpec);
             var models = await _customerRepo.ListAllAsync();
+
             var data = _mapper.Map<IReadOnlyList<CustomerDto>>(models);
 
-            return Ok(data);
+            return Ok(new Pagination<CustomerDto>(customerSpecParams.PageIndex,
+            customerSpecParams.PageSize, totalItems, data));
         }
 
         [HttpGet("{id}")]

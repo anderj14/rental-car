@@ -11,6 +11,7 @@ namespace API.Controllers
     public class ModelsController : BaseApiController
     {
         private readonly IGenericRepository<Model> _modelRepo;
+
         private readonly IMapper _mapper;
 
         public ModelsController(IGenericRepository<Model> modelRepo, IMapper mapper)
