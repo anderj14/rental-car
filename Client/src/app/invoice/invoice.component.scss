@@ -11,11 +11,8 @@
         margin-bottom: 20px;
     }
 
-
     .table-wrapper {
         overflow-X: scroll;
-
-
     }
 
     .title {
@@ -34,13 +31,12 @@
             @media (max-width: 690px) {
                 display: flex;
                 // align-items: start;
-                flex-direction: column;
+                // flex-direction: column;
             }
 
             input {
                 border-radius: 5px;
                 border: 1px solid rgba(0, 0, 0, 0.280);
-                // width: 100px;
                 padding: 3px 10px;
             }
 
@@ -56,14 +52,12 @@
 
                 }
 
-                // cursor: pointer;
             }
         }
     }
 
 
     .box-filter {
-        // background-color: red;
         margin-top: 35px;
         margin-bottom: 15px;
         display: flex;
@@ -71,11 +65,12 @@
         justify-content: space-between;
         columns: 2;
 
-        @media (max-width: 1100px) {
+        @media (max-width: 600px) {
             display: flex;
-            // align-items: start;
             flex-direction: column;
             columns: 1;
+            align-items: start;
+
         }
 
         .select {
@@ -96,6 +91,11 @@
         }
 
         .actions {
+            @media (max-width: 600px) {
+                margin-top: 20px;
+
+            }
+
             button {
                 font-weight: 400;
                 border: none;
@@ -132,60 +132,5 @@
         }
 
 
-    }
-}
-
-
-
-
-
-.popup-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 2;
-
-    .popup-content {
-        background-color: #fff;
-        padding: 20px;
-        max-width: 80%;
-        max-height: 80%;
-        overflow-y: auto;
-        border-radius: 10px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-
-        display: flex;
-        gap: 30px;
-        // flex-direction: column;
-
-        .box {
-            margin-bottom: 20px;
-
-            h5 {
-                font-size: 1.2rem;
-                margin-bottom: 10px;
-            }
-
-            ul {
-                list-style: none;
-                padding: 0;
-
-                li {
-                    display: flex;
-                    align-items: center;
-                    margin-bottom: 8px;
-
-                    input {
-                        margin-right: 8px;
-                    }
-                }
-            }
-        }
     }
 }

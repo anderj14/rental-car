@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Customer } from 'src/app/shared/models/customers';
 
 @Component({
   selector: 'app-customer-item',
@@ -6,5 +7,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./customer-item.component.scss']
 })
 export class CustomerItemComponent {
+  @Input() customers!: Customer[];
 
 }

@@ -11,15 +11,15 @@ import { VehicleService } from '../vehicle.service';
 export class VehicleDetailsComponent implements OnInit {
   vehicle!: Vehicle;
 
-  constructor(private vehicleServie: VehicleService, private activateRoute: ActivatedRoute) { }
+  constructor(private vehicleService: VehicleService, private activateRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.loadVehicle();
+    this.getVehicle();
   }
 
-  loadVehicle() {
+  getVehicle() {
     const id = this.activateRoute.snapshot.paramMap.get('id');
-    if (id) this.vehicleServie.getVehicle(+id).subscribe({
+    if (id) this.vehicleService.getVehicle(+id).subscribe({
       next: vehicle => this.vehicle = vehicle,
       error: error => console.log(error)
     });
