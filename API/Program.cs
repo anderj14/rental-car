@@ -13,6 +13,9 @@ builder.Services.AddControllers();
 // Use the extensions for cleaning the program class
 builder.Services.AddApplicationServices(builder.Configuration);
 
+// Added extensions
+builder.Services.AddIdentityServices(builder.Configuration);
+
 var app = builder.Build();
 
 // Use the Middleware for servererror (2)

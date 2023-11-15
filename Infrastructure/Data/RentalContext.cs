@@ -10,7 +10,7 @@ namespace Infrastructure.Data
 {
     public class RentalContext : DbContext
     {
-        public RentalContext(DbContextOptions options) : base(options)
+        public RentalContext(DbContextOptions<RentalContext> options) : base(options)
         {
         }
 
