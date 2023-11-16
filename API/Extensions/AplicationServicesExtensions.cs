@@ -3,6 +3,7 @@ using API.Errors;
 using Core.Interfaces;
 using Infrastructure.Data;
 using Infrastructure.Data.Repository;
+using Infrastructure.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -22,7 +23,10 @@ namespace API.Extensions
             {
                 opt.UseSqlite(config.GetConnectionString("DefaultConnection"));
             });
+            services.AddScoped<ITokenService, TokenService>(); // Identity
+
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             // Message for validation error
             // Configure the behavior of the API by configuring 'ApiBehaviorOptions'
