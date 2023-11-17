@@ -18,14 +18,14 @@ namespace Infrastructure.Services
         public TokenService(IConfiguration config)
         {
             _config = config;
-            // _key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Token:Key"])); // This ask to array
-            var randomKey = new byte[64]; // 64 bytes = 512 bits
-            using (var number = RandomNumberGenerator.Create())
-            {
-                number.GetBytes(randomKey);
-            }
+            _key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Token:Key"]));
+            // var randomKey = new byte[64]; // 64 bytes = 512 bits
+            // using (var number = RandomNumberGenerator.Create())
+            // {
+            //     number.GetBytes(randomKey);
+            // }
 
-            _key = new SymmetricSecurityKey(randomKey);
+            // _key = new SymmetricSecurityKey(randomKey);
         }
 
         public string CreateToken(AppUser user)
@@ -41,7 +41,7 @@ namespace Infrastructure.Services
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(claims),
-                Expires = DateTime.Now.AddDays(7), // expire date
+                Expires = DateTime.Now.AddDays(7),
                 SigningCredentials = creds,
                 Issuer = _config["Token:Issuer"]
             };
@@ -50,7 +50,7 @@ namespace Infrastructure.Services
 
             var token = tokenHandler.CreateToken(tokenDescriptor);
 
-            return tokenHandler.WriteToken(token); // Format for looked at in JWT
+            return tokenHandler.WriteToken(token);
         }
     }
 }

@@ -2,6 +2,7 @@
 using AutoMapper;
 using Core.Dtos;
 using Core.Entities;
+using Core.Entities.Identity;
 
 namespace API.Helpers
 {
@@ -29,6 +30,9 @@ namespace API.Helpers
             CreateMap<Insurance, InsuranceDto>();
             CreateMap<Reservation, ReservationDto>();
             CreateMap<Invoice, InvoiceDto>();
+
+            CreateMap<Address, AddressDto>().ReverseMap();
+
         }
     }
 }

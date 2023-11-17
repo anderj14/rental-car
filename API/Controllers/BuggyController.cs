@@ -22,6 +22,7 @@ namespace API.Controllers
             return "secret stuff";
         }
 
+
         [HttpGet("notfound")]
         public ActionResult GetNotFoundRequest()
         {

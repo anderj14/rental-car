@@ -2,11 +2,12 @@
 
 using System.Text;
 using Core.Entities.Identity;
+using Core.Interfaces;
 using Infrastructure.Identity;
+using Infrastructure.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
 namespace API.Extensions
@@ -36,12 +37,12 @@ namespace API.Extensions
                         ValidateIssuerSigningKey = true,
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["Token:Key"])),
                         ValidIssuer = config["Token:Issuer"],
-                        ValidateIssuer = true
+                        ValidateIssuer = true,
+                        ValidateAudience = false
                     };
                 });
 
-
-
+            services.AddAuthentication();
             services.AddAuthorization();
 
             return services;
