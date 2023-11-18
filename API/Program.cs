@@ -19,6 +19,8 @@ builder.Services.AddApplicationServices(builder.Configuration);
 // Added extensions Identity
 builder.Services.AddIdentityServices(builder.Configuration); // Identity
 
+builder.Services.AddSwaggerDocumentation(); //Swagger extensions
+
 var app = builder.Build();
 
 // Use the Middleware for servererror (2)
@@ -27,9 +29,7 @@ app.UseMiddleware<ExceptionMiddleware>();
 // Admin the error, Example {{url}}/api/endpointthatdoesnotexist (1)
 app.UseStatusCodePagesWithReExecute("/errors/{0}");
 
-// Configure the HTTP request pipeline.
-app.UseSwagger();
-app.UseSwaggerUI();
+app.UseSwaggerDocumentation(); //Swagger extensions
 
 // For the pics
 app.UseStaticFiles();
