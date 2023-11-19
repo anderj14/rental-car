@@ -36,11 +36,11 @@ export class TestErrorComponent {
   get400ValidationError() {
     this.http.get(this.baseUrl + 'vehicles/fifty').subscribe({
       next: response => console.log(response),
-      error: error => console.log(error)
-      // error: error => {
-      //   console.log(error);
-      //   this.validationErrors = error.errors;
-      // }
+      // error: error => console.log(error)
+      error: error => {
+        console.log(error);
+        this.validationErrors = error.errors;
+      }
     });
   }
 }
