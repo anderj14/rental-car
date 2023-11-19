@@ -8,9 +8,29 @@
         <a class="p-2" routerLink="/reservations" routerLinkActive="active">Reservations</a>
         <a class="p-2" routerLink="/invoices" routerLinkActive="active">Invoices</a>
     </nav>
+    <ng-container *ngIf="(accountService.currentUser$ | async) == null">
+        <div class="d-flex align-items-center">
+            <a routerLink="/account/login" class="me-4">Log In</a>
+            <a routerLink="/account/register" class="me-2">Sign Up</a>
+        </div>
+    </ng-container>
 
-    <div class="d-flex align-items-center">
-        <a routerLink="/account/login" class="me-4">Log In</a>
-        <a routerLink="/account/register" class="me-2">Sign Up</a>
-    </div>
+    <ng-container *ngIf="accountService.currentUser$ | async as user">
+        <div class="dropdown ms-3 me-5" style="cursor: pointer;" dropdown>
+            <a dropdownToggle class="dropdown-toggle">
+                <strong>Welcome {{user.displayName}}</strong>
+            </a>
+            <ul *dropdownMenu class="dropdown-menu dropdown-menu-right">
+                <li class="py-1">
+                    <a routerLink="/vehicles" class="dropdown-item">View Vehicle</a>
+                </li>
+                <li class="py-1">
+                    <a routerLink="/invoices" class="dropdown-item">View Invoices</a>
+                </li>
+                <li class="py-1">
+                    <a (click)="accountService.logout()" class="dropdown-item">Log Out</a>
+                </li>
+            </ul>
+        </div>
+    </ng-container>
 </header>
