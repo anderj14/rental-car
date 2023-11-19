@@ -1,7 +1,6 @@
 
 using API.Errors;
 using Infrastructure.Data;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -10,35 +9,26 @@ namespace API.Controllers
     {
         private readonly RentalContext _context;
 
-        public BuggyController(RentalContext context)
+         public BuggyController(RentalContext context)
         {
             _context = context;
         }
 
-        [HttpGet("testauth")]
-        [Authorize]
-        public ActionResult<string> GetSecretText()
-        {
-            return "secret stuff";
-        }
-
-
         [HttpGet("notfound")]
         public ActionResult GetNotFoundRequest()
         {
-            var thing = _context.Vehicles.Find(42);
+            var thing = _context.Vehicles.Find(43);
 
-            if(thing == null)
-            {
-                return NotFound(new ApiResponse(404));
-            }
+            if (thing == null) return NotFound(new ApiResponse(404));
+
             return Ok();
         }
 
         [HttpGet("servererror")]
         public ActionResult GetServerError()
-        {            
-            var thing = _context.Vehicles.Find(23);
+        {
+            var thing = _context.Vehicles.Find(42);
+
             var thingToReturn = thing.ToString();
 
             return Ok();
@@ -55,6 +45,5 @@ namespace API.Controllers
         {
             return Ok();
         }
-
     }
 }

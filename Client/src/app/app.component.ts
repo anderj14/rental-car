@@ -9,7 +9,7 @@ import { AccountService } from './account/account.service';
 export class AppComponent implements OnInit {
   title = 'Client';
 
-  constructor(private accountService: AccountService) {}
+  constructor(private accountService: AccountService) { }
 
   ngOnInit(): void {
     this.loadCurrentUser();
@@ -18,6 +18,6 @@ export class AppComponent implements OnInit {
 
   loadCurrentUser() {
     const token = localStorage.getItem('token');
-    if (token) this.accountService.loadCurrentUser(token).subscribe();
+    this.accountService.loadCurrentUser(token).subscribe();
   }
 }
