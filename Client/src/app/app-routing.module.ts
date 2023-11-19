@@ -8,6 +8,7 @@ const routes: Routes = [
   { path: 'customers', loadChildren: () => import('./customer/customer.module').then(m => m.CustomerModule) },
   { path: 'reservations', loadChildren: () => import('./reservation/reservation.module').then(m => m.ReservationModule) },
   { path: 'invoices', loadChildren: () => import('./invoice/invoice.module').then(m => m.InvoiceModule) },
+  { path: 'account', loadChildren: () => import('./account/account.module').then(m => m.AccountModule) },
   { path: '**', redirectTo: '', pathMatch: 'full' },
 ];
 
