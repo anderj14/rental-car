@@ -1,9 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
+import { TestErrorComponent } from './core/test-error/test-error.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
+  { path: 'test-error', component: TestErrorComponent },
   { path: 'vehicles', loadChildren: () => import('./vehicle/vehicle.module').then(m => m.VehicleModule) },
   { path: 'customers', loadChildren: () => import('./customer/customer.module').then(m => m.CustomerModule) },
   { path: 'reservations', loadChildren: () => import('./reservation/reservation.module').then(m => m.ReservationModule) },
