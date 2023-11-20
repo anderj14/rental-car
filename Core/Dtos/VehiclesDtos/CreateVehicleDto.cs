@@ -5,8 +5,6 @@ namespace Core.Dtos.VehiclesDtos
 {
     public class CreateVehicleDto
     {
-        [Required]
-        public int Id { get; set; }
 
         [Required]
         public string VehicleName { get; set; }
