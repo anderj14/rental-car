@@ -1,6 +1,7 @@
 
 using AutoMapper;
 using Core.Dtos;
+using Core.Dtos.VehiclesDtos;
 using Core.Entities;
 using Core.Entities.Identity;
 
@@ -33,6 +34,8 @@ namespace API.Helpers
 
             CreateMap<Address, AddressDto>().ReverseMap();
 
+            // Add
+            CreateMap<CreateVehicleDto, Vehicle>();
         }
     }
 }

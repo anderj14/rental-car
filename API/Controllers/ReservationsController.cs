@@ -12,13 +12,13 @@ namespace API.Controllers
 {
     public class ReservationsController : BaseApiController
     {
-        private readonly IGenericRepository<Reservation> _reservationRepo;
         private readonly IMapper _mapper;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public ReservationsController(IGenericRepository<Reservation> reservationRepo, IMapper mapper)
+        public ReservationsController(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _mapper = mapper;
-            _reservationRepo = reservationRepo;
+            _unitOfWork = unitOfWork;
         }
 
         [HttpGet]
@@ -30,9 +30,9 @@ namespace API.Controllers
             var spec = new ReservationWithDetailsSpecification(reservationSpecParams);
 
             var countSpec = new ReservationWithFiltersForCountSpecification(reservationSpecParams);
-            var totalItems = await _reservationRepo.CountAsync(countSpec);
+            var totalItems = await _unitOfWork.Repository<Reservation>().CountAsync(countSpec);
 
-            var reservations = await _reservationRepo.ListAsync(spec);
+            var reservations = await _unitOfWork.Repository<Reservation>().ListAsync(spec);
 
             var data = _mapper.Map<IReadOnlyList<ReservationDto>>(reservations);
 
@@ -46,7 +46,7 @@ namespace API.Controllers
         public async Task<ActionResult<ReservationDto>> GetReservation(int id)
         {
             var spec = new ReservationWithDetailsSpecification(id);
-            var reservation = await _reservationRepo.GetEntityWithSpec(spec);
+            var reservation = await _unitOfWork.Repository<Reservation>().GetEntityWithSpec(spec);
 
             if (reservation == null) return NotFound(new ApiResponse(404));
 

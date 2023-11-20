@@ -11,13 +11,13 @@ namespace API.Controllers
 {
     public class CustomersController : BaseApiController
     {
-        private readonly IGenericRepository<Customer> _customerRepo;
         private readonly IMapper _mapper;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public CustomersController(IGenericRepository<Customer> customerRepo, IMapper mapper)
+        public CustomersController(IUnitOfWork unitOfWork, IMapper mapper)
         {
-            _customerRepo = customerRepo;
             _mapper = mapper;
+            _unitOfWork = unitOfWork;
         }
 
         [HttpGet]
@@ -26,8 +26,8 @@ namespace API.Controllers
         {
             var countSpec = new CustomerWithFilterForCountSpecification(customerSpecParams);
 
-            var totalItems = await _customerRepo.CountAsync(countSpec);
-            var models = await _customerRepo.ListAllAsync();
+            var totalItems = await _unitOfWork.Repository<Customer>().CountAsync(countSpec);
+            var models = await _unitOfWork.Repository<Customer>().ListAllAsync();
 
             var data = _mapper.Map<IReadOnlyList<CustomerDto>>(models);
 
@@ -38,7 +38,7 @@ namespace API.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<CustomerDto>> GetCustomer(int id)
         {
-            var model = await _customerRepo.GetByIdAsync(id);
+            var model = await _unitOfWork.Repository<Customer>().GetByIdAsync(id);
             var data = _mapper.Map<CustomerDto>(model);
 
             return Ok(data);

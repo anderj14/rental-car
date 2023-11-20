@@ -7,22 +7,21 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
-    public class StatusesController: BaseApiController
+    public class StatusesController : BaseApiController
     {
-        private readonly IGenericRepository<Status> _statusRepo;
         private readonly IMapper _mapper;
+        private readonly IUnitOfWork _unitOfWork;
 
-
-        public StatusesController(IGenericRepository<Status> statusRepo, IMapper mapper)
+        public StatusesController(IUnitOfWork unitOfWork, IMapper mapper)
         {
-            _statusRepo = statusRepo;
             _mapper = mapper;
+            _unitOfWork = unitOfWork;
         }
 
         [HttpGet]
         public async Task<ActionResult<IReadOnlyList<StatusDto>>> GetStatuses()
         {
-            var statuses = await _statusRepo.ListAllAsync();
+            var statuses = await _unitOfWork.Repository<Status>().ListAllAsync();
             var data = _mapper.Map<IReadOnlyList<StatusDto>>(statuses);
 
             return Ok(data);
@@ -31,7 +30,7 @@ namespace API.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<StatusDto>> GetStatus(int id)
         {
-            var status = await _statusRepo.GetByIdAsync(id);
+            var status = await _unitOfWork.Repository<Status>().GetByIdAsync(id);
             var data = _mapper.Map<StatusDto>(status);
             return Ok(data);
         }

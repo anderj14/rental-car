@@ -9,19 +9,20 @@ namespace API.Controllers
 {
     public class BrandsController : BaseApiController
     {
-        private readonly IGenericRepository<Brand> _brandRepo;
         private readonly IMapper _mapper;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public BrandsController(IGenericRepository<Brand> brandRepo, IMapper mapper)
+        public BrandsController(IUnitOfWork unitOfWork, IMapper mapper)
         {
-            _brandRepo = brandRepo;
             _mapper = mapper;
+            _unitOfWork = unitOfWork;
         }
+
 
         [HttpGet]
         public async Task<ActionResult<IReadOnlyList<BrandDto>>> GetBrands()
         {
-            var brands = await _brandRepo.ListAllAsync();
+            var brands = await _unitOfWork.Repository<Brand>().ListAllAsync();
             var data = _mapper.Map<IReadOnlyList<BrandDto>>(brands);
 
             return Ok(data);
@@ -30,7 +31,7 @@ namespace API.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<BrandDto>> GetBrand(int id)
         {
-            var brand = await _brandRepo.GetByIdAsync(id);
+            var brand = await _unitOfWork.Repository<Brand>().GetByIdAsync(id);
             var data = _mapper.Map<BrandDto>(brand);
 
             return Ok(data);

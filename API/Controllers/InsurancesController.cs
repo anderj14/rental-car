@@ -9,19 +9,19 @@ namespace API.Controllers
 {
     public class InsurancesController : BaseApiController
     {
-        private readonly IGenericRepository<Insurance> _insuranceRepo;
         private readonly IMapper _mapper;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public InsurancesController(IGenericRepository<Insurance> insuranceRepo, IMapper mapper)
+        public InsurancesController(IUnitOfWork unitOfWork, IMapper mapper)
         {
-            _insuranceRepo = insuranceRepo;
             _mapper = mapper;
+            _unitOfWork = unitOfWork;
         }
 
         [HttpGet]
         public async Task<ActionResult<IReadOnlyList<InsuranceDto>>> GetInsurances()
         {
-            var insurances = await _insuranceRepo.ListAllAsync();
+            var insurances = await _unitOfWork.Repository<Insurance>().ListAllAsync();
             var data = _mapper.Map<IReadOnlyList<InsuranceDto>>(insurances);
 
             return Ok(data);
@@ -30,7 +30,7 @@ namespace API.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<InsuranceDto>> GetInsurance(int id)
         {
-            var insurance = await _insuranceRepo.GetByIdAsync(id);
+            var insurance = await _unitOfWork.Repository<Insurance>().GetByIdAsync(id);
             var data = _mapper.Map<InsuranceDto>(insurance);
 
             return Ok(data);

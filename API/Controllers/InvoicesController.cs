@@ -12,13 +12,13 @@ namespace API.Controllers
 {
     public class InvoicesController : BaseApiController
     {
-        private readonly IGenericRepository<Invoice> _invoiceRepo;
         private readonly IMapper _mapper;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public InvoicesController(IGenericRepository<Invoice> invoiceRepo, IMapper mapper)
+        public InvoicesController(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _mapper = mapper;
-            _invoiceRepo = invoiceRepo;
+            _unitOfWork = unitOfWork;
         }
 
         [HttpGet]
@@ -29,9 +29,9 @@ namespace API.Controllers
             var spec = new InvoiceWithDetailsSpecification(invoiceSpecParams);
 
             var countSpec = new InvoiceWithFiltersForCountSpecification(invoiceSpecParams);
-            var totalItems = await _invoiceRepo.CountAsync(countSpec);
+            var totalItems = await _unitOfWork.Repository<Invoice>().CountAsync(countSpec);
 
-            var invoices = await _invoiceRepo.ListAsync(spec);
+            var invoices = await _unitOfWork.Repository<Invoice>().ListAsync(spec);
 
             var data = _mapper.Map<IReadOnlyList<InvoiceDto>>(invoices);
 
@@ -44,7 +44,7 @@ namespace API.Controllers
         {
             var spec = new InvoiceWithDetailsSpecification(id);
 
-            var invoice = await _invoiceRepo.GetEntityWithSpec(spec);
+            var invoice = await _unitOfWork.Repository<Invoice>().GetEntityWithSpec(spec);
 
             if (invoice == null) return NotFound(new ApiResponse(404));
 

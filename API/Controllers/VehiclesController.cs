@@ -12,26 +12,26 @@ namespace API.Controllers
 {
     public class VehiclesController : BaseApiController
     {
-        private readonly IGenericRepository<Vehicle> _vehicleRepo;
         private readonly IMapper _mapper;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public VehiclesController(IGenericRepository<Vehicle> vehicleRepo, IMapper mapper)
+        public VehiclesController(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _mapper = mapper;
-            _vehicleRepo = vehicleRepo;
+            _unitOfWork = unitOfWork;
         }
 
         [HttpGet]
         public async Task<ActionResult<Pagination<VehicleDto>>> GetVehicles(
-            [FromQuery]VehicleSpecParams vehicleSpecParams
+            [FromQuery] VehicleSpecParams vehicleSpecParams
         )
         {
             var spec = new VehicleWithAllSpecification(vehicleSpecParams);
 
             var countSpec = new VehicleWithFiltersForCountSpecification(vehicleSpecParams);
-            var totalItems = await _vehicleRepo.CountAsync(countSpec);
+            var totalItems = await _unitOfWork.Repository<Vehicle>().CountAsync(countSpec);
 
-            var vehicles = await _vehicleRepo.ListAsync(spec);
+            var vehicles = await _unitOfWork.Repository<Vehicle>().ListAsync(spec);
 
             var data = _mapper.Map<IReadOnlyList<VehicleDto>>(vehicles);
 
@@ -46,7 +46,7 @@ namespace API.Controllers
         {
             var spec = new VehicleWithAllSpecification(id);
 
-            var vehicle = await _vehicleRepo.GetEntityWithSpec(spec);
+            var vehicle = await _unitOfWork.Repository<Vehicle>().GetEntityWithSpec(spec);
 
             if (vehicle == null) return NotFound(new ApiResponse(404));
 

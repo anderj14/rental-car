@@ -13,19 +13,19 @@ namespace API.Controllers
 
     public class VehiclesTypeController : BaseApiController
     {
-        private readonly IGenericRepository<VehicleType> _vehicleTypeRepo;
         private readonly IMapper _mapper;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public VehiclesTypeController(IGenericRepository<VehicleType> vehicleTypeRepo, IMapper mapper)
+        public VehiclesTypeController(IUnitOfWork unitOfWork, IMapper mapper)
         {
-            _vehicleTypeRepo = vehicleTypeRepo;
             _mapper = mapper;
+            _unitOfWork = unitOfWork;
         }
 
         [HttpGet]
         public async Task<ActionResult<IReadOnlyList<VehicleTypeDto>>> GetVehicleTypes()
         {
-            var vehiclesType = await _vehicleTypeRepo.ListAllAsync();
+            var vehiclesType = await _unitOfWork.Repository<VehicleType>().ListAllAsync();
             var data = _mapper.Map<IReadOnlyList<VehicleTypeDto>>(vehiclesType);
 
             return Ok(data);
@@ -34,7 +34,7 @@ namespace API.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<VehicleTypeDto>> GetVehicleType(int id)
         {
-            var vehicleType = await _vehicleTypeRepo.GetByIdAsync(id);
+            var vehicleType = await _unitOfWork.Repository<VehicleType>().GetByIdAsync(id);
             var data = _mapper.Map<VehicleTypeDto>(vehicleType);
 
             return Ok(data);

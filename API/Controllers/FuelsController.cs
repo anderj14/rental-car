@@ -9,20 +9,19 @@ namespace API.Controllers
 {
     public class FuelsController : BaseApiController
     {
-        private readonly IGenericRepository<Fuel> _fuelRepo;
         private readonly IMapper _mapper;
+        private readonly IUnitOfWork _unitOfWork;
 
-
-        public FuelsController(IGenericRepository<Fuel> fuelRepo, IMapper mapper)
+        public FuelsController(IUnitOfWork unitOfWork, IMapper mapper)
         {
-            _fuelRepo = fuelRepo;
             _mapper = mapper;
+            _unitOfWork = unitOfWork;
         }
 
         [HttpGet]
         public async Task<ActionResult<IReadOnlyList<FuelDto>>> GetFuels()
         {
-            var fuels = await _fuelRepo.ListAllAsync();
+            var fuels = await _unitOfWork.Repository<Fuel>().ListAllAsync();
             var data = _mapper.Map<IReadOnlyList<FuelDto>>(fuels);
 
             return Ok(data);
@@ -31,7 +30,7 @@ namespace API.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<FuelDto>> GetFuel(int id)
         {
-            var fuel = await _fuelRepo.GetByIdAsync(id);
+            var fuel = await _unitOfWork.Repository<Fuel>().GetByIdAsync(id);
             var data = _mapper.Map<FuelDto>(fuel);
             return Ok(data);
         }
