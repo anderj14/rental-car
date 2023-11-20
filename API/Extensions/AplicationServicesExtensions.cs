@@ -1,6 +1,7 @@
 
 using API.Errors;
 using Core.Interfaces;
+using Infraestructure.Data;
 using Infrastructure.Data;
 using Infrastructure.Data.Repository;
 using Infrastructure.Services;
@@ -22,6 +23,8 @@ namespace API.Extensions
                 opt.UseSqlite(config.GetConnectionString("DefaultConnection"));
             });
             services.AddScoped<ITokenService, TokenService>(); // Identity
+
+            services.AddScoped<IUnitOfWork, UnitOfWork>(); // unit of work
 
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
