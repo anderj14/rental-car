@@ -3,9 +3,11 @@ import { CommonModule } from '@angular/common';
 import { PagerComponent } from './pager/pager.component';
 import { PagingHeaderComponent } from './paging-header/paging-header.component';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TextInputComponent } from './components/text-input/text-input.component';
+import { CurrencyMaskModule } from 'ng2-currency-mask';
+import { RouterModule } from '@angular/router';
 
 
 
@@ -19,13 +21,22 @@ import { TextInputComponent } from './components/text-input/text-input.component
     CommonModule,
     PaginationModule.forRoot(),
     ReactiveFormsModule,
-    BsDropdownModule.forRoot()
+    FormsModule,
+    BsDropdownModule.forRoot(),
+    CurrencyMaskModule,
+    FormsModule,
+    ReactiveFormsModule,
+    RouterModule
   ],
   exports: [
     PagerComponent,
     PagingHeaderComponent,
     ReactiveFormsModule,
     BsDropdownModule,
+    TextInputComponent,
+    CurrencyMaskModule,
+    FormsModule,
+    ReactiveFormsModule,
     TextInputComponent
   ]
 })

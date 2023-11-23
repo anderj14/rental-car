@@ -14,6 +14,7 @@ import { VehicleType } from '../shared/models/vehicleType';
 })
 export class VehicleService {
   baseUrl = 'https://localhost:5001/api/';
+  vehicleParams = new VehicleParams();
 
   constructor(private http: HttpClient) { }
 
@@ -32,6 +33,15 @@ export class VehicleService {
 
     return this.http.get<Pagination<Vehicle[]>>(this.baseUrl + 'vehicles', { params });
   }
+
+  setVehicleParams(params: VehicleParams) {
+    this.vehicleParams = params;
+  }
+
+  getVehicleParams() {
+    return this.vehicleParams;
+  }
+
   getVehicle(id: number){
     return this.http.get<Vehicle>(this.baseUrl + 'vehicles/' + id);
   }

@@ -14,7 +14,7 @@
       <th>Consumption</th>
       <th>Passengers</th>
       <th>Status</th>
-      <th>Action</th>
+      <!-- <th>Action</th> -->
     </tr>
   </thead>
   <tbody>
@@ -31,10 +31,10 @@
       <td>{{ vehicle.fuelConsumption }} MPG</td>
       <td>{{ vehicle.passengers }}</td>
       <td [class]="getStatusClass(vehicle.status)">{{ vehicle.status }}</td>
-      <td>
+      <!-- <td>
         <button class="m-2 bi bi-trash">Update</button>
         <button class="m-2 bi bi-pen">Delete</button>
-      </td>
+      </td> -->
     </tr>
   </tbody>
 </table>

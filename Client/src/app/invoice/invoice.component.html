@@ -1,7 +1,7 @@
 <section class="content">
     <div class="content-cover">
       <div class="title">
-        <h1>Reservations</h1>
+        <h1>Invoices</h1>
         <div class="search">
           <input (keyup.enter)="onSearch()" type="text" placeholder="Search" #search>
           <!-- <button (click)="onSearch()" class="">Search</button>
@@ -12,12 +12,12 @@
       <div class="box-filter">
   
         <div class="select">
-          <h5 class="">Sort</h5>
+          <!-- <h5 class="">Sort</h5>
           <select class="" (change)="onSortSelected($event)">
             <option *ngFor="let sort of sortOption" [value]="sort.value">
               {{sort.name}}
             </option>
-          </select>
+          </select> -->
         </div>
         <div class="actions">
           <button class="new-vehicle">Add New Reservation</button>

@@ -21,12 +21,12 @@
                 <strong>Welcome {{user.displayName}}</strong>
             </a>
             <ul *dropdownMenu class="dropdown-menu dropdown-menu-right">
-                <li class="py-1">
+                <!-- <li class="py-1">
                     <a routerLink="/vehicles" class="dropdown-item">View Vehicle</a>
                 </li>
                 <li class="py-1">
                     <a routerLink="/invoices" class="dropdown-item">View Invoices</a>
-                </li>
+                </li> -->
                 <li class="py-1">
                     <a (click)="accountService.logout()" class="dropdown-item">Log Out</a>
                 </li>

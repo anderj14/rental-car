@@ -7,7 +7,11 @@ import { ServerErrorComponent } from './core/server-error/server-error.component
 import { authGuard } from './core/guards/auth.guard';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
+  {
+    path: '',
+    canActivate: [authGuard],
+    component: HomeComponent
+  },
   { path: 'test-error', component: TestErrorComponent },
   { path: 'not-found', component: NotFoundComponent },
   { path: 'server-error', component: ServerErrorComponent },
@@ -32,7 +36,14 @@ const routes: Routes = [
     loadChildren: () => import('./invoice/invoice.module').then(m => m.InvoiceModule)
   },
   { path: 'account', loadChildren: () => import('./account/account.module').then(m => m.AccountModule) },
-  { path: '**', redirectTo: '', pathMatch: 'full' },
+  // Admin
+  {
+    path: 'admin',
+    loadChildren: () => import('./admin-vehicle/admin-vehicle.module').then(m => m.AdminVehicleModule),
+    data: { breadcrumb: 'Admin' }
+  },
+  { path: '**', redirectTo: 'not-found', pathMatch: 'full' },
+
 ];
 
 @NgModule({
