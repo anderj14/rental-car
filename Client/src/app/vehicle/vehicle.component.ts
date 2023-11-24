@@ -7,6 +7,9 @@ import { Status } from '../shared/models/status';
 import { VehicleType } from '../shared/models/vehicleType';
 import { VehicleParams } from '../shared/models/vehicleParams';
 import { VehicleService } from './vehicle.service';
+import { Observable } from 'rxjs';
+import { User } from '../shared/models/user';
+import { AccountService } from '../account/account.service';
 
 @Component({
   selector: 'app-vehicle',
@@ -30,9 +33,17 @@ export class VehicleComponent implements OnInit {
   ];
   totalCount = 0;
 
-  constructor(private vehicleService: VehicleService) { }
+  constructor(private vehicleService: VehicleService, public accountService: AccountService) { }
+
+
+  currentUser$!: Observable<User | null>;
+  isAdmin$!: Observable<boolean>;
+
 
   ngOnInit(): void {
+    this.currentUser$ = this.accountService.currentUser$;
+    this.isAdmin$ = this.accountService.isAdmin$;
+
     this.getVehicles();
     this.getBrands();
     this.getModels();

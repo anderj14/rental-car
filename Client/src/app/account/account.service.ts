@@ -11,11 +11,24 @@ export class AccountService {
   baseUrl = 'https://localhost:5001/api/';
   private currentUserSource = new ReplaySubject<User | null>(1);
   currentUser$ = this.currentUserSource.asObservable();
+  private isAdminSource = new ReplaySubject<boolean>(1);
+  isAdmin$ = this.isAdminSource.asObservable();
 
   constructor(private http: HttpClient, private router: Router) { }
 
-  loadCurrentUser(token: string | null) { // check the user
-    if (token == null) {
+  // Decode jwt token using atob method
+  isAdmin(token: string): boolean {
+    if (token) {
+      const decodedToken = JSON.parse(atob(token.split('.')[1]));
+      if (decodedToken.role.indexOf('Admin') > -1) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  loadCurrentUser(token: string) { // check the user
+    if (token === null) {
       this.currentUserSource.next(null);
       return of(null);
     }
@@ -24,23 +37,26 @@ export class AccountService {
     headers = headers.set('Authorization', `Bearer ${token}`);
 
     return this.http.get<User>(this.baseUrl + 'account', { headers }).pipe(
-      map(user => {
+      map((user: User) => {
         if (user) {
           localStorage.setItem('token', user.token);
           this.currentUserSource.next(user);
-          return user;
-        } else {
-          return null
+          this.isAdminSource.next(this.isAdmin(user.token));
         }
       })
-    )
+    );
   }
+
+  
 
   login(values: any) {
     return this.http.post<User>(this.baseUrl + 'account/login', values).pipe(
-      map(user => {
-        localStorage.setItem('token', user.token);
-        this.currentUserSource.next(user);
+      map((user: User) => {
+        if (user) {
+          localStorage.setItem('token', user.token);
+          this.currentUserSource.next(user);
+          this.isAdminSource.next(this.isAdmin(user.token));
+        }
       })
     );
   }

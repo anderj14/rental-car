@@ -21,7 +21,8 @@
             </div>
             <div class="actions">
                 <button (click)="togglePopup()" class="filter bi bi-filter">Filter</button>
-                <button routerLink="/admin" class="new-vehicle">Admin Vehicle</button>
+                <button *ngIf="(isAdmin$ | async)" routerLink="/admin" class="new-vehicle">Admin Vehicle</button>
+
             </div>
 
         </div>
