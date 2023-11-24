@@ -3,7 +3,7 @@
         <div class="title">
             <h1>Vehicles List</h1>
             <div class="actions">
-                <button [routerLink]="['/admin/create-vehicle']" class="new-vehicle">New Vehicles</button>
+                <button [routerLink]="['/admin/create']" class="new-vehicle">New Vehicles</button>
             </div>
         </div>
         <app-paging-header
@@ -23,6 +23,8 @@
                         <th>Year</th>
                         <th>Rental Price</th>
                         <th>Vehicle Type</th>
+                        <th>Fuel</th>
+                        <th>Status</th>
                         <th>Vin</th>
                         <th>Edit</th>
                         <th>Delete</th>
@@ -38,8 +40,10 @@
                         <td>{{ vehicle.year }}</td>
                         <td>{{ vehicle.rentalPrice | currency }}</td>
                         <td>{{ vehicle.vehicleType }}</td>
+                        <td>{{ vehicle.fuel }}</td>
+                        <td>{{ vehicle.status }}</td>
                         <td>{{ vehicle.vin }}</td>
-                        <td><button [routerLink]="['edit-vehicle', vehicle.id]">Edit</button></td>
+                        <td><button [routerLink]="['edit', vehicle.id]">Edit</button></td>
                         <td><button (click)="deleteVehicle(vehicle.id)">Delete</button></td>
                     </tr>
                 </tbody>

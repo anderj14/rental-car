@@ -49,7 +49,7 @@ export class EditVehicleComponent implements OnInit {
     }, error => {
       console.log(error);
     }, () => {
-      if (this.route.snapshot.url[0].path === 'edit-vehicle') {
+      if (this.route.snapshot.url[0].path === 'edit') {
         this.loadVehicle();
       }
     });
@@ -62,19 +62,26 @@ export class EditVehicleComponent implements OnInit {
 
   loadVehicle() {
     const id = this.route.snapshot.paramMap.get('id');
-    if (id) {
-      this.vehicleService.getVehicle(+id).subscribe((response: any) => {
+    this.vehicleService.getVehicle(+id!).subscribe((response: any) => {
 
-        const brandId = this.brands && this.brands.find(x => x.brandName === response.Brand)?.id;
-        const modelId = this.models && this.models.find(x => x.modelName === response.Model)?.id;
-        const fuelId = this.fuels && this.fuels.find(x => x.fuelName === response.Fuel)?.id;
-        const statusId = this.statuses && this.statuses.find(x => x.statusName === response.Status)?.id;
-        const vehicleTypeId = this.vehiclesType && this.vehiclesType.find(x => x.vehicleTypeName === response.VehicleType)?.id;
-        this.vehicle = { ...response, brandId, modelId, fuelId, statusId, vehicleTypeId }
-      });
-    }
+      // const brandId = this.brands && this.brands.find(x => x.brandName === response.Brand)?.id;
+      // const modelId = this.models && this.models.find(x => x.modelName === response.Model)?.id;
+      // const fuelId = this.fuels && this.fuels.find(x => x.fuelName === response.Fuel)?.id;
+      // const statusId = this.statuses && this.statuses.find(x => x.statusName === response.Status)?.id;
+      // const vehicleTypeId = this.vehiclesType && this.vehiclesType.find(x => x.vehicleTypeName === response.VehicleType)?.id;
+      // this.vehicle = { ...response, brandId, modelId, fuelId, statusId, vehicleTypeId }
+
+      const brandId = this.brands && this.brands.find(x => x.brandName === response.brand)?.id;
+      const modelId = this.models && this.models.find(x => x.modelName === response.model)?.id;
+      const fuelId = this.fuels && this.fuels.find(x => x.fuelName === response.fuel)?.id;
+      const statusId = this.statuses && this.statuses.find(x => x.statusName === response.status)?.id;
+      const vehicleTypeId = this.vehiclesType && this.vehiclesType.find(x => x.vehicleTypeName === response.vehicleType)?.id;
+
+      this.vehicle = { ...response, brandId, modelId, fuelId, statusId, vehicleTypeId };
+
+    });
   }
-  
+
 
   getBrands() {
     return this.vehicleService.getBrands();
@@ -100,7 +107,7 @@ export class EditVehicleComponent implements OnInit {
   onSubmit(vehicle: VehicleFormValues) {
     const id = this.route.snapshot.paramMap.get('id');
 
-    if (this.route.snapshot.url[0].path === 'edit-vehicle') {
+    if (this.route.snapshot.url[0].path === 'edit') {
       const updatedVehicle = { ...this.vehicle, ...vehicle, rentalPrice: +vehicle.rentalPrice };
       this.editVehicleService.updateVehicle(updatedVehicle, +id!).subscribe((response: any) => {
         this.router.navigate(['/admin']);
