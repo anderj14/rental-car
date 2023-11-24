@@ -7,6 +7,7 @@ using Core.Dtos.VehiclesDtos;
 using Core.Entities;
 using Core.Interfaces;
 using Core.Specifications;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -55,6 +56,7 @@ namespace API.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<Vehicle>> CreateVehicle(CreateVehicleDto createVehicle)
         {
             var vehicle = _mapper.Map<CreateVehicleDto, Vehicle>(createVehicle);
@@ -70,22 +72,24 @@ namespace API.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<Vehicle>> UpdateVehicle(int id, CreateVehicleDto updateVehicle)
         {
             var vehicle = await _unitOfWork.Repository<Vehicle>().GetByIdAsync(id);
-            
+
             _mapper.Map(updateVehicle, vehicle);
-            
+
             _unitOfWork.Repository<Vehicle>().Update(vehicle);
-            
+
             var result = await _unitOfWork.Complete();
-            
-            if(result <= 0) return BadRequest(new ApiResponse(400, "Problem updating vehicle"));
+
+            if (result <= 0) return BadRequest(new ApiResponse(400, "Problem updating vehicle"));
 
             return Ok(vehicle);
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> DeleteVehicle(int id)
         {
             var vehicle = await _unitOfWork.Repository<Vehicle>().GetByIdAsync(id);
@@ -94,7 +98,7 @@ namespace API.Controllers
 
             var result = await _unitOfWork.Complete();
 
-            if(result <= 0) return BadRequest(new ApiResponse(400, "Problem deleting vehicle"));
+            if (result <= 0) return BadRequest(new ApiResponse(400, "Problem deleting vehicle"));
 
             return Ok();
         }

@@ -22,6 +22,16 @@ namespace API.Extensions
                 opt.UseSqlite(config.GetConnectionString("IdentityConnection"));
             });
 
+            // Role Manager Services
+            var builder = services.AddIdentityCore<AppUser>();
+            
+            builder = new IdentityBuilder(builder.UserType, typeof(AppRole), builder.Services);
+            builder.AddEntityFrameworkStores<AppIdentityDbContext>();
+            builder.AddSignInManager<SignInManager<AppUser>>();
+            builder.AddRoleValidator<RoleValidator<AppRole>>();
+            builder.AddRoleManager<RoleManager<AppRole>>();
+
+
             services.AddIdentityCore<AppUser>(opt =>
             {
                 // add identity options here
@@ -44,6 +54,7 @@ namespace API.Extensions
 
             services.AddAuthentication();
             services.AddAuthorization();
+
 
             return services;
         }

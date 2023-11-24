@@ -24,6 +24,7 @@ namespace API.Errors
             {
                 400 => "A bad request, you have made.",
                 401 => "Authorized, are you not.",
+                403 => "Forbidden from doing this, you are.",
                 404 => "Resource found, it was not.",
                 500 => "Internal Server Error: Something went wrong on our end. We're working to fix it.",
                 _ => null
