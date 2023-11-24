@@ -77,6 +77,8 @@ namespace API.Controllers
         {
             var vehicle = await _unitOfWork.Repository<Vehicle>().GetByIdAsync(id);
 
+            updateVehicle.Picture = vehicle.Picture;
+
             _mapper.Map(updateVehicle, vehicle);
 
             _unitOfWork.Repository<Vehicle>().Update(vehicle);
