@@ -1,6 +1,7 @@
 
 using AutoMapper;
 using Core.Dtos;
+using Core.Dtos.CreateDtos;
 using Core.Dtos.VehiclesDtos;
 using Core.Entities;
 using Core.Entities.Identity;
@@ -35,6 +36,9 @@ namespace API.Helpers
 
             // Add
             CreateMap<CreateVehicleDto, Vehicle>();
+            CreateMap<CreateCustomerDto, Customer>();
+            CreateMap<CreateReservationDto, Reservation>();
+            CreateMap<CreateInvoiceDto, Invoice>();
         }
     }
 }

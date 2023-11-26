@@ -3,9 +3,11 @@ using API.Errors;
 using API.Helpers;
 using AutoMapper;
 using Core.Dtos;
+using Core.Dtos.CreateDtos;
 using Core.Entities;
 using Core.Interfaces;
 using Core.Specifications;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -49,7 +51,53 @@ namespace API.Controllers
             if (invoice == null) return NotFound(new ApiResponse(404));
 
             return _mapper.Map<Invoice, InvoiceDto>(invoice);
-
         }
+
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        public async Task<ActionResult<InvoiceDto>> CreateInvoice(CreateInvoiceDto createInvoice)
+        {
+            var invoice = _mapper.Map<CreateInvoiceDto, Invoice>(createInvoice);
+
+            _unitOfWork.Repository<Invoice>().Add(invoice);
+
+            var result = await _unitOfWork.Complete();
+
+            if (result <= 0) return BadRequest(new ApiResponse(400, "Problem creating invoice"));
+
+            return _mapper.Map<Invoice, InvoiceDto>(invoice);
+        }
+
+        [HttpPut("{id}")]
+        [Authorize(Roles = "Admin")]
+        public async Task<ActionResult<InvoiceDto>> UpdateInvoice(int id, CreateInvoiceDto updateInvoice)
+        {
+            var invoice = await _unitOfWork.Repository<Invoice>().GetByIdAsync(id);
+
+            _mapper.Map(updateInvoice, invoice);
+
+            _unitOfWork.Repository<Invoice>().Update(invoice);
+
+            var result = await _unitOfWork.Complete();
+
+            if (result <= 0) return BadRequest(new ApiResponse(400, "Problem updating invoice"));
+
+            return _mapper.Map<Invoice, InvoiceDto>(invoice);
+        }
+
+        [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
+        public async Task<ActionResult> DeleteInvoice(int id)
+        {
+            var invoice = await _unitOfWork.Repository<Invoice>().GetByIdAsync(id);
+
+            _unitOfWork.Repository<Invoice>().Delete(invoice);
+
+            var result = await _unitOfWork.Complete();
+
+            if (result <= 0) return BadRequest(new ApiResponse(400, "Problem deleting vehicle"));
+            return Ok("Invoice Delete");
+        }
+
     }
 }
