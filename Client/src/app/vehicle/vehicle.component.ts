@@ -32,12 +32,10 @@ export class VehicleComponent implements OnInit {
     { name: 'Price: High To Low', value: 'priceDesc' },
   ];
   totalCount = 0;
-
-  constructor(private vehicleService: VehicleService, public accountService: AccountService) { }
-
-
   currentUser$!: Observable<User | null>;
   isAdmin$!: Observable<boolean>;
+
+  constructor(private vehicleService: VehicleService, public accountService: AccountService) { }
 
 
   ngOnInit(): void {

@@ -4,12 +4,14 @@ import { AdminVehicleComponent } from './admin-vehicle.component';
 import { EditVehicleComponent } from './edit-vehicle/edit-vehicle.component';
 import { SharedModule } from '../shared/shared.module';
 import { AdminVehicleRoutingModule } from './admin-vehicle-routing.module';
+import { EditVehicleFormComponent } from './edit-vehicle-form/edit-vehicle-form.component';
 
 
 @NgModule({
   declarations: [
     AdminVehicleComponent,
-    EditVehicleComponent
+    EditVehicleComponent,
+    EditVehicleFormComponent
   ],
   imports: [
     CommonModule,

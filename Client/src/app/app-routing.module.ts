@@ -4,13 +4,13 @@ import { HomeComponent } from './home/home.component';
 import { TestErrorComponent } from './core/test-error/test-error.component';
 import { NotFoundComponent } from './core/not-found/not-found.component';
 import { ServerErrorComponent } from './core/server-error/server-error.component';
-import { authGuard } from './core/guards/auth.guard';
+import { AuthGuard } from './core/guards/auth.guard';
 import { AdminGuard } from './core/guards/admin.guard';
 
 const routes: Routes = [
   {
     path: '',
-    canActivate: [authGuard],
+    canActivate: [AuthGuard],
     component: HomeComponent
   },
   { path: 'test-error', component: TestErrorComponent },
@@ -18,29 +18,29 @@ const routes: Routes = [
   { path: 'server-error', component: ServerErrorComponent },
   {
     path: 'vehicles',
-    canActivate: [authGuard],
+    canActivate: [AuthGuard],
     loadChildren: () => import('./vehicle/vehicle.module').then(m => m.VehicleModule)
   },
   {
     path: 'customers',
-    canActivate: [authGuard],
+    canActivate: [AuthGuard],
     loadChildren: () => import('./customer/customer.module').then(m => m.CustomerModule)
   },
   {
     path: 'reservations',
-    canActivate: [authGuard],
+    canActivate: [AuthGuard],
     loadChildren: () => import('./reservation/reservation.module').then(m => m.ReservationModule)
   },
   {
     path: 'invoices',
-    canActivate: [authGuard],
+    canActivate: [AuthGuard],
     loadChildren: () => import('./invoice/invoice.module').then(m => m.InvoiceModule)
   },
   { path: 'account', loadChildren: () => import('./account/account.module').then(m => m.AccountModule) },
   // Admin
   {
     path: 'admin',
-    canActivate: [authGuard, AdminGuard],
+    canActivate: [AuthGuard, AdminGuard],
     loadChildren: () => import('./admin-vehicle/admin-vehicle.module').then(m => m.AdminVehicleModule),
     data: { breadcrumb: 'Admin' }
   },

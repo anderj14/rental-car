@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, ReplaySubject, map, of } from 'rxjs';
+import { BehaviorSubject, ReplaySubject, catchError, map, of } from 'rxjs';
 import { User } from '../shared/models/user';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
@@ -37,12 +37,17 @@ export class AccountService {
     headers = headers.set('Authorization', `Bearer ${token}`);
 
     return this.http.get<User>(this.baseUrl + 'account', { headers }).pipe(
-      map((user: User) => {
+      map((user: User | null) => {
         if (user) {
           localStorage.setItem('token', user.token);
           this.currentUserSource.next(user);
           this.isAdminSource.next(this.isAdmin(user.token));
         }
+      }),
+      catchError((error: any) => {
+        // Manejar el error aquí
+        console.error('Error en la llamada al servidor:', error);
+        return of(null);
       })
     );
   }
