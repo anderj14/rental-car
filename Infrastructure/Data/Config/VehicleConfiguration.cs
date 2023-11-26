@@ -14,6 +14,7 @@ namespace Infrastructure.Data.Config
             builder.Property(v => v.Vin).IsRequired();
             builder.Property(v => v.Color).IsRequired();
             builder.Property(v => v.Passengers).IsRequired();
+            builder.Property(v => v.Transmission).IsRequired();
             builder.Property(v => v.Doors).IsRequired();
             builder.Property(v => v.FuelConsumption).IsRequired();
             builder.Property(v => v.RentalPrice).IsRequired().HasColumnType("decimal(18,2)");;
@@ -24,12 +25,10 @@ namespace Infrastructure.Data.Config
                 .HasForeignKey(i => i.ModelId);
             builder.HasOne(i => i.Status).WithMany(c => c.Vehicles)
                 .HasForeignKey(i => i.StatusId);
-            
             builder.HasOne(i => i.VehicleType).WithMany(c => c.Vehicles)
                 .HasForeignKey(i => i.VehicleTypeId);
-
-            builder.HasMany(i => i.Reservations).WithOne(c => c.Vehicle)
-                .HasForeignKey(r => r.VehicleId);
+            builder.HasOne(i => i.Fuel).WithMany(c => c.Vehicles)
+                .HasForeignKey(i => i.FuelId);
         }
     }
 }

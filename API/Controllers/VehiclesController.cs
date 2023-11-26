@@ -57,10 +57,9 @@ namespace API.Controllers
 
         [HttpPost]
         [Authorize(Roles = "Admin")]
-        public async Task<ActionResult<Vehicle>> CreateVehicle(CreateVehicleDto createVehicle)
+        public async Task<ActionResult<VehicleDto>> CreateVehicle(CreateVehicleDto createVehicle)
         {
             var vehicle = _mapper.Map<CreateVehicleDto, Vehicle>(createVehicle);
-            vehicle.Picture = "images/vehicles/vehicle.jpg";
 
             _unitOfWork.Repository<Vehicle>().Add(vehicle);
 
@@ -68,16 +67,15 @@ namespace API.Controllers
 
             if (result <= 0) return BadRequest(new ApiResponse(400, "Problem creating vehicle item"));
 
-            return Ok(vehicle);
+            return _mapper.Map<Vehicle, VehicleDto>(vehicle);
+
         }
 
         [HttpPut("{id}")]
         [Authorize(Roles = "Admin")]
-        public async Task<ActionResult<Vehicle>> UpdateVehicle(int id, CreateVehicleDto updateVehicle)
+        public async Task<ActionResult<VehicleDto>> UpdateVehicle(int id, CreateVehicleDto updateVehicle)
         {
             var vehicle = await _unitOfWork.Repository<Vehicle>().GetByIdAsync(id);
-
-            updateVehicle.Picture = vehicle.Picture;
 
             _mapper.Map(updateVehicle, vehicle);
 
@@ -87,7 +85,7 @@ namespace API.Controllers
 
             if (result <= 0) return BadRequest(new ApiResponse(400, "Problem updating vehicle"));
 
-            return Ok(vehicle);
+            return _mapper.Map<Vehicle, VehicleDto>(vehicle);
         }
 
         [HttpDelete("{id}")]

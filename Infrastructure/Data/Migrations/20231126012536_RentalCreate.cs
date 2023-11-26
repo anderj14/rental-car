@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Infrastructure.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class RentalCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -128,7 +128,6 @@ namespace Infrastructure.Data.Migrations
                     Doors = table.Column<int>(type: "INTEGER", nullable: false),
                     Color = table.Column<string>(type: "TEXT", nullable: false),
                     RentalPrice = table.Column<double>(type: "decimal(18,2)", nullable: false),
-                    Picture = table.Column<string>(type: "TEXT", nullable: false),
                     FuelConsumption = table.Column<int>(type: "INTEGER", nullable: false),
                     FuelId = table.Column<int>(type: "INTEGER", nullable: false),
                     BrandId = table.Column<int>(type: "INTEGER", nullable: false),

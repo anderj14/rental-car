@@ -14,12 +14,6 @@ namespace Infrastructure.Data.Config
             builder.Property(c => c.Phone).IsRequired();
             builder.Property(c => c.DriverLicense).IsRequired();
             builder.Property(c => c.Address).IsRequired();
-
-            builder.HasMany(i => i.Reservations).WithOne(c => c.Customer)
-                .HasForeignKey(i => i.CustomerId);
-
-            builder.HasMany(i => i.Invoices).WithOne(c => c.Customer)
-                .HasForeignKey(i => i.CustomerId);
         }
     }
 }

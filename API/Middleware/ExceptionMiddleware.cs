@@ -46,9 +46,8 @@ namespace API.Middleware
                 // generate the error response. Depending on the environment 
                 // in which the application is running.
                 var response = _env.IsDevelopment()
-                    ? new ApiException((int)HttpStatusCode.InternalServerError,
+                    ? new ApiException((int)HttpStatusCode.InternalServerError, ex.Message, ex.StackTrace.ToString())
                     //production
-                    ex.Message, ex.StackTrace.ToString())
                     : new ApiException((int)HttpStatusCode.InternalServerError);
                 // Set naming policy in which JSON object properties are written to camelCase
                 var options = new JsonSerializerOptions

@@ -16,8 +16,7 @@ namespace API.Helpers
             .ForMember(d => d.Brand, o => o.MapFrom(s => s.Brand.BrandName))
             .ForMember(d => d.Model, o => o.MapFrom(s => s.Model.ModelName))
             .ForMember(d => d.Status, o => o.MapFrom(s => s.Status.StatusName))
-            .ForMember(d => d.VehicleType, o => o.MapFrom(s => s.VehicleType.VehicleTypeName))
-            .ForMember(d => d.Picture, o => o.MapFrom<VehicleUrlResolver>());
+            .ForMember(d => d.VehicleType, o => o.MapFrom(s => s.VehicleType.VehicleTypeName));
 
             CreateMap<Fuel, FuelDto>();
             CreateMap<Brand, BrandDto>();

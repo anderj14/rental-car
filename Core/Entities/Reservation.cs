@@ -14,7 +14,6 @@ namespace Core.Entities
         public int VehicleId { get; set; }
         public Vehicle Vehicle { get; set; }
 
-
         public int InsuranceId { get; set; }
         public Insurance Insurance { get; set; }
 

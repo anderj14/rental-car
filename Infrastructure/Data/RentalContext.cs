@@ -1,8 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
 using Core.Entities;
 using Microsoft.EntityFrameworkCore;
 
@@ -37,8 +33,7 @@ namespace Infrastructure.Data
                 foreach (var entityType in modelBuilder.Model.GetEntityTypes())
                 {
                     // All decimal type properties are obtained for the current entity.
-                    var properties = entityType.ClrType.GetProperties()
-                    .Where(p => p.PropertyType == typeof(decimal));
+                    var properties = entityType.ClrType.GetProperties().Where(p => p.PropertyType == typeof(decimal));
                     // This loop iterates through the decimal type properties found in the entity.
                     foreach (var property in properties)
                     {
