@@ -27,6 +27,7 @@ export class EditVehicleComponent implements OnInit {
 
   constructor(
     private vehicleService: VehicleService,
+    private router: Router,
     private route: ActivatedRoute) {
     this.vehicleFormValues = new VehicleFormValues();
   }
@@ -52,6 +53,10 @@ export class EditVehicleComponent implements OnInit {
         this.loadVehicle();
       }
     });
+  }
+
+  updatePrice(event: any) {
+    this.vehicle.rentalPrice = event;
   }
 
   loadVehicle() {

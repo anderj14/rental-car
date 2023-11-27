@@ -9,6 +9,7 @@ import { Pagination } from '../shared/models/Pagination';
 })
 export class CustomerService {
   baseUrl = 'https://localhost:5001/api/';
+  customerParams = new CustomerParams();
 
   constructor(private http: HttpClient) { }
 
@@ -25,7 +26,15 @@ export class CustomerService {
 
   }
 
-  getCustomer(id: number){
+  setCustomerParams(params: CustomerParams) {
+    this.customerParams = params;
+  }
+
+  getCustomerParams() {
+    return this.customerParams;
+  }
+
+  getCustomer(id: number) {
     return this.http.get<Customer>(this.baseUrl + 'customers/' + id);
   }
 }

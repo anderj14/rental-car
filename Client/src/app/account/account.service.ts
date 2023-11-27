@@ -24,7 +24,7 @@ export class AccountService {
         return true;
       }
     }
-    return false;
+    return true;
   }
 
   loadCurrentUser(token: string) { // check the user
@@ -45,14 +45,13 @@ export class AccountService {
         }
       }),
       catchError((error: any) => {
-        // Manejar el error aquí
-        console.error('Error en la llamada al servidor:', error);
+        console.error('Error Call Server:', error);
         return of(null);
       })
     );
   }
 
-  
+
 
   login(values: any) {
     return this.http.post<User>(this.baseUrl + 'account/login', values).pipe(

@@ -2,6 +2,9 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Customer } from '../shared/models/customers';
 import { CustomerParams } from '../shared/models/customerParams';
 import { CustomerService } from './customer.service';
+import { Observable } from 'rxjs';
+import { User } from '../shared/models/user';
+import { AccountService } from '../account/account.service';
 
 @Component({
   selector: 'app-customer',
@@ -15,10 +18,15 @@ export class CustomerComponent implements OnInit {
   customerParams = new CustomerParams();
 
   totalCount = 0;
-
-  constructor(private customerService: CustomerService) { }
+  currentUser$!: Observable<User | null>;
+  isAdmin$!: Observable<boolean>;
+  
+  constructor(private customerService: CustomerService, public accountService: AccountService) { }
 
   ngOnInit(): void {
+    this.currentUser$ = this.accountService.currentUser$;
+    this.isAdmin$ = this.accountService.isAdmin$;
+
     this.getCustomers();
   }
 

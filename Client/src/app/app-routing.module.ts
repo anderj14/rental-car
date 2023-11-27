@@ -43,6 +43,12 @@ const routes: Routes = [
     canActivate: [AuthGuard, AdminGuard],
     loadChildren: () => import('./admin-vehicle/admin-vehicle.module').then(m => m.AdminVehicleModule),
     data: { breadcrumb: 'Admin' }
+  }, 
+  {
+    path: 'admin-customer',
+    canActivate: [AuthGuard, AdminGuard],
+    loadChildren: () => import('./admin-customer/admin-customer.module').then(m => m.AdminCustomerModule),
+    data: { breadcrumb: 'Admin' }
   },
   { path: '**', redirectTo: 'not-found', pathMatch: 'full' },
 

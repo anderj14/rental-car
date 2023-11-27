@@ -17,7 +17,8 @@
                 </select> -->
             </div>
             <div class="actions">
-                <button class="new-vehicle">Add New Customer</button>
+                <!-- <button *ngIf="(isAdmin$ | async)" routerLink="/admin" class="new-vehicle">Admin Vehicle</button> -->
+                <button *ngIf="(isAdmin$ | async)" routerLink="/admin-customer" class="new-vehicle">Admin Customer</button>
             </div>
 
         </div>
