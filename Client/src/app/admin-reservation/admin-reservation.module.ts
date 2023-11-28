@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { AdminReservationComponent } from './admin-reservation.component';
 import { EditReservationComponent } from './edit-reservation/edit-reservation.component';
 import { EditReservationFormComponent } from './edit-reservation-form/edit-reservation-form.component';
+import { AdminReservationRoutingModule } from './admin-reservation-routing.module';
+import { SharedModule } from '../shared/shared.module';
 
 
 
@@ -10,10 +12,12 @@ import { EditReservationFormComponent } from './edit-reservation-form/edit-reser
   declarations: [
     AdminReservationComponent,
     EditReservationComponent,
-    EditReservationFormComponent
+    EditReservationFormComponent,
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    AdminReservationRoutingModule,
+    SharedModule
   ]
 })
 export class AdminReservationModule { }

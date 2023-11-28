@@ -50,6 +50,12 @@ const routes: Routes = [
     loadChildren: () => import('./admin-customer/admin-customer.module').then(m => m.AdminCustomerModule),
     data: { breadcrumb: 'Admin' }
   },
+  {
+    path: 'admin-reservation',
+    canActivate: [AuthGuard, AdminGuard],
+    loadChildren: () => import('./admin-reservation/admin-reservation.module').then(m => m.AdminReservationModule),
+    data: { breadcrumb: 'Admin' }
+  },
   { path: '**', redirectTo: 'not-found', pathMatch: 'full' },
 
 ];

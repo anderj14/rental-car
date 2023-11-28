@@ -34,7 +34,6 @@ export class EditVehicleFormComponent implements OnInit{
     
   }
 
-
   updatePrice(event: any) {
     this.vehicle.rentalPrice = event;
   }

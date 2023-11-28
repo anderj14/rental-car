@@ -13,6 +13,7 @@ import { Vehicle } from '../shared/models/vehicles';
 })
 export class ReservationService {
   baseUrl = 'https://localhost:5001/api/';
+  reservationParams = new ReservationParams();
 
   constructor(private http: HttpClient) { }
 
@@ -25,6 +26,14 @@ export class ReservationService {
     if (reservationParams.search) params = params.append('search', reservationParams.search);
 
     return this.http.get<Pagination<Reservation[]>>(this.baseUrl + 'reservations', { params });
+  }
+
+  setReservationParams(params: ReservationParams) {
+    this.reservationParams = params;
+  }
+
+  getReservationParams() {
+    return this.reservationParams;
   }
 
 
@@ -40,5 +49,15 @@ export class ReservationService {
   }
   getInsuranceById(insuranceId: number): Observable<Insurance> {
     return this.http.get<Insurance>(`${this.baseUrl}insurances/${insuranceId}`);
+  }
+
+  getCustomers() {
+    return this.http.get<Customer[]>(this.baseUrl + 'customers');
+  }
+  getVehicles() {
+    return this.http.get<Vehicle[]>(this.baseUrl + 'vehicles');
+  }
+  getInsurances() {
+    return this.http.get<Insurance[]>(this.baseUrl + 'insurances');
   }
 }

@@ -2,6 +2,9 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Reservation } from '../shared/models/reservation';
 import { ReservationService } from './reservation.service';
 import { ReservationParams } from '../shared/models/reservationParams';
+import { Observable } from 'rxjs';
+import { User } from '../shared/models/user';
+import { AccountService } from '../account/account.service';
 
 @Component({
   selector: 'app-reservation',
@@ -19,10 +22,15 @@ export class ReservationComponent implements OnInit {
     { name: 'Price: High To Low', value: 'priceDesc' },
   ];
   totalCount = 0;
-
-  constructor(private reservationService: ReservationService) { }
+  currentUser$!: Observable<User | null>;
+  isAdmin$!: Observable<boolean>;
+  
+  constructor(private reservationService: ReservationService, public accountService: AccountService) { }
 
   ngOnInit(): void {
+    this.currentUser$ = this.accountService.currentUser$;
+    this.isAdmin$ = this.accountService.isAdmin$;
+
     this.getReservations();
   }
 
