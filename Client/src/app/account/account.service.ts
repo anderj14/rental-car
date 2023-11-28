@@ -9,14 +9,13 @@ import { Router } from '@angular/router';
 })
 export class AccountService {
   baseUrl = 'https://localhost:5001/api/';
-  private currentUserSource = new ReplaySubject<User | null>(1);
+  private currentUserSource = new ReplaySubject<User>(1);
   currentUser$ = this.currentUserSource.asObservable();
   private isAdminSource = new ReplaySubject<boolean>(1);
   isAdmin$ = this.isAdminSource.asObservable();
 
   constructor(private http: HttpClient, private router: Router) { }
 
-  // Decode jwt token using atob method
   isAdmin(token: string): boolean {
     if (token) {
       const decodedToken = JSON.parse(atob(token.split('.')[1]));
@@ -24,10 +23,9 @@ export class AccountService {
         return true;
       }
     }
-    return true;
   }
 
-  loadCurrentUser(token: string) { // check the user
+  loadCurrentUser(token: string) {
     if (token === null) {
       this.currentUserSource.next(null);
       return of(null);
@@ -36,17 +34,13 @@ export class AccountService {
     let headers = new HttpHeaders();
     headers = headers.set('Authorization', `Bearer ${token}`);
 
-    return this.http.get<User>(this.baseUrl + 'account', { headers }).pipe(
-      map((user: User | null) => {
+    return this.http.get<User>(this.baseUrl + 'account', {headers}).pipe(
+      map((user: User) => {
         if (user) {
           localStorage.setItem('token', user.token);
           this.currentUserSource.next(user);
           this.isAdminSource.next(this.isAdmin(user.token));
         }
-      }),
-      catchError((error: any) => {
-        console.error('Error Call Server:', error);
-        return of(null);
       })
     );
   }
@@ -64,7 +58,6 @@ export class AccountService {
       })
     );
   }
-
   register(values: any) {
     return this.http.post<User>(this.baseUrl + 'account/register', values).pipe(
       map(user => {
