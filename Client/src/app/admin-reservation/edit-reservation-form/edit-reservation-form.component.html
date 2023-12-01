@@ -4,7 +4,7 @@
       <div class="form-group col-md-6">
         <label for="startDate">Start Date</label>
         <input 
-        type="text"
+        type="datetime"
         [ngClass]="{'is-invalid': startDate.invalid && (startDate.dirty || startDate.touched)}"
         name="startDate"
         id="startDate"
@@ -24,7 +24,7 @@
         <div class="form-group col-md-6">
             <label for="endDate">End Date</label>
             <input 
-            type="text"
+            type="datetime"
             [ngClass]="{'is-invalid': endDate.invalid && (endDate.dirty || endDate.touched)}"
             name="endDate"
             id="endDate"
@@ -92,22 +92,24 @@
       </div>
 <!--  -->
       <div class="form-row">
+        <!-- Ejemplo para el select de clientes -->
         <div class="form-group col-md-6">
           <label for="customer">Customers</label>
           <select 
-          name="customerId" 
-          id="customer" 
-          class="form-control"
-          [(ngModel)]="reservation.customerId"
-          required
+            name="customerId" 
+            id="customer" 
+            class="form-control"
+            [(ngModel)]="reservation.customerId"
+            required
           >
-          <option
-          *ngFor="let customer of customers"
-          [selected]="reservation.customerId === customer.id"
-          [ngValue]="customer.id" 
-          >{{customer.customerName}}</option>
-        </select>
+            <option
+              *ngFor="let customer of customers"
+              [selected]="reservation.customerId === customer.id"
+              [ngValue]="customer.id" 
+            >{{customer.customerName}}</option>
+          </select>
         </div>
+
 <!--  -->
         <div class="form-group col-md-6">
           <label for="vehicle">Vehicle</label>
@@ -130,7 +132,7 @@
           <label for="insurance">Insurance</label>
           <select 
           name="insuranceId" 
-          id="status" 
+          id="insurance" 
           class="form-control"
           [(ngModel)]="reservation.insuranceId"
           required
@@ -146,3 +148,8 @@
 </div>
     <button [disabled]="!reservationForm.valid" type="submit" class="btn btn-primary my-3 float-right">Submit</button>
 </form>
+
+<!-- Agrega estos loggings a la plantilla edit-reservation-form.component.html -->
+<div>Form Customers: – {{ customers | json }}</div>
+<div>Form Vehicles: – {{ vehicles | json }}</div>
+<div>Form Insurance: – {{ insurances | json }}</div>

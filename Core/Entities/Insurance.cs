@@ -5,7 +5,5 @@ namespace Core.Entities
     {
         public string InsuranceName { get; set; }
         public decimal InsurancePrice { get; set; }
-
-        public ICollection<Reservation> Reservations { get; set; }
     }
 }

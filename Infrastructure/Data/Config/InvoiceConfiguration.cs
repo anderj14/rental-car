@@ -14,9 +14,9 @@ namespace Infrastructure.Data.Config
             builder.Property(i => i.Date).IsRequired();
             builder.Property(i => i.PaymentType).IsRequired();
 
-            builder.HasOne(i => i.Customer).WithMany(c => c.Invoices)
+            builder.HasOne(i => i.Customer).WithMany()
                 .HasForeignKey(i => i.CustomerId);
-            builder.HasOne(i => i.Reservation).WithMany(c => c.Invoices)
+            builder.HasOne(i => i.Reservation).WithMany()
                 .HasForeignKey(i => i.ReservationId);
         }
     }

@@ -21,13 +21,6 @@ namespace Infrastructure.Services
             _userManager = userManager;
             _config = config;
             _key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Token:Key"]));
-            // var randomKey = new byte[64]; // 64 bytes = 512 bits
-            // using (var number = RandomNumberGenerator.Create())
-            // {
-            //     number.GetBytes(randomKey);
-            // }
-
-            // _key = new SymmetricSecurityKey(randomKey);
         }
 
         public async Task<string> CreateToken(AppUser user)

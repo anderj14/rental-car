@@ -15,13 +15,13 @@ namespace Infrastructure.Data.Config
             builder.Property(r => r.Days).IsRequired();
             builder.Property(r => r.RentalCost).IsRequired().HasColumnType("decimal(18,2)");
 
-            builder.HasOne(r => r.Customer).WithMany(c => c.Reservations)
+            builder.HasOne(r => r.Customer).WithMany()
                 .HasForeignKey(r => r.CustomerId);
 
-            builder.HasOne(r => r.Vehicle).WithMany(c => c.Reservations)
+            builder.HasOne(r => r.Vehicle).WithMany()
                 .HasForeignKey(r => r.VehicleId);
 
-            builder.HasOne(i => i.Insurance).WithMany(c => c.Reservations)
+            builder.HasOne(i => i.Insurance).WithMany()
                 .HasForeignKey(i => i.InsuranceId);
         }
     }

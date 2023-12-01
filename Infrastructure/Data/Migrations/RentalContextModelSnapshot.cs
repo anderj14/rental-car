@@ -292,13 +292,13 @@ namespace Infrastructure.Data.Migrations
             modelBuilder.Entity("Core.Entities.Invoice", b =>
                 {
                     b.HasOne("Core.Entities.Customer", "Customer")
-                        .WithMany("Invoices")
+                        .WithMany()
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Core.Entities.Reservation", "Reservation")
-                        .WithMany("Invoices")
+                        .WithMany()
                         .HasForeignKey("ReservationId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -311,7 +311,7 @@ namespace Infrastructure.Data.Migrations
             modelBuilder.Entity("Core.Entities.Model", b =>
                 {
                     b.HasOne("Core.Entities.Brand", "Brand")
-                        .WithMany("Models")
+                        .WithMany()
                         .HasForeignKey("BrandId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -322,19 +322,19 @@ namespace Infrastructure.Data.Migrations
             modelBuilder.Entity("Core.Entities.Reservation", b =>
                 {
                     b.HasOne("Core.Entities.Customer", "Customer")
-                        .WithMany("Reservations")
+                        .WithMany()
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Core.Entities.Insurance", "Insurance")
-                        .WithMany("Reservations")
+                        .WithMany()
                         .HasForeignKey("InsuranceId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Core.Entities.Vehicle", "Vehicle")
-                        .WithMany("Reservations")
+                        .WithMany()
                         .HasForeignKey("VehicleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -349,31 +349,31 @@ namespace Infrastructure.Data.Migrations
             modelBuilder.Entity("Core.Entities.Vehicle", b =>
                 {
                     b.HasOne("Core.Entities.Brand", "Brand")
-                        .WithMany("Vehicles")
+                        .WithMany()
                         .HasForeignKey("BrandId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Core.Entities.Fuel", "Fuel")
-                        .WithMany("Vehicles")
+                        .WithMany()
                         .HasForeignKey("FuelId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Core.Entities.Model", "Model")
-                        .WithMany("Vehicles")
+                        .WithMany()
                         .HasForeignKey("ModelId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Core.Entities.Status", "Status")
-                        .WithMany("Vehicles")
+                        .WithMany()
                         .HasForeignKey("StatusId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Core.Entities.VehicleType", "VehicleType")
-                        .WithMany("Vehicles")
+                        .WithMany()
                         .HasForeignKey("VehicleTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -387,55 +387,6 @@ namespace Infrastructure.Data.Migrations
                     b.Navigation("Status");
 
                     b.Navigation("VehicleType");
-                });
-
-            modelBuilder.Entity("Core.Entities.Brand", b =>
-                {
-                    b.Navigation("Models");
-
-                    b.Navigation("Vehicles");
-                });
-
-            modelBuilder.Entity("Core.Entities.Customer", b =>
-                {
-                    b.Navigation("Invoices");
-
-                    b.Navigation("Reservations");
-                });
-
-            modelBuilder.Entity("Core.Entities.Fuel", b =>
-                {
-                    b.Navigation("Vehicles");
-                });
-
-            modelBuilder.Entity("Core.Entities.Insurance", b =>
-                {
-                    b.Navigation("Reservations");
-                });
-
-            modelBuilder.Entity("Core.Entities.Model", b =>
-                {
-                    b.Navigation("Vehicles");
-                });
-
-            modelBuilder.Entity("Core.Entities.Reservation", b =>
-                {
-                    b.Navigation("Invoices");
-                });
-
-            modelBuilder.Entity("Core.Entities.Status", b =>
-                {
-                    b.Navigation("Vehicles");
-                });
-
-            modelBuilder.Entity("Core.Entities.Vehicle", b =>
-                {
-                    b.Navigation("Reservations");
-                });
-
-            modelBuilder.Entity("Core.Entities.VehicleType", b =>
-                {
-                    b.Navigation("Vehicles");
                 });
 #pragma warning restore 612, 618
         }

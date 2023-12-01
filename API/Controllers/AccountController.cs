@@ -96,6 +96,7 @@ namespace API.Controllers
         }
 
         [HttpPost("register")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<UserDto>> Register(RegisterDto registerDto)
         {
 

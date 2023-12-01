@@ -12,11 +12,8 @@ namespace Infrastructure.Data.Config
             builder.Property(m => m.Id).IsRequired();
             builder.Property(m => m.ModelName).IsRequired();
 
-            builder.HasOne(i => i.Brand).WithMany(c => c.Models)
+            builder.HasOne(i => i.Brand).WithMany()
                 .HasForeignKey(i => i.BrandId);
-
-            builder.HasMany(i => i.Vehicles).WithOne(c => c.Model)
-                .HasForeignKey(i => i.ModelId);
         }
     }
 }

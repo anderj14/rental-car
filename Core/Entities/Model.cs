@@ -7,7 +7,5 @@ namespace Core.Entities
 
         public int BrandId { get; set; }
         public Brand Brand { get; set; }
-
-        public ICollection<Vehicle> Vehicles { get; set; }
     }
 }

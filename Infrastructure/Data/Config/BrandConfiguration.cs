@@ -12,12 +12,6 @@ namespace Infrastructure.Data.Config
         {
             builder.Property(b => b.Id).IsRequired();
             builder.Property(b => b.BrandName).IsRequired().HasMaxLength(100);
-
-            builder.HasMany(i => i.Models).WithOne(c => c.Brand)
-                .HasForeignKey(i => i.BrandId);
-
-            builder.HasMany(i => i.Vehicles).WithOne(c => c.Brand)
-                .HasForeignKey(i => i.BrandId);
         }
     }
 }

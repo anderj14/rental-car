@@ -28,8 +28,5 @@ namespace Core.Entities
 
         public int VehicleTypeId { get; set; }
         public VehicleType VehicleType { get; set; }
-
-        public ICollection<Reservation> Reservations { get; set; }
-
     }
 }

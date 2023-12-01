@@ -31,9 +31,6 @@ namespace Core.Dtos.VehiclesDtos
         public decimal RentalPrice { get; set; }
 
         [Required]
-        public string Picture { get; set; }
-
-        [Required]
         public int FuelConsumption { get; set; }
 
         [Required]

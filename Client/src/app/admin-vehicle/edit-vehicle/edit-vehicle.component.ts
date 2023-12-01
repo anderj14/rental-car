@@ -27,7 +27,6 @@ export class EditVehicleComponent implements OnInit {
 
   constructor(
     private vehicleService: VehicleService,
-    private router: Router,
     private route: ActivatedRoute) {
     this.vehicleFormValues = new VehicleFormValues();
   }

@@ -16,8 +16,5 @@ namespace Core.Entities
 
         public int InsuranceId { get; set; }
         public Insurance Insurance { get; set; }
-
-        public ICollection<Invoice> Invoices { get; set; }
-
     }
 }

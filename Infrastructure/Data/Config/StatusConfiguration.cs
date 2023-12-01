@@ -11,9 +11,6 @@ namespace Infrastructure.Data.Config
         {
             builder.Property(s => s.Id).IsRequired();
             builder.Property(s => s.StatusName).IsRequired().HasMaxLength(50);
-
-            builder.HasMany(i => i.Vehicles).WithOne(c => c.Status)
-                .HasForeignKey(i => i.StatusId);
         }
     }
 }

@@ -18,23 +18,31 @@
                 <thead>
                     <tr>
                         <th>Id</th>
+                        <th>Name</th>
+                        <th>Vehicle</th>
+                        <th>year</th>
                         <th>Start Date</th>
                         <th>End Date</th>
                         <th>Days</th>
                         <th>RentalCost</th>
+                        <th>Insurance</th>
                         <th>Edit</th>
                         <th>Delete</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr *ngFor="let reservation of reservations">
+                <tbody  *ngFor="let reservation of reservations">
+                    <tr *ngIf="reservation.vehicle && reservation.customer && reservation.insurance">
                         <td>{{ reservation.id }}</td>
+                        <td>{{ reservation.customer.customerName }}</td>
+                        <td>{{ reservation.vehicle.vehicleName }}</td>
+                        <td>{{ reservation.vehicle.year }}</td>
                         <td>{{ reservation.startDate | date}}</td>
                         <td>{{ reservation.endDate | date}}</td>
                         <td>{{ reservation.days }}</td>
                         <td>{{ reservation.rentalCost }}</td>
+                        <td>{{ reservation.insurance.insuranceName }}</td>
                         <td><button [routerLink]="['edit-reservation', reservation.id]">Edit</button></td>
-                        <td><button (click)="deleteVehicle(reservation.id)">Delete</button></td>
+                        <td><button (click)="deleteReservation(reservation.id)">Delete</button></td>
                     </tr>
                 </tbody>
             </table>

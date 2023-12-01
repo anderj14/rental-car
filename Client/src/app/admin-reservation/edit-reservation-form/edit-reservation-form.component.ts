@@ -26,7 +26,6 @@ export class EditReservationFormComponent {
   }
 
   ngOnInit(): void {
-    
   }
 
 
@@ -40,12 +39,12 @@ export class EditReservationFormComponent {
     if (this.route.snapshot.url[0].path === 'edit-reservation') {
       const updatedVehicle = { ...this.reservation, ...reservation, rentalCost: +reservation.rentalCost };
       this.adminReservationService.updateReservation(updatedVehicle, +id!).subscribe((response: any) => {
-        this.router.navigate(['/admin']);
+        this.router.navigate(['/admin-reservation']);
       });
     } else {
       const newVehicle = { ...reservation, rentalCost: +reservation.rentalCost };
       this.adminReservationService.createReservation(newVehicle).subscribe((response: any) => {
-        this.router.navigate(['/admin']);
+        this.router.navigate(['/admin-reservation']);
       });
     }
   }

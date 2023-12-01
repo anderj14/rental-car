@@ -11,9 +11,6 @@ namespace Infrastructure.Data.Config
         {
             builder.Property(i => i.Id).IsRequired();
             builder.Property(i => i.FuelName).IsRequired().HasMaxLength(50);
-
-            builder.HasMany(i => i.Vehicles).WithOne(c => c.Fuel)
-                .HasForeignKey(i => i.FuelId);
         }
     }
 }

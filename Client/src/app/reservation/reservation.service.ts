@@ -51,13 +51,13 @@ export class ReservationService {
     return this.http.get<Insurance>(`${this.baseUrl}insurances/${insuranceId}`);
   }
 
-  getCustomers() {
+  getCustomers(): Observable<Customer[]> {
     return this.http.get<Customer[]>(this.baseUrl + 'customers');
   }
-  getVehicles() {
+  getVehicles(): Observable<Vehicle[]> {
     return this.http.get<Vehicle[]>(this.baseUrl + 'vehicles');
   }
-  getInsurances() {
+  getInsurances(): Observable<Insurance[]> {
     return this.http.get<Insurance[]>(this.baseUrl + 'insurances');
   }
 }

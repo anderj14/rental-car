@@ -19,15 +19,15 @@ namespace Infrastructure.Data.Config
             builder.Property(v => v.FuelConsumption).IsRequired();
             builder.Property(v => v.RentalPrice).IsRequired().HasColumnType("decimal(18,2)");;
 
-            builder.HasOne(i => i.Brand).WithMany(c => c.Vehicles)
+            builder.HasOne(i => i.Brand).WithMany()
                 .HasForeignKey(i => i.BrandId);
-            builder.HasOne(i => i.Model).WithMany(c => c.Vehicles)
+            builder.HasOne(i => i.Model).WithMany()
                 .HasForeignKey(i => i.ModelId);
-            builder.HasOne(i => i.Status).WithMany(c => c.Vehicles)
+            builder.HasOne(i => i.Status).WithMany()
                 .HasForeignKey(i => i.StatusId);
-            builder.HasOne(i => i.VehicleType).WithMany(c => c.Vehicles)
+            builder.HasOne(i => i.VehicleType).WithMany()
                 .HasForeignKey(i => i.VehicleTypeId);
-            builder.HasOne(i => i.Fuel).WithMany(c => c.Vehicles)
+            builder.HasOne(i => i.Fuel).WithMany()
                 .HasForeignKey(i => i.FuelId);
         }
     }
