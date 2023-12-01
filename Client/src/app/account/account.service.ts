@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, ReplaySubject, catchError, map, of } from 'rxjs';
+import { BehaviorSubject, ReplaySubject, catchError, map, of, switchMap } from 'rxjs';
 import { User } from '../shared/models/user';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 })
 export class AccountService {
   baseUrl = 'https://localhost:5001/api/';
-  private currentUserSource = new ReplaySubject<User>(1);
+  private currentUserSource = new ReplaySubject<User | null>(1);
   currentUser$ = this.currentUserSource.asObservable();
   private isAdminSource = new ReplaySubject<boolean>(1);
   isAdmin$ = this.isAdminSource.asObservable();
@@ -23,6 +23,7 @@ export class AccountService {
         return true;
       }
     }
+    return false;
   }
 
   loadCurrentUser(token: string) {
@@ -34,16 +35,18 @@ export class AccountService {
     let headers = new HttpHeaders();
     headers = headers.set('Authorization', `Bearer ${token}`);
 
-    return this.http.get<User>(this.baseUrl + 'account', {headers}).pipe(
-      map((user: User) => {
+    return this.http.get<User>(this.baseUrl + 'account', { headers }).pipe(
+      switchMap((user: User | undefined) => {
         if (user) {
           localStorage.setItem('token', user.token);
           this.currentUserSource.next(user);
           this.isAdminSource.next(this.isAdmin(user.token));
         }
+        return of(user) as any; // Return the user as a new observable
       })
     );
   }
+
 
 
 
