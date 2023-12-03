@@ -1,19 +1,13 @@
-import { Customer } from "./customers";
-import { Insurance } from "./insurance";
-import { Vehicle } from "./vehicles";
-
 export interface Reservation {
   id: number;
+  reservationNumber: string;
   startDate: string;
   endDate: string;
   days: number;
   rentalCost: number;
-  customerId: number;
-  vehicleId: number;
-  insuranceId: number;
-  customer?: Customer;
-  vehicle?: Vehicle;
-  insurance?: Insurance;
+  customer: string;
+  vehicle: string;
+  insurance: string;
 }
 
 export interface IReservationToCreate {

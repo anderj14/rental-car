@@ -25,34 +25,8 @@ export default class ReservationDetailsComponent implements OnInit {
 
   getReservation() {
     const id = this.activateRoute.snapshot.paramMap.get('id');
-    if (id) {
-      this.reservationService.getReservation(+id).subscribe({
-        next: reservation => {
-          this.reservation = reservation;
-          this.getCustomer(reservation.customerId);
-          this.getVehicle(reservation.vehicleId);
-          this.getInsurance(reservation.insuranceId);
-        },
-        error: error => console.log(error)
-      });
-    }
-  }
-
-  getCustomer(customerId: number) {
-    this.reservationService.getCustomerById(customerId).subscribe({
-      next: customer => this.customer = customer,
-      error: error => console.log(error)
-    });
-  }
-  getVehicle(vehicleId: number) {
-    this.reservationService.getVehicleById(vehicleId).subscribe({
-      next: vehicle => this.vehicle = vehicle,
-      error: error => console.log(error)
-    });
-  }
-  getInsurance(insuranceId: number) {
-    this.reservationService.getInsuranceById(insuranceId).subscribe({
-      next: insurance => this.insurance = insurance,
+    if(id) this.reservationService.getReservation(+id).subscribe({
+      next: reservation => this.reservation = reservation,
       error: error => console.log(error)
     });
   }

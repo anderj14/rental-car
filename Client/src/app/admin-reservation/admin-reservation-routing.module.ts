@@ -6,8 +6,8 @@ import { AdminReservationComponent } from './admin-reservation.component';
 
 const routes: Routes = [
   { path: '', component: AdminReservationComponent },
-  { path: 'create-reservation', component: EditReservationComponent, data: { breadcrumb: 'Create' } },
-  { path: 'edit-reservation/:id', component: EditReservationComponent, data: { breadcrumb: 'Edit' } },
+  { path: 'create', component: EditReservationComponent, data: { breadcrumb: 'Create' } },
+  { path: 'edit/:id', component: EditReservationComponent, data: { breadcrumb: 'Edit' } },
 ]
 
 

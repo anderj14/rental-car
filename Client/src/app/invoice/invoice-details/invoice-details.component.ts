@@ -16,15 +16,10 @@ import { Insurance } from 'src/app/shared/models/insurance';
 export class InvoiceDetailsComponent implements OnInit {
 
   invoice!: Invoice;
-  reservation!: Reservation;
-  customer!: Customer;
-  vehicle!: Vehicle; 
-  insurance!: Insurance;
-  
-  constructor(private invoiceService: InvoiceService, 
-    private vehicleService: VehicleService, 
+
+  constructor(private invoiceService: InvoiceService,
     private activateRoute: ActivatedRoute
-    ) { }
+  ) { }
 
   ngOnInit(): void {
     this.getInvoice();
@@ -35,43 +30,9 @@ export class InvoiceDetailsComponent implements OnInit {
     const id = this.activateRoute.snapshot.paramMap.get('id');
     if (id) {
       this.invoiceService.getInvoice(+id).subscribe({
-        next: invoice => {
-          this.invoice = invoice;
-          this.getReservation(invoice.reservationId);
-          this.getCustomer(invoice.customerId);
-        },
+        next: invoice => this.invoice = invoice,
         error: error => console.log(error)
       });
     }
-  }
-
-  getCustomer(customerId: number) {
-    this.invoiceService.getCustomerById(customerId).subscribe({
-      next: customer => this.customer = customer,
-      error: error => console.log(error)
-    });
-  }
-
-  getReservation(reservationId: number) {
-    this.invoiceService.getReservationById(reservationId).subscribe({
-      next: reservation => {
-        this.reservation = reservation;
-
-        // Ahora, carga detalles del vehículo
-        if (reservation?.vehicleId) {
-          this.vehicleService.getVehicle(reservation.vehicleId)
-            .subscribe(vehicle => {
-              this.vehicle = vehicle;
-            });
-        }
-        if (reservation?.insuranceId) {
-          this.invoiceService.getInsuranceById(reservation.insuranceId)
-            .subscribe(insurance => {
-              this.insurance = insurance;
-            });
-        }
-      },
-      error: error => console.log(error)
-    });
   }
 }

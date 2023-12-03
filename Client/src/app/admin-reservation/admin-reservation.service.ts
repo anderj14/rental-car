@@ -1,8 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ReservationFormValues } from '../shared/models/reservation';
-import { Customer } from '../shared/models/customers';
-import { Vehicle } from '../shared/models/vehicles';
 import { Insurance } from '../shared/models/insurance';
 
 @Injectable({
@@ -18,15 +16,11 @@ export class AdminReservationService {
   }
 
   updateReservation(reservation: ReservationFormValues, id: number) {
-    // Extraer solo los datos necesarios del formulario
-    const { startDate, endDate, days, rentalCost, customerId, vehicleId, insuranceId } = reservation;
-    const updatedReservation = { startDate, endDate, days, rentalCost, customerId, vehicleId, insuranceId };
-
-    return this.http.put(this.baseUrl + 'reservations/' + id, updatedReservation);
+    return this.http.put(this.baseUrl + 'reservations/' + id, reservation);
   }
-
 
   deleteReservation(id: number) {
-    return this.http.delete(this.baseUrl + 'reservations/' + id);
+    return this.http.delete(this.baseUrl + 'reservations/' + id, { responseType: 'text' });
   }
+
 }

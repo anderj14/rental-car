@@ -23,9 +23,6 @@ namespace Core.Specifications
         public int? VehicleId { get; set; }
         public int? InsuranceId { get; set; }
 
-        public DateTime? StartDate { get; set; }
-        public DateTime? EndDate { get; set; }
-
         public string? Sort { get; set; }
 
         private string _search = string.Empty;

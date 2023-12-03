@@ -6,6 +6,6 @@ export class VehicleParams {
     vehicleTypeId = 0;
     sort = 'VehicleName';
     pageNumber = 1;
-    pageSize = 6;
+    pageSize = 5;
     search = '';
 }

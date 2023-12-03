@@ -172,6 +172,10 @@ namespace Infrastructure.Data.Migrations
                     b.Property<double>("RentalCost")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<string>("ReservationNumber")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("TEXT");
 

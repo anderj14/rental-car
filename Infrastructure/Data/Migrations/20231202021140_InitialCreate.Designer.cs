@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Data.Migrations
 {
     [DbContext(typeof(RentalContext))]
-    [Migration("20231201203614_InitialCreate")]
+    [Migration("20231202021140_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -174,6 +174,10 @@ namespace Infrastructure.Data.Migrations
 
                     b.Property<double>("RentalCost")
                         .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("ReservationNumber")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("TEXT");

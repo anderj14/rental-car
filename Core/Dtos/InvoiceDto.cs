@@ -8,8 +8,8 @@ namespace Core.Dtos
         public DateTime Date { get; set; }
         public string PaymentType { get; set; }
 
-        public int CustomerId { get; set; }
+        public string Customer { get; set; }
 
-        public int ReservationId { get; set; }
+        public string Reservation { get; set; }
     }
 }

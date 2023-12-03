@@ -60,14 +60,14 @@ namespace API.Controllers
         public async Task<ActionResult<ReservationDto>> CreateReservation(CreateReservationDto createReservation)
         {
             var reservation = _mapper.Map<CreateReservationDto, Reservation>(createReservation);
-
+            
             _unitOfWork.Repository<Reservation>().Add(reservation);
 
             var result = await _unitOfWork.Complete();
 
             if (result <= 0) return BadRequest(new ApiResponse(400, "Problem creating reservation"));
 
-            return _mapper.Map<Reservation, ReservationDto>(reservation);
+            return Ok(reservation);
         }
 
         [HttpPut("{id}")]
@@ -84,7 +84,7 @@ namespace API.Controllers
 
             if (result <= 0) return BadRequest(new ApiResponse(400, "Problem updating reservation"));
 
-            return _mapper.Map<Reservation, ReservationDto>(reservation);
+            return Ok(reservation);
         }
 
         [HttpDelete("{id}")]

@@ -11,7 +11,6 @@ namespace Infrastructure.Data.Config
         {
             builder.Property(vt => vt.Id).IsRequired();
             builder.Property(vt => vt.VehicleTypeName).IsRequired().HasMaxLength(50);
-
         }
     }
 }

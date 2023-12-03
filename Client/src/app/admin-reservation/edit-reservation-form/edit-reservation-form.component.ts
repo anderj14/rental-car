@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Customer } from 'src/app/shared/models/customers';
 import { Insurance } from 'src/app/shared/models/insurance';
 import { ReservationFormValues } from 'src/app/shared/models/reservation';
@@ -11,7 +11,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   templateUrl: './edit-reservation-form.component.html',
   styleUrls: ['./edit-reservation-form.component.scss']
 })
-export class EditReservationFormComponent {
+export class EditReservationFormComponent implements OnInit{
 
   @Input() reservation!: ReservationFormValues;
   @Input() customers!: Customer[];
@@ -28,7 +28,6 @@ export class EditReservationFormComponent {
   ngOnInit(): void {
   }
 
-
   updatePrice(event: any) {
     this.reservation.rentalCost = event;
   }
@@ -36,7 +35,7 @@ export class EditReservationFormComponent {
   onSubmit(reservation: ReservationFormValues) {
     const id = this.route.snapshot.paramMap.get('id');
 
-    if (this.route.snapshot.url[0].path === 'edit-reservation') {
+    if (this.route.snapshot.url[0].path === 'edit') {
       const updatedVehicle = { ...this.reservation, ...reservation, rentalCost: +reservation.rentalCost };
       this.adminReservationService.updateReservation(updatedVehicle, +id!).subscribe((response: any) => {
         this.router.navigate(['/admin-reservation']);

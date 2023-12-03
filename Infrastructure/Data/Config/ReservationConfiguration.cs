@@ -10,6 +10,7 @@ namespace Infrastructure.Data.Config
         public void Configure(EntityTypeBuilder<Reservation> builder)
         {
             builder.Property(r => r.Id).IsRequired();
+            builder.Property(r => r.ReservationNumber).IsRequired();
             builder.Property(r => r.StartDate).IsRequired();
             builder.Property(r => r.EndDate).IsRequired();
             builder.Property(r => r.Days).IsRequired();

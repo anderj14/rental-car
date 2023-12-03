@@ -13,9 +13,7 @@ namespace Core.Specifications
             (string.IsNullOrEmpty(reservationSpecParams.Search) || x.Customer.CustomerName.ToLower().Contains(reservationSpecParams.Search)) &&
             (!reservationSpecParams.CustomerId.HasValue || x.CustomerId == reservationSpecParams.CustomerId) &&
             (!reservationSpecParams.VehicleId.HasValue || x.VehicleId == reservationSpecParams.VehicleId) &&
-            (!reservationSpecParams.InsuranceId.HasValue || x.InsuranceId == reservationSpecParams.InsuranceId) &&
-            (!reservationSpecParams.StartDate.HasValue || x.StartDate >= reservationSpecParams.StartDate) &&
-            (!reservationSpecParams.EndDate.HasValue || x.EndDate <= reservationSpecParams.EndDate)
+            (!reservationSpecParams.InsuranceId.HasValue || x.InsuranceId == reservationSpecParams.InsuranceId)
         )
         {
             AddInclude(r => r.Customer);

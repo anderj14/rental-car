@@ -67,6 +67,7 @@ export class EditVehicleComponent implements OnInit {
       const fuelId = this.fuels && this.fuels.find(x => x.fuelName === response.fuel)?.id;
       const statusId = this.statuses && this.statuses.find(x => x.statusName === response.status)?.id;
       const vehicleTypeId = this.vehiclesType && this.vehiclesType.find(x => x.vehicleTypeName === response.vehicleType)?.id;
+      
       this.vehicle = response;
       this.vehicleFormValues = { ...response, brandId, modelId, fuelId, statusId, vehicleTypeId };
 

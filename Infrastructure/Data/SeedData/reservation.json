@@ -1,6 +1,7 @@
 [
     {
         "Id": 1,
+        "ReservationNumber": "RES-1",
         "StartDate": "2023-10-01",
         "EndDate": "2023-10-05",
         "Days": 5,
@@ -11,6 +12,7 @@
     },
     {
         "Id": 2,
+        "ReservationNumber": "RES-2",
         "StartDate": "2023-10-02",
         "EndDate": "2023-10-06",
         "Days": 5,

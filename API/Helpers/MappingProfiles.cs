@@ -29,8 +29,15 @@ namespace API.Helpers
             CreateMap<VehicleType, VehicleTypeDto>();
             CreateMap<Customer, CustomerDto>();
             CreateMap<Insurance, InsuranceDto>();
-            CreateMap<Reservation, ReservationDto>();
-            CreateMap<Invoice, InvoiceDto>();
+
+            CreateMap<Reservation, ReservationDto>()
+            .ForMember(d => d.Customer, o => o.MapFrom(s => s.Customer.CustomerName))
+            .ForMember(d => d.Vehicle, o => o.MapFrom(s => s.Vehicle.VehicleName))
+            .ForMember(d => d.Insurance, o => o.MapFrom(s => s.Insurance.InsuranceName));
+            
+            CreateMap<Invoice, InvoiceDto>()
+            .ForMember(d => d.Customer, o => o.MapFrom(s => s.Customer.CustomerName))
+            .ForMember(d => d.Reservation, o => o.MapFrom(s => s.Reservation.ReservationNumber));
 
             CreateMap<Address, AddressDto>().ReverseMap();
 

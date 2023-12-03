@@ -5,16 +5,23 @@ import { ReservationParams } from '../shared/models/reservationParams';
 import { Observable } from 'rxjs';
 import { User } from '../shared/models/user';
 import { AccountService } from '../account/account.service';
+import { Customer } from '../shared/models/customers';
+import { Vehicle } from '../shared/models/vehicles';
+import { Insurance } from '../shared/models/insurance';
 
 @Component({
   selector: 'app-reservation',
   templateUrl: './reservation.component.html',
   styleUrls: ['./reservation.component.scss']
 })
+
 export class ReservationComponent implements OnInit {
   @ViewChild('search') searchTerm?: ElementRef;
 
   reservations!: Reservation[];
+  customers!: Customer[];
+  vehicle!: Vehicle[];
+  insurance!: Insurance[];
   reservationParams = new ReservationParams();
   sortOption = [
     { name: 'Alphabetical', value: 'reservation' },
@@ -24,7 +31,7 @@ export class ReservationComponent implements OnInit {
   totalCount = 0;
   currentUser$!: Observable<User | null>;
   isAdmin$!: Observable<boolean>;
-  
+
   constructor(private reservationService: ReservationService, public accountService: AccountService) { }
 
   ngOnInit(): void {
@@ -35,28 +42,15 @@ export class ReservationComponent implements OnInit {
   }
 
   getReservations() {
-    this.reservationService.getReservations(this.reservationParams)
-      .subscribe(response => {
+    this.reservationService.getReservations(this.reservationParams).subscribe({
+      next: response => {
         this.reservations = response.data;
         this.reservationParams.pageNumber = response.pageIndex;
         this.reservationParams.pageSize = response.pageSize;
         this.totalCount = response.count;
-
-        this.reservations.forEach(reservation => {
-          this.reservationService.getCustomerById(reservation.customerId)
-            .subscribe(customer => {
-              reservation.customer = customer;
-            });
-          this.reservationService.getVehicleById(reservation.vehicleId)
-            .subscribe(vehicle => {
-              reservation.vehicle = vehicle;
-            });
-          this.reservationService.getInsuranceById(reservation.insuranceId)
-            .subscribe(insurance => {
-              reservation.insurance = insurance;
-            });
-        });
-      });
+      },
+      error: error => console.log(error)
+    })
   }
 
   onSortSelected(event: any) {

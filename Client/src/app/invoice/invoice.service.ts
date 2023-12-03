@@ -33,19 +33,10 @@ export class InvoiceService {
     return this.http.get<Invoice>(`${this.baseUrl}invoices/${invoiceId}`);
   }
 
-  getCustomerById(customerId: number): Observable<Customer> {
-    return this.http.get<Customer>(`${this.baseUrl}customers/${customerId}`);
+  getCustomers() {
+    return this.http.get<Customer[]>(`${this.baseUrl}customers`);
   }
-  getReservationById(reservationId: number): Observable<Reservation> {
-    return this.http.get<Reservation>(`${this.baseUrl}reservations/${reservationId}`);
+  getReservations() {
+    return this.http.get<Reservation[]>(`${this.baseUrl}reservations`);
   }
-  getVehicleById(vehicleId: number): Observable<Vehicle> {
-    return this.http.get<Vehicle>(`${this.baseUrl}vehicles/${vehicleId}`);
-  }
-
-  getInsuranceById(insuranceId: number): Observable<Insurance> {
-    return this.http.get<Insurance>(`${this.baseUrl}insurances/${insuranceId}`);
-  }
-
-
 }

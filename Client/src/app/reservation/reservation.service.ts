@@ -19,7 +19,10 @@ export class ReservationService {
 
   getReservations(reservationParams: ReservationParams): Observable<Pagination<Reservation[]>> {
     let params = new HttpParams();
-
+    
+    if(reservationParams.customerId> 0) params = params.append('customerId', reservationParams.customerId);
+    if(reservationParams.vehicleId) params = params.append('vehicleId', reservationParams.vehicleId);
+    if(reservationParams.insuranceId) params = params.append('insuranceId', reservationParams.insuranceId);
     params = params.append('sort', reservationParams.sort);
     params = params.append('pageIndex', reservationParams.pageNumber);
     params = params.append('pageSize', reservationParams.pageSize);
@@ -41,23 +44,13 @@ export class ReservationService {
     return this.http.get<Reservation>(this.baseUrl + 'reservations/' + id);
   }
 
-  getCustomerById(customerId: number): Observable<Customer> {
-    return this.http.get<Customer>(`${this.baseUrl}customers/${customerId}`);
-  }
-  getVehicleById(vehicleId: number): Observable<Vehicle> {
-    return this.http.get<Vehicle>(`${this.baseUrl}vehicles/${vehicleId}`);
-  }
-  getInsuranceById(insuranceId: number): Observable<Insurance> {
-    return this.http.get<Insurance>(`${this.baseUrl}insurances/${insuranceId}`);
-  }
-
-  getCustomers(): Observable<Customer[]> {
+  getCustomers() {
     return this.http.get<Customer[]>(this.baseUrl + 'customers');
   }
-  getVehicles(): Observable<Vehicle[]> {
+  getVehicles() {
     return this.http.get<Vehicle[]>(this.baseUrl + 'vehicles');
   }
-  getInsurances(): Observable<Insurance[]> {
+  getInsurances(){
     return this.http.get<Insurance[]>(this.baseUrl + 'insurances');
   }
 }

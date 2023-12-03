@@ -67,7 +67,7 @@ namespace API.Controllers
 
             if (result <= 0) return BadRequest(new ApiResponse(400, "Problem creating vehicle item"));
 
-            return _mapper.Map<Vehicle, VehicleDto>(vehicle);
+            return Ok(vehicle);
 
         }
 
@@ -85,7 +85,7 @@ namespace API.Controllers
 
             if (result <= 0) return BadRequest(new ApiResponse(400, "Problem updating vehicle"));
 
-            return _mapper.Map<Vehicle, VehicleDto>(vehicle);
+            return Ok(vehicle);
         }
 
         [HttpDelete("{id}")]
