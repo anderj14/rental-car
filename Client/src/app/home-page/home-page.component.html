@@ -1,0 +1,51 @@
+<section class="content">
+    <div class="content-cover">
+        <div class="boxes">
+            <div class="box vehicle">
+                <div class="title">
+                    <p>Vehicles</p>
+                    <i class="bi bi-car-front"></i>
+                </div>
+                <span>{{ getTotalCountVehicle() }}</span>
+            </div>
+            <div class="box customer">
+                <div class="title">
+                    <p>Customers</p>
+                    <i class="bi bi-person"></i>
+                </div>
+                <span>{{ getTotalCountCustomer() }}</span>
+            </div>
+            <div class="box reservation">
+                <div class="title">
+                    <p>Reservations</p>
+                    <i class="bi bi-calendar-event"></i>
+                </div>
+                <span>{{ getTotalCountReservation() }}</span>
+            </div>
+        </div>
+
+        <h2>Reservation Information</h2>
+
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Reservation Number</th>
+                    <th>Insurance</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Days</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let reservation of reservations">
+                    <!-- <td>{{ vehicle.vehicleName }}</td> -->
+                    <td>{{ reservation.reservationNumber }}</td>
+                    <td>{{ reservation.insurance }}</td>
+                    <td>{{ reservation.startDate | date}}</td>
+                    <td>{{ reservation.endDate | date }}</td>
+                    <td>{{ reservation.days }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>

@@ -15,6 +15,7 @@ import { Insurance } from '../shared/models/insurance';
 
 export class InvoiceService {
   baseUrl = 'https://localhost:5001/api/';
+  invoiceParams = new InvoiceParams();
 
   constructor(private http: HttpClient) { }
 
@@ -28,6 +29,14 @@ export class InvoiceService {
 
     return this.http.get<Pagination<Invoice[]>>(this.baseUrl + 'invoices', { params });
   }
+  
+  setInvoiceParams(params: InvoiceParams) {
+    this.invoiceParams = params;
+  }
+
+  getInvoiceParams() {
+    return this.invoiceParams;
+  }
 
   getInvoice(invoiceId: number): Observable<Invoice> {
     return this.http.get<Invoice>(`${this.baseUrl}invoices/${invoiceId}`);
@@ -38,5 +47,13 @@ export class InvoiceService {
   }
   getReservations() {
     return this.http.get<Reservation[]>(`${this.baseUrl}reservations`);
+  }
+
+
+  getCustomerById(customerId: number): Observable<Customer> {
+    return this.http.get<Customer>(`${this.baseUrl}customers/${customerId}`);
+  }
+  getReservationById(reservationId: number): Observable<Reservation> {
+    return this.http.get<Reservation>(`${this.baseUrl}reservations/${reservationId}`);
   }
 }

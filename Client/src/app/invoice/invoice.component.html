@@ -11,7 +11,7 @@
         <div class="select">
         </div>
         <div class="actions">
-          <button class="new-vehicle">Add New Reservation</button>
+          <button *ngIf="(isAdmin$ | async)" routerLink="/admin-invoice" class="new-vehicle">Admin Invoice</button>
       </div>
   
       </div>

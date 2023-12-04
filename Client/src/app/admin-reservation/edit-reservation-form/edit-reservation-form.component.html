@@ -5,7 +5,7 @@
       <label for="startDate">Start Date</label>
       <input type="datetime"
         name="startDate"
-        id="Start Date"
+        id="datetime"
         required
         class="form-control"
         [ngClass]="{'is-invalid': startDate.invalid && (startDate.dirty || startDate.touched)}"
@@ -23,7 +23,7 @@
       <input type="datetime"
         [ngClass]="{'is-invalid': endDate.invalid && (endDate.dirty || endDate.touched)}"
         name="endDate"
-        id="End Date"
+        id="endDate"
         required
         class="form-control"
         #endDate="ngModel"

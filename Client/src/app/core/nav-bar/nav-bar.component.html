@@ -21,14 +21,15 @@
                 <strong>Welcome {{user.displayName}}</strong>
             </a>
             <ul *dropdownMenu class="dropdown-menu dropdown-menu-right">
-                <!-- <li class="py-1">
-                    <a routerLink="/vehicles" class="dropdown-item">View Vehicle</a>
-                </li>
-                <li class="py-1">
-                    <a routerLink="/invoices" class="dropdown-item">View Invoices</a>
-                </li> -->
                 <li class="py-1">
                     <a (click)="accountService.logout()" class="dropdown-item">Log Out</a>
+                    <nav class="my-2 fs-">
+                        <a class="p-2" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a>
+                        <a class="p-2" routerLink="vehicles" routerLinkActive="active">Vehicles</a>
+                        <a class="p-2" routerLink="/customers" routerLinkActive="active">Customers</a>
+                        <a class="p-2" routerLink="/reservations" routerLinkActive="active">Reservations</a>
+                        <a class="p-2" routerLink="/invoices" routerLinkActive="active">Invoices</a>
+                    </nav>
                 </li>
             </ul>
         </div>

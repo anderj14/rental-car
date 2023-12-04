@@ -3,7 +3,6 @@ import { Reservation } from '../shared/models/reservation';
 import { ReservationParams } from '../shared/models/reservationParams';
 import { ReservationService } from '../reservation/reservation.service';
 import { AdminReservationService } from './admin-reservation.service';
-import { forkJoin, map } from 'rxjs';
 
 @Component({
   selector: 'app-admin-reservation',
@@ -51,6 +50,4 @@ export class AdminReservationComponent implements OnInit {
       }
     );
   }
-  
-
 }
