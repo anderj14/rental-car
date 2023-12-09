@@ -24,9 +24,9 @@ export class ReservationComponent implements OnInit {
   insurance!: Insurance[];
   reservationParams = new ReservationParams();
   sortOption = [
-    { name: 'Alphabetical', value: 'reservation' },
-    { name: 'Price: Low To High', value: 'priceAsc' },
-    { name: 'Price: High To Low', value: 'priceDesc' },
+    { name: 'Reservation Number', value: 'reservationNumber' },
+    { name: 'Date: Asc To Desc', value: 'dateAsc' },
+    { name: 'Date: Desc To Asc', value: 'dateDesc' },
   ];
   totalCount = 0;
   currentUser$!: Observable<User | null>;

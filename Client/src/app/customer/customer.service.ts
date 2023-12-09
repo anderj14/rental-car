@@ -23,7 +23,6 @@ export class CustomerService {
     if (customerParams.search) params = params.append('search', customerParams.search);
 
     return this.http.get<Pagination<Customer[]>>(this.baseUrl + 'customers', { params });
-
   }
 
   setCustomerParams(params: CustomerParams) {

@@ -2,7 +2,7 @@
     <div class="form-row">
 <!--  -->
       <div class="form-group col-md-6">
-        <label for="customerName">customer Name</label>
+        <label for="customerName">Customer Name</label>
         <input 
         type="text"
         [ngClass]="{'is-invalid': customerName.invalid && (customerName.dirty || customerName.touched)}"
@@ -47,7 +47,7 @@
         type="text"
         name="phone"
         id="phone"
-        placeholder="phone"
+        placeholder="Phone"
         required
         class="form-control"
         [ngClass]="{'is-invalid': phone.invalid && (phone.dirty || phone.touched)}"
@@ -62,12 +62,12 @@
       </div>
 <!--  -->                   
       <div class="form-group col-md-6">
-        <label for="driverLicense">DriverLicense</label>
+        <label for="driverLicense">Driver License</label>
         <input 
         type="text"
         name="driverLicense"
         id="driverLicense"
-        placeholder="driverLicense"
+        placeholder="Driver License"
         required
         class="form-control"
         [ngClass]="{'is-invalid': driverLicense.invalid && (driverLicense.dirty || driverLicense.touched)}"

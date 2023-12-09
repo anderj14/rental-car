@@ -1,8 +1,8 @@
-<div class="back container">
+<div class="back">
     <i routerLink="/vehicles" class="bi bi-arrow-left"></i>
   </div>
 
-<div class="vehicle-details container" *ngIf="vehicle">
+<div class="vehicle-details" *ngIf="vehicle">
     <div class="info-section">
         <h2>{{ vehicle.brand }} {{ vehicle.model }}</h2>
         <div class="info">
@@ -36,11 +36,5 @@
                 <p>{{ vehicle.status }}</p>
             </div>
         </div>
-
-
-        <!-- <div class="action-buttons">
-            <button class="btn btn-primary">Update</button>
-            <button class="btn btn-danger">Delete</button>
-        </div> -->
     </div>
 </div>

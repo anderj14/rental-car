@@ -7,7 +7,7 @@ namespace API.Errors
 {
     public class ApiResponse
     {
-        public ApiResponse(int statusCode, string message = null)
+        public ApiResponse(int statusCode, string message = null, string message1 = null)
         {
             StatusCode = statusCode;
             Message = message ?? GetStatusCode(statusCode);

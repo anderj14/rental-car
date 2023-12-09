@@ -23,15 +23,13 @@ namespace Core.Specifications
         public int? CustomerId { get; set; }
         public int? ReservationId { get; set; }
 
-        public DateTime? Date { get; set; }
-
         public string? Sort { get; set; }
 
-        private string _search = string.Empty;
+        private string _search;
         public string? Search
         {
             get => _search;
-            set => _search = value?.ToLower() ?? string.Empty;
+            set => _search = value.ToLower();
         }
     }
 }

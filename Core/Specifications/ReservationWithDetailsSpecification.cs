@@ -1,7 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+
 using Core.Entities;
 
 namespace Core.Specifications
@@ -10,7 +7,8 @@ namespace Core.Specifications
     {
         public ReservationWithDetailsSpecification(ReservationSpecParams reservationSpecParams)
         : base(x =>
-            (string.IsNullOrEmpty(reservationSpecParams.Search) || x.Customer.CustomerName.ToLower().Contains(reservationSpecParams.Search)) &&
+            string.IsNullOrEmpty(reservationSpecParams.Search) || x.Customer.CustomerName.ToLower().Contains(reservationSpecParams.Search) ||
+            (string.IsNullOrEmpty(reservationSpecParams.Search) || x.ReservationNumber.ToLower().Contains(reservationSpecParams.Search)) &&
             (!reservationSpecParams.CustomerId.HasValue || x.CustomerId == reservationSpecParams.CustomerId) &&
             (!reservationSpecParams.VehicleId.HasValue || x.VehicleId == reservationSpecParams.VehicleId) &&
             (!reservationSpecParams.InsuranceId.HasValue || x.InsuranceId == reservationSpecParams.InsuranceId)
@@ -19,6 +17,7 @@ namespace Core.Specifications
             AddInclude(r => r.Customer);
             AddInclude(r => r.Vehicle);
             AddInclude(r => r.Insurance);
+            AddOrderBy(x => x.ReservationNumber);
 
             ApplyPaging(reservationSpecParams.PageSize * (reservationSpecParams.PageIndex - 1), reservationSpecParams.PageSize);
 
@@ -26,9 +25,14 @@ namespace Core.Specifications
             {
                 switch (reservationSpecParams.Sort)
                 {
-                    // Agrega más casos según sea necesario
+                    case "dateAsc":
+                        AddOrderBy(p => p.StartDate);
+                        break;
+                    case "dateDesc":
+                        AddOrderByDescending(p => p.StartDate);
+                        break;
                     default:
-                        AddOrderBy(r => r.StartDate);
+                        AddOrderBy(r => r.ReservationNumber);
                         break;
                 }
             }

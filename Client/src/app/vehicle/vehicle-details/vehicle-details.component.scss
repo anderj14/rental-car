@@ -1,3 +1,7 @@
+.back {
+  margin-left: 20px;
+}
+
 i {
   font-size: 35px;
   color: #303D50;
@@ -10,27 +14,17 @@ i {
   }
 }
 
-
 .vehicle-details {
   display: flex;
-  justify-content: space-around;
-  padding: 20px;
+  // justify-content: space-around;
+  padding: 50px;
   border: 1px solid #ddd;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   background-color: #fff;
-
-  .image-section {
-    max-width: 40%;
-
-    img {
-      width: 100%;
-      border-radius: 8px;
-    }
-  }
+  margin: 20px;
 
   .info-section {
-    max-width: 55%;
     padding-left: 20px;
 
     .info {
@@ -38,7 +32,7 @@ i {
     }
 
     h2 {
-      font-size: 24px;
+      font-size: 28px;
       margin-bottom: 10px;
     }
 

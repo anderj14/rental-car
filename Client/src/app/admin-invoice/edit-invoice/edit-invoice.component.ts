@@ -63,7 +63,6 @@ export class EditInvoiceComponent implements OnInit {
     })
   }
 
-
   getReservations() {
     return this.invoiceService.getReservations();
   }

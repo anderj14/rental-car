@@ -58,17 +58,6 @@
         </div>
 
         <div class="box">
-            <h5 class="">Models</h5>
-            <ul class="">
-                <li class="" *ngFor="let model of models">
-                    <input type="checkbox" [checked]="model.id === vehicleParams.modelId" [value]="model.id"
-                        (change)="onModelSelected(model.id)">
-                    {{ model.modelName }}
-                </li>
-            </ul>
-        </div>
-
-        <div class="box">
             <h5 class="">Fuels</h5>
             <ul class="">
                 <li class="" *ngFor="let fuel of fuels">

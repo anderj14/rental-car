@@ -5,6 +5,7 @@
             <input type="datetime"
             name="date"
             id="date"
+            placeholder="YYYY-MM-DD"
             required
             class="form-control"
             [ngClass]="{'is-invalid': date.invalid && (date.dirty || date.touched)}"
@@ -52,6 +53,7 @@
             name="paymentType"
             id="paymentType"
             required
+            placeholder="Cash - Debit - Credit"
             class="form-control"
             [ngClass]="{'is-invalid': paymentType.invalid && (paymentType.dirty || paymentType.touched)}"
             #paymentType="ngModel"

@@ -4,20 +4,14 @@
             <h1>Customers</h1>
             <div class="search">
                 <input (keyup.enter)="onSearch()" type="text" placeholder="Search" #search>
-                <!-- <button (click)="onSearch()" class="">Search</button> -->
-                <!-- <button (click)="onReset()" class="">Reset</button> -->
             </div>
         </div>
 
         <div class="box-filter">
 
             <div class="select">
-                <!-- <h5 class="">Sort</h5>
-                <select class="" (change)="onSortSelected($event)">
-                </select> -->
             </div>
             <div class="actions">
-                <!-- <button *ngIf="(isAdmin$ | async)" routerLink="/admin" class="new-vehicle">Admin Vehicle</button> -->
                 <button *ngIf="(isAdmin$ | async)" routerLink="/admin-customer" class="new-vehicle">Admin Customer</button>
             </div>
 

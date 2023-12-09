@@ -56,7 +56,6 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<ReservationDto>> CreateReservation(CreateReservationDto createReservation)
         {
             var reservation = _mapper.Map<CreateReservationDto, Reservation>(createReservation);
@@ -71,7 +70,6 @@ namespace API.Controllers
         }
 
         [HttpPut("{id}")]
-        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<ReservationDto>> UpdateReservation(int id, CreateReservationDto updateReservation)
         {
             var reservation = await _unitOfWork.Repository<Reservation>().GetByIdAsync(id);

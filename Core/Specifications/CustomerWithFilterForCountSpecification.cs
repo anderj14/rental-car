@@ -7,8 +7,8 @@ namespace Core.Specifications
     {
         public CustomerWithFilterForCountSpecification(CustomerSpecParams customerSpecParams)
         : base(x =>
-        (string.IsNullOrEmpty(customerSpecParams.Search) || x.CustomerName.ToLower().Contains
-                (customerSpecParams.Search))
+        string.IsNullOrEmpty(customerSpecParams.Search) || x.CustomerName.ToLower().Contains
+                (customerSpecParams.Search)
         )
         {
         }

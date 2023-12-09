@@ -42,6 +42,8 @@ namespace API.Controllers
         }
 
         [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
         public async Task<ActionResult<InvoiceDto>> GetInvoice(int id)
         {
             var spec = new InvoiceWithDetailsSpecification(id);
@@ -54,7 +56,6 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<InvoiceDto>> CreateInvoice(CreateInvoiceDto createInvoice)
         {
             var invoice = _mapper.Map<CreateInvoiceDto, Invoice>(createInvoice);
@@ -69,7 +70,6 @@ namespace API.Controllers
         }
 
         [HttpPut("{id}")]
-        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<InvoiceDto>> UpdateInvoice(int id, CreateInvoiceDto updateInvoice)
         {
             var invoice = await _unitOfWork.Repository<Invoice>().GetByIdAsync(id);

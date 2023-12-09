@@ -37,7 +37,6 @@ namespace API.Controllers
             var data = _mapper.Map<ModelDto>(model);
 
             return Ok(data);
-
         }
     }
 }

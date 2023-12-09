@@ -163,7 +163,7 @@ export class VehicleComponent implements OnInit {
     this.showPopup = false;
   }
   stopPropagation(event: Event) {
-    event.stopPropagation(); // Evitar que el clic llegue al popup-overlay
+    event.stopPropagation();
   }
 
   getStatusClass(status: string): string {

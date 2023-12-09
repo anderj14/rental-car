@@ -4,9 +4,6 @@ import { AccountService } from '../../account/account.service';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-// @Injectable({
-//   providedIn: 'root'
-// })
 export const AdminGuard = (): Observable<boolean> => {
   const accountService = inject(AccountService);
   const router = inject(Router);

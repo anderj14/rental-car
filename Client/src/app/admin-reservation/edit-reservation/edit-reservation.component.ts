@@ -17,11 +17,7 @@ export class EditReservationComponent implements OnInit {
 
   reservation!: Reservation;
   reservationFormValues!: ReservationFormValues;
-  // customers!: Customer[];
-  // vehicles!: Vehicle[];
-  // insurances!: Insurance[];
 
-  // En la declaración de la clase
   customers: Customer[] = [];
   vehicles: Vehicle[] = [];
   insurances: Insurance[] = [];

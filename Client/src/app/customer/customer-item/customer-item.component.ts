@@ -8,5 +8,4 @@ import { Customer } from 'src/app/shared/models/customers';
 })
 export class CustomerItemComponent {
   @Input() customers!: Customer[];
-
 }

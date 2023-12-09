@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Core.Specifications
 {
@@ -29,7 +25,7 @@ namespace Core.Specifications
         public string? Search
         {
             get => _search;
-            set => _search = value?.ToLower() ?? string.Empty;
+            set => _search = value.ToLower();
         }
     }
 }

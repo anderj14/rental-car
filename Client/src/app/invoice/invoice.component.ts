@@ -18,10 +18,11 @@ export class InvoiceComponent implements OnInit {
   invoices!: Invoice[];
   invoiceParams = new InvoiceParams();
   sortOption = [
-    { name: 'Alphabetical', value: 'invoice' },
-    { name: 'Price: Low To High', value: 'priceAsc' },
-    { name: 'Price: High To Low', value: 'priceDesc' },
+    { name: 'Customer Name', value: 'customerName' },
+    { name: 'Date: Asc To Desc', value: 'dateAsc' },
+    { name: 'Date: Desc To Asc', value: 'dateDesc' },
   ];
+
   totalCount = 0;
   
   currentUser$!: Observable<User | null>;
@@ -73,5 +74,4 @@ export class InvoiceComponent implements OnInit {
     this.invoiceParams = new InvoiceParams();
     this.getInvoices();
   }
-
 }

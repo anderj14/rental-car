@@ -47,5 +47,4 @@ export class AdminVehicleComponent implements OnInit {
       this.totalCount--;
     });
   }
-
 }

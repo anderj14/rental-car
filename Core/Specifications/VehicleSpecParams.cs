@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Core.Specifications
 {
@@ -22,6 +18,7 @@ namespace Core.Specifications
         public int? StatusId { get; set; }
         public int? FuelId { get; set; }
         public int? VehicleTypeId { get; set; }
+        
         public string? Sort { get; set; }
 
         private string _search;

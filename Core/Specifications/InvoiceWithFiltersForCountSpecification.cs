@@ -10,7 +10,8 @@ namespace Core.Specifications
     {
         public InvoiceWithFiltersForCountSpecification(InvoiceSpecParams invoiceSpecParams)
                     : base(x =>
-                (string.IsNullOrEmpty(invoiceSpecParams.Search) || x.Customer.CustomerName.ToLower().Contains(invoiceSpecParams.Search)) &&
+                string.IsNullOrEmpty(invoiceSpecParams.Search) || x.Customer.CustomerName.ToLower().Contains(invoiceSpecParams.Search) ||
+                (string.IsNullOrEmpty(invoiceSpecParams.Search) || x.Reservation.ReservationNumber.ToLower().Contains(invoiceSpecParams.Search)) &&
                 (!invoiceSpecParams.CustomerId.HasValue || x.CustomerId == invoiceSpecParams.CustomerId) &&
                 (!invoiceSpecParams.ReservationId.HasValue || x.ReservationId == invoiceSpecParams.ReservationId)
             )

@@ -27,10 +27,12 @@ namespace API.Controllers
         public async Task<ActionResult<Pagination<CustomerDto>>> GetCustomers(
             [FromQuery] CustomerSpecParams customerSpecParams)
         {
+            var spec = new CustomerWithDetailsSpecification(customerSpecParams);
+
             var countSpec = new CustomerWithFilterForCountSpecification(customerSpecParams);
 
             var totalItems = await _unitOfWork.Repository<Customer>().CountAsync(countSpec);
-            var models = await _unitOfWork.Repository<Customer>().ListAllAsync();
+            var models = await _unitOfWork.Repository<Customer>().ListAsync(spec);
 
             var data = _mapper.Map<IReadOnlyList<CustomerDto>>(models);
 

@@ -11,11 +11,8 @@
         margin-bottom: 20px;
     }
 
-
     .table-wrapper {
         overflow-X: scroll;
-
-
     }
 
     .title {
@@ -29,18 +26,15 @@
         .search {
             display: flex;
             gap: 10px;
-            // margin-top: 30px;
 
             @media (max-width: 690px) {
                 display: flex;
-                // align-items: start;
                 flex-direction: column;
             }
 
             input {
                 border-radius: 5px;
                 border: 1px solid rgba(0, 0, 0, 0.280);
-                // width: 100px;
                 padding: 3px 10px;
             }
 
@@ -53,17 +47,12 @@
 
                 &:hover {
                     background-color: #3f92c6;
-
                 }
-
-                // cursor: pointer;
             }
         }
     }
 
-
     .box-filter {
-        // background-color: red;
         margin-top: 35px;
         margin-bottom: 15px;
         display: flex;
@@ -73,7 +62,6 @@
 
         @media (max-width: 1100px) {
             display: flex;
-            // align-items: start;
             flex-direction: column;
             columns: 1;
         }
@@ -102,7 +90,6 @@
                 border-radius: 5px;
                 padding: 5px 12px;
                 margin-left: 10px;
-
             }
 
             button.filter {
@@ -114,7 +101,6 @@
                     color: #FFFFFF;
                     background-color: #2F7F81;
                     border: none;
-
                 }
             }
 
@@ -126,7 +112,6 @@
                     background-color: #ffffff;
                     color: #000000;
                     border: 1px solid #011;
-
                 }
             }
         }
@@ -134,10 +119,6 @@
 
     }
 }
-
-
-
-
 
 .popup-overlay {
     position: fixed;
@@ -162,7 +143,6 @@
 
         display: flex;
         gap: 30px;
-        // flex-direction: column;
 
         .box {
             margin-bottom: 20px;

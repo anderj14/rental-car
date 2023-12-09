@@ -10,6 +10,12 @@
     <div class="box-filter">
 
       <div class="select">
+        <h5 class="">Sort</h5>
+        <select class="" (change)="onSortSelected($event)">
+            <option *ngFor="let sort of sortOption" [value]="sort.value">
+                {{sort.name}}
+            </option>
+        </select>
       </div>
       <div class="actions">
         <button *ngIf="(isAdmin$ | async)" routerLink="/admin-reservation" class="new-vehicle">Add New Reservation</button>
@@ -31,7 +37,5 @@
           (pageChanged)="onPageChanged($event)"></app-pager>
       </div>
     </div>
-
   </div>
-
 </section>

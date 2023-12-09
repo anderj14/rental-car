@@ -1,0 +1,31 @@
+.form-row {
+    .boxes {
+        display: flex;
+        gap: 50px;
+    }
+
+    .section-3 {
+        display: flex;
+        flex-direction: row;
+        width: 50%;
+        gap: 10px;
+        margin-top: 30px;
+
+        @media (max-width: 780px) {
+            display: flex;
+            flex-direction: column;
+            columns: 1;
+        }
+    }
+}
+
+input {
+    width: 15em;
+    margin-top: 3px;
+    margin-bottom: 10px;
+}
+
+select {
+    margin-top: 3px;
+    margin-bottom: 10px;
+}
