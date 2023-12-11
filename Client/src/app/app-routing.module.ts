@@ -46,19 +46,19 @@ const routes: Routes = [
   }, 
   {
     path: 'admin-customer',
-    canActivate: [AuthGuard, AdminGuard],
+    canActivate: [AuthGuard],
     loadChildren: () => import('./admin-customer/admin-customer.module').then(m => m.AdminCustomerModule),
     data: { breadcrumb: 'Admin' }
   },
   {
     path: 'admin-reservation',
-    canActivate: [AuthGuard, AdminGuard],
+    canActivate: [AuthGuard],
     loadChildren: () => import('./admin-reservation/admin-reservation.module').then(m => m.AdminReservationModule),
     data: { breadcrumb: 'Admin Reservation' }
   },
   {
     path: 'admin-invoice',
-    canActivate: [AuthGuard, AdminGuard],
+    canActivate: [AuthGuard],
     loadChildren: () => import('./admin-invoice/admin-invoice.module').then(m => m.AdminInvoiceModule),
     data: { breadcrumb: 'Admin Invoice' }
   },

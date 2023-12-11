@@ -19,6 +19,6 @@ export class AdminCustomerService {
   }
 
   deleteCustomer(id: number) {
-    return this.http.delete(this.baseUrl + 'customers/' + id);
+    return this.http.delete(this.baseUrl + 'customers/' + id, { responseType: 'text' });
   }
 }

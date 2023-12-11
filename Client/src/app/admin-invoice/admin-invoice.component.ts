@@ -3,6 +3,9 @@ import { Invoice } from '../shared/models/invoice';
 import { InvoiceParams } from '../shared/models/invoiceParams';
 import { InvoiceService } from '../invoice/invoice.service';
 import { AdminInvoiceService } from './admin-invoice.service';
+import { User } from '../shared/models/user';
+import { Observable } from 'rxjs';
+import { AccountService } from '../account/account.service';
 
 @Component({
   selector: 'app-admin-invoice',
@@ -14,13 +17,19 @@ export class AdminInvoiceComponent implements OnInit {
   invoices!: Invoice[];
   totalCount!: number;
   invoiceParams!: InvoiceParams;
-
+  currentUser$!: Observable<User | null>;
+  isAdmin$!: Observable<boolean>;
+  
   constructor(private invoiceService: InvoiceService,
-    private adminInvoiceService: AdminInvoiceService) {
+    private adminInvoiceService: AdminInvoiceService, 
+    public accountService: AccountService) {
     this.invoiceParams = this.invoiceService.getInvoiceParams();
   }
 
   ngOnInit(): void {
+    this.currentUser$ = this.accountService.currentUser$;
+    this.isAdmin$ = this.accountService.isAdmin$;
+
     this.getInvoice();
   }
 

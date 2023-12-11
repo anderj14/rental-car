@@ -53,7 +53,6 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<CustomerDto>> CreateCustomer(CreateCustomerDto createCustomer)
         {
             var customer = _mapper.Map<CreateCustomerDto, Customer>(createCustomer);
@@ -68,7 +67,6 @@ namespace API.Controllers
         
 
         [HttpPut("{id}")]
-        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<CustomerDto>> UpdateCustomer(int id, CreateCustomerDto updateCustomer)
         {
             var customer = await _unitOfWork.Repository<Customer>().GetByIdAsync(id);

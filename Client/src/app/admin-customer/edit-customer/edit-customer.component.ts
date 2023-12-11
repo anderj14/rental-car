@@ -21,7 +21,7 @@ export class EditCustomerComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.route.snapshot.url[0].path == 'edit-customer') {
+    if (this.route.snapshot.url[0].path == 'edit') {
       this.loadCustomer();
     }
   }

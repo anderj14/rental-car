@@ -6,8 +6,8 @@ import { EditCustomerComponent } from './edit-customer/edit-customer.component';
 
 const routes: Routes = [
   { path: '', component: AdminCustomerComponent },
-  { path: 'create-customer', component: EditCustomerComponent, data: { breadcrumb: 'Create' } },
-  { path: 'edit-customer/:id', component: EditCustomerComponent, data: { breadcrumb: 'Edit' } }
+  { path: 'create', component: EditCustomerComponent, data: { breadcrumb: 'Create' } },
+  { path: 'edit/:id', component: EditCustomerComponent, data: { breadcrumb: 'Edit' } }
 ]
 
 @NgModule({

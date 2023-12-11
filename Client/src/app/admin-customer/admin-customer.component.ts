@@ -3,6 +3,9 @@ import { Customer } from '../shared/models/customers';
 import { CustomerParams } from '../shared/models/customerParams';
 import { CustomerService } from '../customer/customer.service';
 import { AdminCustomerService } from './admin-customer.service';
+import { AccountService } from '../account/account.service';
+import { User } from '../shared/models/user';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-admin-customer',
@@ -13,12 +16,19 @@ export class AdminCustomerComponent implements OnInit {
   customers!: Customer[];
   totalCount!: number;
   customerParams!: CustomerParams;
+  currentUser$!: Observable<User | null>;
+  isAdmin$!: Observable<boolean>;
 
-  constructor(private customerService: CustomerService, private adminService: AdminCustomerService) {
+  constructor(private customerService: CustomerService, 
+    private adminCustomerService: AdminCustomerService, 
+    public accountService: AccountService) {
     this.customerParams = this.customerService.getCustomerParams();
   }
 
   ngOnInit(): void {
+    this.currentUser$ = this.accountService.currentUser$;
+    this.isAdmin$ = this.accountService.isAdmin$;
+
     this.getCustomers();
   }
   getCustomers() {
@@ -41,9 +51,11 @@ export class AdminCustomerComponent implements OnInit {
   }
 
   deleteCustomer(id: number) {
-    this.adminService.deleteCustomer(id).subscribe((response: any) => {
-      this.customers.splice(this.customers.findIndex(p => p.id === id), 1);
-      this.totalCount--;
-    });
+    this.adminCustomerService.deleteCustomer(id).subscribe(
+      () => {
+        this.customers = this.customers.filter(p => p.id !== id);
+        this.totalCount--;
+      }
+    );
   }
 }

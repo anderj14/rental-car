@@ -23,7 +23,7 @@
                         <th>Driver License</th>
                         <th>Address</th>
                         <th>Edit</th>
-                        <th>Delete</th>
+                        <th *ngIf="(isAdmin$ | async)" >Delete</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -33,8 +33,8 @@
                         <td>{{ customer.phone }}</td>
                         <td>{{ customer.driverLicense }}</td>
                         <td>{{ customer.address }}</td>
-                        <td><button [routerLink]="['edit-customer', customer.id]">Edit</button></td>
-                        <td><button (click)="deleteCustomer(customer.id)">Delete</button></td>
+                        <td><button [routerLink]="['edit', customer.id]">Edit</button></td>
+                        <td><button *ngIf="(isAdmin$ | async)" (click)="deleteCustomer(customer.id)">Delete</button></td>
                     </tr>
                 </tbody>
             </table>
