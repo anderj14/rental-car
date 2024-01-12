@@ -1,4 +1,5 @@
 # rental-car
+https://github.com/anderj14/rental-car
 
 ## Getting Started
 
@@ -28,6 +29,9 @@ dotnet watch --no-hot-reload
 
 # Run the client (in the Client folder) - Correr el cliente de la applicacion, para esto tiene que estar dentro de la carpeta Client
 ng serve
+
+# Login as Admin (Iniciar sesion como administrador) - email: admin@test.com password: Pa$$w0rd
+# Login as Member User (Iniciar sesion como usuario miembro) - email: andder@test.com password: Pa$$w0rd
 
 ### In case you have problems with the application you can do the following
 ### En caso de que tenga problemas con la aplicacion puede hacer lo siguiente
