@@ -32,6 +32,9 @@ namespace Core.Dtos.VehiclesDtos
 
         [Required]
         public int FuelConsumption { get; set; }
+        
+        [Required]
+        public string Picture { get; set; }
 
         [Required]
         public int BrandId { get; set; }

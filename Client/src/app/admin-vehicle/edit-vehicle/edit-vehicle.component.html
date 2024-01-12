@@ -1,17 +1,13 @@
 
-<section class="vehicle-edit mt-5">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-8">
-        <app-edit-vehicle-form 
-        [vehicle]="vehicleFormValues" 
-        [brands]="brands"
-        [models]="models"
-        [fuels]="fuels"
-        [statuses]="statuses"
-        [vehiclesType]="vehiclesType"
-        ></app-edit-vehicle-form>
-      </div>
-    </div>
+<section class="container">
+  <div class="vehicle-edit">
+    <app-edit-vehicle-form 
+    [vehicle]="vehicleFormValues" 
+    [brands]="brands"
+    [models]="models"
+    [fuels]="fuels"
+    [statuses]="statuses"
+    [vehiclesType]="vehiclesType"
+    ></app-edit-vehicle-form>
   </div>
 </section>

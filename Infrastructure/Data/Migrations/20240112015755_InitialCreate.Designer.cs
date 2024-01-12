@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Data.Migrations
 {
     [DbContext(typeof(RentalContext))]
-    [Migration("20231202021140_InitialCreate")]
+    [Migration("20240112015755_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -239,6 +239,10 @@ namespace Infrastructure.Data.Migrations
 
                     b.Property<int>("Passengers")
                         .HasColumnType("INTEGER");
+
+                    b.Property<string>("Picture")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
                     b.Property<double>("RentalPrice")
                         .HasColumnType("decimal(18,2)");

@@ -129,6 +129,7 @@ namespace Infrastructure.Data.Migrations
                     Color = table.Column<string>(type: "TEXT", nullable: false),
                     RentalPrice = table.Column<double>(type: "decimal(18,2)", nullable: false),
                     FuelConsumption = table.Column<int>(type: "INTEGER", nullable: false),
+                    Picture = table.Column<string>(type: "TEXT", nullable: false),
                     FuelId = table.Column<int>(type: "INTEGER", nullable: false),
                     BrandId = table.Column<int>(type: "INTEGER", nullable: false),
                     ModelId = table.Column<int>(type: "INTEGER", nullable: false),

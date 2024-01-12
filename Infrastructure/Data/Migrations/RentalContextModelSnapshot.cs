@@ -237,6 +237,10 @@ namespace Infrastructure.Data.Migrations
                     b.Property<int>("Passengers")
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("Picture")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.Property<double>("RentalPrice")
                         .HasColumnType("decimal(18,2)");
 

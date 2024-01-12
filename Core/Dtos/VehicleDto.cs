@@ -14,6 +14,7 @@ namespace Core.Dtos
 
         public decimal RentalPrice { get; set; }
         public int FuelConsumption { get; set; }
+        public string Picture { get; set; }
 
         public string Fuel { get; set; }
 

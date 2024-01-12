@@ -13,6 +13,7 @@ namespace Core.Entities
 
         public decimal RentalPrice { get; set; }
         public int FuelConsumption { get; set; }
+        public string Picture { get; set; }
 
         public int FuelId { get; set; }
         public Fuel Fuel { get; set; }

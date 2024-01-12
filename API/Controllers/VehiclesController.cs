@@ -60,6 +60,7 @@ namespace API.Controllers
         public async Task<ActionResult<VehicleDto>> CreateVehicle(CreateVehicleDto createVehicle)
         {
             var vehicle = _mapper.Map<CreateVehicleDto, Vehicle>(createVehicle);
+            vehicle.Picture = "images/vehicles/vehicle.jpg";
 
             _unitOfWork.Repository<Vehicle>().Add(vehicle);
 
@@ -76,6 +77,7 @@ namespace API.Controllers
         public async Task<ActionResult<VehicleDto>> UpdateVehicle(int id, CreateVehicleDto updateVehicle)
         {
             var vehicle = await _unitOfWork.Repository<Vehicle>().GetByIdAsync(id);
+            updateVehicle.Picture = vehicle.Picture;
 
             _mapper.Map(updateVehicle, vehicle);
 

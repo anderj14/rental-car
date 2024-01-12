@@ -62,12 +62,14 @@
                 font-weight: 500;
             }
 
-            tbody tr {
-                background-color: #f3f3f3;
+            tbody {
+                tr {
+                    background-color: #f3f3f3;
 
-                img {
-                    max-width: 70px;
-                    height: 50px;
+                    img {
+                        max-width: 70px;
+                        height: 50px;
+                    }
                 }
             }
 

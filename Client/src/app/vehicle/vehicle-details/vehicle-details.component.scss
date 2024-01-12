@@ -14,9 +14,15 @@ i {
   }
 }
 
-.vehicle-details {
+.section {
   display: flex;
-  // justify-content: space-around;
+  justify-content: center;
+}
+
+.vehicle-details {
+  max-width: 1000px;
+  display: flex;
+  align-items: center;
   padding: 50px;
   border: 1px solid #ddd;
   border-radius: 8px;
@@ -25,10 +31,14 @@ i {
   margin: 20px;
 
   .info-section {
-    padding-left: 20px;
+    margin-right: 30px;
 
     .info {
       display: flex;
+
+      .titles {
+        width: 200px;
+      }
     }
 
     h2 {
@@ -53,13 +63,37 @@ i {
     }
   }
 
-  @media (max-width: 768px) {
+
+
+  .image-section {
+
+    img {
+      width: 100%;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      background-color: #fff;
+      padding: 30px;
+    }
+  }
+
+  @media (max-width: 1070px) {
     flex-direction: column;
+
 
     .image-section,
     .info-section {
       max-width: 100%;
       margin-top: 40px;
+    }
+
+    .image-section {
+      display: flex;
+      justify-content: center;
+
+      img {
+        width: 80%;
+      }
     }
   }
 }

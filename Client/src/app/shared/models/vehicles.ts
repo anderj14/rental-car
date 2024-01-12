@@ -9,6 +9,7 @@ export interface Vehicle {
     color: string
     rentalPrice: number
     fuelConsumption: number
+    picture: string
     brand: string
     model: string
     fuel: string
@@ -26,6 +27,7 @@ export interface IVehicleToCreate {
     color: string
     rentalPrice: number
     fuelConsumption: number
+    picture: string
     brandId: number
     modelId: number
     fuelId: number
@@ -43,6 +45,7 @@ export class VehicleFormValues implements IVehicleToCreate {
     color = '';
     rentalPrice = 0;
     fuelConsumption = 0;
+    picture = '';
     brandId!: number;
     modelId!: number;
     fuelId!: number;

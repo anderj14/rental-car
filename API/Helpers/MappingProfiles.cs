@@ -17,7 +17,8 @@ namespace API.Helpers
             .ForMember(d => d.Brand, o => o.MapFrom(s => s.Brand.BrandName))
             .ForMember(d => d.Model, o => o.MapFrom(s => s.Model.ModelName))
             .ForMember(d => d.Status, o => o.MapFrom(s => s.Status.StatusName))
-            .ForMember(d => d.VehicleType, o => o.MapFrom(s => s.VehicleType.VehicleTypeName));
+            .ForMember(d => d.VehicleType, o => o.MapFrom(s => s.VehicleType.VehicleTypeName))
+            .ForMember(d => d.Picture, o => o.MapFrom<VehicleUrlResolver>());
 
             CreateMap<Fuel, FuelDto>();
             CreateMap<Brand, BrandDto>();
@@ -34,7 +35,7 @@ namespace API.Helpers
             .ForMember(d => d.Customer, o => o.MapFrom(s => s.Customer.CustomerName))
             .ForMember(d => d.Vehicle, o => o.MapFrom(s => s.Vehicle.VehicleName))
             .ForMember(d => d.Insurance, o => o.MapFrom(s => s.Insurance.InsuranceName));
-            
+
             CreateMap<Invoice, InvoiceDto>()
             .ForMember(d => d.Customer, o => o.MapFrom(s => s.Customer.CustomerName))
             .ForMember(d => d.Reservation, o => o.MapFrom(s => s.Reservation.ReservationNumber));
