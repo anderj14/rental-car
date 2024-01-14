@@ -16,12 +16,14 @@ namespace API.Helpers
         public string Resolve(Vehicle source, VehicleDto destination,
         string destMember, ResolutionContext context)
         {
-            if (!string.IsNullOrEmpty(source.Picture))
+            var photo = source.Photos.FirstOrDefault(x => x.IsMain);
+
+            if (photo != null)
             {
-                return _config["ApiUrl"] + source.Picture;
+                return _config["ApiUrl"] + photo.PictureUrl;
             }
 
-            return null;
+            return _config["ApiUrl"] + "images/vehicles/vehicle.jpg";
         }
     }
 }

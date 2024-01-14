@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Data.Migrations
 {
     [DbContext(typeof(RentalContext))]
-    [Migration("20240112015755_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20240113000037_PhotoEntityAdded")]
+    partial class PhotoEntityAdded
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -154,6 +154,36 @@ namespace Infrastructure.Data.Migrations
                     b.ToTable("Models");
                 });
 
+            modelBuilder.Entity("Core.Entities.Photo", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("FileName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsMain")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("PictureUrl")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("VehicleId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("VehicleId");
+
+                    b.ToTable("Photo");
+                });
+
             modelBuilder.Entity("Core.Entities.Reservation", b =>
                 {
                     b.Property<int>("Id")
@@ -239,10 +269,6 @@ namespace Infrastructure.Data.Migrations
 
                     b.Property<int>("Passengers")
                         .HasColumnType("INTEGER");
-
-                    b.Property<string>("Picture")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
 
                     b.Property<double>("RentalPrice")
                         .HasColumnType("decimal(18,2)");
@@ -330,6 +356,17 @@ namespace Infrastructure.Data.Migrations
                     b.Navigation("Brand");
                 });
 
+            modelBuilder.Entity("Core.Entities.Photo", b =>
+                {
+                    b.HasOne("Core.Entities.Vehicle", "Vehicle")
+                        .WithMany("Photos")
+                        .HasForeignKey("VehicleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Vehicle");
+                });
+
             modelBuilder.Entity("Core.Entities.Reservation", b =>
                 {
                     b.HasOne("Core.Entities.Customer", "Customer")
@@ -398,6 +435,11 @@ namespace Infrastructure.Data.Migrations
                     b.Navigation("Status");
 
                     b.Navigation("VehicleType");
+                });
+
+            modelBuilder.Entity("Core.Entities.Vehicle", b =>
+                {
+                    b.Navigation("Photos");
                 });
 #pragma warning restore 612, 618
         }

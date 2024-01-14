@@ -9,7 +9,7 @@ export interface Vehicle {
     color: string
     rentalPrice: number
     fuelConsumption: number
-    picture: string
+    pictureUrl: string
     brand: string
     model: string
     fuel: string

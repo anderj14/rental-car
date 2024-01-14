@@ -20,7 +20,7 @@ namespace Infrastructure.Data.Config
                 .HasForeignKey(r => r.CustomerId);
 
             builder.HasOne(r => r.Vehicle).WithMany()
-                .HasForeignKey(r => r.VehicleId);
+                .HasForeignKey(r => r.VehicleId).IsRequired();
 
             builder.HasOne(i => i.Insurance).WithMany()
                 .HasForeignKey(i => i.InsuranceId);

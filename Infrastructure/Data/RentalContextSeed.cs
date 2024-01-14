@@ -1,7 +1,6 @@
 using System.Reflection;
 using System.Text.Json;
 using Core.Entities;
-using Microsoft.Extensions.Logging;
 
 namespace Infrastructure.Data
 {
@@ -76,15 +75,6 @@ namespace Infrastructure.Data
                 context.Statuses.AddRange(status);
             }
             // 8
-            if (!context.Vehicles.Any())
-            {
-
-                var vehiclesData = File.ReadAllText(path + @"/Data/SeedData/vehicle.json");
-                var vehicles = JsonSerializer.Deserialize<List<Vehicle>>(vehiclesData);
-
-                context.Vehicles.AddRange(vehicles);
-            }
-            // 9
             if (!context.VehicleTypes.Any())
             {
                 var vehicleTypeData = File.ReadAllText(path + @"/Data/SeedData/vehicletype.json");
@@ -92,6 +82,40 @@ namespace Infrastructure.Data
 
                 context.VehicleTypes.AddRange(vehicleType);
             }
+            // 9
+            if (!context.Vehicles.Any())
+            {
+
+                var vehiclesData = File.ReadAllText(path + @"/Data/SeedData/vehicle.json");
+                var vehicles = JsonSerializer.Deserialize<List<VehicleSeedModel>>(vehiclesData);
+
+                foreach (var item in vehicles)
+                {
+                    var pictureFileName = item.PictureUrl.Substring(16);
+                    var vehicle = new Vehicle
+                    {
+                        Id = item.Id,
+                        VehicleName = item.VehicleName,
+                        Year = item.Year,
+                        Vin = item.Vin,
+                        Passengers = item.Passengers,
+                        Transmission = item.Transmission,
+                        Doors = item.Doors,
+                        Color = item.Color,
+                        RentalPrice = item.RentalPrice,
+                        FuelConsumption = item.FuelConsumption,
+                        FuelId = item.FuelId,
+                        BrandId = item.BrandId,
+                        ModelId = item.ModelId,
+                        StatusId = item.StatusId,
+                        VehicleTypeId = item.VehicleTypeId,
+                    };
+                    vehicle.AddPhoto(item.PictureUrl, pictureFileName);
+                    context.Vehicles.Add(vehicle);
+                }
+                await context.SaveChangesAsync();
+            }
+
             if (context.ChangeTracker.HasChanges()) await context.SaveChangesAsync();
         }
     }

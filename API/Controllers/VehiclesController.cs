@@ -15,11 +15,13 @@ namespace API.Controllers
     public class VehiclesController : BaseApiController
     {
         private readonly IMapper _mapper;
+        private readonly IPhotoService _photoService;
         private readonly IUnitOfWork _unitOfWork;
 
-        public VehiclesController(IUnitOfWork unitOfWork, IMapper mapper)
+        public VehiclesController(IUnitOfWork unitOfWork, IMapper mapper, IPhotoService photoService)
         {
             _mapper = mapper;
+            _photoService = photoService;
             _unitOfWork = unitOfWork;
         }
 
@@ -60,7 +62,6 @@ namespace API.Controllers
         public async Task<ActionResult<VehicleDto>> CreateVehicle(CreateVehicleDto createVehicle)
         {
             var vehicle = _mapper.Map<CreateVehicleDto, Vehicle>(createVehicle);
-            vehicle.Picture = "images/vehicles/vehicle.jpg";
 
             _unitOfWork.Repository<Vehicle>().Add(vehicle);
 
@@ -77,7 +78,6 @@ namespace API.Controllers
         public async Task<ActionResult<VehicleDto>> UpdateVehicle(int id, CreateVehicleDto updateVehicle)
         {
             var vehicle = await _unitOfWork.Repository<Vehicle>().GetByIdAsync(id);
-            updateVehicle.Picture = vehicle.Picture;
 
             _mapper.Map(updateVehicle, vehicle);
 
@@ -103,6 +103,85 @@ namespace API.Controllers
             if (result <= 0) return BadRequest(new ApiResponse(400, "Problem deleting vehicle"));
 
             return Ok();
+        }
+
+        [HttpPut("{id}/photo")]
+        [Authorize(Roles = "Admin")]
+        public async Task<ActionResult<VehicleDto>> AddProductPhoto(int id, [FromForm] VehiclePhotoDto photoDto)
+        {
+            var spec = new VehicleWithAllSpecification(id);
+            var vehicle = await _unitOfWork.Repository<Vehicle>().GetEntityWithSpec(spec);
+
+            if (photoDto.Photo.Length > 0)
+            {
+                var photo = await _photoService.SaveToDiskAsync(photoDto.Photo);
+
+                if (photo != null)
+                {
+                    vehicle.AddPhoto(photo.PictureUrl, photo.FileName);
+
+                    _unitOfWork.Repository<Vehicle>().Update(vehicle);
+
+                    var result = await _unitOfWork.Complete();
+
+                    if (result <= 0) return BadRequest(new ApiResponse(400, "Problem adding photo vehicle"));
+                }
+                else
+                {
+                    return BadRequest(new ApiResponse(400, "problem saving photo to disk"));
+                }
+            }
+
+            return _mapper.Map<Vehicle, VehicleDto>(vehicle);
+        }
+
+        [HttpDelete("{id}/photo/{photoId}")]
+        [Authorize(Roles = "Admin")]
+        public async Task<ActionResult> DeleteVehiclePhoto(int id, int photoId)
+        {
+            var spec = new VehicleWithAllSpecification(id);
+            var vehicle = await _unitOfWork.Repository<Vehicle>().GetEntityWithSpec(spec);
+
+            var photo = vehicle.Photos.SingleOrDefault(x => x.Id == photoId);
+
+            if (photo != null)
+            {
+                if (photo.IsMain) return BadRequest(new ApiResponse(400, "You cannot delete the main photo"));
+
+                _photoService.DeleteFromDisk(photo);
+            }
+            else
+            {
+                return BadRequest(new ApiResponse(400, "PHoto does not exist"));
+            }
+
+            vehicle.RemovePhoto(photoId);
+            _unitOfWork.Repository<Vehicle>().Update(vehicle);
+            var result = await _unitOfWork.Complete();
+
+            if (result <= 0) return BadRequest(new ApiResponse(400, "Problem adding photo product"));
+
+            return Ok();
+        }
+
+        [HttpPost("{id}/photo/{photoId}")]
+        [Authorize(Roles = "Admin")]
+        public async Task<ActionResult<VehicleDto>> SetMainPhoto(int id, int photoId)
+        {
+            var spec = new VehicleWithAllSpecification(id);
+            var vehicle = await _unitOfWork.Repository<Vehicle>().GetEntityWithSpec(spec);
+
+            if(vehicle.Photos.All(x => x.Id != photoId)) return NotFound();
+
+            vehicle.SetMainPhoto(photoId);
+
+            _unitOfWork.Repository<Vehicle>().Update(vehicle);
+
+            var result = await _unitOfWork.Complete();
+
+            if(result <= 0) return BadRequest(new ApiResponse(400, "Problem adding photo vehicle"));
+
+            return _mapper.Map<Vehicle, VehicleDto>(vehicle);
         }
     }
 }

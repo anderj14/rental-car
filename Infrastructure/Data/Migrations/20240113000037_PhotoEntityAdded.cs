@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Infrastructure.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class PhotoEntityAdded : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -129,7 +129,6 @@ namespace Infrastructure.Data.Migrations
                     Color = table.Column<string>(type: "TEXT", nullable: false),
                     RentalPrice = table.Column<double>(type: "decimal(18,2)", nullable: false),
                     FuelConsumption = table.Column<int>(type: "INTEGER", nullable: false),
-                    Picture = table.Column<string>(type: "TEXT", nullable: false),
                     FuelId = table.Column<int>(type: "INTEGER", nullable: false),
                     BrandId = table.Column<int>(type: "INTEGER", nullable: false),
                     ModelId = table.Column<int>(type: "INTEGER", nullable: false),
@@ -167,6 +166,29 @@ namespace Infrastructure.Data.Migrations
                         name: "FK_Vehicles_VehicleTypes_VehicleTypeId",
                         column: x => x.VehicleTypeId,
                         principalTable: "VehicleTypes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Photo",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    PictureUrl = table.Column<string>(type: "TEXT", nullable: false),
+                    FileName = table.Column<string>(type: "TEXT", nullable: false),
+                    IsMain = table.Column<bool>(type: "INTEGER", nullable: false),
+                    VehicleId = table.Column<int>(type: "INTEGER", nullable: false),
+                    ProductId = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Photo", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Photo_Vehicles_VehicleId",
+                        column: x => x.VehicleId,
+                        principalTable: "Vehicles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -254,6 +276,11 @@ namespace Infrastructure.Data.Migrations
                 column: "BrandId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Photo_VehicleId",
+                table: "Photo",
+                column: "VehicleId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Reservations_CustomerId",
                 table: "Reservations",
                 column: "CustomerId");
@@ -299,6 +326,9 @@ namespace Infrastructure.Data.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Invoices");
+
+            migrationBuilder.DropTable(
+                name: "Photo");
 
             migrationBuilder.DropTable(
                 name: "Reservations");

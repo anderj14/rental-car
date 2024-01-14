@@ -22,11 +22,14 @@ namespace API.Extensions
             {
                 opt.UseSqlite(config.GetConnectionString("DefaultConnection"));
             });
+            services.AddScoped<IPhotoService, PhotoService>();
+
             services.AddScoped<ITokenService, TokenService>(); // Identity
 
             services.AddScoped<IUnitOfWork, UnitOfWork>(); // unit of work
 
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             // Message for validation error

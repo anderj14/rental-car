@@ -18,7 +18,7 @@ namespace API.Helpers
             .ForMember(d => d.Model, o => o.MapFrom(s => s.Model.ModelName))
             .ForMember(d => d.Status, o => o.MapFrom(s => s.Status.StatusName))
             .ForMember(d => d.VehicleType, o => o.MapFrom(s => s.VehicleType.VehicleTypeName))
-            .ForMember(d => d.Picture, o => o.MapFrom<VehicleUrlResolver>());
+            .ForMember(d => d.PictureUrl, o => o.MapFrom<VehicleUrlResolver>());
 
             CreateMap<Fuel, FuelDto>();
             CreateMap<Brand, BrandDto>();
@@ -47,6 +47,10 @@ namespace API.Helpers
             CreateMap<CreateCustomerDto, Customer>();
             CreateMap<CreateReservationDto, Reservation>();
             CreateMap<CreateInvoiceDto, Invoice>();
+
+            CreateMap<Photo, PhotoDto>()
+                    .ForMember(d => d.PictureUrl,
+                        o => o.MapFrom<PhotoUrlResolver>());
         }
     }
 }

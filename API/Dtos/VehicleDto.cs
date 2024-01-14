@@ -11,10 +11,9 @@ namespace Core.Dtos
         public string Transmission { get; set; }
         public int Doors { get; set; }
         public string Color { get; set; }
-
         public decimal RentalPrice { get; set; }
         public int FuelConsumption { get; set; }
-        public string Picture { get; set; }
+        public string PictureUrl { get; set; }
 
         public string Fuel { get; set; }
 
@@ -25,5 +24,7 @@ namespace Core.Dtos
         public string Status { get; set; }
 
         public string VehicleType { get; set; }
+
+        public IEnumerable<PhotoDto> Photos { get; set; }
     }
 }

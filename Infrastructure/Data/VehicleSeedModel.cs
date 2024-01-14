@@ -1,54 +1,28 @@
 
-using System.ComponentModel.DataAnnotations;
-
-namespace Core.Dtos.VehiclesDtos
+namespace Infrastructure.Data
 {
-    public class CreateVehicleDto
+    public class VehicleSeedModel
     {
-
-        [Required]
+        public int Id { get; set; }
         public string VehicleName { get; set; }
-
-        [Required]
         public int Year { get; set; }
-
-        [Required]
         public string Vin { get; set; }
-
-        [Required]
         public int Passengers { get; set; }
-
-        [Required]
         public string Transmission { get; set; }
-
-        [Required]
         public int Doors { get; set; }
-
-        [Required]
         public string Color { get; set; }
-
-        [Required]
         public decimal RentalPrice { get; set; }
-
-        [Required]
         public int FuelConsumption { get; set; }
-        
-        [Required]
-        public string Picture { get; set; }
+        public string PictureUrl { get; set; }
 
-        [Required]
-        public int BrandId { get; set; }
-
-        [Required]
-        public int ModelId { get; set; }
-
-        [Required]
         public int FuelId { get; set; }
 
-        [Required]
+        public int BrandId { get; set; }
+
+        public int ModelId { get; set; }
+
         public int StatusId { get; set; }
 
-        [Required]
         public int VehicleTypeId { get; set; }
     }
 }

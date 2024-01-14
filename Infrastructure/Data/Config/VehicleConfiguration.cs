@@ -18,7 +18,7 @@ namespace Infrastructure.Data.Config
             builder.Property(v => v.Doors).IsRequired();
             builder.Property(v => v.FuelConsumption).IsRequired();
             builder.Property(v => v.RentalPrice).IsRequired().HasColumnType("decimal(18,2)");;
-            builder.Property(v => v.Picture).IsRequired();
+            // builder.Property(v => v.Picture).IsRequired();
 
             builder.HasOne(i => i.Brand).WithMany()
                 .HasForeignKey(i => i.BrandId);

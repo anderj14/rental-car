@@ -33,7 +33,7 @@
                 <tbody>
                     <tr *ngFor="let vehicle of vehicles">
                         <td class="">
-                            <img src="{{vehicle.picture || '/assets/images/placeholder.png'}}" alt="{{vehicle.vehicleName}}" class="img-fluid" style="max-height: 50px">
+                            <img src="{{vehicle.pictureUrl || '/assets/images/placeholder.png'}}" alt="{{vehicle.vehicleName}}" class="img-fluid" style="max-height: 50px">
                         </td>
                         <td>{{ vehicle.brand }}</td>
                         <td>{{ vehicle.model }}</td>

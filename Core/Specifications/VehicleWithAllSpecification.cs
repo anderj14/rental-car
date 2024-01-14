@@ -21,8 +21,9 @@ namespace Core.Specifications
             AddInclude(v => v.Fuel);
             AddInclude(v => v.Status);
             AddInclude(v => v.VehicleType);
+            AddInclude(x => x.Photos);
             AddOrderBy(x => x.VehicleName);
-            
+
             ApplyPaging(vehicleSpecParams.PageSize * (vehicleSpecParams.PageIndex - 1),
             vehicleSpecParams.PageSize);
 
@@ -50,6 +51,7 @@ namespace Core.Specifications
             AddInclude(v => v.Fuel);
             AddInclude(v => v.Status);
             AddInclude(v => v.VehicleType);
+            AddInclude(x => x.Photos);
         }
     }
 }
