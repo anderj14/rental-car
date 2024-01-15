@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Vehicle } from 'src/app/shared/models/vehicles';
+import { IVehicle } from 'src/app/shared/models/vehicles';
 
 @Component({
   selector: 'app-vehicle-item',
@@ -7,7 +7,7 @@ import { Vehicle } from 'src/app/shared/models/vehicles';
   styleUrls: ['./vehicle-item.component.scss']
 })
 export class VehicleItemComponent {
-  @Input() vehicles!: Vehicle[];
+  @Input() vehicles!: IVehicle[];
   getStatusClass(status: string): string {
     const lowercaseStatus = status.toLowerCase();
   

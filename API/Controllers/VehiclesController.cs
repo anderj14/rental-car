@@ -96,6 +96,14 @@ namespace API.Controllers
         {
             var vehicle = await _unitOfWork.Repository<Vehicle>().GetByIdAsync(id);
 
+            foreach (var photo in vehicle.Photos)
+            {
+                if(photo.Id > 18)
+                {
+                    _photoService.DeleteFromDisk(photo);
+                }
+            }
+
             _unitOfWork.Repository<Vehicle>().Delete(vehicle);
 
             var result = await _unitOfWork.Complete();

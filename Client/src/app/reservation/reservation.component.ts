@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 import { User } from '../shared/models/user';
 import { AccountService } from '../account/account.service';
 import { Customer } from '../shared/models/customers';
-import { Vehicle } from '../shared/models/vehicles';
+import { IVehicle } from '../shared/models/vehicles';
 import { Insurance } from '../shared/models/insurance';
 
 @Component({
@@ -20,7 +20,7 @@ export class ReservationComponent implements OnInit {
 
   reservations!: Reservation[];
   customers!: Customer[];
-  vehicle!: Vehicle[];
+  vehicle!: IVehicle[];
   insurance!: Insurance[];
   reservationParams = new ReservationParams();
   sortOption = [

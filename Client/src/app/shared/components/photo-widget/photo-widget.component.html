@@ -1,0 +1,17 @@
+<div class="row">
+    <div class="col-12">
+        <div class="custom-dropzone" ngx-dropzone (change)="onSelect($event)">
+            <ngx-dropzone-label>
+                <i class="fa fa-upload fa-4x"></i>
+                <h4>Drop image here</h4>
+            </ngx-dropzone-label>
+        </div>
+    </div>
+</div>
+<div class="row mt-3" *ngIf="files.length > 0">
+    <div class="col-12">
+        <h3>Preview & Upload</h3>
+        <img [src]="croppedImage" class="img-fluid">
+        <button class="btn-block btn-primary" (click)="onUpload()">Upload Image</button>
+    </div>
+</div>

@@ -8,7 +8,11 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TextInputComponent } from './components/text-input/text-input.component';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
 import { RouterModule } from '@angular/router';
-
+import { NgxGalleryModule } from '@kolkov/ngx-gallery';
+import { TabsModule } from 'ngx-bootstrap/tabs';
+import { NgxDropzoneModule } from 'ngx-dropzone';
+import { ImageCropperModule } from 'ngx-image-cropper';
+import { PhotoWidgetComponent } from './components/photo-widget/photo-widget.component';
 
 
 @NgModule({
@@ -16,6 +20,7 @@ import { RouterModule } from '@angular/router';
     PagerComponent,
     PagingHeaderComponent,
     TextInputComponent,
+    PhotoWidgetComponent
   ],
   imports: [
     CommonModule,
@@ -26,7 +31,12 @@ import { RouterModule } from '@angular/router';
     CurrencyMaskModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule
+    RouterModule,
+    NgxGalleryModule,
+    TabsModule.forRoot(),
+    NgxDropzoneModule,
+    ImageCropperModule,
+
   ],
   exports: [
     PagerComponent,
@@ -37,7 +47,12 @@ import { RouterModule } from '@angular/router';
     CurrencyMaskModule,
     FormsModule,
     ReactiveFormsModule,
-    TextInputComponent
+    TextInputComponent,
+    NgxGalleryModule,
+    TabsModule,
+    NgxDropzoneModule,
+    ImageCropperModule,
+    PhotoWidgetComponent
   ]
 })
 export class SharedModule { }

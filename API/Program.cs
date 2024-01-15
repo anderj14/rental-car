@@ -5,6 +5,7 @@ using Infrastructure.Data;
 using Infrastructure.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -34,6 +35,12 @@ app.UseSwaggerDocumentation(); //Swagger extensions
 
 // For the pics
 app.UseStaticFiles();
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(
+        Path.Combine(Directory.GetCurrentDirectory(), "Content")),
+    RequestPath = "/Content"
+});
 
 app.UseCors("CorsPolicy");
 
@@ -41,6 +48,7 @@ app.UseAuthentication(); // Identity
 app.UseAuthorization();
 
 app.MapControllers();
+app.MapFallbackToController("Index", "FallBack");
 
 // For migrate the data
 using var scope = app.Services.CreateScope();

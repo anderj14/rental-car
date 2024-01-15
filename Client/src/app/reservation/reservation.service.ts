@@ -6,7 +6,7 @@ import { Pagination } from '../shared/models/Pagination';
 import { Observable } from 'rxjs';
 import { Customer } from '../shared/models/customers';
 import { Insurance } from '../shared/models/insurance';
-import { Vehicle } from '../shared/models/vehicles';
+import { IVehicle } from '../shared/models/vehicles';
 
 @Injectable({
   providedIn: 'root'
@@ -48,7 +48,7 @@ export class ReservationService {
     return this.http.get<Customer[]>(this.baseUrl + 'customers');
   }
   getVehicles() {
-    return this.http.get<Vehicle[]>(this.baseUrl + 'vehicles');
+    return this.http.get<IVehicle[]>(this.baseUrl + 'vehicles');
   }
   getInsurances(){
     return this.http.get<Insurance[]>(this.baseUrl + 'insurances');

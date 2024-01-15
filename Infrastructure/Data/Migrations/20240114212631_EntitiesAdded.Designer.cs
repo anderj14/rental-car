@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Data.Migrations
 {
     [DbContext(typeof(RentalContext))]
-    [Migration("20240113000037_PhotoEntityAdded")]
-    partial class PhotoEntityAdded
+    [Migration("20240114212631_EntitiesAdded")]
+    partial class EntitiesAdded
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

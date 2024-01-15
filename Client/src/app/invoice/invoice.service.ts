@@ -6,8 +6,6 @@ import { Observable } from 'rxjs';
 import { InvoiceParams } from '../shared/models/invoiceParams';
 import { Customer } from '../shared/models/customers';
 import { Reservation } from '../shared/models/reservation';
-import { Vehicle } from '../shared/models/vehicles';
-import { Insurance } from '../shared/models/insurance';
 
 @Injectable({
   providedIn: 'root'

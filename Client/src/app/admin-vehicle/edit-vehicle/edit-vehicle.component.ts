@@ -4,7 +4,7 @@ import { Fuel } from 'src/app/shared/models/fuel';
 import { Model } from 'src/app/shared/models/model';
 import { Status } from 'src/app/shared/models/status';
 import { VehicleType } from 'src/app/shared/models/vehicleType';
-import { Vehicle, VehicleFormValues } from 'src/app/shared/models/vehicles';
+import { IVehicle, VehicleFormValues } from 'src/app/shared/models/vehicles';
 import { EditVehicleService } from '../edit-vehicle.service';
 import { VehicleService } from 'src/app/vehicle/vehicle.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -17,7 +17,7 @@ import { forkJoin } from 'rxjs';
 })
 export class EditVehicleComponent implements OnInit {
 
-  vehicle!: Vehicle;
+  vehicle!: IVehicle;
   vehicleFormValues!: VehicleFormValues;
   brands!: Brand[];
   models!: Model[];

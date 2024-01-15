@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Vehicle } from '../shared/models/vehicles';
+import { IVehicle } from '../shared/models/vehicles';
 import { VehicleParams } from '../shared/models/vehicleParams';
 import { VehicleService } from '../vehicle/vehicle.service';
 import { EditVehicleService } from './edit-vehicle.service';
@@ -11,7 +11,7 @@ import { EditVehicleService } from './edit-vehicle.service';
 })
 export class AdminVehicleComponent implements OnInit {
 
-  vehicles!: Vehicle[];
+  vehicles!: IVehicle[];
   totalCount!: number;
   vehicleParams: VehicleParams;
 

@@ -1,13 +1,24 @@
 
 <section class="container">
   <div class="vehicle-edit">
-    <app-edit-vehicle-form 
-    [vehicle]="vehicleFormValues" 
-    [brands]="brands"
-    [models]="models"
-    [fuels]="fuels"
-    [statuses]="statuses"
-    [vehiclesType]="vehiclesType"
-    ></app-edit-vehicle-form>
+    <div class="tab-panel">
+      <tabset class="vehicle-tabset">
+        <tab heading="Edit Vehicle Info">
+          <div class="vehicle-info">
+            <app-edit-vehicle-form 
+            [vehicle]="vehicleFormValues" 
+            [brands]="brands"
+            [models]="models"
+            [fuels]="fuels"
+            [statuses]="statuses"
+            [vehiclesType]="vehiclesType"
+            ></app-edit-vehicle-form>
+          </div>
+        </tab>
+        <tab heading="Edit Photos">
+          <app-edit-vehicle-photos [vehicle]="vehicle"></app-edit-vehicle-photos>
+        </tab>
+      </tabset>
+    </div>
   </div>
 </section>

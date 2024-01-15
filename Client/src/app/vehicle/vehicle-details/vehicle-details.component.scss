@@ -67,7 +67,7 @@ i {
 
   .image-section {
 
-    img {
+    ngx-gallery {
       width: 100%;
       border: 1px solid #ddd;
       border-radius: 8px;
@@ -91,7 +91,7 @@ i {
       display: flex;
       justify-content: center;
 
-      img {
+      ngx-gallery {
         width: 80%;
       }
     }

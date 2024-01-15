@@ -2,7 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { VehicleParams } from '../shared/models/vehicleParams';
 import { Pagination } from '../shared/models/Pagination';
-import { Vehicle } from '../shared/models/vehicles';
+import { IVehicle } from '../shared/models/vehicles';
 import { Brand } from '../shared/models/brand';
 import { Model } from '../shared/models/model';
 import { Status } from '../shared/models/status';
@@ -31,7 +31,7 @@ export class VehicleService {
     params = params.append('pageSize', vehicleParams.pageSize);
     if (vehicleParams.search) params = params.append('search', vehicleParams.search);
 
-    return this.http.get<Pagination<Vehicle[]>>(this.baseUrl + 'vehicles', { params });
+    return this.http.get<Pagination<IVehicle[]>>(this.baseUrl + 'vehicles', { params });
   }
 
   setVehicleParams(params: VehicleParams) {
@@ -43,7 +43,7 @@ export class VehicleService {
   }
 
   getVehicle(id: number){
-    return this.http.get<Vehicle>(this.baseUrl + 'vehicles/' + id);
+    return this.http.get<IVehicle>(this.baseUrl + 'vehicles/' + id);
   }
 
   getBrands() {

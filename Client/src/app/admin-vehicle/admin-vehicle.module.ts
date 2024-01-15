@@ -5,18 +5,20 @@ import { EditVehicleComponent } from './edit-vehicle/edit-vehicle.component';
 import { SharedModule } from '../shared/shared.module';
 import { AdminVehicleRoutingModule } from './admin-vehicle-routing.module';
 import { EditVehicleFormComponent } from './edit-vehicle-form/edit-vehicle-form.component';
+import { EditVehiclePhotosComponent } from "./edit-vehicle-photos/edit-vehicle-photos.component";
 
 
 @NgModule({
-  declarations: [
-    AdminVehicleComponent,
-    EditVehicleComponent,
-    EditVehicleFormComponent
-  ],
-  imports: [
-    CommonModule,
-    SharedModule,
-    AdminVehicleRoutingModule
-  ]
+    declarations: [
+        AdminVehicleComponent,
+        EditVehicleComponent,
+        EditVehicleFormComponent,
+        EditVehiclePhotosComponent
+    ],
+    imports: [
+        CommonModule,
+        SharedModule,
+        AdminVehicleRoutingModule,
+    ]
 })
 export class AdminVehicleModule { }

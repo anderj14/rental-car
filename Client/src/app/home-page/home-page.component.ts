@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Vehicle } from '../shared/models/vehicles';
+import { IVehicle } from '../shared/models/vehicles';
 import { VehicleParams } from '../shared/models/vehicleParams';
 import { Customer } from '../shared/models/customers';
 import { CustomerParams } from '../shared/models/customerParams';
@@ -16,7 +16,7 @@ import { CustomerService } from '../customer/customer.service';
 })
 export class HomePageComponent implements OnInit{
 
-  vehicles!: Vehicle[];
+  vehicles!: IVehicle[];
   vehicleParams = new VehicleParams();
   customers!: Customer[];
   customerParams = new CustomerParams();

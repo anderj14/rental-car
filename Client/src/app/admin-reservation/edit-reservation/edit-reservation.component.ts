@@ -6,7 +6,7 @@ import { Pagination } from 'src/app/shared/models/Pagination';
 import { Customer } from 'src/app/shared/models/customers';
 import { Insurance } from 'src/app/shared/models/insurance';
 import { Reservation, ReservationFormValues } from 'src/app/shared/models/reservation';
-import { Vehicle } from 'src/app/shared/models/vehicles';
+import { IVehicle } from 'src/app/shared/models/vehicles';
 
 @Component({
   selector: 'app-edit-reservation',
@@ -19,7 +19,7 @@ export class EditReservationComponent implements OnInit {
   reservationFormValues!: ReservationFormValues;
 
   customers: Customer[] = [];
-  vehicles: Vehicle[] = [];
+  vehicles: IVehicle[] = [];
   insurances: Insurance[] = [];
 
   constructor(

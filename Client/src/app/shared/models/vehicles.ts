@@ -1,20 +1,28 @@
-export interface Vehicle {
-    id: number
-    vehicleName: string
-    year: number
-    vin: string
-    passengers: number
-    transmission: string
-    doors: number
-    color: string
-    rentalPrice: number
-    fuelConsumption: number
-    pictureUrl: string
-    brand: string
-    model: string
-    fuel: string
-    status: string
-    vehicleType: string
+export interface IVehicle {
+    id: number;
+    vehicleName: string;
+    year: number;
+    vin: string;
+    passengers: number;
+    transmission: string;
+    doors: number;
+    color: string;
+    rentalPrice: number;
+    fuelConsumption: number;
+    pictureUrl: string;
+    brand: string;
+    model: string;
+    fuel: string;
+    status: string;
+    vehicleType: string;
+    photos: IPhoto[];
+}
+
+export interface IPhoto {
+    id: number;
+    pictureUrl: string;
+    fileName: string;
+    isMain: boolean;
 }
 
 export interface IVehicleToCreate {

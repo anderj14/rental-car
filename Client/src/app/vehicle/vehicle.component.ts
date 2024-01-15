@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { Vehicle } from '../shared/models/vehicles';
+import { IVehicle } from '../shared/models/vehicles';
 import { Brand } from '../shared/models/brand';
 import { Model } from '../shared/models/model';
 import { Fuel } from '../shared/models/fuel';
@@ -19,7 +19,7 @@ import { AccountService } from '../account/account.service';
 export class VehicleComponent implements OnInit {
 
   @ViewChild('search') searchTerm?: ElementRef;
-  vehicles!: Vehicle[];
+  vehicles!: IVehicle[];
   brands!: Brand[];
   models!: Model[];
   fuels!: Fuel[];
