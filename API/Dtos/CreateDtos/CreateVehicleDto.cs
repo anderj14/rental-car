@@ -33,7 +33,7 @@ namespace Core.Dtos.VehiclesDtos
         [Required]
         public int FuelConsumption { get; set; }
         
-        public string PictureUrl { get; set; }
+        // public string PictureUrl { get; set; }
 
         [Required]
         public int BrandId { get; set; }

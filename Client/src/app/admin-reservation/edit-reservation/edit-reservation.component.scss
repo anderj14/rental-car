@@ -1,0 +1,12 @@
+.content {
+    display: grid;
+    justify-content: center;
+
+    .card {
+        max-width: 1000px;
+    }
+
+    mat-card-header {
+        margin-bottom: 20px;
+    }
+}

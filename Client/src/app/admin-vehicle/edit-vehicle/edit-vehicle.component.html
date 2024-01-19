@@ -2,8 +2,8 @@
 <section class="container">
   <div class="vehicle-edit">
     <div class="tab-panel">
-      <tabset class="vehicle-tabset">
-        <tab heading="Edit Vehicle Info">
+      <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
+        <mat-tab label="Edit Vehicle Info">
           <div class="vehicle-info">
             <app-edit-vehicle-form 
             [vehicle]="vehicleFormValues" 
@@ -14,11 +14,12 @@
             [vehiclesType]="vehiclesType"
             ></app-edit-vehicle-form>
           </div>
-        </tab>
-        <tab heading="Edit Photos">
+        </mat-tab>
+        <mat-tab label="Edit Photos">
           <app-edit-vehicle-photos [vehicle]="vehicle"></app-edit-vehicle-photos>
-        </tab>
-      </tabset>
+        </mat-tab>
+      </mat-tab-group>
     </div>
   </div>
 </section>
+

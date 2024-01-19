@@ -6,7 +6,6 @@ import { Status } from 'src/app/shared/models/status';
 import { VehicleType } from 'src/app/shared/models/vehicleType';
 import { VehicleFormValues } from 'src/app/shared/models/vehicles';
 import { EditVehicleService } from '../edit-vehicle.service';
-import { VehicleService } from 'src/app/vehicle/vehicle.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({

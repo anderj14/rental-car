@@ -1,20 +1,33 @@
 .form-row {
+    margin-top: 30px;
     .boxes {
         display: flex;
         gap: 50px;
     }
 
     .section-3 {
-        display: flex;
-        // flex-direction: row;
-        max-width: 500px;
-        gap: 10px;
+        // display: flex;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        // max-width: 500px;
+        gap: 5px;
         margin-top: 30px;
+
+        @media (max-width: 1200px) {
+            grid-template-columns: repeat(3, 1fr);
+            gap: 5px;
+        }
+
+        @media (max-width: 990px) {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 5px;
+        }
 
         @media (max-width: 780px) {
             display: flex;
             flex-direction: column;
-            columns: 1;
+            align-items: center;
+
         }
     }
 }
@@ -26,7 +39,22 @@ input {
 }
 
 select {
-    width: 12em;
+    width: 15em;
     margin-top: 3px;
     margin-bottom: 10px;
+}
+
+.button {
+    margin-top: 30px;
+    background-color: #5bc964;
+    border: none;
+    padding: 8px 30px;
+    border-radius: 8px;
+    color: #fff;
+    cursor: pointer;
+    transition: 0.2s;
+
+    &:hover {
+        background-color: #55b45d;
+    }
 }

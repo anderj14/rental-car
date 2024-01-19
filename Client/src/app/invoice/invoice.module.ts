@@ -5,6 +5,7 @@ import { InvoiceItemComponent } from './invoice-item/invoice-item.component';
 import { InvoiceDetailsComponent } from './invoice-details/invoice-details.component';
 import { InvoiceRoutingModule } from './invoice-routing.module';
 import { SharedModule } from '../shared/shared.module';
+import { MaterialModule } from '../material/material.module';
 
 
 
@@ -17,7 +18,8 @@ import { SharedModule } from '../shared/shared.module';
   imports: [
     CommonModule,
     InvoiceRoutingModule,
-    SharedModule
+    SharedModule,
+    MaterialModule
   ]
 })
 export class InvoiceModule { }

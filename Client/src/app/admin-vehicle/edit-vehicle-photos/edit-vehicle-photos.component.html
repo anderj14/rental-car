@@ -3,15 +3,17 @@
       <ng-container *ngIf="!addPhotoMode">
         <div class="d-flex justify-content-between mb-3">
           <h3>Vehicle Photos</h3>
-          <button class="btn btn-primary" (click)="addPhotoModeToggle()">
+          <button class="add" (click)="addPhotoModeToggle()">
             Add New Photo
           </button>
         </div>
-        <div class="row">
-          <div class="col-3" *ngFor="let photo of vehicle?.photos">
-            <div class="card">
-              <img class="card-img-top" width="100%" height="225" src="{{photo.pictureUrl}}" alt="{{photo.fileName}}"/> 
-              <div class="btn-group" style="width: 100%">
+        <div class="content">
+          <div class="pictures" *ngFor="let photo of vehicle?.photos">
+            <mat-card class="picture-card">
+              <mat-card-content>
+                <img class="" width="100%" height="180" src="{{photo.pictureUrl}}" alt="{{photo.fileName}}"/> 
+              </mat-card-content>
+              <mat-card-actions>
                 <button type="button"
                 (click)="setMainPhoto(photo.id)"
                 [disabled]="photo.isMain"
@@ -25,8 +27,8 @@
                   class="btn btn-outline-danger"
                   style="width: 50%"><i class="fa fa-trash"></i>      
                 </button>
-              </div>
-            </div>
+              </mat-card-actions>
+            </mat-card>
           </div>
         </div>
       </ng-container>

@@ -5,6 +5,7 @@ import { SharedModule } from '../shared/shared.module';
 import { AdminInvoiceComponent } from './admin-invoice.component';
 import { EditInvoiceFormComponent } from './edit-invoice-form/edit-invoice-form.component';
 import { EditInvoiceComponent } from './edit-invoice/edit-invoice.component';
+import { MaterialModule } from '../material/material.module';
 
 
 
@@ -18,6 +19,7 @@ import { EditInvoiceComponent } from './edit-invoice/edit-invoice.component';
     CommonModule,
     AdminInvoiceRoutingModule,
     SharedModule,
+    MaterialModule
   ]
 })
 export class AdminInvoiceModule { }

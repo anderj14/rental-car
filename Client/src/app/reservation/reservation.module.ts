@@ -5,6 +5,7 @@ import { ReservationItemComponent } from './reservation-item/reservation-item.co
 import ReservationDetailsComponent from './reservation-details/reservation-details.component';
 import { ReservationRoutingModule } from './reservation-routing.module';
 import { SharedModule } from '../shared/shared.module';
+import { MaterialModule } from '../material/material.module';
 
 
 
@@ -17,7 +18,8 @@ import { SharedModule } from '../shared/shared.module';
   imports: [
     CommonModule,
     ReservationRoutingModule,
-    SharedModule
+    SharedModule,
+    MaterialModule
   ]
 })
 export class ReservationModule { }

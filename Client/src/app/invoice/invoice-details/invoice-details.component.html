@@ -4,26 +4,37 @@
 
 <div class="container">
     <div *ngIf="invoice">
-        <div class="info info">
-            <h2>Total Invoice</h2>
-            <div class="body">
-                <div class="info">
-                    <p>Date</p>
-                    <p>Customer Name</p>
-                    <p>Reservation Number</p>
-                    <p>Payment Type</p>
-                    <p>Total</p>
+        <mat-card class="card">
+            <mat-card-header>
+                <mat-card-title>Invoice</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <h2>Invoice Information</h2>
+                <div>
+                    <div class="body">
+                        <div class="info">
+                            <p>Date</p>
+                            <p>Customer Name</p>
+                            <p>Reservation Number</p>
+                            <p>Payment Type</p>
+                        </div>
+                        <div class="data">
+                            <p>{{ invoice.date | date }}</p>
+                            <p>{{ invoice.customer }}</p>
+                            <p>{{ invoice.reservation }}</p>
+                            <p>{{ invoice.paymentType }}</p>
+                        </div>
+                    </div>
+                    <mat-divider></mat-divider>
+                    <div class="total">
+                        <p>Total</p>
+                        <p>{{ invoice.totalAmount | currency}}</p>
+                    </div>
                 </div>
-                <div class="data">
-                    <p>{{ invoice.date | date }}</p>
-                    <p>{{ invoice.customer }}</p>
-                    <p>{{ invoice.reservation }}</p>
-                    <p>{{ invoice.paymentType }}</p>
-                    <p>{{ invoice.totalAmount | currency}}</p>
-                </div>
-            </div>
-        </div>
+            </mat-card-content>
+            <mat-card-actions>
+                <button class="print-button" (click)="printInvoice()">Print Invoice</button>
+            </mat-card-actions>
+        </mat-card>
     </div>
 </div>
-
-<button class="print-button" (click)="printInvoice()">Print Invoice</button>

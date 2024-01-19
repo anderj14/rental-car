@@ -41,7 +41,7 @@
                         <td>{{ vehicle.rentalPrice | currency }}</td>
                         <td>{{ vehicle.vehicleType }}</td>
                         <td>{{ vehicle.fuel }}</td>
-                        <td>{{ vehicle.status }}</td>
+                        <td [class]="getStatusClass(vehicle.status)">{{ vehicle.status }}</td>
                         <td>{{ vehicle.vin }}</td>
                         <td><button [routerLink]="['edit', vehicle.id]">Edit</button></td>
                         <td><button (click)="deleteVehicle(vehicle.id)">Delete</button></td>

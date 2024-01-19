@@ -5,7 +5,8 @@ import { EditReservationComponent } from './edit-reservation/edit-reservation.co
 import { EditReservationFormComponent } from './edit-reservation-form/edit-reservation-form.component';
 import { AdminReservationRoutingModule } from './admin-reservation-routing.module';
 import { SharedModule } from '../shared/shared.module';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MaterialModule } from '../material/material.module';
 
 
 
@@ -19,7 +20,9 @@ import { FormsModule } from '@angular/forms';
     CommonModule,
     AdminReservationRoutingModule,
     SharedModule,
-    FormsModule
+    FormsModule,
+    MaterialModule,
+    ReactiveFormsModule
   ]
 })
 export class AdminReservationModule { }

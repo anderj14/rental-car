@@ -30,23 +30,82 @@ export class InvoiceDetailsComponent implements OnInit {
       });
     }
   }
-
   printInvoice() {
     const printWindow = window.open('', '_blank');
     if (printWindow) {
-      printWindow.document.write('<html><head><title>Invoice</title></head><body>');
-      printWindow.document.write('<h2>Invoice Details</h2>');
-      
-      // Aquí puedes agregar el contenido específico que deseas imprimir
-      printWindow.document.write('<p>Date: ' + (this.invoice.date) + '</p>');
-      printWindow.document.write('<p>Reservation N.: ' + this.invoice.reservation + '</p>');
-      printWindow.document.write('<p>Customer Name: ' + this.invoice.customer + '</p>');
-      printWindow.document.write('<p>Payment Type: ' + this.invoice.paymentType + '</p>');
-      printWindow.document.write('<p>Total Costs: $' + (this.invoice.totalAmount) + '</p>');
+      printWindow.document.write(`
+        <html>
+          <head>
+            <title>Invoice</title>
+            <style>
+              body {
+                font-family: 'montserrat', sans-serif;                
+                margin: 20px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+              }
+              h2 {
+                border-bottom: 1px solid #333;
+                padding-bottom: 5px;
+              }
+              p {
+                margin: 20px 0;
+                font-size: 18px
+              }
+              strong {
+                font-size: 18px
+              }
+              .content {
+                width: 360px;
+                padding: 50px;
+                border: 1px solid #ddd;
+                border-radius: 4px;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                background-color: #fff;
+                margin: 20px;
+              }
+              .body {
+                display: flex;
+                justify-content: space-between;
 
-      printWindow.document.write('</body></html>');
+              }
+              .total {
+                display: flex;
+                justify-content: space-between;
+              }
+            </style>
+          </head>
+          <body>
+            <div class="content">
+              <h2>Invoice Details</h2>
+              <div class="body">
+                <div class="info">
+                  <p><strong>Date:</strong></p>
+                  <p><strong>Reservation N.:</strong></p>
+                  <p><strong>Customer Name:</strong></p>
+                  <p><strong>Payment Type:</strong></p>
+                </div>
+                <div class="data">
+                  <p> ${this.invoice.date}</p>
+                  <p> ${this.invoice.reservation}</p>
+                  <p> ${this.invoice.customer}</p>
+                  <p> ${this.invoice.paymentType}</p>
+                </div>
+              </div>
+              <hr/>
+              <div class="total">
+                <p><strong>Total Costs:</strong></p>
+                <p>$${this.invoice.totalAmount}</p>
+              </div>
+            </div>
+          </body>
+        </html>
+      `);
+  
       printWindow.document.close();
       printWindow.print();
     }
   }
+  
 }

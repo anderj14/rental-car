@@ -1,4 +1,4 @@
-<pagination *ngIf="totalCount && pageSize"
+<!-- <pagination *ngIf="totalCount && pageSize"
     [boundaryLinks]="true" 
     [totalItems]="totalCount" 
     [itemsPerPage]="pageSize"
@@ -9,4 +9,12 @@
     nextText="&rsaquo;"
     firstText="&laquo;" 
     lastText="&raquo;">
-</pagination>
+</pagination> -->
+
+<mat-paginator 
+  [length]="totalCount" 
+  [pageSize]="pageSize" 
+  [pageIndex]="pageNumber! - 1" 
+  (page)="onPagerChanged($event)"
+  [hidePageSize]="true">
+</mat-paginator>

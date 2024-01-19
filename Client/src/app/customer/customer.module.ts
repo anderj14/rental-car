@@ -5,6 +5,7 @@ import { CustomerItemComponent } from './customer-item/customer-item.component';
 import { CustomerDetailsComponent } from './customer-details/customer-details.component';
 import { CustomerRoutingModule } from './customer-routing.module';
 import { SharedModule } from '../shared/shared.module';
+import { MaterialModule } from '../material/material.module';
 
 
 
@@ -17,7 +18,8 @@ import { SharedModule } from '../shared/shared.module';
   imports: [
     CommonModule,
     CustomerRoutingModule,
-    SharedModule
+    SharedModule,
+    MaterialModule
   ]
 })
 export class CustomerModule { }

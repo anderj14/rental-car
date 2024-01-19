@@ -8,9 +8,10 @@ import { IVehicle } from 'src/app/shared/models/vehicles';
 })
 export class VehicleItemComponent {
   @Input() vehicles!: IVehicle[];
+
   getStatusClass(status: string): string {
     const lowercaseStatus = status.toLowerCase();
-  
+
     switch (lowercaseStatus) {
       case 'available':
         return 'available';

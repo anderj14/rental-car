@@ -9,3 +9,39 @@
 .custom-dropzone.ngx-dz-hovered {
     border: 3px solid green;
 }
+
+// .container {
+//     display: flex;
+//     justify-content: space-between;
+
+//     @media (max-width: 1000px) {
+//         align-items: center;
+//         flex-direction: column;
+//     }
+
+//     .drop {
+//         width: 300px;
+//     }
+// }
+
+.preview {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 30px;
+
+    button {
+        margin-top: 30px;
+        background-color: #50ad57;
+        border: none;
+        padding: 8px 30px;
+        border-radius: 8px;
+        color: #fff;
+        cursor: pointer;
+        transition: 0.2s;
+
+        &:hover {
+            background-color: #428c48;
+        }
+    }
+}

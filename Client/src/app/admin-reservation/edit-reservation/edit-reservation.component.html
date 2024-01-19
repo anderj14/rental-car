@@ -1,15 +1,18 @@
 
 <section class="vehicle-edit mt-5">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-8">
+    <div class="content">
+      <mat-card class="card">
+        <mat-card-header>
+          <mat-card-title>Add New Reservation</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
           <app-edit-reservation-form
             [reservation]="reservationFormValues"
             [customers]="customers"
             [vehicles]="vehicles"
             [insurances]="insurances"
           ></app-edit-reservation-form>
-        </div>
-      </div>
+        </mat-card-content>
+      </mat-card>
     </div>
   </section>

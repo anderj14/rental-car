@@ -1,6 +1,6 @@
 
 <form #reservationForm="ngForm" (ngSubmit)="onSubmit(reservationForm.valid && reservationForm.value)">
-  <div class="form-row">
+  <div class="">
     <div class="form-group col-md-6">
       <label for="startDate">Start Date</label>
       <input type="datetime"
@@ -82,55 +82,58 @@
         </div>
       </div>
     </div>
-    <div class="form-group col-md-6">
-      <label for="customer">Customer</label>
-      <select 
-          name="customerId" 
-          id="customer" 
-          class="form-control"
-          [(ngModel)]="reservation.customerId"
-          required
-          >
-          <option
-          *ngFor="let customer of customers"
-          [selected]="reservation.customerId === customer.id"
-          [ngValue]="customer.id" 
-          >{{customer.customerName}}</option>
-        </select>
+    <div class="section-select">
+      <div class="form-group">
+        <label for="customer">Customer</label>
+        <select 
+            name="customerId" 
+            id="customer" 
+            class="form-control"
+            [(ngModel)]="reservation.customerId"
+            required
+            >
+            <option
+            *ngFor="let customer of customers"
+            [selected]="reservation.customerId === customer.id"
+            [ngValue]="customer.id" 
+            >{{customer.customerName}}</option>
+          </select>
+      </div>
+      <div class="form-group">
+        <label for="vehicle">Vehicle</label>
+        <select 
+            name="vehicleId" 
+            id="vehicle" 
+            class="form-control"
+            [(ngModel)]="reservation.vehicleId"
+            required
+            >
+            <option
+            *ngFor="let vehicle of vehicles"
+            [selected]="reservation.vehicleId === vehicle.id"
+            [ngValue]="vehicle.id" 
+            >{{vehicle.vehicleName}}</option>
+          </select>
+      </div>
+      <div class="form-group">
+        <label for="insurance">Insurance</label>
+        <select 
+            name="insuranceId" 
+            id="insurance" 
+            class="form-control"
+            [(ngModel)]="reservation.insuranceId"
+            required
+            >
+            <option
+            *ngFor="let insurance of insurances"
+            [selected]="reservation.vehicleId === insurance.id"
+            [ngValue]="insurance.id" 
+            >{{insurance.insuranceName}}</option>
+          </select>
+      </div>
     </div>
-    <div class="form-group col-md-6">
-      <label for="vehicle">Vehicle</label>
-      <select 
-          name="vehicleId" 
-          id="vehicle" 
-          class="form-control"
-          [(ngModel)]="reservation.vehicleId"
-          required
-          >
-          <option
-          *ngFor="let vehicle of vehicles"
-          [selected]="reservation.vehicleId === vehicle.id"
-          [ngValue]="vehicle.id" 
-          >{{vehicle.vehicleName}}</option>
-        </select>
-    </div>
-    <div class="form-group col-md-6">
-      <label for="insurance">Insurance</label>
-      <select 
-          name="insuranceId" 
-          id="insurance" 
-          class="form-control"
-          [(ngModel)]="reservation.insuranceId"
-          required
-          >
-          <option
-          *ngFor="let insurance of insurances"
-          [selected]="reservation.vehicleId === insurance.id"
-          [ngValue]="insurance.id" 
-          >{{insurance.insuranceName}}</option>
-        </select>
-    </div>
+   
   </div>
-  <button [disabled]="!reservationForm.valid" type="submit" class="btn btn-primary my-3 float-right">Submit</button>
+    <button [disabled]="!reservationForm.valid" type="submit" class="btn btn-primary my-3 float-right">Submit</button>
 
 </form>

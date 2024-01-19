@@ -13,6 +13,7 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { PhotoWidgetComponent } from './components/photo-widget/photo-widget.component';
+import { MaterialModule } from '../material/material.module';
 
 
 @NgModule({
@@ -36,6 +37,7 @@ import { PhotoWidgetComponent } from './components/photo-widget/photo-widget.com
     TabsModule.forRoot(),
     NgxDropzoneModule,
     ImageCropperModule,
+    MaterialModule
 
   ],
   exports: [

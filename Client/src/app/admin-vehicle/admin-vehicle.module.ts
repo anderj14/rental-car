@@ -6,6 +6,7 @@ import { SharedModule } from '../shared/shared.module';
 import { AdminVehicleRoutingModule } from './admin-vehicle-routing.module';
 import { EditVehicleFormComponent } from './edit-vehicle-form/edit-vehicle-form.component';
 import { EditVehiclePhotosComponent } from "./edit-vehicle-photos/edit-vehicle-photos.component";
+import { MaterialModule } from '../material/material.module';
 
 
 @NgModule({
@@ -19,6 +20,7 @@ import { EditVehiclePhotosComponent } from "./edit-vehicle-photos/edit-vehicle-p
         CommonModule,
         SharedModule,
         AdminVehicleRoutingModule,
+        MaterialModule
     ]
 })
 export class AdminVehicleModule { }

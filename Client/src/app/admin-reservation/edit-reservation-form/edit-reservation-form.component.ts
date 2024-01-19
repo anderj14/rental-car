@@ -5,6 +5,8 @@ import { ReservationFormValues } from 'src/app/shared/models/reservation';
 import { IVehicle } from 'src/app/shared/models/vehicles';
 import { AdminReservationService } from '../admin-reservation.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { FormControl } from '@angular/forms';
+import { Observable, map, startWith } from 'rxjs';
 
 @Component({
   selector: 'app-edit-reservation-form',
@@ -18,6 +20,9 @@ export class EditReservationFormComponent implements OnInit {
   @Input() vehicles!: IVehicle[];
   @Input() insurances!: Insurance[];
 
+  customerControl = new FormControl();
+  filteredCustomers!: Observable<Customer[]>;
+
   constructor(
     private adminReservationService: AdminReservationService,
     private route: ActivatedRoute,
@@ -26,7 +31,19 @@ export class EditReservationFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.filteredCustomers = this.customerControl.valueChanges.pipe(
+      startWith(''),
+      map((value) => this._filterCustomers(value))
+    );
   }
+
+  private _filterCustomers(value: string): Customer[] {
+    const filterValue = value.toLowerCase();
+    return this.customers.filter(
+      (customer) => customer.customerName.toLowerCase().includes(filterValue)
+    );
+  }
+
 
   updatePrice(event: any) {
     this.reservation.rentalCost = event;

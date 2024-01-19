@@ -1,40 +1,45 @@
-<div class="back container">
+<div class="back">
     <i routerLink="/reservations" class="bi bi-arrow-left"></i>
 </div>
 
-<div class="container">
-    <div class="cards" *ngIf="reservation">
-        <div class="box reservation">
-            <h2>Reservation Information</h2>
-            <div>
-                <div class="body">
-                    <div class="info vehicle">
-                        <p>Reservation Number</p>
-                        <p>Start Date</p>
-                        <p>End Date</p>
-                        <p>Days</p>
-                        <p>Vehicle Rental Price</p>
-                        <p>Customer Name</p>
-                        <p>Vehicle</p>
-                        <p>Insurance</p>
-                        <hr>
-                        <p>Total Rental Cost</p>
+<div class="content">
+    <div *ngIf="reservation">
+        <mat-card class="card">
+            <mat-card-header>
+                <mat-card-title>Reservation</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <h2>Reservation Information</h2>
+                <div>
+                    <div class="body">
+                        <div class="info vehicle">
+                            <p>Reservation Number</p>
+                            <p>Start Date</p>
+                            <p>End Date</p>
+                            <p>Days</p>
+                            <p>Vehicle Rental Price</p>
+                            <p>Customer Name</p>
+                            <p>Vehicle</p>
+                            <p>Insurance</p>
+                        </div>
+                        <div class="data">
+                            <p>{{reservation.reservationNumber}}</p>
+                            <p>{{ reservation.startDate | date }}</p>
+                            <p>{{ reservation.endDate | date }}</p>
+                            <p>{{ reservation.days }} days</p>
+                            <p>{{reservation.rentalCost | currency}}</p>
+                            <p>{{reservation.customer}}</p>
+                            <p>{{reservation.vehicle}}</p>
+                            <p>{{reservation.insurance}}</p>
+                        </div>
                     </div>
-                    <div class="data">
-                        <p>{{reservation.reservationNumber}}</p>
-                        <p>{{ reservation.startDate | date }}</p>
-                        <p>{{ reservation.endDate | date }}</p>
-                        <p>{{ reservation.days }} days</p>
-                        <p>{{reservation.rentalCost | currency}}</p>
-                        <p>{{reservation.customer}}</p>
-                        <p>{{reservation.vehicle}}</p>
-                        <p>{{reservation.insurance}}</p>
-                        <hr>
+                    <mat-divider></mat-divider>
+                    <div class="total">
+                        <p>Total Rental Cost</p>
                         <p>{{ reservation.rentalCost | currency}}</p>
                     </div>
                 </div>
-            </div>
-        </div>
-
+            </mat-card-content>
+        </mat-card>
     </div>
 </div>

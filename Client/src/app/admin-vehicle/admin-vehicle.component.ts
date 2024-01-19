@@ -47,4 +47,19 @@ export class AdminVehicleComponent implements OnInit {
       this.totalCount--;
     });
   }
+
+  getStatusClass(status: string): string {
+    const lowercaseStatus = status.toLowerCase();
+
+    switch (lowercaseStatus) {
+      case 'available':
+        return 'available';
+      case 'rented':
+        return 'rented';
+      case 'reserved':
+        return 'reserved';
+      default:
+        return '';
+    }
+  }
 }
