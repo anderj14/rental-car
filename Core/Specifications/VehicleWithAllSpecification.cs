@@ -24,8 +24,7 @@ namespace Core.Specifications
             AddInclude(x => x.Photos);
             AddOrderBy(x => x.VehicleName);
 
-            ApplyPaging(vehicleSpecParams.PageSize * (vehicleSpecParams.PageIndex - 1),
-            vehicleSpecParams.PageSize);
+            ApplyPaging(vehicleSpecParams.PageSize * (vehicleSpecParams.PageIndex - 1), vehicleSpecParams.PageSize);
 
             if (!string.IsNullOrEmpty(vehicleSpecParams.Sort))
             {

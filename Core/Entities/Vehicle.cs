@@ -1,6 +1,4 @@
 
-using System.Runtime.InteropServices;
-
 namespace Core.Entities
 {
     public class Vehicle : BaseEntity
@@ -14,8 +12,8 @@ namespace Core.Entities
         public string Color { get; set; }
         public decimal RentalPrice { get; set; }
         public int FuelConsumption { get; set; }
-        public int FuelId { get; set; }
 
+        public int FuelId { get; set; }
         public Fuel Fuel { get; set; }
 
         public int BrandId { get; set; }
@@ -29,6 +27,7 @@ namespace Core.Entities
 
         public int VehicleTypeId { get; set; }
         public VehicleType VehicleType { get; set; }
+        
         private readonly List<Photo> _photos = new List<Photo>();
         public IReadOnlyList<Photo> Photos => _photos.AsReadOnly();
 
