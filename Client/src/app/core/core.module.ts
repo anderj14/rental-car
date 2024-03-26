@@ -14,7 +14,7 @@ import { ToastrModule } from 'ngx-toastr';
   declarations: [
     NavBarComponent,
     TestErrorComponent,
-    NotFoundComponent,
+    // NotFoundComponent,
     ServerErrorComponent
   ],
   imports: [

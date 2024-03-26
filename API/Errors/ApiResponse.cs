@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace API.Errors
 {
@@ -16,7 +12,7 @@ namespace API.Errors
         public int StatusCode { get; set; }
         public string Message { get; set; }
 
-#pragma warning disable CS8603
+// #pragma warning disable CS8603
 
         private string GetStatusCode(int statusCode)
         {

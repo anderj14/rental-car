@@ -14,13 +14,16 @@
     .title {
         display: flex;
         justify-content: space-between;
-        margin-bottom: 10px;
+        margin-bottom: 5px;
 
         h1 {
             font-size: 30px;
         }
 
         .actions {
+            display: flex;
+            gap: 10px;
+
             button {
                 font-weight: 400;
                 border: none;
@@ -39,6 +42,22 @@
                     color: #000000;
                     border: 1px solid #011;
 
+                }
+            }
+
+            .search {
+                display: flex;
+                gap: 10px;
+
+                @media (max-width: 690px) {
+                    display: flex;
+                    flex-direction: column;
+                }
+
+                input {
+                    border-radius: 5px;
+                    border: 1px solid rgba(0, 0, 0, 0.280);
+                    padding: 3px 10px;
                 }
             }
         }
@@ -90,4 +109,25 @@
     }
 
 
+}
+
+.box-filter {
+    margin-top: 15px;
+    margin-bottom: 25px;
+
+    .select {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+
+        select {
+            padding: 5px 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #fff;
+            appearance: none;
+            width: 200px;
+            cursor: pointer;
+        }
+    }
 }

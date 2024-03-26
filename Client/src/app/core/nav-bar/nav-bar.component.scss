@@ -1,12 +1,15 @@
+
+header {
+    margin-bottom: 800px;
+}
 a {
     text-decoration: none;
     color: #343a40;
 
     &.active {
-        color: #2F7F81;
+        color: #DA5B00;
     }
 }
-
 
 .logo {
     cursor: pointer;

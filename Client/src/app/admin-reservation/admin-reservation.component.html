@@ -4,8 +4,22 @@
             <h1>Reservation List</h1>
             <div class="actions">
                 <button [routerLink]="['/admin-reservation/create']" class="new-vehicle">New Reservation</button>
+                <div class="search">
+                    <input (keyup.enter)="onSearch()" type="text" placeholder="Search" #search>
+                </div>
             </div>
         </div>
+        <div class="box-filter">
+            <div class="select">
+              <h5 class="">Sort</h5>
+              <select class="" (change)="onSortSelected($event)">
+                  <option *ngFor="let sort of sortOption" [value]="sort.value">
+                      {{sort.name}}
+                  </option>
+              </select>
+            </div>
+        </div>
+      
         <app-paging-header
               [totalCount]="totalCount"
               [pageSize]="this.reservationParams.pageSize"
