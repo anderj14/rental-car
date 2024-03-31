@@ -1,50 +1,33 @@
-<!-- <section class="content">
-    <div class="content-cover">
-        <div class="boxes">
-            <div class="box vehicle">
-                <div class="title">
-                    <p>Vehicles</p>
-                    <i class="bi bi-car-front"></i>
-                </div>
-                <span>{{ getTotalCountVehicle() }}</span>
-            </div>
-            <div class="box customer">
-                <div class="title">
-                    <p>Customers</p>
-                    <i class="bi bi-person"></i>
-                </div>
-                <span>{{ getTotalCountCustomer() }}</span>
-            </div>
-            <div class="box reservation">
-                <div class="title">
-                    <p>Reservations</p>
-                    <i class="bi bi-calendar-event"></i>
-                </div>
-                <span>{{ getTotalCountReservation() }}</span>
-            </div>
+<header>
+
+    <div class="title-content">
+        <div class="title">
+            <h1>Car rental in</h1>
+            <span>Queens, New York</span>
         </div>
-
-        <h2>Reservation Information</h2>
-
-        <table class="table table-hover">
-            <thead>
-                <tr>
-                    <th>Reservation Number</th>
-                    <th>Insurance</th>
-                    <th>Start Date</th>
-                    <th>End Date</th>
-                    <th>Days</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let reservation of reservations">
-                    <td>{{ reservation.reservationNumber }}</td>
-                    <td>{{ reservation.insurance }}</td>
-                    <td>{{ reservation.startDate | date}}</td>
-                    <td>{{ reservation.endDate | date }}</td>
-                    <td>{{ reservation.days }}</td>
-                </tr>
-            </tbody>
-        </table>
+        <div class="adds">
+            <p><i class="bi bi-check-circle-fill"></i> No credit card</p>
+            <p><i class="bi bi-check-circle-fill"></i> Free cancellation</p>
+        </div>
+        <div class="description">
+            <p>
+                Descubre el placer de la carretera con nuestro servicio
+                de alquiler de autos. Tu viaje, tu elección, tu libertad.
+                Alquila con nosotros y convierte cada trayecto en una
+                experiencia inolvidable.
+            </p>
+        </div>
     </div>
-</section> -->
+    <div class="img">
+        <div class="box"></div>
+        <div class="img"> 
+            <img src="./assets/images/jeep.png" alt="">
+        </div>
+        <img class="reback" src="./assets/images/reback.png" alt="">
+    </div>
+
+</header>
+
+<div class="search">
+
+</div>

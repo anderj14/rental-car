@@ -1,15 +1,20 @@
 <header class="d-flex flex-row align-items-center justify-content-between  
-    bg-white border-bottom fixed-top shadow-sm">
-    <img src="/assets/images/elipson.png" alt="logo" class="logo" style="width: 100px; margin-left: 20px;"
+    bg-white border-bottom shadow-sm">
+    <img src="/assets/images/elipson.png" alt="logo" class="logo" style="width: 80px; margin-left: 20px;"
         routerLink="/">
-    <nav class="my-2">
-        <a *ngIf="(isAdmin$ | async)" class="p-2" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a>
-        <a *ngIf="(isAdmin$ | async)" class="p-2" routerLink="admin" routerLinkActive="active">Vehicles</a>
-        <a *ngIf="(isAdmin$ | async)" class="p-2" routerLink="/admin-customer" routerLinkActive="active">Customers</a>
-        <a *ngIf="(isAdmin$ | async)" class="p-2" routerLink="/admin-reservation" routerLinkActive="active">Reservations</a>
+    <nav class="my-2" *ngIf="(isAdmin$ | async)">
+        <a  class="p-2" routerLink="/dashboard" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Dashboard</a>
+        <a  class="p-2" routerLink="admin" routerLinkActive="active">Vehicles</a>
+        <a  class="p-2" routerLink="/admin-customer" routerLinkActive="active">Customers</a>
+        <a  class="p-2" routerLink="/admin-reservation" routerLinkActive="active">Reservations</a>
         <!-- <a class="p-2" routerLink="/invoices" routerLinkActive="active">Invoices</a> -->
-        <a *ngIf="(isAdmin$ | async)" class="p-2" routerLink="/test-error" routerLinkActive="active">Error</a>
+        <a  class="p-2" routerLink="/test-error" routerLinkActive="active">Error</a>
     </nav>
+    <nav class="my-2">
+        <a  class="p-2" routerLink="admin" routerLinkActive="active">Vehicles</a>
+        <a  class="p-2" routerLink="/admin-reservation" routerLinkActive="active">Reservations</a>
+    </nav>
+
 
     <ng-container *ngIf="(accountService.currentUser$ | async) == null">
         <div class="d-flex align-items-center">
