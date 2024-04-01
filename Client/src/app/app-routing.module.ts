@@ -10,7 +10,7 @@ import { HomePageComponent } from './home-page/home-page.component';
 const routes: Routes = [
   {
     path: '',
-    canActivate: [AuthGuard],
+    // canActivate: [AuthGuard],
     component: HomePageComponent
   },
   { path: 'test-error', component: TestErrorComponent },
@@ -18,7 +18,7 @@ const routes: Routes = [
   { path: 'server-error', component: ServerErrorComponent },
   {
     path: 'vehicles',
-    canActivate: [AuthGuard],
+    // canActivate: [AuthGuard],
     loadChildren: () => import('./vehicle/vehicle.module').then(m => m.VehicleModule)
   },
   {
@@ -28,7 +28,7 @@ const routes: Routes = [
   },
   {
     path: 'reservations',
-    canActivate: [AuthGuard],
+    // canActivate: [AuthGuard],
     loadChildren: () => import('./reservation/reservation.module').then(m => m.ReservationModule)
   },
   {

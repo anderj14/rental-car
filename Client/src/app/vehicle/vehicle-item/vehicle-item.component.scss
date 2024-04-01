@@ -1,56 +1,45 @@
-// table {
-//     border-collapse: separate;
-//     border-spacing: 0px;
-//     min-width: max-content;
-// }
+.container {
 
-// table.table-hover {
-//     thead th {
-//         position: sticky;
-//         font-weight: 500;
-//         text-align: center; 
-//     }
+    max-width: 550px;
 
-//     tbody tr {
-//         background-color: #f3f3f3;
-//         cursor: pointer;
-//         height: 50px;
 
-//         img {
-//             width: 60px;
-//             height: 40px;
-//             object-fit: contain;
-//         }
+    mat-card {
+        border: none;
+        padding: 20px;
+        cursor: pointer;
 
-//         td {
-//             font-weight: 400;
-//             overflow: hidden;
-//             vertical-align: middle;
+        box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
+        /* por ejemplo */
 
-//             &.available {
-//                 color: #008000;
-//             }
 
-//             &.rented {
-//                 color: #FF0000;
-//             }
+        mat-card-header {
 
-//             &.reserved {
-//                 color: #FFD700;
-//             }
+            mat-card-title {
+                font-size: 20px;
+            }
 
-//             button {
-//                 background-color: #fff;
-//                 border: 1px solid rgba(84, 84, 84, 0.5);
-//                 border-radius: 8px;
-//                 font-weight: 400;
+            margin-bottom: 10px;
+        }
 
-//                 &:hover {
-//                     background-color: #e5e5e5;
-//                 }
-//             }
-//         }
-//     }
-// }
+        img {
+            padding: 5px;
+            border-radius: 8px;
+            transition: 0.3s;
 
-// <!-- Nuevo UI -->
+            &:hover {
+                padding: 1px;
+            }
+
+        }
+    }
+
+    img {
+        width: 500px;
+        height: 300px;
+
+        @media(max-width: 750px) {
+            // width: 100%;
+            height: 600px;
+        }
+    }
+}

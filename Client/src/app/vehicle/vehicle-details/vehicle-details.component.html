@@ -38,10 +38,62 @@
             </div>
         </div>
         <div class="image-section">
-
             <ngx-gallery [options]="galleryOptions" [images]="galleryImages" style="display: inline-block; margin-bottom: 20px;"></ngx-gallery>
         </div>
     </div>
 </div> -->
 
 <!-- Nuevo UI -->
+
+<section class="section">
+    <div class="content">
+        @if (vehicle) {
+            <div class="header">
+                <div class="title">
+                    <h1>{{vehicle.vehicleName}} {{vehicle.year}}</h1>
+                    <p>Home - {{vehicle.vehicleName}}</p>
+                </div>
+                <div class="image-section">
+                    <ngx-gallery 
+                    [options]="galleryOptions" 
+                    [images]="galleryImages" 
+                    style="display: inline-block; margin-bottom: 20px;"></ngx-gallery>
+                </div>
+                <h1>{{vehicle.vehicleName}}, 111th Corona, Queens, New York</h1>
+            </div>
+            <div class="car-description">
+                <section class="about">
+                    <hr>
+                    <div class="description">
+                        <h3>Description</h3>
+                        <p>
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+                            Deserunt eos qui ex quis tenetur, dolore ipsa natus quod pariatur 
+                            maxime reiciendis corporis iure magnam ducimus eveniet molestias 
+                            explicabo dicta dolorem!
+                        </p>
+                    </div>
+                    <hr>
+                    <div class="offers">
+                        <h3>Car Offers</h3>
+                        <p><span>Rental price: </span>${{vehicle.rentalPrice}}</p>
+                        <p><span>Passengers: </span>{{vehicle.passengers}} <span>passengers</span></p>
+                        <p><span>Transmission: </span>{{vehicle.transmission}}</p>
+                        <p><span>Doors: </span>{{vehicle.doors}} <span>doors</span></p>
+                        <p><span>Fuel Consumption: </span>{{vehicle.fuelConsumption}} <span>MPG</span></p>
+                    </div>
+                </section>
+                <section class="reservation">
+                    <mat-card class="create">
+                        <p>${{vehicle.rentalPrice}} per day</p>
+                        <h3>Create a reservation</h3>
+                        <p class="description">Create reservation for {{vehicle.vehicleName}} {{vehicle.year}}. Click on the button to continue the reservation</p>
+                        <button>Create Reservation</button>
+                    </mat-card>
+                </section>
+               
+            </div>
+            
+        }
+    </div>
+</section>

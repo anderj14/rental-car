@@ -6,6 +6,7 @@ import { VehicleItemComponent } from './vehicle-item/vehicle-item.component';
 import { RouterModule } from '@angular/router';
 import { VehicleRoutingModule } from './vehicle-routing.module';
 import { SharedModule } from '../shared/shared.module';
+import { MaterialModule } from '../material/material.module';
 
 
 
@@ -18,7 +19,11 @@ import { SharedModule } from '../shared/shared.module';
   imports: [
     CommonModule,
     VehicleRoutingModule,
-    SharedModule
+    SharedModule,
+    MaterialModule
+  ],
+  exports: [
+    VehicleItemComponent
   ]
 })
 export class VehicleModule { }

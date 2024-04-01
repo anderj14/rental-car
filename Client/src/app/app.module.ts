@@ -11,6 +11,7 @@ import { JwtInterceptor } from './core/interceptors/jwt.interceptor';
 import { HomePageComponent } from './home-page/home-page.component';
 import { RouterModule } from '@angular/router';
 import { MaterialModule } from './material/material.module';
+import { VehicleModule } from './vehicle/vehicle.module';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { MaterialModule } from './material/material.module';
     HttpClientModule,
     CoreModule,
     RouterModule,
-    MaterialModule
+    MaterialModule,
+    VehicleModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},

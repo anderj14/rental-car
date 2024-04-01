@@ -25,14 +25,6 @@ export class VehicleDetailsComponent implements OnInit {
     this.loadVehicle();
   }
 
-  // getVehicle() {
-  //   const id = this.activateRoute.snapshot.paramMap.get('id');
-  //   if (id) this.vehicleService.getVehicle(+id).subscribe({
-  //     next: vehicle => this.vehicle = vehicle,
-  //     error: error => console.log(error)
-  //   });
-  // }
-
   loadVehicle() {
     this.vehicleService.getVehicle(+this.activateRoute.snapshot.paramMap.get('id')!).subscribe(vehicle => {
       this.vehicle = vehicle;
@@ -46,13 +38,13 @@ export class VehicleDetailsComponent implements OnInit {
   initializeGallery() {
     this.galleryOptions = [
       {
-        width: '500px',
-        height: '600px',
+        width: '1000px',
+        height: '700px',
         imagePercent: 100,
         thumbnailsColumns: 4,
         imageAnimation: NgxGalleryAnimation.Fade,
         imageSize: NgxGalleryImageSize.Contain,
-        thumbnailSize: NgxGalleryImageSize.Contain,
+        thumbnailSize: NgxGalleryImageSize.Cover,
         preview: false
       }
     ];

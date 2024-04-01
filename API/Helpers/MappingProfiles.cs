@@ -29,6 +29,7 @@ namespace API.Helpers
             CreateMap<Status, StatusDto>();
             CreateMap<VehicleType, VehicleTypeDto>();
             CreateMap<Customer, CustomerDto>();
+
             CreateMap<Insurance, InsuranceDto>();
 
             CreateMap<Reservation, ReservationDto>()

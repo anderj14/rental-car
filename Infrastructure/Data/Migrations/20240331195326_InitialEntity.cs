@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Infrastructure.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class EntitiesAdded : Migration
+    public partial class InitialEntity : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -34,7 +34,13 @@ namespace Infrastructure.Data.Migrations
                     Email = table.Column<string>(type: "TEXT", maxLength: 70, nullable: false),
                     Phone = table.Column<string>(type: "TEXT", nullable: false),
                     DriverLicense = table.Column<string>(type: "TEXT", nullable: false),
-                    Address = table.Column<string>(type: "TEXT", nullable: false)
+                    DOB = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    Address = table.Column<string>(type: "TEXT", nullable: false),
+                    SecondAddress = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
+                    City = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
+                    State = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
+                    Zip = table.Column<string>(type: "TEXT", maxLength: 20, nullable: false),
+                    Country = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false)
                 },
                 constraints: table =>
                 {

@@ -1,96 +1,43 @@
-<!-- <section class="content">
-    <div class="content-cover">
+<div class="container">
+    <!-- <app-breadcrumbs></app-breadcrumbs> -->
+    <div class="header">
         <div class="title">
-            <h1>Vehicles</h1>
+            <h1>List of Game</h1>
+        </div>
+        <hr>
+
+        <div class="filters">
             <div class="search">
-                <input (keyup.enter)="onSearch()" type="text" placeholder="Search" #search>
+                <label>Search</label>
+                <input type="text" (keyup.enter)="onSearch()" placeholder="Search" #search>
+            </div>
+            <div class="selects">
+                <div class="sort">
+                    <label>Sort</label>
+                    <label for="slct" class="select">
+                        <select id="slct" required="required" (change)="onSortSelected($event)">
+                            <option *ngFor="let sort of sortOption" [value]="sort.value">
+                                {{sort.name}}
+                            </option>
+                        </select>
+                        <svg>
+                            <use xlink:href="#select-arrow-down" />
+                        </svg>
+                    </label>
+                    <svg class="sprites">
+                        <symbol id="seelct-arrow-down" viewbox="0 0 10 6">
+                            <polyline points="1 1 5 5 9 1"></polyline>
+                        </symbol>
+                    </svg>
+                </div>
             </div>
         </div>
-
-        <div class="box-filter">
-
-            <div class="select">
-                <h5 class="">Sort</h5>
-                <select class="" (change)="onSortSelected($event)">
-                    <option *ngFor="let sort of sortOption" [value]="sort.value">
-                        {{sort.name}}
-                    </option>
-                </select>
-            </div>
-            <div class="actions">
-                <button (click)="togglePopup()" class="filter bi bi-filter">Filter</button>
-                <button *ngIf="(isAdmin$ | async)" routerLink="/admin" class="new-vehicle">Admin Vehicle</button>
-            </div>
-
-        </div>
-        <div class="table-wrapper">
-            <app-vehicle-item [vehicles]="vehicles"></app-vehicle-item>
-
-        </div>
-
-        <div class="d-flex justify-content-between align-item-center mt-4">
-
-            <app-paging-header [totalCount]="totalCount" [pageNumber]="vehicleParams.pageNumber"
-                [pageSize]="vehicleParams.pageSize">
-            </app-paging-header>
-            <div class="" *ngIf="totalCount > 0">
-                <app-pager [totalCount]="totalCount" [pageSize]="vehicleParams.pageSize"
-                    (pageChanged)="onPageChanged($event)"></app-pager>
-            </div>
-        </div>
+        <hr>
 
     </div>
-
-</section>
-
-
-<div *ngIf="showPopup" class="popup-overlay" (click)="closePopup()">
-    <div class="popup-content" (click)="stopPropagation($event)">
-        <div class="box">
-            <h5 class="">Brands</h5>
-            <ul class="">
-                <li class="" *ngFor="let brand of brands">
-                    <input type="checkbox" [checked]="brand.id === vehicleParams.brandId" [value]="brand.id"
-                        (change)="onBrandSelected(brand.id)">
-                    {{ brand.brandName }}
-                </li>
-            </ul>
-        </div>
-
-        <div class="box">
-            <h5 class="">Fuels</h5>
-            <ul class="">
-                <li class="" *ngFor="let fuel of fuels">
-                    <input type="checkbox" [checked]="fuel.id === vehicleParams.fuelId" [value]="fuel.id"
-                        (change)="onFuelSelected(fuel.id)">
-                    {{ fuel.fuelName }}
-                </li>
-            </ul>
-        </div>
-
-        <div class="box">
-            <h5 class="">Statuses</h5>
-            <ul class="">
-                <li class="" *ngFor="let status of statuses">
-                    <input type="checkbox" [checked]="status.id === vehicleParams.statusId" [value]="status.id"
-                        (change)="onStatusSelected(status.id)">
-                    {{ status.statusName }}
-                </li>
-            </ul>
-        </div>
-
-        <div class="box">
-            <h5 class="">Vehicles Type</h5>
-            <ul class="">
-                <li class="" *ngFor="let vehicleType of vehiclesType">
-                    <input type="checkbox" [checked]="vehicleType.id === vehicleParams.vehicleTypeId"
-                        [value]="vehicleType.id" (change)="onVehicleTypeSelected(vehicleType.id)">
-                    {{ vehicleType.vehicleTypeName }}
-                </li>
-            </ul>
+    <div class="card">
+        <div class="body" *ngFor="let vehicle of vehicles">
+            <app-vehicle-item [vehicle]="vehicle"></app-vehicle-item>
         </div>
     </div>
-</div> -->
-
-
-<!-- Nuevo UI -->
+</div>

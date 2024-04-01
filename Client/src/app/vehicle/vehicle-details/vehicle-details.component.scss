@@ -99,3 +99,62 @@
 // }
 
 // <!-- Nuevo UI -->
+
+.section {
+    margin-top: 30px;
+    // padding: 0 250px 0 250px;
+    display: flex;
+    justify-content: center;
+
+    .content {
+        width: 1000px;
+
+        .header {
+            // background-color: aliceblue;
+        }
+
+        .car-description {
+            margin-top: 30px;
+            display: flex;
+            justify-content: space-between;
+            gap: 70px;
+
+            .about {
+                max-width: 550px;
+                // padding: 100px;
+
+                hr {
+                    margin-top: 30px;
+                    margin-bottom: 30px;
+                }
+            }
+
+            .reservation {
+                margin-top: 30px;
+
+                .create {
+                    padding: 20px;
+                    box-shadow: 0 6px 6px rgba(0, 0, 0, 0.1);
+
+                    .description {
+                        font-size: 14px;
+                    }
+
+                    button {
+                        padding: 5px;
+                        border: none;
+                        background-color: #230086;
+                        color: #ffffff;
+
+                        &:hover {
+                            background-color: #1a0060;
+                        }
+                    }
+                }
+
+            }
+
+        }
+    }
+
+}
