@@ -12,10 +12,23 @@ import { HomePageComponent } from './home-page/home-page.component';
 import { RouterModule } from '@angular/router';
 import { MaterialModule } from './material/material.module';
 import { VehicleModule } from './vehicle/vehicle.module';
+import { NgxWebstorageModule, SessionStorage } from 'ngx-webstorage';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CustomerInfoComponent } from './customer-info/customer-info.component';
+import { CustomerInfoFormComponent } from './customer-info/customer-info-form/customer-info-form.component';
+import { ReservationInfoComponent } from './reservation-info/reservation-info.component';
+import { ReservationInfoFormComponent } from './reservation-info/reservation-info-form/reservation-info-form.component';
+import ReservationDetailsComponent from './reservation-details/reservation-details.component';
 
 @NgModule({
   declarations: [
-    AppComponent,HomePageComponent
+    AppComponent,
+    HomePageComponent,
+    CustomerInfoComponent,
+    CustomerInfoFormComponent,
+    ReservationInfoComponent,
+    ReservationInfoFormComponent,
+    ReservationDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -25,12 +38,19 @@ import { VehicleModule } from './vehicle/vehicle.module';
     CoreModule,
     RouterModule,
     MaterialModule,
-    VehicleModule
+    VehicleModule,
+    NgxWebstorageModule.forRoot(),
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
-
+    // SessionStorageService, 
+    {
+      provide: SessionStorage,
+      useFactory: () => SessionStorage,
+    }
   ],
   bootstrap: [AppComponent]
 })

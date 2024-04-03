@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { IVehicle } from 'src/app/shared/models/vehicles';
 import { VehicleService } from '../vehicle.service';
 import { NgxGalleryAnimation, NgxGalleryImage, NgxGalleryImageSize, NgxGalleryOptions } from '@kolkov/ngx-gallery';
 import { BreadcrumbService } from 'xng-breadcrumb';
+import { SessionStorageService } from 'ngx-webstorage';
 
 @Component({
   selector: 'app-vehicle-details',
@@ -18,8 +19,10 @@ export class VehicleDetailsComponent implements OnInit {
   constructor(
     private vehicleService: VehicleService, 
     private activateRoute: ActivatedRoute, 
-    private bcService: BreadcrumbService
-    ) { }
+    private bcService: BreadcrumbService,
+    private sessionStorage: SessionStorageService, // Inyectamos el servicio de almacenamiento de sesión
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
     this.loadVehicle();
@@ -64,4 +67,9 @@ export class VehicleDetailsComponent implements OnInit {
     return imageUrls;
   }
 
+  addReservation() {
+    const vehicleId = this.vehicle.id;
+    this.sessionStorage.store('vehicleId', vehicleId);
+    this.router.navigate(['customer-info']);
+  }
 }

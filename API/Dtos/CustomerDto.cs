@@ -10,8 +10,8 @@ namespace Core.Dtos
         public string Email { get; set; }
         public string Phone { get; set; }
         public string DriverLicense { get; set; }
+        public DateTime DOB { get; set; }
         public string Address { get; set; }
-
         public string SecondAddress { get; set; }
         public string City { get; set; }
         public string State { get; set; }

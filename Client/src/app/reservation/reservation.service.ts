@@ -19,10 +19,10 @@ export class ReservationService {
 
   getReservations(reservationParams: ReservationParams): Observable<Pagination<Reservation[]>> {
     let params = new HttpParams();
-    
-    if(reservationParams.customerId> 0) params = params.append('customerId', reservationParams.customerId);
-    if(reservationParams.vehicleId) params = params.append('vehicleId', reservationParams.vehicleId);
-    if(reservationParams.insuranceId) params = params.append('insuranceId', reservationParams.insuranceId);
+
+    if (reservationParams.customerId > 0) params = params.append('customerId', reservationParams.customerId);
+    if (reservationParams.vehicleId) params = params.append('vehicleId', reservationParams.vehicleId);
+    if (reservationParams.insuranceId) params = params.append('insuranceId', reservationParams.insuranceId);
     params = params.append('sort', reservationParams.sort);
     params = params.append('pageIndex', reservationParams.pageNumber);
     params = params.append('pageSize', reservationParams.pageSize);
@@ -47,10 +47,16 @@ export class ReservationService {
   getCustomers() {
     return this.http.get<Customer[]>(this.baseUrl + 'customers');
   }
+  getCustomer(id: number) {
+    return this.http.get<Customer[]>(this.baseUrl + 'customers' + id);
+  }
   getVehicles() {
     return this.http.get<IVehicle[]>(this.baseUrl + 'vehicles');
   }
-  getInsurances(){
+  getVehicle(id: number) {
+    return this.http.get<IVehicle[]>(this.baseUrl + 'vehicles' + id);
+  }
+  getInsurances() {
     return this.http.get<Insurance[]>(this.baseUrl + 'insurances');
   }
 }

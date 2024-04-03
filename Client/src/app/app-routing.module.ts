@@ -6,11 +6,15 @@ import { ServerErrorComponent } from './core/server-error/server-error.component
 import { AuthGuard } from './core/guards/auth.guard';
 import { AdminGuard } from './core/guards/admin.guard';
 import { HomePageComponent } from './home-page/home-page.component';
+import { CustomerInfoComponent } from './customer-info/customer-info.component';
+import { ReservationInfoComponent } from './reservation-info/reservation-info.component';
+import ReservationDetailsComponent from './reservation-details/reservation-details.component';
 
 const routes: Routes = [
   {
     path: '',
     // canActivate: [AuthGuard],
+    title: "Home",
     component: HomePageComponent
   },
   { path: 'test-error', component: TestErrorComponent },
@@ -18,8 +22,24 @@ const routes: Routes = [
   { path: 'server-error', component: ServerErrorComponent },
   {
     path: 'vehicles',
+    title: "Vehicles",
     // canActivate: [AuthGuard],
     loadChildren: () => import('./vehicle/vehicle.module').then(m => m.VehicleModule)
+  },
+  {
+    path: 'customer-info',
+    title: "Customer Info",
+    component: CustomerInfoComponent
+  },
+  {
+    path: 'reservation-info',
+    title: "Reservation Info",
+    component: ReservationInfoComponent
+  },
+  {
+    path: 'reservation-details/:id',
+    title: "Reservation Details",
+    component: ReservationDetailsComponent
   },
   {
     path: 'customers',

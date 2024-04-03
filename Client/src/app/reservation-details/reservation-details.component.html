@@ -1,0 +1,57 @@
+<!-- reservation-details.component.html -->
+
+<div class="back">
+    <i routerLink="/" class="bi bi-arrow-left"></i>
+</div>
+
+<div class="content">
+    <div *ngIf="reservation">
+        <mat-card class="card">
+            <mat-card-header>
+                <mat-card-title>Reservation</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+
+                <h2>Reservation Information</h2>
+                <div class="info">
+                    <mat-card>
+                        <div class="date-info">
+                            <strong>Pickup Date</strong>
+                            <p>{{reservation.startDate | date}}</p>
+                            <strong>Return Date</strong>
+                            <p>{{reservation.endDate | date}}</p>
+                            <strong>Days</strong>
+                            <p>{{reservation.days}} days</p>
+                            <strong>Location</strong>
+                            <p>111th Corona, Queens, New York</p>
+                            <strong>Insurance</strong>
+                            <p>{{reservation.insurance}}</p>
+                        </div>
+                    </mat-card>
+
+                    <mat-card>
+                        <div class="body">
+                            <div class="info-vehicle">
+                                <p>Reservation Number</p>
+                                <p>Vehicle Rental Price</p>
+                                <p>Customer Name</p>
+                                <p>Vehicle</p>
+                            </div>
+                            <div class="data">
+                                <p>{{reservation.reservationNumber}}</p>
+                                <p>{{reservation.rentalCost | currency}}</p>
+                                <p>{{reservation.customer}}</p>
+                                <p>{{reservation.vehicle}}</p>
+                            </div>
+                        </div>
+                    </mat-card>
+                </div>
+                <hr>
+                <div class="total">
+                    <strong>Total Rental Cost</strong>
+                    <strong>{{ reservation.rentalCost * reservation.days | currency}}</strong>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>
