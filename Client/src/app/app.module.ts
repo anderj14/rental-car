@@ -19,6 +19,7 @@ import { CustomerInfoFormComponent } from './customer-info/customer-info-form/cu
 import { ReservationInfoComponent } from './reservation-info/reservation-info.component';
 import { ReservationInfoFormComponent } from './reservation-info/reservation-info-form/reservation-info-form.component';
 import ReservationDetailsComponent from './reservation-details/reservation-details.component';
+import { ContactComponent } from './components/contact/contact.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,7 @@ import ReservationDetailsComponent from './reservation-details/reservation-detai
     CustomerInfoFormComponent,
     ReservationInfoComponent,
     ReservationInfoFormComponent,
-    ReservationDetailsComponent
+    ReservationDetailsComponent,    
   ],
   imports: [
     BrowserModule,

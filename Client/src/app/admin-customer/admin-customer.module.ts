@@ -5,6 +5,7 @@ import { EditCustomerComponent } from './edit-customer/edit-customer.component';
 import { SharedModule } from '../shared/shared.module';
 import { AdminCustomerRoutingModule } from './admin-customer-routing.module';
 import { EditCustomerFormComponent } from './edit-customer-form/edit-customer-form.component';
+import { MaterialModule } from '../material/material.module';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { EditCustomerFormComponent } from './edit-customer-form/edit-customer-fo
   imports: [
     CommonModule,
     SharedModule,
-    AdminCustomerRoutingModule
+    AdminCustomerRoutingModule,
+    MaterialModule
   ]
 })
 export class AdminCustomerModule { }

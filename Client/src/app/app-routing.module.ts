@@ -9,13 +9,18 @@ import { HomePageComponent } from './home-page/home-page.component';
 import { CustomerInfoComponent } from './customer-info/customer-info.component';
 import { ReservationInfoComponent } from './reservation-info/reservation-info.component';
 import ReservationDetailsComponent from './reservation-details/reservation-details.component';
+import { ContactComponent } from './components/contact/contact.component';
 
 const routes: Routes = [
   {
     path: '',
-    // canActivate: [AuthGuard],
     title: "Home",
     component: HomePageComponent
+  },
+  {
+    path: 'contact',
+    title: "Contact",
+    component: ContactComponent
   },
   { path: 'test-error', component: TestErrorComponent },
   { path: 'not-found', component: NotFoundComponent },
@@ -43,7 +48,7 @@ const routes: Routes = [
   },
   {
     path: 'customers',
-    canActivate: [AuthGuard],
+    // canActivate: [AuthGuard],
     loadChildren: () => import('./customer/customer.module').then(m => m.CustomerModule)
   },
   {
@@ -53,10 +58,13 @@ const routes: Routes = [
   },
   {
     path: 'invoices',
-    canActivate: [AuthGuard],
+    // canActivate: [AuthGuard],
     loadChildren: () => import('./invoice/invoice.module').then(m => m.InvoiceModule)
   },
-  { path: 'account', loadChildren: () => import('./account/account.module').then(m => m.AccountModule) },
+  { 
+    path: 'account', 
+    loadChildren: () => import('./account/account.module').then(m => m.AccountModule) 
+  },
   // Admin
   {
     path: 'admin',

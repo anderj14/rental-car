@@ -1,19 +1,39 @@
 <section class="content">
     <div class="content-cover">
         <div class="title">
-            <h1>Vehicles List</h1>
+            <h1>Vehicles</h1>
             <div class="actions">
                 <button [routerLink]="['/admin/create']" class="new-vehicle">New Vehicles</button>
             </div>
         </div>
+        <div class="filters">
+            <div class="filter">
+                <div class="search">
+                    <label>Search</label>
+                    <input type="text" (keyup.enter)="onSearch()" placeholder="Search" #search>
+                </div>
+                <div class="actions">
+                    <button (click)="togglePopup()" class="filter bi bi-filter">Filter</button>
+                </div>
+            </div>
+
+            <div class="sort">
+                <div class="select">
+                    <label>Sort</label>
+                    <select id="slct" required (change)="onSortSelected($event)">
+                        <option *ngFor="let sort of sortOption" [value]="sort.value">{{sort.name}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
         <app-paging-header
               [totalCount]="totalCount"
-              [pageSize]="this.vehicleParams.pageSize"
-              [pageNumber]="this.vehicleParams.pageNumber"
+              [pageSize]="vehicleParams.pageSize"
+              [pageNumber]="vehicleParams.pageNumber"
         ></app-paging-header>
 
         <div class="table-wrapper">
-
             <table class="table table-hover">
                 <thead>
                     <tr>
@@ -31,9 +51,9 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let vehicle of vehicles">
-                        <td class="">
-                            <img src="{{vehicle.pictureUrl || '/assets/images/placeholder.png'}}" alt="{{vehicle.vehicleName}}" class="img-fluid" style="max-height: 50px">
+                    <tr *ngFor="let vehicle of vehicles" [routerLink]="'/vehicles/' + vehicle.id">
+                        <td>
+                            <img [src]="vehicle.pictureUrl || '/assets/images/placeholder.png'" [alt]="vehicle.vehicleName" class="img-fluid" style="max-height: 50px">
                         </td>
                         <td>{{ vehicle.brand }}</td>
                         <td>{{ vehicle.model }}</td>
@@ -43,8 +63,8 @@
                         <td>{{ vehicle.fuel }}</td>
                         <td [class]="getStatusClass(vehicle.status)">{{ vehicle.status }}</td>
                         <td>{{ vehicle.vin }}</td>
-                        <td><button [routerLink]="['edit', vehicle.id]">Edit</button></td>
-                        <td><button (click)="deleteVehicle(vehicle.id)">Delete</button></td>
+                        <td><button class="edit" [routerLink]="['edit', vehicle.id]">Edit</button></td>
+                        <td><button class="delete" (click)="deleteVehicle(vehicle.id)">Delete</button></td>
                     </tr>
                 </tbody>
             </table>
@@ -58,7 +78,46 @@
               (pageChanged)="onPageChanged($event)"
             ></app-pager>
         </div>
-
     </div>
-
 </section>
+
+<div *ngIf="showPopup" class="popup-overlay" (click)="closePopup()">
+    <div class="popup-content" (click)="stopPropagation($event)">
+        <div class="box">
+            <h5>Brands</h5>
+            <ul>
+                <li *ngFor="let brand of brands">
+                    <input type="checkbox" [checked]="brand.id === vehicleParams.brandId" [value]="brand.id" (change)="onBrandSelected(brand.id)">
+                    {{ brand.brandName }}
+                </li>
+            </ul>
+        </div>
+        <div class="box">
+            <h5>Fuels</h5>
+            <ul>
+                <li *ngFor="let fuel of fuels">
+                    <input type="checkbox" [checked]="fuel.id === vehicleParams.fuelId" [value]="fuel.id" (change)="onFuelSelected(fuel.id)">
+                    {{ fuel.fuelName }}
+                </li>
+            </ul>
+        </div>
+        <div class="box">
+            <h5>Statuses</h5>
+            <ul>
+                <li *ngFor="let status of statuses">
+                    <input type="checkbox" [checked]="status.id === vehicleParams.statusId" [value]="status.id" (change)="onStatusSelected(status.id)">
+                    {{ status.statusName }}
+                </li>
+            </ul>
+        </div>
+        <div class="box">
+            <h5>Vehicles Type</h5>
+            <ul>
+                <li *ngFor="let vehicleType of vehiclesType">
+                    <input type="checkbox" [checked]="vehicleType.id === vehicleParams.vehicleTypeId" [value]="vehicleType.id" (change)="onVehicleTypeSelected(vehicleType.id)">
+                    {{ vehicleType.vehicleTypeName }}
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

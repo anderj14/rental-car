@@ -39,7 +39,7 @@ export class CustomerInfoFormComponent implements OnInit {
     this.adminCustomerService.createCustomer(newCustomer).subscribe((response: any) => {
       const customerId = response.id;
       this.sessionStorage.store('customerId', customerId);
-      this.router.navigate(['/reservation']);
+      this.router.navigate(['/reservation-info']);
     })
   }
 
