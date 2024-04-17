@@ -1,9 +1,10 @@
 <section class="content">
+    <app-breadcrumb></app-breadcrumb>
     <div class="content-cover">
         <div class="title">
             <h1>Vehicles</h1>
             <div class="actions">
-                <button [routerLink]="['/admin/create']" class="new-vehicle">New Vehicles</button>
+                <button [routerLink]="['/admin-vehicle/create']" class="new-vehicle">New Vehicles</button>
             </div>
         </div>
         <div class="filters">
@@ -27,11 +28,8 @@
             </div>
         </div>
 
-        <app-paging-header
-              [totalCount]="totalCount"
-              [pageSize]="vehicleParams.pageSize"
-              [pageNumber]="vehicleParams.pageNumber"
-        ></app-paging-header>
+        <app-paging-header [totalCount]="totalCount" [pageSize]="vehicleParams.pageSize"
+            [pageNumber]="vehicleParams.pageNumber"></app-paging-header>
 
         <div class="table-wrapper">
             <table class="table table-hover">
@@ -53,7 +51,8 @@
                 <tbody>
                     <tr *ngFor="let vehicle of vehicles" [routerLink]="'/vehicles/' + vehicle.id">
                         <td>
-                            <img [src]="vehicle.pictureUrl || '/assets/images/placeholder.png'" [alt]="vehicle.vehicleName" class="img-fluid" style="max-height: 50px">
+                            <img [src]="vehicle.pictureUrl || '/assets/images/placeholder.png'"
+                                [alt]="vehicle.vehicleName" class="img-fluid" style="max-height: 50px">
                         </td>
                         <td>{{ vehicle.brand }}</td>
                         <td>{{ vehicle.model }}</td>
@@ -71,12 +70,8 @@
         </div>
 
         <div class="d-flex justify-content-center" *ngIf="totalCount > 0">
-            <app-pager
-              [pageSize]="vehicleParams.pageSize"
-              [pageNumber]="vehicleParams.pageNumber"
-              [totalCount]="totalCount"
-              (pageChanged)="onPageChanged($event)"
-            ></app-pager>
+            <app-pager [pageSize]="vehicleParams.pageSize" [pageNumber]="vehicleParams.pageNumber"
+                [totalCount]="totalCount" (pageChanged)="onPageChanged($event)"></app-pager>
         </div>
     </div>
 </section>
@@ -87,7 +82,8 @@
             <h5>Brands</h5>
             <ul>
                 <li *ngFor="let brand of brands">
-                    <input type="checkbox" [checked]="brand.id === vehicleParams.brandId" [value]="brand.id" (change)="onBrandSelected(brand.id)">
+                    <input type="checkbox" [checked]="brand.id === vehicleParams.brandId" [value]="brand.id"
+                        (change)="onBrandSelected(brand.id)">
                     {{ brand.brandName }}
                 </li>
             </ul>
@@ -96,7 +92,8 @@
             <h5>Fuels</h5>
             <ul>
                 <li *ngFor="let fuel of fuels">
-                    <input type="checkbox" [checked]="fuel.id === vehicleParams.fuelId" [value]="fuel.id" (change)="onFuelSelected(fuel.id)">
+                    <input type="checkbox" [checked]="fuel.id === vehicleParams.fuelId" [value]="fuel.id"
+                        (change)="onFuelSelected(fuel.id)">
                     {{ fuel.fuelName }}
                 </li>
             </ul>
@@ -105,7 +102,8 @@
             <h5>Statuses</h5>
             <ul>
                 <li *ngFor="let status of statuses">
-                    <input type="checkbox" [checked]="status.id === vehicleParams.statusId" [value]="status.id" (change)="onStatusSelected(status.id)">
+                    <input type="checkbox" [checked]="status.id === vehicleParams.statusId" [value]="status.id"
+                        (change)="onStatusSelected(status.id)">
                     {{ status.statusName }}
                 </li>
             </ul>
@@ -114,7 +112,8 @@
             <h5>Vehicles Type</h5>
             <ul>
                 <li *ngFor="let vehicleType of vehiclesType">
-                    <input type="checkbox" [checked]="vehicleType.id === vehicleParams.vehicleTypeId" [value]="vehicleType.id" (change)="onVehicleTypeSelected(vehicleType.id)">
+                    <input type="checkbox" [checked]="vehicleType.id === vehicleParams.vehicleTypeId"
+                        [value]="vehicleType.id" (change)="onVehicleTypeSelected(vehicleType.id)">
                     {{ vehicleType.vehicleTypeName }}
                 </li>
             </ul>

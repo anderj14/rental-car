@@ -8,14 +8,16 @@ import { AdminGuard } from './core/guards/admin.guard';
 import { HomePageComponent } from './home-page/home-page.component';
 import { CustomerInfoComponent } from './customer-info/customer-info.component';
 import { ReservationInfoComponent } from './reservation-info/reservation-info.component';
-import ReservationDetailsComponent from './reservation-details/reservation-details.component';
+import ReservationDetailsComponent from './admin-reservation/reservation-details/reservation-details.component';
 import { ContactComponent } from './components/contact/contact.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 const routes: Routes = [
   {
     path: '',
     title: "Home",
-    component: HomePageComponent
+    component: HomePageComponent,
+    data: { breadcrumb: 'Home' }
   },
   {
     path: 'contact',
@@ -41,11 +43,11 @@ const routes: Routes = [
     title: "Reservation Info",
     component: ReservationInfoComponent
   },
-  {
-    path: 'reservation-details/:id',
-    title: "Reservation Details",
-    component: ReservationDetailsComponent
-  },
+  // {
+  //   path: 'reservation-details/:id',
+  //   title: "Reservation Details",
+  //   component: ReservationDetailsComponent
+  // },
   {
     path: 'customers',
     // canActivate: [AuthGuard],
@@ -61,35 +63,42 @@ const routes: Routes = [
     // canActivate: [AuthGuard],
     loadChildren: () => import('./invoice/invoice.module').then(m => m.InvoiceModule)
   },
-  { 
-    path: 'account', 
-    loadChildren: () => import('./account/account.module').then(m => m.AccountModule) 
+  {
+    path: 'account',
+    loadChildren: () => import('./account/account.module').then(m => m.AccountModule)
   },
   // Admin
   {
-    path: 'admin',
+    path: 'dashboard',
+    title: "Dashboard",
+    canActivate: [AuthGuard],
+    component: DashboardComponent,
+    data: { breadcrumb: 'Dashboard' }
+  },
+  {
+    path: 'admin-vehicle',
     canActivate: [AuthGuard, AdminGuard],
     loadChildren: () => import('./admin-vehicle/admin-vehicle.module').then(m => m.AdminVehicleModule),
-    data: { breadcrumb: 'Admin' }
+    data: { breadcrumb: 'Admin Vehicles' }
   },
   {
     path: 'admin-customer',
     canActivate: [AuthGuard, AdminGuard],
     loadChildren: () => import('./admin-customer/admin-customer.module').then(m => m.AdminCustomerModule),
-    data: { breadcrumb: 'Admin' }
+    data: { breadcrumb: 'Admin customers' }
   },
   {
     path: 'admin-reservation',
     canActivate: [AuthGuard, AdminGuard],
     loadChildren: () => import('./admin-reservation/admin-reservation.module').then(m => m.AdminReservationModule),
-    data: { breadcrumb: 'Admin Reservation' }
+    data: { breadcrumb: 'Admin Reservations' }
   },
-  {
-    path: 'admin-invoice',
-    canActivate: [AuthGuard, AdminGuard],
-    loadChildren: () => import('./admin-invoice/admin-invoice.module').then(m => m.AdminInvoiceModule),
-    data: { breadcrumb: 'Admin Invoice' }
-  },
+  // {
+  //   path: 'admin-invoice',
+  //   canActivate: [AuthGuard, AdminGuard],
+  //   loadChildren: () => import('./admin-invoice/admin-invoice.module').then(m => m.AdminInvoiceModule),
+  //   data: { breadcrumb: 'Admin Invoices' }
+  // },
   { path: '**', redirectTo: 'not-found', pathMatch: 'full' },
 
 ];

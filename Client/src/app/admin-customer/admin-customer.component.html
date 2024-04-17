@@ -1,9 +1,15 @@
 <section class="content">
+    <app-breadcrumb></app-breadcrumb>
     <div class="content-cover">
         <div class="title">
-            <h1>Customer List</h1>
+            <h1>Customers</h1>
             <div class="actions">
-                <button [routerLink]="['/admin-customer/create']" class="new-vehicle">New Customer</button>
+                <div class="search">
+                    <input (keyup.enter)="onSearch()" type="text" placeholder="Search" #search>
+                </div>
+                <div class="create">
+                    <button [routerLink]="['/admin-customer/create']" class="new-customer">New Customer</button>
+                </div>
             </div>
         </div>
         <app-paging-header
@@ -27,7 +33,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let customer of customers">
+                    <tr *ngFor="let customer of customers" [routerLink]="'/admin-customer/' + customer.id">
                         <td>{{ customer.customerName }}</td>
                         <td>{{ customer.email }}</td>
                         <td>{{ customer.phone }}</td>

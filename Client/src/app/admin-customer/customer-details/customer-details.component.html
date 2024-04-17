@@ -1,0 +1,29 @@
+<div class="customer-details container" *ngIf="customer">
+
+    <div class="car-info">
+        <app-breadcrumb *ngIf="(currentUser$ | async)"></app-breadcrumb>
+
+        <mat-card>
+            <mat-card-header>
+                <mat-card-title>Customer</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <h2>Customer Information</h2>
+                <div class="body">
+                    <div class="info">
+                        <p>Email</p>
+                        <p>Phone</p>
+                        <p>Driver License</p>
+                        <p>Address</p>
+                    </div>
+                    <div class="data">
+                        <p>{{ customer.email }}</p>
+                        <p>{{ customer.phone }}</p>
+                        <p>{{ customer.driverLicense }}</p>
+                        <p>{{ customer.address }}</p>
+                    </div>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>

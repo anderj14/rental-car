@@ -5,7 +5,7 @@ import { VehicleDetailsComponent } from './vehicle-details/vehicle-details.compo
 
 const routes: Routes = [
   { path: '', component: VehicleComponent },
-  { path: ':id', component: VehicleDetailsComponent },
+  { path: ':id', component: VehicleDetailsComponent, data: {breadcrumb: {alias: 'vehicleDetails'}} },
 
 ]
 

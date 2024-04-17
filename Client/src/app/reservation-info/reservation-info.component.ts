@@ -1,6 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { AdminReservationService } from '../admin-reservation/admin-reservation.service';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Insurance } from '../shared/models/insurance';
 import { Reservation, ReservationFormValues } from '../shared/models/reservation';
 import { forkJoin } from 'rxjs';
@@ -62,7 +61,6 @@ export class ReservationInfoComponent implements OnInit {
     }
   }
 
-
   updatePrice(event: any) {
     this.reservation.rentalCost = event;
   }
@@ -76,7 +74,6 @@ export class ReservationInfoComponent implements OnInit {
       const insuranceId = this.insurances && this.insurances.find(x => x.insuranceName === response.insurance)?.id;
       this.reservation = response;
       this.reservationFormValues = { ...response, customerId, vehicleId, insuranceId };
-
     });
   }
 

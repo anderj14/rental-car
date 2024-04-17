@@ -21,7 +21,8 @@ export class CustomerComponent implements OnInit {
   currentUser$!: Observable<User | null>;
   isAdmin$!: Observable<boolean>;
   
-  constructor(private customerService: CustomerService, public accountService: AccountService) { }
+  constructor(private customerService: CustomerService, 
+    public accountService: AccountService) { }
 
   ngOnInit(): void {
     this.currentUser$ = this.accountService.currentUser$;

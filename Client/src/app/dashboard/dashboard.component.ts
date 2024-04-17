@@ -8,11 +8,12 @@ import { CustomerParams } from '../shared/models/customerParams';
 import { Reservation } from '../shared/models/reservation';
 import { ReservationParams } from '../shared/models/reservationParams';
 import { VehicleService } from '../vehicle/vehicle.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss'
 })

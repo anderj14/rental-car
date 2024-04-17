@@ -93,6 +93,4 @@ export class EditVehicleComponent implements OnInit {
   getVehiclesType() {
     return this.vehicleService.getVehiclesType();
   }
-
-
 }

@@ -52,7 +52,7 @@ export class ReservationInfoFormComponent implements OnInit {
     this.adminReservationService.createReservation(newReservation).subscribe((response: any) => {
       const newReservationId = response.id;
       console.log(response);
-      this.router.navigate(['/reservation-details', newReservationId]);
+      this.router.navigate(['/admin-reservation', newReservationId]);
     });
   }
 

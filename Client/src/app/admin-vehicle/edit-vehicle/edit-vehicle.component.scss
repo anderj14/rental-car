@@ -1,6 +1,11 @@
 section {
-    // display: flex;
+    display: flex;
     justify-content: center;
+    flex-direction: column;
+
+    app-breadcrumb-admin {
+        margin: 5px 0;
+    }
 }
 
 .vehicle-edit {
@@ -9,7 +14,8 @@ section {
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     background-color: #fff;
-    margin: 20px;
+    margin: 0 0 30px 0;
+    // margin-bottom: 90px;
 
     .vehicle-info {
         margin-top: 10px;

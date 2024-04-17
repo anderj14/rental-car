@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Customer } from '../shared/models/customers';
 import { CustomerParams } from '../shared/models/customerParams';
 import { CustomerService } from '../customer/customer.service';
@@ -13,14 +13,17 @@ import { Observable } from 'rxjs';
   styleUrls: ['./admin-customer.component.scss']
 })
 export class AdminCustomerComponent implements OnInit {
+
+  @ViewChild('search') searchTerm?: ElementRef;
+
   customers!: Customer[];
   totalCount!: number;
   customerParams!: CustomerParams;
   currentUser$!: Observable<User | null>;
   isAdmin$!: Observable<boolean>;
 
-  constructor(private customerService: CustomerService, 
-    private adminCustomerService: AdminCustomerService, 
+  constructor(private customerService: CustomerService,
+    private adminCustomerService: AdminCustomerService,
     public accountService: AccountService) {
     this.customerParams = this.customerService.getCustomerParams();
   }
@@ -41,6 +44,11 @@ export class AdminCustomerComponent implements OnInit {
     });
   }
 
+  onSortSelected(event: any) {
+    this.customerParams.sort = event.target.value;
+    this.getCustomers();
+  }
+
   onPageChanged(event: any) {
     const params = this.customerService.getCustomerParams();
     if (params.pageNumber !== event) {
@@ -57,5 +65,17 @@ export class AdminCustomerComponent implements OnInit {
         this.totalCount--;
       }
     );
+  }
+  
+  onSearch() {
+    this.customerParams.search = this.searchTerm?.nativeElement.value;
+    this.customerParams.pageNumber = 1;
+    this.getCustomers();
+  }
+
+  onReset() {
+    if (this.searchTerm) this.searchTerm.nativeElement.value = '';
+    this.customerParams = new CustomerParams();
+    this.getCustomers();
   }
 }

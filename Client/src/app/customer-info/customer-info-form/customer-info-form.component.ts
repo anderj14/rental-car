@@ -27,13 +27,6 @@ export class CustomerInfoFormComponent implements OnInit {
     this.vehicleId = this.sessionStorage.retrieve('vehicleId');
   }
 
-  // onSubmit(customer: CustomerFormValues) {
-  //   const newCustomer = { ...customer };
-  //   this.adminCustomerService.createCustomer(newCustomer).subscribe((response: any) => {
-  //     this.router.navigate(['/reservation']);
-  //   });
-  // }
-
   onSubmit(customer: CustomerFormValues) {
     const newCustomer = { ...customer };
     this.adminCustomerService.createCustomer(newCustomer).subscribe((response: any) => {

@@ -20,8 +20,8 @@ export class VehicleDetailsComponent implements OnInit {
     private vehicleService: VehicleService, 
     private activateRoute: ActivatedRoute, 
     private bcService: BreadcrumbService,
-    private sessionStorage: SessionStorageService, // Inyectamos el servicio de almacenamiento de sesión
-    private router: Router
+    private sessionStorage: SessionStorageService,
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
@@ -31,7 +31,7 @@ export class VehicleDetailsComponent implements OnInit {
   loadVehicle() {
     this.vehicleService.getVehicle(+this.activateRoute.snapshot.paramMap.get('id')!).subscribe(vehicle => {
       this.vehicle = vehicle;
-      this.bcService.set('@vehicleDetails', vehicle.vehicleName);
+      this.bcService.set('@vehicleDetails', vehicle.vehicleName + " " + vehicle.year);
       this.initializeGallery();
     }, error => {
       console.log(error);

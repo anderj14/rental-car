@@ -1,3 +1,4 @@
+
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -18,8 +19,7 @@ import { CustomerInfoComponent } from './customer-info/customer-info.component';
 import { CustomerInfoFormComponent } from './customer-info/customer-info-form/customer-info-form.component';
 import { ReservationInfoComponent } from './reservation-info/reservation-info.component';
 import { ReservationInfoFormComponent } from './reservation-info/reservation-info-form/reservation-info-form.component';
-import ReservationDetailsComponent from './reservation-details/reservation-details.component';
-import { ContactComponent } from './components/contact/contact.component';
+// import ReservationDetailsComponent from './admin-reservation/reservation-details/reservation-details.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +29,7 @@ import { ContactComponent } from './components/contact/contact.component';
     CustomerInfoFormComponent,
     ReservationInfoComponent,
     ReservationInfoFormComponent,
-    ReservationDetailsComponent,    
+    // ReservationDetailsComponent,    
   ],
   imports: [
     BrowserModule,

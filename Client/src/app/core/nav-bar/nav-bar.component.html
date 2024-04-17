@@ -4,7 +4,7 @@
         routerLink="/">
     <nav class="my-2" *ngIf="(isAdmin$ | async)">
         <a  class="p-2" routerLink="/dashboard" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Dashboard</a>
-        <a  class="p-2" routerLink="admin" routerLinkActive="active">Vehicles</a>
+        <a  class="p-2" routerLink="admin-vehicle" routerLinkActive="active">Vehicles</a>
         <a  class="p-2" routerLink="/admin-customer" routerLinkActive="active">Customers</a>
         <a  class="p-2" routerLink="/admin-reservation" routerLinkActive="active">Reservations</a>
         <!-- <a class="p-2" routerLink="/invoices" routerLinkActive="active">Invoices</a> -->

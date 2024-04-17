@@ -1,18 +1,19 @@
 
 <section class="vehicle-edit mt-5">
-    <div class="content">
-      <mat-card class="card">
-        <mat-card-header>
-          <mat-card-title>Add New Reservation</mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
-          <app-edit-reservation-form
-            [reservation]="reservationFormValues"
-            [customers]="customers"
-            [vehicles]="vehicles"
-            [insurances]="insurances"
-          ></app-edit-reservation-form>
-        </mat-card-content>
-      </mat-card>
-    </div>
-  </section>
+  <app-breadcrumb></app-breadcrumb>
+  <div class="content">
+    <mat-card class="card">
+      <mat-card-header>
+        <mat-card-title>Add New Reservation</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <app-edit-reservation-form
+          [reservation]="reservationFormValues"
+          [customers]="customers"
+          [vehicles]="vehicles"
+          [insurances]="insurances"
+        ></app-edit-reservation-form>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</section>
