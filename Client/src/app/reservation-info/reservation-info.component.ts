@@ -3,10 +3,10 @@ import { ActivatedRoute } from '@angular/router';
 import { Insurance } from '../shared/models/insurance';
 import { Reservation, ReservationFormValues } from '../shared/models/reservation';
 import { forkJoin } from 'rxjs';
-import { ReservationService } from '../reservation/reservation.service';
 import { Pagination } from '../shared/models/Pagination';
 import { Customer } from '../shared/models/customers';
 import { IVehicle } from '../shared/models/vehicles';
+import { ReservationService } from './reservation.service';
 
 @Component({
   selector: 'app-reservation-info',

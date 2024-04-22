@@ -1,11 +1,11 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Customer } from '../shared/models/customers';
 import { CustomerParams } from '../shared/models/customerParams';
-import { CustomerService } from '../customer/customer.service';
 import { AdminCustomerService } from './admin-customer.service';
 import { AccountService } from '../account/account.service';
 import { User } from '../shared/models/user';
 import { Observable } from 'rxjs';
+import { CustomerService } from './customer.service';
 
 @Component({
   selector: 'app-admin-customer',

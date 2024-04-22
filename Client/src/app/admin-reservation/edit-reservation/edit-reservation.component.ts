@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { forkJoin } from 'rxjs';
-import { ReservationService } from 'src/app/reservation/reservation.service';
+import { ReservationService } from 'src/app/reservation-info/reservation.service';
 import { Pagination } from 'src/app/shared/models/Pagination';
 import { Customer } from 'src/app/shared/models/customers';
 import { Insurance } from 'src/app/shared/models/insurance';

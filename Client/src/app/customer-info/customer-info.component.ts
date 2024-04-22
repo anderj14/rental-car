@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Customer, CustomerFormValues } from '../shared/models/customers';
-import { CustomerService } from '../customer/customer.service';
 import { ActivatedRoute } from '@angular/router';
+import { CustomerService } from '../admin-customer/customer.service';
 
 @Component({
   selector: 'app-customer-info',

@@ -1,11 +1,11 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Reservation } from '../shared/models/reservation';
 import { ReservationParams } from '../shared/models/reservationParams';
-import { ReservationService } from '../reservation/reservation.service';
 import { AdminReservationService } from './admin-reservation.service';
 import { Observable } from 'rxjs';
 import { User } from '../shared/models/user';
 import { AccountService } from '../account/account.service';
+import { ReservationService } from '../reservation-info/reservation.service';
 
 @Component({
   selector: 'app-admin-reservation',

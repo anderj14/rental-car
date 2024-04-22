@@ -2,10 +2,10 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AccountService } from 'src/app/account/account.service';
-import { CustomerService } from 'src/app/customer/customer.service';
 import { Customer } from 'src/app/shared/models/customers';
 import { User } from 'src/app/shared/models/user';
 import { BreadcrumbService } from 'xng-breadcrumb';
+import { CustomerService } from '../customer.service';
 
 @Component({
   selector: 'app-customer-details',

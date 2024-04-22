@@ -54,16 +54,16 @@ const routes: Routes = [
   //   title: "Reservation Details",
   //   component: ReservationDetailsComponent
   // },
-  {
-    path: 'customers',
-    // canActivate: [AuthGuard],
-    loadChildren: () => import('./customer/customer.module').then(m => m.CustomerModule)
-  },
-  {
-    path: 'reservations',
-    // canActivate: [AuthGuard],
-    loadChildren: () => import('./reservation/reservation.module').then(m => m.ReservationModule)
-  },
+  // {
+  //   path: 'customers',
+  //   // canActivate: [AuthGuard],
+  //   loadChildren: () => import('./customer/customer.module').then(m => m.CustomerModule)
+  // },
+  // {
+  //   path: 'reservations',
+  //   // canActivate: [AuthGuard],
+  //   loadChildren: () => import('./reservation/reservation.module').then(m => m.ReservationModule)
+  // },
   {
     path: 'invoices',
     // canActivate: [AuthGuard],

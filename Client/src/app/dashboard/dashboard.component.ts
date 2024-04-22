@@ -2,14 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { IVehicle } from '../shared/models/vehicles';
 import { VehicleParams } from '../shared/models/vehicleParams';
 import { Customer } from '../shared/models/customers';
-import { CustomerService } from '../customer/customer.service';
-import { ReservationService } from '../reservation/reservation.service';
 import { CustomerParams } from '../shared/models/customerParams';
 import { Reservation } from '../shared/models/reservation';
 import { ReservationParams } from '../shared/models/reservationParams';
 import { VehicleService } from '../vehicle/vehicle.service';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { ReservationService } from '../reservation-info/reservation.service';
+import { CustomerService } from '../admin-customer/customer.service';
 
 @Component({
   selector: 'app-dashboard',
