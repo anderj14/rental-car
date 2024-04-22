@@ -1,50 +1,122 @@
-<section class="content">
-    <div class="content-cover">
-        <div class="boxes">
-            <div class="box vehicle">
-                <div class="title">
-                    <p>Vehicles</p>
-                    <i class="bi bi-car-front"></i>
+<section class="dashboard">
+    <h1>Dashboard</h1>
+    <div class="dashboard-content">
+        <section>
+            <div class="summary">
+                <div class="summary-item" [routerLink]="'/admin-vehicle'">
+                    <div class="icon">
+                        <i class="bi bi-car-front"></i>
+                    </div>
+                    <div class="details">
+                        <p>Vehicles</p>
+                        <span>{{ totalCountVehicle }}</span>
+                    </div>
                 </div>
-                <span>{{ getTotalCountVehicle() }}</span>
-            </div>
-            <div class="box customer">
-                <div class="title">
-                    <p>Customers</p>
-                    <i class="bi bi-person"></i>
+                <div class="summary-item" [routerLink]="'/admin-customer'">
+                    <div class="icon">
+                        <i class="bi bi-person"></i>
+                    </div>
+                    <div class="details">
+                        <p>Customers</p>
+                        <span>{{ totalCountCustomer }}</span>
+                    </div>
                 </div>
-                <span>{{ getTotalCountCustomer() }}</span>
-            </div>
-            <div class="box reservation">
-                <div class="title">
-                    <p>Reservations</p>
-                    <i class="bi bi-calendar-event"></i>
+                <div class="summary-item" [routerLink]="'/admin-reservation'">
+                    <div class="icon">
+                        <i class="bi bi-calendar-event"></i>
+                    </div>
+                    <div class="details">
+                        <p>Reservations</p>
+                        <span>{{ totalCountReservation }}</span>
+                    </div>
                 </div>
-                <span>{{ getTotalCountReservation() }}</span>
             </div>
+            <div class="data-section">
+                <div class="data-table-customer">
+                    <h2>Customers</h2>
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Phone</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let customer of customers">
+                                    <td>{{ customer.customerName }}</td>
+                                    <td>{{ customer.email }}</td>
+                                    <td>{{ customer.phone }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="data-table">
+                    <h2>Rented Vehicles</h2>
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Vehicle</th>
+                                    <th>Brand</th>
+                                    <th>Model</th>
+                                    <th>Year</th>
+                                    <th>Rental Price</th>
+                                    <th>Fuel</th>
+                                    <th>Vin</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let vehicle of vehicles">
+                                    <td>
+                                        <img [src]="vehicle.pictureUrl || '/assets/images/placeholder.png'"
+                                            [alt]="vehicle.vehicleName" class="img-fluid" style="max-height: 50px">
+                                    </td>
+                                    <td>{{ vehicle.brand }}</td>
+                                    <td>{{ vehicle.model }}</td>
+                                    <td>{{ vehicle.year }}</td>
+                                    <td>{{ vehicle.rentalPrice | currency }}</td>
+                                    <td>{{ vehicle.fuel }}</td>
+                                    <td>{{ vehicle.vin }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+          
+        </section>
+
+        <div class="data-section">
+            <div class="data-table">
+                <h2>Recent Reservations</h2>
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Reservation Number</th>
+                                <th>Insurance</th>
+                                <th>Start Date</th>
+                                <th>End Date</th>
+                                <th>Days</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let reservation of reservations">
+                                <td>{{ reservation.reservationNumber }}</td>
+                                <td>{{ reservation.insurance }}</td>
+                                <td>{{ reservation.startDate | date }}</td>
+                                <td>{{ reservation.endDate | date }}</td>
+                                <td>{{ reservation.days }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+
         </div>
-
-        <h2>Reservation Information</h2>
-
-        <table class="table table-hover">
-            <thead>
-                <tr>
-                    <th>Reservation Number</th>
-                    <th>Insurance</th>
-                    <th>Start Date</th>
-                    <th>End Date</th>
-                    <th>Days</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let reservation of reservations">
-                    <td>{{ reservation.reservationNumber }}</td>
-                    <td>{{ reservation.insurance }}</td>
-                    <td>{{ reservation.startDate | date}}</td>
-                    <td>{{ reservation.endDate | date }}</td>
-                    <td>{{ reservation.days }}</td>
-                </tr>
-            </tbody>
-        </table>
     </div>
 </section>

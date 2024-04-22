@@ -19,7 +19,7 @@ import { CustomerInfoComponent } from './customer-info/customer-info.component';
 import { CustomerInfoFormComponent } from './customer-info/customer-info-form/customer-info-form.component';
 import { ReservationInfoComponent } from './reservation-info/reservation-info.component';
 import { ReservationInfoFormComponent } from './reservation-info/reservation-info-form/reservation-info-form.component';
-// import ReservationDetailsComponent from './admin-reservation/reservation-details/reservation-details.component';
+import { FooterComponent } from './core/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +29,6 @@ import { ReservationInfoFormComponent } from './reservation-info/reservation-inf
     CustomerInfoFormComponent,
     ReservationInfoComponent,
     ReservationInfoFormComponent,
-    // ReservationDetailsComponent,    
   ],
   imports: [
     BrowserModule,
@@ -42,7 +41,8 @@ import { ReservationInfoFormComponent } from './reservation-info/reservation-inf
     VehicleModule,
     NgxWebstorageModule.forRoot(),
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FooterComponent
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},

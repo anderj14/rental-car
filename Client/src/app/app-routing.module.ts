@@ -11,6 +11,7 @@ import { ReservationInfoComponent } from './reservation-info/reservation-info.co
 import ReservationDetailsComponent from './admin-reservation/reservation-details/reservation-details.component';
 import { ContactComponent } from './components/contact/contact.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { AboutUsComponent } from './components/about-us/about-us.component';
 
 const routes: Routes = [
   {
@@ -42,6 +43,11 @@ const routes: Routes = [
     path: 'reservation-info',
     title: "Reservation Info",
     component: ReservationInfoComponent
+  },
+  {
+    path: 'about-us',
+    title: "About Us",
+    component: AboutUsComponent
   },
   // {
   //   path: 'reservation-details/:id',
