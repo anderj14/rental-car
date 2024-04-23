@@ -1,28 +1,18 @@
-input {
-    width: 15em;
-    margin-top: 3px;
-    margin-bottom: 10px;
-}
-
-.section-select {
-    margin-top: 30px;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
+section {
+    margin: 50px;
     // max-width: 1000px;
+    display: flex;
+    justify-content: center;
 
-    @media (max-width: 1000px) {
-        grid-template-columns: repeat(2, 1fr);
-        // max-width: 700px;
-    }
+    .content {
 
-    @media (max-width: 650px) {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
 
-    select {
-        width: 18em;
+        .card {
+            max-width: 1000px;
+        }
+
+        mat-card-content {
+            width: 500px;
+        }
     }
 }

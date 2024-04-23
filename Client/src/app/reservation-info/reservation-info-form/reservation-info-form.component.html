@@ -45,9 +45,11 @@
           id="days"
           placeholder="Days"
           required
-          class="form-control"
+          class="form-control days"
           #days="ngModel"
-          [(ngModel)]="reservation.days"        
+          [(ngModel)]="reservation.days"       
+          (ngModelChange)="calculateRentalCost()"
+          disabled
           >
           <div *ngIf="days.invalid && (days.dirty || days.touched)" class="invalid-feedback">
             <div *ngIf="days.errors?.['required']" >
@@ -58,77 +60,30 @@
       <div class="form-group col-md-6">
         <label for="rentalCost">RentalCost</label>
         <input 
-        type="text"
-        [ngClass]="{'is-invalid': rentalCost.invalid && (rentalCost.dirty || rentalCost.touched)}"
-        required
-        class="form-control"
-        id="rentalCost"
-        placeholder="Rental Cost"
-        currencyMask
-        name="rentalCost"
-        #rentalCost="ngModel"
-        pattern="^\$?([0-9]{1,3},([0-9]{3},)*[0-9]{3}|[0-9]+)(\.[0-9][0-9])?$"
-        [min]="0.01"
-        [ngModel]="+reservation.rentalCost | number: '1.2-2'"
-        (ngModelChange)="updatePrice(+$event)"
+          type="text"
+          [ngClass]="{'is-invalid': rentalCost.invalid && (rentalCost.dirty || rentalCost.touched)}"
+          required
+          class="form-control cost"
+          id="rentalCost"
+          placeholder="Rental Cost"
+          currencyMask
+          name="rentalCost"
+          #rentalCost="ngModel"
+          [(ngModel)]="reservation.rentalCost"
         >
-        <div *ngIf="rentalCost.invalid && (rentalCost.dirty || rentalCost.touched)" class="invalid-feedback">
-          <div *ngIf="rentalCost.errors?.['required']">
-            Reservation rental cost is required
-          </div>
-          <div *ngIf="rentalCost.errors?.['pattern']">
-            Reservation rental cost needs to be decimal value
-          </div>
-          <div *ngIf="rentalCost.errors?.['min']">
-            Reservation rental cost must be greater than zero
+          <div *ngIf="rentalCost.invalid && (rentalCost.dirty || rentalCost.touched)" class="invalid-feedback">
+            <div *ngIf="rentalCost.errors?.['required']">
+              Reservation rental cost is required
+            </div>
+            <div *ngIf="rentalCost.errors?.['pattern']">
+              Reservation rental cost needs to be decimal value
+            </div>
+            <div *ngIf="rentalCost.errors?.['min']">
+              Reservation rental cost must be greater than zero
+            </div>
           </div>
         </div>
-      </div>
       <div class="section-select">
-        <div class="form-group">
-          <label for="customer">Customer</label>
-          <input
-            type="text"
-            name="customerId"
-            id="customer"
-            class="form-control"
-            [(ngModel)]="reservation.customerId"
-            required
-          />
-        </div>
-        <div class="form-group">
-          <label for="vehicle">Vehicle</label>
-          <input
-            type="text"
-            name="vehicleId"
-            id="vehicle"
-            class="form-control"
-            [(ngModel)]="reservation.vehicleId"
-            required
-          />
-        </div>
-<!-- 
-          <div class="form-group">
-            <label for="customer">Customer</label>
-            <input type="text" 
-            class="form-control" 
-            id="customer"
-            [(ngModel)]="reservation.customerId"
-            [value]="getCustomerNameById(reservation.customerId)" 
-            readonly
-            >
-          </div>
-          
-          <div class="form-group">
-            <label for="vehicle">Vehicle</label>
-            <input type="text" 
-            class="form-control" 
-            id="vehicle"
-            [(ngModel)]="reservation.vehicleId"
-            [value]="getVehicleNameById(reservation.vehicleId)" 
-            readonly>
-          </div> -->
-        </div>
         <div class="form-group">
           <label for="insurance">Insurance</label>
           <select 
@@ -136,6 +91,8 @@
               id="insurance" 
               class="form-control"
               [(ngModel)]="reservation.insuranceId"
+              (ngModelChange)="calculateRentalCost()"
+
               required
               >
               <option
@@ -145,6 +102,33 @@
               >{{insurance.insuranceName}}</option>
             </select>
         </div>
+        <div class="form-group customer">
+          <label for="customer">Customer</label>
+          <input
+            type="text"
+            name="customerId"
+            id="customer"
+            class="form-control customer"
+            [(ngModel)]="reservation.customerId"
+            required
+            disabled
+          />
+        </div>
+        <div class="form-group vehicle">
+          <label for="vehicle">Vehicle</label>
+          <input
+            type="text"
+            name="vehicleId"
+            id="vehicle"
+            class="form-control vehicle"
+            [(ngModel)]="reservation.vehicleId"
+          (ngModelChange)="calculateRentalCost()"
+            required
+            disabled
+          />
+        </div>
+        </div>
+       
       </div>
   <button [disabled]="!reservationForm.valid" type="submit" class="btn btn-primary my-3 float-right">Submit</button>
 </form>

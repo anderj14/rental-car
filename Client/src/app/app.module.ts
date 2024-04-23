@@ -20,6 +20,7 @@ import { CustomerInfoFormComponent } from './customer-info/customer-info-form/cu
 import { ReservationInfoComponent } from './reservation-info/reservation-info.component';
 import { ReservationInfoFormComponent } from './reservation-info/reservation-info-form/reservation-info-form.component';
 import { FooterComponent } from './core/footer/footer.component';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,9 @@ import { FooterComponent } from './core/footer/footer.component';
     NgxWebstorageModule.forRoot(),
     FormsModule,
     ReactiveFormsModule,
-    FooterComponent
+    FooterComponent,
+    NgSelectModule
+
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},

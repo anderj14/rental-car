@@ -70,16 +70,14 @@ export class EditReservationFormComponent implements OnInit {
   
         const rentalCost = (vehicleRentalPrice + insurancePrice) * totalDays;
         
-        console.log('Rental Cost:', rentalCost); // Verifica el valor calculado
+        console.log('Rental Cost:', rentalCost);
   
         this.reservation.rentalCost = rentalCost;
-        console.log('Reservation:', this.reservation); // Verifica el objeto reservation actualizado
+        console.log('Reservation:', this.reservation);
       }
     }
   }
   
-
-
   updatePrice(event: any) {
     this.reservation.rentalCost = event;
   }
@@ -92,7 +90,6 @@ export class EditReservationFormComponent implements OnInit {
       const differenceInDays = differenceInTime / (1000 * 3600 * 24);
       this.reservation.days = differenceInDays;
   
-      // Llamar a calculateRentalCost después de calcular los días
       this.calculateRentalCost();
     }
   }

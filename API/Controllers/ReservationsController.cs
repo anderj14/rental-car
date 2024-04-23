@@ -66,14 +66,14 @@ namespace API.Controllers
                 return BadRequest(new ApiResponse(400, "Invalid vehicle or insurance."));
             }
 
-            decimal rentalCost = vehicle.RentalPrice + insurance.InsurancePrice;
+            // decimal rentalCost = vehicle.RentalPrice + insurance.InsurancePrice;
 
             var reservation = new Reservation
             {
                 StartDate = createReservation.StartDate,
                 EndDate = createReservation.EndDate,
                 Days = createReservation.Days,
-                RentalCost = rentalCost,
+                RentalCost = createReservation.RentalCost,
                 CustomerId = createReservation.CustomerId,
                 VehicleId = createReservation.VehicleId,
                 InsuranceId = createReservation.InsuranceId
