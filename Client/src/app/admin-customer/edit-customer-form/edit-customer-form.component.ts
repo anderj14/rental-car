@@ -21,6 +21,7 @@ export class EditCustomerFormComponent implements OnInit {
   ngOnInit(): void {
 
   }
+
   onSubmit(customer: CustomerFormValues) {
     const id = this.route.snapshot.paramMap.get('id');
 
@@ -36,6 +37,4 @@ export class EditCustomerFormComponent implements OnInit {
       })
     }
   }
-
-
 }

@@ -6,7 +6,7 @@ import { IVehicle } from 'src/app/shared/models/vehicles';
 import { AdminReservationService } from '../admin-reservation.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
-import { Observable, map, startWith } from 'rxjs';
+import { Observable, catchError, map, startWith, take } from 'rxjs';
 
 @Component({
   selector: 'app-edit-reservation-form',
@@ -35,6 +35,20 @@ export class EditReservationFormComponent implements OnInit {
       startWith(''),
       map((value) => this._filterCustomers(value))
     );
+
+    this.adminReservationService.getVehicles().pipe(
+      take(1),
+      catchError((error: any) => {
+        console.error('Error fetching vehicles: ', error);
+        return [];
+      })
+    ).subscribe((response: any) => {
+      if ('data' in response) {
+        this.vehicles = response.data;
+      } else {
+        console.error('Invalid response format:', response);
+      }
+    })
   }
 
   private _filterCustomers(value: string): Customer[] {

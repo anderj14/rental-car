@@ -49,22 +49,24 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let vehicle of vehicles" [routerLink]="'/vehicles/' + vehicle.id">
-                        <td>
-                            <img [src]="vehicle.pictureUrl || '/assets/images/placeholder.png'"
-                                [alt]="vehicle.vehicleName" class="img-fluid" style="max-height: 50px">
-                        </td>
-                        <td>{{ vehicle.brand }}</td>
-                        <td>{{ vehicle.model }}</td>
-                        <td>{{ vehicle.year }}</td>
-                        <td>{{ vehicle.rentalPrice | currency }}</td>
-                        <td>{{ vehicle.vehicleType }}</td>
-                        <td>{{ vehicle.fuel }}</td>
-                        <td [class]="getStatusClass(vehicle.status)">{{ vehicle.status }}</td>
-                        <td>{{ vehicle.vin }}</td>
-                        <td><button class="edit" [routerLink]="['edit', vehicle.id]">Edit</button></td>
-                        <td><button class="delete" (click)="deleteVehicle(vehicle.id)">Delete</button></td>
-                    </tr>
+                    @for (vehicle of vehicles; track $index) {
+                        <tr [routerLink]="'/vehicles/' + vehicle.id">
+                            <td>
+                                <img [src]="vehicle.pictureUrl || '/assets/images/placeholder.png'"
+                                    [alt]="vehicle.vehicleName" class="img-fluid" style="max-height: 50px">
+                            </td>
+                            <td>{{ vehicle.brand }}</td>
+                            <td>{{ vehicle.model }}</td>
+                            <td>{{ vehicle.year }}</td>
+                            <td>{{ vehicle.rentalPrice | currency }}</td>
+                            <td>{{ vehicle.vehicleType }}</td>
+                            <td>{{ vehicle.fuel }}</td>
+                            <td [class]="getStatusClass(vehicle.status)">{{ vehicle.status }}</td>
+                            <td>{{ vehicle.vin }}</td>
+                            <td><button class="edit" [routerLink]="['edit', vehicle.id]">Edit</button></td>
+                            <td><button class="delete" (click)="deleteVehicle(vehicle.id)">Delete</button></td>
+                        </tr>
+                    }
                 </tbody>
             </table>
         </div>

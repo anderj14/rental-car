@@ -8,7 +8,6 @@ import { AdminGuard } from './core/guards/admin.guard';
 import { HomePageComponent } from './home-page/home-page.component';
 import { CustomerInfoComponent } from './customer-info/customer-info.component';
 import { ReservationInfoComponent } from './reservation-info/reservation-info.component';
-import ReservationDetailsComponent from './admin-reservation/reservation-details/reservation-details.component';
 import { ContactComponent } from './components/contact/contact.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AboutUsComponent } from './components/about-us/about-us.component';
@@ -49,21 +48,6 @@ const routes: Routes = [
     title: "About Us",
     component: AboutUsComponent
   },
-  // {
-  //   path: 'reservation-details/:id',
-  //   title: "Reservation Details",
-  //   component: ReservationDetailsComponent
-  // },
-  // {
-  //   path: 'customers',
-  //   // canActivate: [AuthGuard],
-  //   loadChildren: () => import('./customer/customer.module').then(m => m.CustomerModule)
-  // },
-  // {
-  //   path: 'reservations',
-  //   // canActivate: [AuthGuard],
-  //   loadChildren: () => import('./reservation/reservation.module').then(m => m.ReservationModule)
-  // },
   {
     path: 'invoices',
     // canActivate: [AuthGuard],

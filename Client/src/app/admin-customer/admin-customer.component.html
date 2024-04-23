@@ -33,15 +33,17 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let customer of customers" [routerLink]="'/admin-customer/' + customer.id">
-                        <td>{{ customer.customerName }}</td>
-                        <td>{{ customer.email }}</td>
-                        <td>{{ customer.phone }}</td>
-                        <td>{{ customer.driverLicense }}</td>
-                        <td>{{ customer.address }}</td>
-                        <td><button [routerLink]="['edit', customer.id]">Edit</button></td>
-                        <td><button *ngIf="(isAdmin$ | async)" (click)="deleteCustomer(customer.id)">Delete</button></td>
-                    </tr>
+                    @for (customer of customers; track $index) {
+                        <tr [routerLink]="'/admin-customer/' + customer.id">
+                            <td>{{ customer.customerName }}</td>
+                            <td>{{ customer.email }}</td>
+                            <td>{{ customer.phone }}</td>
+                            <td>{{ customer.driverLicense }}</td>
+                            <td>{{ customer.address }}</td>
+                            <td><button [routerLink]="['edit', customer.id]">Edit</button></td>
+                            <td><button *ngIf="(isAdmin$ | async)" (click)="deleteCustomer(customer.id)">Delete</button></td>
+                        </tr>
+                    }
                 </tbody>
             </table>
         </div>

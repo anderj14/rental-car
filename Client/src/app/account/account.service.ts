@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, ReplaySubject, catchError, map, of, switchMap } from 'rxjs';
+import { ReplaySubject, map, of, switchMap } from 'rxjs';
 import { User } from '../shared/models/user';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
@@ -47,9 +47,6 @@ export class AccountService {
     );
   }
 
-
-
-
   login(values: any) {
     return this.http.post<User>(this.baseUrl + 'account/login', values).pipe(
       map((user: User) => {
@@ -61,6 +58,7 @@ export class AccountService {
       })
     );
   }
+
   register(values: any) {
     return this.http.post<User>(this.baseUrl + 'account/register', values).pipe(
       map(user => {

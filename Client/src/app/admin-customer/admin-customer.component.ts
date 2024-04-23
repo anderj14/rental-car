@@ -34,6 +34,7 @@ export class AdminCustomerComponent implements OnInit {
 
     this.getCustomers();
   }
+
   getCustomers() {
     this.customerService.getCustomers(this.customerParams).subscribe({
       next: response => {
@@ -66,7 +67,7 @@ export class AdminCustomerComponent implements OnInit {
       }
     );
   }
-  
+
   onSearch() {
     this.customerParams.search = this.searchTerm?.nativeElement.value;
     this.customerParams.pageNumber = 1;

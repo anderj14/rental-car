@@ -90,7 +90,10 @@ export class AdminVehicleComponent implements OnInit {
 
   getBrands() {
     this.vehicleService.getBrands().subscribe({
-      next: response => this.brands = [{ id: 0, brandName: 'All' }, ...response],
+      next: response => {
+        this.brands = [{ id: 0, brandName: 'All' }, ...response]
+        console.log(response);
+      },
       error: error => console.log(error)
     });
   }

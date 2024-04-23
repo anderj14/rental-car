@@ -115,6 +115,19 @@
             >{{vehicle.vehicleName}}</option>
           </select>
       </div>
+      <div class="form">
+        <label for="patient">Vehicles</label>
+        <ng-select
+          name="vehicleId"
+          bindLabel="vehicleName"
+          bindValue="id"
+          [(ngModel)]="reservation.vehicleId"
+          [items]="vehicles"
+          [searchable]="true"
+          [clearable]="true"
+          required
+        ></ng-select>
+    </div>
       <div class="form-group">
         <label for="insurance">Insurance</label>
         <select 

@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ReservationFormValues } from '../shared/models/reservation';
+import { IVehicle } from '../shared/models/vehicles';
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +21,10 @@ export class AdminReservationService {
 
   deleteReservation(id: number) {
     return this.http.delete(this.baseUrl + 'reservations/' + id, { responseType: 'text' });
+  }
+
+  getVehicles(){
+    return this.http.get<IVehicle>(this.baseUrl + 'vehicles');
   }
 
 }

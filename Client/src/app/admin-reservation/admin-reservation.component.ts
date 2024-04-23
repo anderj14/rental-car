@@ -27,8 +27,6 @@ export class AdminReservationComponent implements OnInit {
     { name: 'Date: Desc To Asc', value: 'dateDesc' },
   ];
 
-
-
   constructor(private reservationService: ReservationService,
     private adminReservationService: AdminReservationService,
     public accountService: AccountService) {

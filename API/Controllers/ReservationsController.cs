@@ -58,8 +58,27 @@ namespace API.Controllers
         [HttpPost]
         public async Task<ActionResult<ReservationDto>> CreateReservation(CreateReservationDto createReservation)
         {
-            var reservation = _mapper.Map<CreateReservationDto, Reservation>(createReservation);
-            
+            var vehicle = await _unitOfWork.Repository<Vehicle>().GetByIdAsync(createReservation.VehicleId);
+            var insurance = await _unitOfWork.Repository<Insurance>().GetByIdAsync(createReservation.InsuranceId);
+
+            if (vehicle == null || insurance == null)
+            {
+                return BadRequest(new ApiResponse(400, "Invalid vehicle or insurance."));
+            }
+
+            decimal rentalCost = vehicle.RentalPrice + insurance.InsurancePrice;
+
+            var reservation = new Reservation
+            {
+                StartDate = createReservation.StartDate,
+                EndDate = createReservation.EndDate,
+                Days = createReservation.Days,
+                RentalCost = rentalCost,
+                CustomerId = createReservation.CustomerId,
+                VehicleId = createReservation.VehicleId,
+                InsuranceId = createReservation.InsuranceId
+            };
+
             _unitOfWork.Repository<Reservation>().Add(reservation);
 
             var result = await _unitOfWork.Complete();
