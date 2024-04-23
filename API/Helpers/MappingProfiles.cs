@@ -20,6 +20,8 @@ namespace API.Helpers
             .ForMember(d => d.VehicleType, o => o.MapFrom(s => s.VehicleType.VehicleTypeName))
             .ForMember(d => d.PictureUrl, o => o.MapFrom<VehicleUrlResolver>());
 
+            // CreateMap<AppUser, UserDto>().ReverseMap();
+
             CreateMap<Fuel, FuelDto>();
             CreateMap<Brand, BrandDto>();
 

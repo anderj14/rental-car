@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ReplaySubject, map, of, switchMap } from 'rxjs';
+import { Observable, ReplaySubject, map, of, switchMap } from 'rxjs';
 import { User } from '../shared/models/user';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
@@ -68,6 +68,11 @@ export class AccountService {
     );
   }
 
+
+  updateUser(userData: any): Observable<any> {
+    return this.http.put<User>(`${this.baseUrl}account/update/${userData.id}`, userData);
+  }
+  
   logout() {
     localStorage.removeItem('token');
     this.currentUserSource.next(null);

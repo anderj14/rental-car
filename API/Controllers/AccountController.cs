@@ -1,4 +1,5 @@
 
+using API.Dtos;
 using API.Errors;
 using API.Extensions;
 using AutoMapper;
@@ -18,6 +19,7 @@ namespace API.Controllers
         private readonly ITokenService _tokenService;
         private readonly IMapper _mapper;
         private readonly IPasswordHasher<AppUser> _passwordHasher;
+        // private readonly RoleManager<IdentityRole> _roleManager;
 
         public AccountController(
             UserManager<AppUser> userManager,
@@ -25,6 +27,7 @@ namespace API.Controllers
             ITokenService tokenService,
             IMapper mapper,
             IPasswordHasher<AppUser> passwordHasher
+            // RoleManager<IdentityRole> roleManager
             )
         {
             _signInManager = signInManager;
@@ -32,8 +35,9 @@ namespace API.Controllers
             _tokenService = tokenService;
             _mapper = mapper;
             _passwordHasher = passwordHasher;
+            // _roleManager = roleManager;
         }
-        [Authorize]
+        // [Authorize]
         [HttpGet]
         public async Task<ActionResult<UserDto>> GetCurrentUser()
         {
@@ -46,6 +50,23 @@ namespace API.Controllers
                 DisplayName = user.DisplayName
             };
         }
+        // [Authorize]
+        // [HttpGet("allUser")]
+        // public async Task<ActionResult<UserDto>> GetUsers()
+        // {
+        //     var user = await _userManager.SearchUserAsync(HttpContext.User);
+
+
+        //     return new UserDto
+        //     {
+        //         Id = user.Id,
+        //         DisplayName = user.DisplayName,
+        //         Email = user.Email,
+        //         Token = await _tokenService.CreateToken(user),
+        //         // Admin = roles.Contains("ADMIN") ? true : false
+        //     };
+        // }
+
 
         [Authorize]
         [HttpGet("emailexists")]
@@ -93,6 +114,7 @@ namespace API.Controllers
 
             return new UserDto()
             {
+                Id = user.Id,
                 Email = user.Email,
                 Token = await _tokenService.CreateToken(user),
                 DisplayName = user.DisplayName
@@ -121,10 +143,8 @@ namespace API.Controllers
 
             var result = await _userManager.CreateAsync(user, registerDto.Password);
 
-            // validate user
             if (!result.Succeeded) return BadRequest(new ApiResponse(400));
 
-            //Add With member role
             var roleAddResult = await _userManager.AddToRoleAsync(user, "Member");
 
             if (!roleAddResult.Succeeded) return BadRequest("Failed to add to role");
@@ -140,8 +160,10 @@ namespace API.Controllers
         [HttpPut("update/{id}")]
         public async Task<ActionResult<UserDto>> Update(string id, RegisterDto registerDto)
         {
-            var user = await _userManager.FindByIdAsync(id);
-            // var user = await _userManager.FindByEmailAsync(registerDto.Email);
+
+            var user = await _userManager.FindByEmailAsync(registerDto.Email);
+
+            // var user = await _userManager.FindByIdAsync(id);
 
             if (user == null)
             {
@@ -162,11 +184,54 @@ namespace API.Controllers
 
             return new UserDto
             {
+                Id = user.Id,
                 DisplayName = user.DisplayName,
                 Email = user.Email,
                 Token = await _tokenService.CreateToken(user)
             };
 
         }
+
+        // [HttpPut("role/{id}")]
+        // public async Task<ActionResult<UserDto>> UpdateRole(string id, AppRoleDto roleParam)
+        // {
+        //     var role = _roleManager.FindByNameAsync(roleParam.Name);
+
+        //     if (role == null) return NotFound(new ApiResponse(404));
+
+        //     var user = await _userManager.FindByIdAsync(id);
+
+        //     if (user == null) return NotFound(new ApiResponse(404));
+
+        //     var userDto = _mapper.Map<AppUser, UserDto>(user);
+
+        //     if (roleParam.Status)
+        //     {
+        //         var result = await _userManager.AddToRoleAsync(user, roleParam.Name);
+
+        //         if (result.Succeeded)
+        //         {
+        //             userDto.Admin = true;
+        //         }
+
+        //         if (result.Errors.Any())
+        //         {
+        //             if (result.Errors.Where(x => x.Code == "UserAlreadyInRole").Any())
+        //             {
+        //                 userDto.Admin = true;
+        //             }
+        //         }
+        //     }
+        //     else
+        //     {
+        //         var result = await _userManager.RemoveFromRoleAsync(user, roleParam.Name);
+        //         if (result.Succeeded)
+        //         {
+        //             userDto.Admin = false;
+        //         }
+        //     }
+
+        //     return userDto;
+        // }
     }
 }

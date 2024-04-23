@@ -58,9 +58,43 @@ export class EditReservationFormComponent implements OnInit {
     );
   }
 
+  calculateRentalCost(): void {
+    if (this.reservation.vehicleId && this.reservation.insuranceId && this.reservation.days) {
+      const selectedVehicle = this.vehicles.find(v => v.id === this.reservation.vehicleId);
+      const selectedInsurance = this.insurances.find(i => i.id === this.reservation.insuranceId);
+  
+      if (selectedVehicle && selectedInsurance) {
+        const vehicleRentalPrice = selectedVehicle.rentalPrice;
+        const insurancePrice = selectedInsurance.insurancePrice;
+        const totalDays = this.reservation.days;
+  
+        const rentalCost = (vehicleRentalPrice + insurancePrice) * totalDays;
+        
+        console.log('Rental Cost:', rentalCost); // Verifica el valor calculado
+  
+        this.reservation.rentalCost = rentalCost;
+        console.log('Reservation:', this.reservation); // Verifica el objeto reservation actualizado
+      }
+    }
+  }
+  
+
 
   updatePrice(event: any) {
     this.reservation.rentalCost = event;
+  }
+
+  calculateDays(): void {
+    if (this.reservation.startDate && this.reservation.endDate) {
+      const startDate = new Date(this.reservation.startDate);
+      const endDate = new Date(this.reservation.endDate);
+      const differenceInTime = endDate.getTime() - startDate.getTime();
+      const differenceInDays = differenceInTime / (1000 * 3600 * 24);
+      this.reservation.days = differenceInDays;
+  
+      // Llamar a calculateRentalCost después de calcular los días
+      this.calculateRentalCost();
+    }
   }
 
   onSubmit(reservation: ReservationFormValues) {

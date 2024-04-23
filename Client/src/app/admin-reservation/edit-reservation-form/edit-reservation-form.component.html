@@ -11,6 +11,7 @@
         [ngClass]="{'is-invalid': startDate.invalid && (startDate.dirty || startDate.touched)}"
         #startDate="ngModel"
         [(ngModel)]="reservation.startDate"        
+        (ngModelChange)="calculateDays()"
         >
         <div *ngIf="startDate.invalid && (startDate.dirty || startDate.touched)" class="invalid-feedback">
           <div *ngIf="startDate.errors?.['required']" >
@@ -27,7 +28,8 @@
         required
         class="form-control"
         #endDate="ngModel"
-        [(ngModel)]="reservation.endDate"        
+        [(ngModel)]="reservation.endDate"
+        (ngModelChange)="calculateDays()"
         >
         <div *ngIf="endDate.invalid && (endDate.dirty || endDate.touched)" class="invalid-feedback">
           <div *ngIf="endDate.errors?.['required']" >
@@ -37,7 +39,7 @@
     </div>
     <div class="form-group col-md-6">
       <label for="days">Days</label>
-      <input type="number"
+      <!-- <input type="number"
         [ngClass]="{'is-invalid': days.invalid && (days.dirty || days.touched)}"
         name="days"
         id="days"
@@ -46,7 +48,18 @@
         class="form-control"
         #days="ngModel"
         [(ngModel)]="reservation.days"        
-        >
+        > -->
+      <input 
+        type="number"
+        name="days"
+        id="days"
+        placeholder="Days"
+        required
+        class="form-control"
+        [(ngModel)]="reservation.days"
+        #days="ngModel"
+        (ngModelChange)="calculateRentalCost()"
+      >
         <div *ngIf="days.invalid && (days.dirty || days.touched)" class="invalid-feedback">
           <div *ngIf="days.errors?.['required']" >
             Reservation end date is required
@@ -55,7 +68,7 @@
     </div>
     <div class="form-group col-md-6">
       <label for="rentalCost">RentalCost</label>
-      <input 
+      <!-- <input 
       type="text"
       [ngClass]="{'is-invalid': rentalCost.invalid && (rentalCost.dirty || rentalCost.touched)}"
       required
@@ -69,7 +82,19 @@
       [min]="0.01"
       [ngModel]="+reservation.rentalCost | number: '1.2-2'"
       (ngModelChange)="updatePrice(+$event)"
-      >
+      > -->
+    <input 
+      type="text"
+      [ngClass]="{'is-invalid': rentalCost.invalid && (rentalCost.dirty || rentalCost.touched)}"
+      required
+      class="form-control"
+      id="rentalCost"
+      placeholder="Rental Cost"
+      currencyMask
+      name="rentalCost"
+      #rentalCost="ngModel"
+      [(ngModel)]="reservation.rentalCost"
+    >
       <div *ngIf="rentalCost.invalid && (rentalCost.dirty || rentalCost.touched)" class="invalid-feedback">
         <div *ngIf="rentalCost.errors?.['required']">
           Reservation rental cost is required
@@ -101,7 +126,7 @@
       </div>
       <div class="form-group">
         <label for="vehicle">Vehicle</label>
-        <select 
+        <!-- <select 
             name="vehicleId" 
             id="vehicle" 
             class="form-control"
@@ -113,7 +138,21 @@
             [selected]="reservation.vehicleId === vehicle.id"
             [ngValue]="vehicle.id" 
             >{{vehicle.vehicleName}}</option>
-          </select>
+          </select> -->
+        <select 
+          name="vehicleId" 
+          id="vehicle" 
+          class="form-control"
+          [(ngModel)]="reservation.vehicleId"
+          (ngModelChange)="calculateRentalCost()"
+          required
+        >
+        <option
+          *ngFor="let vehicle of vehicles"
+          [selected]="reservation.vehicleId === vehicle.id"
+          [ngValue]="vehicle.id" 
+        >{{vehicle.vehicleName}}</option>
+        </select>
       </div>
       <div class="form">
         <label for="patient">Vehicles</label>
@@ -130,7 +169,7 @@
     </div>
       <div class="form-group">
         <label for="insurance">Insurance</label>
-        <select 
+        <!-- <select 
             name="insuranceId" 
             id="insurance" 
             class="form-control"
@@ -142,7 +181,21 @@
             [selected]="reservation.vehicleId === insurance.id"
             [ngValue]="insurance.id" 
             >{{insurance.insuranceName}}</option>
-          </select>
+          </select> -->
+        <select 
+          name="insuranceId" 
+          id="insurance" 
+          class="form-control"
+          [(ngModel)]="reservation.insuranceId"
+          (ngModelChange)="calculateRentalCost()"
+          required
+        >
+          <option
+            *ngFor="let insurance of insurances"
+            [selected]="reservation.insuranceId === insurance.id"
+            [ngValue]="insurance.id" 
+          >{{insurance.insuranceName}}</option>
+        </select>
       </div>
     </div>
    

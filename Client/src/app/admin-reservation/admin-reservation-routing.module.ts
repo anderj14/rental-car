@@ -6,11 +6,12 @@ import { AdminReservationComponent } from './admin-reservation.component';
 import ReservationDetailsComponent from './reservation-details/reservation-details.component';
 
 const routes: Routes = [
-  { path: '', component: AdminReservationComponent },
-  { path: ':id', component: ReservationDetailsComponent, data: {breadcrumb: {alias: 'reservationDetails'}} },
   { path: 'create', component: EditReservationComponent, data: { breadcrumb: 'Create' } },
   { path: 'edit/:id', component: EditReservationComponent, data: { breadcrumb: 'Edit' } },
-]
+  { path: ':id', component: ReservationDetailsComponent, data: { breadcrumb: { alias: 'reservationDetails' } } },
+  { path: '', component: AdminReservationComponent }
+];
+
 
 
 @NgModule({

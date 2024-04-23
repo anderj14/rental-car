@@ -8,8 +8,8 @@ import { SharedModule } from '../shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from '../material/material.module';
 import { BreadcrumbComponent } from "../shared/components/breadcrumb/breadcrumb.component";
-import ReservationDetailsComponent from './reservation-details/reservation-details.component';
 import { NgSelectModule } from '@ng-select/ng-select';
+import ReservationDetailsComponent from './reservation-details/reservation-details.component';
 
 
 

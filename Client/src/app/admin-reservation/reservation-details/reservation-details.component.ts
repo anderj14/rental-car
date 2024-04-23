@@ -20,7 +20,6 @@ export default class ReservationDetailsComponent implements OnInit {
     private activateRoute: ActivatedRoute,
     public accountService: AccountService,
     private bcService: BreadcrumbService,
-
   ) { }
 
   currentUser$!: Observable<User | null>;
