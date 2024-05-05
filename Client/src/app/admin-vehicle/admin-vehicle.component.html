@@ -13,9 +13,6 @@
                     <label>Search</label>
                     <input type="text" (keyup.enter)="onSearch()" placeholder="Search" #search>
                 </div>
-                <div class="actions">
-                    <button (click)="togglePopup()" class="filter bi bi-filter">Filter</button>
-                </div>
             </div>
 
             <div class="sort">
@@ -24,6 +21,9 @@
                     <select id="slct" required (change)="onSortSelected($event)">
                         <option *ngFor="let sort of sortOption" [value]="sort.value">{{sort.name}}</option>
                     </select>
+                </div>
+                <div class="actions">
+                    <button (click)="togglePopup()" class="filter bi bi-filter">Filter</button>
                 </div>
             </div>
         </div>
@@ -78,44 +78,54 @@
     </div>
 </section>
 
+
 <div *ngIf="showPopup" class="popup-overlay" (click)="closePopup()">
     <div class="popup-content" (click)="stopPropagation($event)">
         <div class="box">
-            <h5>Brands</h5>
-            <ul>
-                <li *ngFor="let brand of brands">
-                    <input type="checkbox" [checked]="brand.id === vehicleParams.brandId" [value]="brand.id"
-                        (change)="onBrandSelected(brand.id)">
+            <h5 class="">Brands</h5>
+            <ul class="">
+                <li *ngFor="let brand of brands" [class.active]="brand.id === selectedBrandId"
+                    (click)="onBrandSelected(brand.id)">
                     {{ brand.brandName }}
                 </li>
             </ul>
         </div>
+
         <div class="box">
-            <h5>Fuels</h5>
-            <ul>
-                <li *ngFor="let fuel of fuels">
-                    <input type="checkbox" [checked]="fuel.id === vehicleParams.fuelId" [value]="fuel.id"
-                        (change)="onFuelSelected(fuel.id)">
+            <h5 class="">Models</h5>
+            <ul class="">
+                <li *ngFor="let model of modelsToShow" (click)="onModelSelected(model.id)" [class.active]="model.id === selectedModelId">
+                    {{ model.modelName }}
+                </li>
+                <li *ngIf="!showAllModels" class="load-more">
+                    <button (click)="showAllModels = true">Show More....</button>
+                </li>
+            </ul>
+        </div>
+        
+
+        <div class="box">
+            <h5 class="">Fuels</h5>
+            <ul class="">
+                <li class="" *ngFor="let fuel of fuels" (click)="onFuelSelected(fuel.id)" [class.active]="fuel.id === selectedFuelId">
                     {{ fuel.fuelName }}
                 </li>
             </ul>
         </div>
+
         <div class="box">
-            <h5>Statuses</h5>
-            <ul>
-                <li *ngFor="let status of statuses">
-                    <input type="checkbox" [checked]="status.id === vehicleParams.statusId" [value]="status.id"
-                        (change)="onStatusSelected(status.id)">
+            <h5 class="">Statuses</h5>
+            <ul class="">
+                <li class="" *ngFor="let status of statuses" (click)="onStatusSelected(status.id)" [class.active]="status.id === selectedStatusId">
                     {{ status.statusName }}
                 </li>
             </ul>
         </div>
+
         <div class="box">
-            <h5>Vehicles Type</h5>
-            <ul>
-                <li *ngFor="let vehicleType of vehiclesType">
-                    <input type="checkbox" [checked]="vehicleType.id === vehicleParams.vehicleTypeId"
-                        [value]="vehicleType.id" (change)="onVehicleTypeSelected(vehicleType.id)">
+            <h5 class="">Vehicles Type</h5>
+            <ul class="">
+                <li class="" *ngFor="let vehicleType of vehiclesType" (click)="onVehicleTypeSelected(vehicleType.id)" [class.active]="vehicleType.id === selectedVehicleTypeId">
                     {{ vehicleType.vehicleTypeName }}
                 </li>
             </ul>

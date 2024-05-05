@@ -4,13 +4,14 @@
         <div class="title">
             <h1>Customers</h1>
             <div class="actions">
-                <div class="search">
-                    <input (keyup.enter)="onSearch()" type="text" placeholder="Search" #search>
-                </div>
                 <div class="create">
                     <button [routerLink]="['/admin-customer/create']" class="new-customer">New Customer</button>
                 </div>
             </div>
+        </div>
+        <div class="search">
+            <label>Search</label>
+            <input (keyup.enter)="onSearch()" type="text" placeholder="Search" #search>
         </div>
         <app-paging-header
               [totalCount]="totalCount"
@@ -40,8 +41,8 @@
                             <td>{{ customer.phone }}</td>
                             <td>{{ customer.driverLicense }}</td>
                             <td>{{ customer.address }}</td>
-                            <td><button [routerLink]="['edit', customer.id]">Edit</button></td>
-                            <td><button *ngIf="(isAdmin$ | async)" (click)="deleteCustomer(customer.id)">Delete</button></td>
+                            <td><button class="edit" [routerLink]="['edit', customer.id]">Edit</button></td>
+                            <td><button class="delete" *ngIf="(isAdmin$ | async)" (click)="deleteCustomer(customer.id)">Delete</button></td>
                         </tr>
                     }
                 </tbody>

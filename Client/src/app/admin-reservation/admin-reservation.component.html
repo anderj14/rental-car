@@ -4,15 +4,16 @@
         <div class="title">
             <h1>Reservation List</h1>
             <div class="actions">
-                <button [routerLink]="['/admin-reservation/create']" class="new-vehicle">New Reservation</button>
-                <div class="search">
-                    <input (keyup.enter)="onSearch()" type="text" placeholder="Search" #search>
-                </div>
+                <button [routerLink]="['/admin-reservation/create']" class="new-reservation">New Reservation</button>
             </div>
         </div>
         <div class="box-filter">
+            <div class="search">
+                <label>Search</label>
+                <input (keyup.enter)="onSearch()" type="text" placeholder="Search" #search>
+            </div>
             <div class="select">
-              <h5 class="">Sort</h5>
+              <label class="">Sort</label>
               <select class="" (change)="onSortSelected($event)">
                   <option *ngFor="let sort of sortOption" [value]="sort.value">
                       {{sort.name}}
@@ -54,8 +55,8 @@
                         <td>{{ reservation.days }}</td>
                         <td>{{ reservation.rentalCost }}</td>
                         <td>{{ reservation.insurance }}</td>
-                        <td><button [routerLink]="['edit', reservation.id]">Edit</button></td>
-                        <td><button *ngIf="(isAdmin$ | async)" (click)="deleteReservation(reservation.id)">Delete</button></td>
+                        <td><button class="edit" [routerLink]="['edit', reservation.id]">Edit</button></td>
+                        <td><button class="delete" *ngIf="(isAdmin$ | async)" (click)="deleteReservation(reservation.id)">Delete</button></td>
                     </tr>
                 </tbody>
             </table>

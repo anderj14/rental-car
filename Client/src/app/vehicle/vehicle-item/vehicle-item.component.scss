@@ -1,7 +1,17 @@
 .container {
+    max-width: 675px;
 
-    max-width: 550px;
+    @media (max-width: 1730px) {
+        max-width: 500px;
+    }
 
+    @media (max-width: 1445px) {
+        max-width: 400px;
+    }
+
+    @media (max-width: 1250px) {
+        max-width: 600px;
+    }
 
     mat-card {
         border: none;
@@ -9,8 +19,6 @@
         cursor: pointer;
 
         box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
-        /* por ejemplo */
-
 
         mat-card-header {
 
@@ -34,12 +42,35 @@
     }
 
     img {
-        width: 500px;
+        width: 100%;
         height: 300px;
 
-        @media(max-width: 750px) {
-            // width: 100%;
-            height: 600px;
+        @media(max-width: 1730px) {
+            width: 100%;
+            height: 250px;
+        }
+
+        @media(max-width: 1445px) {
+            width: 100%;
+            height: 200px;
+        }
+
+        @media (max-width: 1250px) {
+            width: 100%;
+            height: 290px;
+        }
+
+        @media (max-width: 900px) {
+            height: 270px;
+        }
+
+        @media (max-width: 830px) {
+            height: 250px;
+        }
+
+        @media (max-width: 750px) {
+            height: 300px;
+
         }
     }
 }
