@@ -1,0 +1,71 @@
+section {
+    display: flex;
+    flex-direction: column;
+    margin: 20px 0 10px 5px;
+
+    h2 {
+        margin-left: 8px;
+        font-size: 25px;
+    }
+
+    .table-wrapper {
+        margin-top: 10px;
+        overflow-x: auto;
+
+        table {
+            border-collapse: separate;
+            border-spacing: 0;
+            min-width: max-content;
+
+            thead th {
+                position: sticky;
+                font-weight: 500;
+            }
+
+            tbody {
+                tr {
+                    background-color: #f3f3f3;
+                    cursor: pointer;
+                    height: 50px;
+
+                    img {
+                        width: 60px;
+                        height: 40px;
+                        object-fit: contain;
+                    }
+                }
+
+                td {
+                    font-weight: 400;
+                    overflow: hidden;
+                    vertical-align: middle;
+
+                    &.available {
+                        color: #008000;
+                    }
+
+                    &.rented {
+                        color: #FF0000;
+                    }
+
+                    &.reserved {
+                        color: #FFD700;
+                    }
+
+                    button {
+                        background-color: #fff;
+                        border: 1px solid #959595;
+                        border-radius: 8px;
+                        font-weight: 400;
+
+                        &.delete:hover {
+                            background-color: #e42e2e;
+                            color: #ffffff;
+                            border: none;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

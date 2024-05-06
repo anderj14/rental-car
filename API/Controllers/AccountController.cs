@@ -1,5 +1,3 @@
-
-using API.Dtos;
 using API.Errors;
 using API.Extensions;
 using AutoMapper;
@@ -8,7 +6,9 @@ using Core.Entities.Identity;
 using Core.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace API.Controllers
 {
@@ -19,6 +19,7 @@ namespace API.Controllers
         private readonly ITokenService _tokenService;
         private readonly IMapper _mapper;
         private readonly IPasswordHasher<AppUser> _passwordHasher;
+
         // private readonly RoleManager<IdentityRole> _roleManager;
 
         public AccountController(
@@ -27,6 +28,7 @@ namespace API.Controllers
             ITokenService tokenService,
             IMapper mapper,
             IPasswordHasher<AppUser> passwordHasher
+
             // RoleManager<IdentityRole> roleManager
             )
         {
@@ -35,6 +37,7 @@ namespace API.Controllers
             _tokenService = tokenService;
             _mapper = mapper;
             _passwordHasher = passwordHasher;
+
             // _roleManager = roleManager;
         }
         // [Authorize]
@@ -189,8 +192,40 @@ namespace API.Controllers
                 Email = user.Email,
                 Token = await _tokenService.CreateToken(user)
             };
-
         }
+
+        // [Authorize(Roles = "Admin")]
+        [HttpGet("users")]
+        public async Task<ActionResult<ICollection<UserDto>>> GetUsers()
+        {
+            var users = await _userManager.Users.ToListAsync();
+
+            var userDtos = _mapper.Map<IEnumerable<AppUser>, IEnumerable<UserDto>>(users);
+
+            return Ok(userDtos);
+        }
+
+        [HttpDelete("delete/{id}")]
+        [Authorize(Roles = "Admin")]
+        public async Task<ActionResult> DeleteUser(string id)
+        {
+            var user = await _userManager.FindByIdAsync(id);
+
+            if (user == null)
+            {
+                return NotFound(new ApiResponse(404));
+            }
+
+            var result = await _userManager.DeleteAsync(user);
+
+            if (!result.Succeeded)
+            {
+                return BadRequest(new ApiResponse(400));
+            }
+
+            return Ok();
+        }
+
 
         // [HttpPut("role/{id}")]
         // public async Task<ActionResult<UserDto>> UpdateRole(string id, AppRoleDto roleParam)
@@ -233,5 +268,6 @@ namespace API.Controllers
 
         //     return userDto;
         // }
+
     }
 }

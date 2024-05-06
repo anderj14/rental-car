@@ -12,6 +12,10 @@ namespace API.Helpers
     {
         public MappingProfiles()
         {
+
+            CreateMap<AppUser, UserDto>();
+
+
             CreateMap<Vehicle, VehicleDto>()
             .ForMember(d => d.Fuel, o => o.MapFrom(s => s.Fuel.FuelName))
             .ForMember(d => d.Brand, o => o.MapFrom(s => s.Brand.BrandName))

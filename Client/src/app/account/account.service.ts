@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 })
 export class AccountService {
   baseUrl = 'https://localhost:5001/api/';
+
   private currentUserSource = new ReplaySubject<User | null>(1);
   currentUser$ = this.currentUserSource.asObservable();
   private isAdminSource = new ReplaySubject<boolean>(1);
@@ -42,9 +43,17 @@ export class AccountService {
           this.currentUserSource.next(user);
           this.isAdminSource.next(this.isAdmin(user.token));
         }
-        return of(user) as any; // Return the user as a new observable
+        return of(user) as any;
       })
     );
+  }
+
+  getUsers() {
+    return this.http.get<User[]>(`${this.baseUrl}account/users`);
+  }
+
+  deleteUser(userId: string): Observable<User> {
+    return this.http.delete<User>(`${this.baseUrl}account/delete/${userId}`);
   }
 
   login(values: any) {
@@ -68,11 +77,10 @@ export class AccountService {
     );
   }
 
-
   updateUser(userData: any): Observable<any> {
     return this.http.put<User>(`${this.baseUrl}account/update/${userData.id}`, userData);
   }
-  
+
   logout() {
     localStorage.removeItem('token');
     this.currentUserSource.next(null);

@@ -5,22 +5,26 @@ import { RegisterComponent } from './register/register.component';
 import { AuthGuard } from '../core/guards/auth.guard';
 import { AdminGuard } from '../core/guards/admin.guard';
 import { UpdateComponent } from './update/update.component';
+import { AccountComponent } from './account.component';
 
 const routes: Routes = [
+  {
+    path: '',
+    component: AccountComponent
+  },
   {
     path: 'login',
     component: LoginComponent
   },
-  {
-    path: 'register',
-    canActivate: [AuthGuard, AdminGuard],
-    component: RegisterComponent
-  },
-  { 
-    path: 'update-user', 
-    component: UpdateComponent 
-  }
-
+  // {
+  //   path: 'register',
+  //   canActivate: [AuthGuard, AdminGuard],
+  //   component: RegisterComponent
+  // },
+  // { 
+  //   path: 'update-user', 
+  //   component: UpdateComponent 
+  // }
 ]
 
 @NgModule({
