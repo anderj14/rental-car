@@ -71,6 +71,7 @@ export class EditVehicleComponent implements OnInit {
       this.vehicle = response;
       this.vehicleFormValues = { ...response, brandId, modelId, fuelId, statusId, vehicleTypeId };
 
+      
     });
   }
 

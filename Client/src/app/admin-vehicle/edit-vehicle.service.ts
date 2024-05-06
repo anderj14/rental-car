@@ -36,10 +36,6 @@ export class EditVehicleService {
     return this.http.delete(this.baseUrl + 'vehicles/' + vehicleId + '/photo/' + photoId);
   }
 
-  // setMainPhoto(photoId: number, vehicleId: number) {
-  //   return this.http.post(this.baseUrl + 'vehicles/' + vehicleId + '/photo/' + photoId, {});
-  // }
-
   setMainPhoto(photoId: number, vehicleId: number): Observable<IVehicle> {
     return this.http.post<IVehicle>(this.baseUrl + 'vehicles/' + vehicleId + '/photo/' + photoId, {});
   }

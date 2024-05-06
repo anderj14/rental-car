@@ -1,7 +1,9 @@
 
+using API.Dtos.CreateDtos;
 using AutoMapper;
 using Core.Dtos;
 using Core.Dtos.CreateDtos;
+using Core.Dtos.ModelsDtos;
 using Core.Dtos.VehiclesDtos;
 using Core.Entities;
 using Core.Entities.Identity;
@@ -54,6 +56,8 @@ namespace API.Helpers
             CreateMap<CreateCustomerDto, Customer>();
             CreateMap<CreateReservationDto, Reservation>();
             CreateMap<CreateInvoiceDto, Invoice>();
+            CreateMap<CreateModelDto, Model>();
+            CreateMap<CreateBrandDto, Brand>();
 
             CreateMap<Photo, PhotoDto>()
                     .ForMember(d => d.PictureUrl,

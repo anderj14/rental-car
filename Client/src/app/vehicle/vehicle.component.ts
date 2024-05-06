@@ -110,8 +110,25 @@ export class VehicleComponent implements OnInit {
     this.selectedBrandId = brandId === this.selectedBrandId ? null : brandId;
     this.vehicleParams.brandId = this.selectedBrandId || 0;
     this.vehicleParams.pageNumber = 1;
-    this.getVehicles();
-  }
+    
+    if (this.selectedBrandId) {
+        this.getModelsByBrand(this.selectedBrandId);
+    } else {
+        this.getModels();
+        this.selectedModelId = null;
+        this.getVehicles();
+    }
+}
+
+  getModelsByBrand(brandId: number) {
+    this.vehicleService.getModelsByBrand(brandId).subscribe({
+        next: response => {
+            this.models = [{ id: 0, modelName: 'All' }, ...response];
+            this.selectedModelId = null; // Limpiar la selección del modelo al cambiar de marca
+        },
+        error: error => console.log(error)
+    });
+}
 
   onModelSelected(modelId: number) {
     this.selectedModelId = modelId === this.selectedModelId ? null : modelId;

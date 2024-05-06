@@ -1,6 +1,8 @@
 
+using API.Errors;
 using AutoMapper;
 using Core.Dtos;
+using Core.Dtos.ModelsDtos;
 using Core.Entities;
 using Core.Interfaces;
 using Core.Specifications;
@@ -37,6 +39,51 @@ namespace API.Controllers
             var data = _mapper.Map<ModelDto>(model);
 
             return Ok(data);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<ModelDto>> CreateModel(CreateModelDto createModelDto)
+        {
+            var model = _mapper.Map<CreateModelDto, Model>(createModelDto);
+
+            _unitOfWork.Repository<Model>().Add(model);
+            var result = await _unitOfWork.Complete();
+
+            if (result <= 0) return BadRequest(new ApiResponse(400, "Problem creating model item"));
+
+            return Ok(model);
+        }
+
+        [HttpPut]
+        public async Task<ActionResult<ModelDto>> UpdateModel(int id, CreateModelDto updateModelDto)
+        {
+
+            var model = await _unitOfWork.Repository<Model>().GetByIdAsync(id);
+
+            _mapper.Map(updateModelDto, model);
+
+            _unitOfWork.Repository<Model>().Update(model);
+
+            var result = await _unitOfWork.Complete();
+
+            if (result <= 0) return BadRequest(new ApiResponse(400, "Problem updating model item"));
+
+            return Ok(model);
+        }
+
+        [HttpDelete]
+        public async Task<ActionResult> DeleteModel(int id)
+        {
+
+            var model = await _unitOfWork.Repository<Model>().GetByIdAsync(id);
+
+            _unitOfWork.Repository<Model>().Delete(model);
+
+            var result = await _unitOfWork.Complete();
+
+            if (result <= 0) return BadRequest(new ApiResponse(400, "Problem updating model item"));
+
+            return Ok();
         }
     }
 }

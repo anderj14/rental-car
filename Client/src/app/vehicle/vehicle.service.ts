@@ -42,7 +42,7 @@ export class VehicleService {
     return this.vehicleParams;
   }
 
-  getVehicle(id: number){
+  getVehicle(id: number) {
     return this.http.get<IVehicle>(this.baseUrl + 'vehicles/' + id);
   }
 
@@ -53,6 +53,11 @@ export class VehicleService {
   getModels() {
     return this.http.get<Model[]>(this.baseUrl + 'models');
   }
+
+  getModelsByBrand(brandId: number) {
+    return this.http.get<Model[]>(this.baseUrl + 'brands/' + brandId + '/models');
+  }
+
 
   getFuels() {
     return this.http.get<Fuel[]>(this.baseUrl + 'fuels');
