@@ -1,0 +1,12 @@
+<div *ngIf="showPopup" class="popup-overlay" (click)="closePopup()">
+    <div class="popup-content" (click)="stopPropagation($event)">
+        <div class="box">
+            <h5 class="">Nombre de la Marca</h5>
+            <input type="text" [(ngModel)]="brandFormValues.brandName" placeholder="Nombre de la Marca">
+        </div>
+        <div class="box" style="display: flex; gap: 5px;">
+            <button class="save" (click)="saveBrand()">Guardar</button>
+            <button class="cancel" (click)="closePopup()">Cancelar</button>
+        </div>
+    </div>
+</div>

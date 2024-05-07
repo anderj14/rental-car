@@ -9,6 +9,7 @@ import { InsuranceComponent } from './insurance/insurance.component';
 import { StatusComponent } from './status/status.component';
 import { VehicleTypeComponent } from './vehicle-type/vehicle-type.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { BrandComponent } from './brand/brand.component';
 
 @Component({
   selector: 'app-vehicle-management',
@@ -20,6 +21,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     InsuranceComponent,
     StatusComponent,
     VehicleTypeComponent,
+    BrandComponent,
     NgbModule,
   ],
   templateUrl: './vehicle-management.component.html',
