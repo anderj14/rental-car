@@ -1,0 +1,13 @@
+<!-- fuel-popup.component.html -->
+<div *ngIf="showPopup" class="popup-overlay" (click)="closePopup()">
+  <div class="popup-content" (click)="stopPropagation($event)">
+      <div class="box">
+          <h5 class="">Nombre del combustible</h5>
+          <input type="text" [(ngModel)]="fuelName" placeholder="Nombre del combustible">
+      </div>
+      <div class="box" style="display: flex; gap: 5px;">
+          <button class="save" (click)="saveFuel()">Save</button>
+          <button class="cancel" (click)="closePopup()">Cancel</button>
+      </div>
+  </div>
+</div>

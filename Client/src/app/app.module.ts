@@ -21,6 +21,7 @@ import { ReservationInfoComponent } from './reservation-info/reservation-info.co
 import { ReservationInfoFormComponent } from './reservation-info/reservation-info-form/reservation-info-form.component';
 import { FooterComponent } from './core/footer/footer.component';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -44,8 +45,8 @@ import { NgSelectModule } from '@ng-select/ng-select';
     FormsModule,
     ReactiveFormsModule,
     FooterComponent,
-    NgSelectModule
-
+    NgSelectModule,
+    NgbModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},

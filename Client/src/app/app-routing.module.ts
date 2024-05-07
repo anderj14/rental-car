@@ -11,6 +11,7 @@ import { ReservationInfoComponent } from './reservation-info/reservation-info.co
 import { ContactComponent } from './components/contact/contact.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AboutUsComponent } from './components/about-us/about-us.component';
+import { VehicleManagementComponent } from './vehicle-management/vehicle-management.component';
 
 const routes: Routes = [
   {
@@ -54,6 +55,11 @@ const routes: Routes = [
     loadChildren: () => import('./invoice/invoice.module').then(m => m.InvoiceModule)
   },
   {
+    path: 'vehicle-management',
+    canActivate: [AuthGuard],
+    component: VehicleManagementComponent
+  },
+  {
     path: 'account',
     loadChildren: () => import('./account/account.module').then(m => m.AccountModule)
   },
@@ -79,7 +85,7 @@ const routes: Routes = [
   },
   {
     path: 'admin-reservation',
-    canActivate: [AuthGuard, AdminGuard],
+    // canActivate: [AuthGuard, AdminGuard],
     loadChildren: () => import('./admin-reservation/admin-reservation.module').then(m => m.AdminReservationModule),
     data: { breadcrumb: 'Admin Reservations' }
   },

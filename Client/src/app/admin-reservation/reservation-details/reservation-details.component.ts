@@ -22,12 +22,12 @@ export default class ReservationDetailsComponent implements OnInit {
     private bcService: BreadcrumbService,
   ) { }
 
-  currentUser$!: Observable<User | null>;
-  isAdmin$!: Observable<boolean>;
+  // currentUser$!: Observable<User | null>;
+  // isAdmin$!: Observable<boolean>;
 
   ngOnInit(): void {
-    this.currentUser$ = this.accountService.currentUser$;
-    this.isAdmin$ = this.accountService.isAdmin$;
+    // this.currentUser$ = this.accountService.currentUser$;
+    // this.isAdmin$ = this.accountService.isAdmin$;
 
     this.getReservation();
   }
