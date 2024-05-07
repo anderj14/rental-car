@@ -1,0 +1,12 @@
+<div *ngIf="showPopup" class="popup-overlay" (click)="closePopup()">
+    <div class="popup-content" (click)="stopPropagation($event)">
+        <div class="box">
+            <h5 class="">Nombre del Tipo de Vehículo</h5>
+            <input type="text" [(ngModel)]="vehicleTypeFormValues.vehicleTypeName" placeholder="Nombre del Tipo de Vehículo">
+        </div>
+        <div class="box" style="display: flex; gap: 5px;">
+            <button class="save" (click)="saveVehicleType()">Guardar</button>
+            <button class="cancel" (click)="closePopup()">Cancelar</button>
+        </div>
+    </div>
+</div>

@@ -12,8 +12,6 @@ import { CommonModule } from '@angular/common';
   styleUrl: './fuel-form.component.scss'
 })
 export class FuelFormComponent{
-
-
   @Input() showPopup = false;
   @Output() save = new EventEmitter<FuelFormValues>();
   @Output() cancel = new EventEmitter<void>();

@@ -1,1 +1,35 @@
-<p>vehicle-type works!</p>
+<section>
+    <div class="content">
+        <h2>Tipos de Vehículo</h2>
+        <button class="new-vehicle-type" (click)="openAddVehicleTypePopup()">Agregar Tipo de Vehículo</button>
+    </div>
+
+    <div class="table-wrapper">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Nombre del Tipo de Vehículo</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let vehicleType of vehicleTypes">
+                    <td>{{ vehicleType.id }}</td>
+                    <td>{{ vehicleType.vehicleTypeName }}</td>
+                    <td>
+                        <button class="edit" (click)="editVehicleType(vehicleType.id)">Editar</button>
+                        <button class="delete" (click)="deleteVehicleType(vehicleType.id)">Eliminar</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <app-vehicle-type-form
+        [showPopup]="showAddVehicleTypePopup" 
+        [initialValues]="editVehicleTypeFormValues"
+        (save)="saveVehicleType($event)" 
+        (cancel)="cancelAddVehicleTypePopup()">
+    </app-vehicle-type-form>
+</section>

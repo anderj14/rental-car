@@ -8,7 +8,7 @@ export interface IFuelToCreate {
 }
 
 export class FuelFormValues implements IFuelToCreate {
-    id?: number; // Ahora la propiedad id es opcional
+    id?: number;
     fuelName = '';
 
     constructor(init?: FuelFormValues) {
