@@ -1,4 +1,6 @@
 
+using API.Dtos.CreateDtos;
+using API.Errors;
 using AutoMapper;
 using Core.Dtos;
 using Core.Entities;
@@ -33,6 +35,54 @@ namespace API.Controllers
             var status = await _unitOfWork.Repository<Status>().GetByIdAsync(id);
             var data = _mapper.Map<StatusDto>(status);
             return Ok(data);
+        }
+
+        [HttpPost]
+        // [Authorize(Roles = "Admin")]
+        public async Task<ActionResult<StatusDto>> CreateStatus(CreateStatusDto CreateStatusDto)
+        {
+            var status = _mapper.Map<CreateStatusDto, Status>(CreateStatusDto);
+
+            _unitOfWork.Repository<Status>().Add(status);
+
+            var result = await _unitOfWork.Complete();
+
+            if (result <= 0) return BadRequest(new ApiResponse(400, "Problem creating status item"));
+
+            return Ok(status);
+
+        }
+
+        [HttpPut("{id}")]
+        // [Authorize(Roles = "Admin")]
+        public async Task<ActionResult<StatusDto>> UpdateStatus(int id, CreateStatusDto updateStatusDto)
+        {
+            var status = await _unitOfWork.Repository<Status>().GetByIdAsync(id);
+
+            _mapper.Map(updateStatusDto, status);
+
+            _unitOfWork.Repository<Status>().Update(status);
+
+            var result = await _unitOfWork.Complete();
+
+            if (result <= 0) return BadRequest(new ApiResponse(400, "Problem updating status"));
+
+            return Ok(status);
+        }
+
+        [HttpDelete("{id}")]
+        // [Authorize(Roles = "Admin")]
+        public async Task<ActionResult<StatusDto>> DeleteStatus(int id)
+        {
+            var status = await _unitOfWork.Repository<Status>().GetByIdAsync(id);
+
+            _unitOfWork.Repository<Status>().Delete(status);
+
+            var result = await _unitOfWork.Complete();
+
+            if (result <= 0) return BadRequest(new ApiResponse(400, "Problem deleting status"));
+
+            return Ok(status);
         }
     }
 }

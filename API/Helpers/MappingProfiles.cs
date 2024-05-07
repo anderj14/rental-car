@@ -58,6 +58,10 @@ namespace API.Helpers
             CreateMap<CreateInvoiceDto, Invoice>();
             CreateMap<CreateModelDto, Model>();
             CreateMap<CreateBrandDto, Brand>();
+            CreateMap<CreateFuelDto, Fuel>();
+            CreateMap<CreateInsuranceDto, Insurance>();
+            CreateMap<CreateStatusDto, Status>();
+            CreateMap<CreateVehicleTypeDto, VehicleType>();
 
             CreateMap<Photo, PhotoDto>()
                     .ForMember(d => d.PictureUrl,
