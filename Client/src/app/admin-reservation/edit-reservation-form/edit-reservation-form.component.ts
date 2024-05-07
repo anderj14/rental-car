@@ -58,39 +58,53 @@ export class EditReservationFormComponent implements OnInit {
     );
   }
 
-  calculateRentalCost(): void {
-    if (this.reservation.vehicleId && this.reservation.insuranceId && this.reservation.days) {
-      const selectedVehicle = this.vehicles.find(v => v.id === this.reservation.vehicleId);
-      const selectedInsurance = this.insurances.find(i => i.id === this.reservation.insuranceId);
+  // calculateRentalCost(): void {
+  //   if (this.reservation.vehicleId && this.reservation.insuranceId && this.reservation.days) {
+  //     const selectedVehicle = this.vehicles.find(v => v.id === this.reservation.vehicleId);
+  //     const selectedInsurance = this.insurances.find(i => i.id === this.reservation.insuranceId);
 
-      if (selectedVehicle && selectedInsurance) {
-        const vehicleRentalPrice = selectedVehicle.rentalPrice;
-        const insurancePrice = selectedInsurance.insurancePrice;
-        const totalDays = this.reservation.days;
+  //     if (selectedVehicle && selectedInsurance) {
+  //       const vehicleRentalPrice = selectedVehicle.rentalPrice;
+  //       const insurancePrice = selectedInsurance.insurancePrice;
+  //       const totalDays = this.reservation.days;
 
-        const rentalCost = (vehicleRentalPrice + insurancePrice) * totalDays;
+  //       const rentalCost = (vehicleRentalPrice + insurancePrice) * totalDays;
 
-        console.log('Rental Cost:', rentalCost);
+  //       console.log('Rental Cost:', rentalCost);
 
-        this.reservation.rentalCost = rentalCost;
-        console.log('Reservation:', this.reservation);
-      }
-    }
-  }
+  //       this.reservation.rentalCost = rentalCost;
+  //       console.log('Reservation:', this.reservation);
+  //     }
+  //   }
+  // }
 
   updatePrice(event: any) {
     this.reservation.rentalCost = event;
   }
 
-  calculateDays(): void {
-    if (this.reservation.startDate && this.reservation.endDate) {
+
+  calculateDays() {
+    if (this.reservation.startDate && this.reservation.endDate && this.reservation.vehicleId && this.reservation.insuranceId) {
       const startDate = new Date(this.reservation.startDate);
       const endDate = new Date(this.reservation.endDate);
+  
+      // Calcular la diferencia en días
       const differenceInTime = endDate.getTime() - startDate.getTime();
       const differenceInDays = differenceInTime / (1000 * 3600 * 24);
+  
+      // Obtener el precio del vehículo seleccionado
+      const selectedVehicle = this.vehicles.find(vehicle => vehicle.id === this.reservation.vehicleId);
+      const vehiclePricePerDay = selectedVehicle ? selectedVehicle.rentalPrice : 0;
+  
+      // Obtener el precio del seguro seleccionado
+      const selectedInsurance = this.insurances.find(insurance => insurance.id === this.reservation.insuranceId);
+      const insurancePrice = selectedInsurance ? selectedInsurance.insurancePrice : 0;
+  
+      // Calcular el costo total del alquiler
+      const totalRentalCost = (vehiclePricePerDay * differenceInDays) + insurancePrice;
+  
       this.reservation.days = differenceInDays;
-
-      this.calculateRentalCost();
+      this.reservation.rentalCost = totalRentalCost;
     }
   }
 

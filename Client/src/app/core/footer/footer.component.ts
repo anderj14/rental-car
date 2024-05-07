@@ -15,10 +15,10 @@ import { RouterModule } from '@angular/router';
             <ul>
               <li><a routerLink="/about-us" target="_blank">about us</a></li>
               <li><a routerLink="/vehicles" target="_blank">our services</a></li>
-              <li><a routerLink="/vehicles" target="_blank">privacy policy</a></li>
+              <li><a routerLink="/contact" target="_blank">contact</a></li>
             </ul>
           </div>
-          <div class="footer-col">
+          <!-- <div class="footer-col">
             <h4>get help</h4>
             <ul>
               <li><a href="#" target="_blank">FAQ</a></li>
@@ -26,7 +26,7 @@ import { RouterModule } from '@angular/router';
               <li><a href="#" target="_blank">order status</a></li>
               <li><a href="#" target="_blank">payment options</a></li>
             </ul>
-          </div>
+          </div> -->
           
           <div class="footer-col">
             <h4>follow us</h4>
