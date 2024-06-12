@@ -72,6 +72,14 @@ body {
 
 body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-content {
+  flex: 1;
+  // Si deseas agregar un padding o un margen específico
+  // padding: 20px;
 }
 
 .breadcrumb {
@@ -80,5 +88,6 @@ body {
     font-weight: 500;
   }
 }
+
 /* Importing Bootstrap SCSS file. */
 @import 'bootstrap/scss/bootstrap';

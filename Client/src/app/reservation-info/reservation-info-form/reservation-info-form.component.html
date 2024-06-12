@@ -1,4 +1,4 @@
-
+<!-- 
 <form #reservationForm="ngForm" (ngSubmit)="onSubmit(reservationForm.valid && reservationForm.value)">
     <div class="">
       <div class="form-group col-md-6">
@@ -131,5 +131,128 @@
           </div>
       </div>
   <button [disabled]="!reservationForm.valid" type="submit" class="btn btn-primary my-3 float-right">Submit</button>
+</form>
+   -->
+<form #reservationForm="ngForm" (ngSubmit)="onSubmit(reservationForm.value)">
+    <div class="form-group col-md-6">
+      <label for="startDate">Start Date</label>
+      <input type="datetime"
+        name="startDate"
+        id="startDate"
+        required
+        class="form-control"
+        [(ngModel)]="reservation.startDate"
+        (ngModelChange)="calculateDays()"
+        #startDate="ngModel"
+      >
+      <div *ngIf="startDate.invalid && (startDate.dirty || startDate.touched)" class="invalid-feedback">
+        <div *ngIf="startDate.errors?.['required']">Reservation start date is required</div>
+      </div>
+    </div>
+  
+    <div class="form-group col-md-6">
+      <label for="endDate">End Date</label>
+      <input type="datetime"
+        name="endDate"
+        id="endDate"
+        required
+        class="form-control"
+        [(ngModel)]="reservation.endDate"
+        (ngModelChange)="calculateDays()"
+        #endDate="ngModel"
+      >
+      <div *ngIf="endDate.invalid && (endDate.dirty || endDate.touched)" class="invalid-feedback">
+        <div *ngIf="endDate.errors?.['required']">Reservation end date is required</div>
+      </div>
+    </div>
+  
+    <div class="form-group col-md-6">
+      <label for="days">Days</label>
+      <input type="number"
+        name="days"
+        id="days"
+        placeholder="Days"
+        required
+        class="form-control"
+        [(ngModel)]="reservation.days"
+        #days="ngModel"
+        (ngModelChange)="calculateRentalCost()"
+        disabled
+      >
+      <div *ngIf="days.invalid && (days.dirty || days.touched)" class="invalid-feedback">
+        <div *ngIf="days.errors?.['required']">Reservation days are required</div>
+      </div>
+    </div>
+  
+    <div class="form-group col-md-6">
+      <label for="rentalCost">Rental Cost</label>
+      <input type="text"
+        name="rentalCost"
+        id="rentalCost"
+        required
+        class="form-control"
+        [(ngModel)]="reservation.rentalCost"
+        #rentalCost="ngModel"
+      >
+      <div *ngIf="rentalCost.invalid && (rentalCost.dirty || rentalCost.touched)" class="invalid-feedback">
+        <div *ngIf="rentalCost.errors?.['required']">Reservation rental cost is required</div>
+        <div *ngIf="rentalCost.errors?.['pattern']">Reservation rental cost needs to be decimal value</div>
+        <div *ngIf="rentalCost.errors?.['min']">Reservation rental cost must be greater than zero</div>
+      </div>
+    </div>
+  
+    <div class="form-group">
+      <label for="insurance">Insurance</label>
+      <select 
+        name="insuranceId"
+        id="insurance"
+        required
+        class="form-control"
+        [(ngModel)]="reservation.insuranceId"
+        (ngModelChange)="calculateRentalCost()"
+        #insurance="ngModel"
+      >
+        <option *ngFor="let insurance of insurances" [ngValue]="insurance.id">
+          {{ insurance.insuranceName }}
+        </option>
+      </select>
+      <div *ngIf="insurance.invalid && (insurance.dirty || insurance.touched)" class="invalid-feedback">
+        <div *ngIf="insurance.errors?.['required']">Insurance is required</div>
+      </div>
+    </div>
+  
+    <!-- <div class="form-group">
+      <label for="customer">Customer</label>
+      <input type="text"
+        name="customerId"
+        id="customer"
+        required
+        class="form-control"
+        [(ngModel)]="reservation.customerId"
+        #customer="ngModel"
+        disabled
+      >
+      <div *ngIf="customer.invalid && (customer.dirty || customer.touched)" class="invalid-feedback">
+        <div *ngIf="customer.errors?.['required']">Customer is required</div>
+      </div>
+    </div>
+  
+    <div class="form-group">
+      <label for="vehicle">Vehicle</label>
+      <input type="text"
+        name="vehicleId"
+        id="vehicle"
+        required
+        class="form-control"
+        [(ngModel)]="reservation.vehicleId"
+        #vehicle="ngModel"
+        disabled
+      >
+      <div *ngIf="vehicle.invalid && (vehicle.dirty || vehicle.touched)" class="invalid-feedback">
+        <div *ngIf="vehicle.errors?.['required']">Vehicle is required</div>
+      </div>
+    </div> -->
+  
+    <button [disabled]="!reservationForm.valid" type="submit" class="btn btn-primary my-3 float-right">Submit</button>
 </form>
   
