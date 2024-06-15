@@ -30,6 +30,28 @@ export class EditReservationFormComponent implements OnInit {
     this.reservation = new ReservationFormValues();
   }
 
+  // ngOnInit(): void {
+  //   this.filteredCustomers = this.customerControl.valueChanges.pipe(
+  //     startWith(''),
+  //     map((value) => this._filterCustomers(value))
+  //   );
+
+  //   // Cargar vehículos disponibles
+  //   this.adminReservationService.getVehicles(10000, 3).pipe(
+  //     take(1),
+  //     catchError((error: any) => {
+  //       console.error('Error fetching vehicles: ', error);
+  //       return [];
+  //     })
+  //   ).subscribe((response: any) => {
+  //     if ('data' in response) {
+  //       this.vehicles = response.data;
+  //     } else {
+  //       console.error('Invalid response format:', response);
+  //     }
+  //   });
+  // }
+
   ngOnInit(): void {
     this.filteredCustomers = this.customerControl.valueChanges.pipe(
       startWith(''),
@@ -44,7 +66,11 @@ export class EditReservationFormComponent implements OnInit {
         return [];
       })
     ).subscribe((response: any) => {
-      if ('data' in response) {
+      if (Array.isArray(response)) {
+        // Si la respuesta es un array directamente
+        this.vehicles = response;
+      } else if ('data' in response) {
+        // Si la respuesta tiene una propiedad data
         this.vehicles = response.data;
       } else {
         console.error('Invalid response format:', response);
@@ -62,7 +88,7 @@ export class EditReservationFormComponent implements OnInit {
   updatePrice(event: any) {
     this.reservation.rentalCost = event;
   }
-  
+
   calculateRentalCost(): void {
     if (this.reservation.vehicleId && this.reservation.insuranceId && this.reservation.days) {
       const selectedVehicle = this.vehicles.find(v => v.id === this.reservation.vehicleId);
@@ -93,7 +119,6 @@ export class EditReservationFormComponent implements OnInit {
       this.calculateRentalCost();
     }
   }
-
 
   getVehicleDisplay(vehicle: IVehicle): string {
     return `${vehicle.vehicleName} (${vehicle.year} - ${vehicle.color})`;

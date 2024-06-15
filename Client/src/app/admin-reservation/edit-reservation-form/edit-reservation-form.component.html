@@ -1,11 +1,10 @@
-
 <form #reservationForm="ngForm" (ngSubmit)="onSubmit(reservationForm.valid && reservationForm.value)">
   <div class="">
     <div class="form-group col-md-6">
       <label for="startDate">Start Date</label>
-      <input type="datetime"
+      <input type="datetime-local"
         name="startDate"
-        id="datetime"
+        id="startDate"
         required
         class="form-control"
         [ngClass]="{'is-invalid': startDate.invalid && (startDate.dirty || startDate.touched)}"
@@ -14,25 +13,25 @@
         (ngModelChange)="calculateDays()"
         >
         <div *ngIf="startDate.invalid && (startDate.dirty || startDate.touched)" class="invalid-feedback">
-          <div *ngIf="startDate.errors?.['required']" >
+          <div *ngIf="startDate.errors?.['required']">
             Reservation start date is required
           </div>
         </div>
     </div>
     <div class="form-group col-md-6">
       <label for="endDate">End Date</label>
-      <input type="datetime"
-        [ngClass]="{'is-invalid': endDate.invalid && (endDate.dirty || endDate.touched)}"
+      <input type="datetime-local"
         name="endDate"
         id="endDate"
         required
         class="form-control"
+        [ngClass]="{'is-invalid': endDate.invalid && (endDate.dirty || endDate.touched)}"
         #endDate="ngModel"
         [(ngModel)]="reservation.endDate"
         (ngModelChange)="calculateDays()"
         >
         <div *ngIf="endDate.invalid && (endDate.dirty || endDate.touched)" class="invalid-feedback">
-          <div *ngIf="endDate.errors?.['required']" >
+          <div *ngIf="endDate.errors?.['required']">
             Reservation end date is required
           </div>
         </div>
@@ -40,21 +39,13 @@
     <div class="form-group col-md-6">
       <label for="days">Days</label>
       <input type="number"
-        [ngClass]="{'is-invalid': days.invalid && (days.dirty || days.touched)}"
         name="days"
         id="days"
-        placeholder="Days"
-        required
-        class="form-control days"
+        class="form-control"
         #days="ngModel"
-        [(ngModel)]="reservation.days"  
+        [(ngModel)]="reservation.days"
         disabled    
         >
-        <div *ngIf="days.invalid && (days.dirty || days.touched)" class="invalid-feedback">
-          <div *ngIf="days.errors?.['required']" >
-            Reservation end date is required
-          </div>
-        </div>
     </div>
     <div class="form-group col-md-6">
       <label for="rentalCost">Rental Cost</label>
@@ -65,7 +56,9 @@
         class="form-control"
         [(ngModel)]="reservation.rentalCost"
         #rentalCost="ngModel"
-      >
+        pattern="^\d+(\.\d{1,2})?$"
+        min="0"
+        >
       <div *ngIf="rentalCost.invalid && (rentalCost.dirty || rentalCost.touched)" class="invalid-feedback">
         <div *ngIf="rentalCost.errors?.['required']">Reservation rental cost is required</div>
         <div *ngIf="rentalCost.errors?.['pattern']">Reservation rental cost needs to be decimal value</div>
@@ -84,7 +77,6 @@
             >
             <option
             *ngFor="let customer of customers"
-            [selected]="reservation.customerId === customer.id"
             [ngValue]="customer.id" 
             >{{customer.customerName}}</option>
           </select>
@@ -100,24 +92,10 @@
         >
         <option
           *ngFor="let vehicle of vehicles"
-          [selected]="reservation.vehicleId === vehicle.id"
           [ngValue]="vehicle.id" 
         >{{getVehicleDisplay(vehicle)}}</option>
         </select>
       </div>
-      <div class="form">
-        <label for="patient">Vehicles</label>
-        <ng-select
-          name="vehicleId"
-          bindLabel="vehicleName"
-          bindValue="id"
-          [(ngModel)]="reservation.vehicleId"
-          [items]="vehicles"
-          [searchable]="true"
-          [clearable]="true"
-          required
-        ></ng-select>
-    </div>
       <div class="form-group">
         <label for="insurance">Insurance</label>
         <select 
@@ -129,14 +107,12 @@
         >
           <option
             *ngFor="let insurance of insurances"
-            [selected]="reservation.insuranceId === insurance.id"
             [ngValue]="insurance.id" 
           >{{insurance.insuranceName}}</option>
         </select>
       </div>
     </div>
-   
   </div>
     <button [disabled]="!reservationForm.valid" type="submit" class="btn btn-primary my-3 float-right">Submit</button>
-
 </form>
+
