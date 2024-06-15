@@ -22,6 +22,7 @@ export class EditReservationComponent implements OnInit {
   vehicles: IVehicle[] = [];
   insurances: Insurance[] = [];
 
+
   constructor(
     private reservationService: ReservationService,
     private route: ActivatedRoute) {
@@ -30,7 +31,7 @@ export class EditReservationComponent implements OnInit {
 
   ngOnInit(): void {
     const customers = this.getCustomers();
-    const vehicles = this.getVehicles();
+    const vehicles = this.getVehicles(800, 3); // Llama al servicio con el statusId 3 para vehículos disponibles
     const insurance = this.getInsurance();
 
     forkJoin([customers, vehicles, insurance]).subscribe(results => {
@@ -59,7 +60,6 @@ export class EditReservationComponent implements OnInit {
       return Array.isArray(response) ? response : [];
     }
   }
-  
 
   updatePrice(event: any) {
     this.reservation.rentalCost = event;
@@ -81,9 +81,11 @@ export class EditReservationComponent implements OnInit {
   getInsurance() {
     return this.reservationService.getInsurances();
   }
-  getVehicles() {
-    return this.reservationService.getVehicles();
+
+  getVehicles(pageSize: number = 10000, statusId: number = 3) {
+    return this.reservationService.getVehicles(pageSize, statusId); // Pasa el statusId 3 para vehículos disponibles
   }
+
   getCustomers() {
     return this.reservationService.getCustomers();
   }

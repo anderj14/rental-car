@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { ReservationParams } from '../shared/models/reservationParams';
 import { Reservation } from '../shared/models/reservation';
 import { Pagination } from '../shared/models/Pagination';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { Customer } from '../shared/models/customers';
 import { Insurance } from '../shared/models/insurance';
 import { IVehicle } from '../shared/models/vehicles';
@@ -50,9 +50,13 @@ export class ReservationService {
   getCustomer(id: number) {
     return this.http.get<Customer[]>(this.baseUrl + 'customers' + id);
   }
-  getVehicles() {
-    return this.http.get<IVehicle[]>(this.baseUrl + 'vehicles');
+
+
+  getVehicles(pageSize: number = 10000, statusId: number = 3): Observable<IVehicle[]> {
+    return this.http.get<Pagination<IVehicle[]>>(`${this.baseUrl}Vehicles?PageSize=${pageSize}&StatusId=${statusId}`)
+      .pipe(map(response => response.data));
   }
+
   getVehicle(id: number) {
     return this.http.get<IVehicle[]>(this.baseUrl + 'vehicles' + id);
   }

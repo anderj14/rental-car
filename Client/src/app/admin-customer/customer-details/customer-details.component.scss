@@ -1,19 +1,9 @@
-// i {
-//   font-size: 35px;
-//   color: #303D50;
-//   cursor: pointer;
-//   transition: 0.5s;
-
-//   &:hover {
-//     color: #6985af;
-//     padding: 5px;
-//   }
-// }
 
 .customer-details {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-bottom: 30px;
 
   mat-card  {
     padding: 20px;

@@ -4,6 +4,6 @@ export class ReservationParams {
     insuranceId = 0;
     sort = 'customerName';
     pageNumber = 1;
-    pageSize = 6;
+    pageSize = 15;
     search = '';
 }

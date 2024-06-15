@@ -7,8 +7,9 @@ namespace Core.Specifications
     {
         public CustomerWithDetailsSpecification(CustomerSpecParams customerSpecParams)
         : base(x =>
-            string.IsNullOrEmpty(customerSpecParams.Search) || x.CustomerName.ToLower().Contains
-            (customerSpecParams.Search)
+            string.IsNullOrEmpty(customerSpecParams.Search)
+            || x.CustomerName.ToLower().Contains(customerSpecParams.Search)
+            || x.DriverLicense.ToLower().Contains(customerSpecParams.Search)
         )
         {
         }
