@@ -113,7 +113,7 @@ export class AdminVehicleComponent implements OnInit {
   get modelsToShow(): Model[] {
     return this.showAllModels ? this.models : this.models.slice(0, 5);
   }
-  
+
   getFuels() {
     this.vehicleService.getFuels().subscribe({
       next: response => this.fuels = [{ id: 0, fuelName: 'All' }, ...response],
@@ -135,12 +135,30 @@ export class AdminVehicleComponent implements OnInit {
     });
   }
 
-
   onBrandSelected(brandId: number) {
     this.selectedBrandId = brandId === this.selectedBrandId ? null : brandId;
     this.vehicleParams.brandId = this.selectedBrandId || 0;
     this.vehicleParams.pageNumber = 1;
+
+    if (this.selectedBrandId) {
+      this.getModelsByBrand(this.selectedBrandId);
+    } else {
+      this.getModels();
+      this.selectedModelId = null;
+      this.getVehicles();
+    }
+
     this.getVehicles();
+  }
+
+  getModelsByBrand(brandId: number) {
+    this.vehicleService.getModelsByBrand(brandId).subscribe({
+      next: response => {
+        this.models = [{ id: 0, modelName: 'All' }, ...response];
+        this.selectedModelId = null;
+      },
+      error: error => console.log(error)
+    })
   }
 
   onModelSelected(modelId: number) {

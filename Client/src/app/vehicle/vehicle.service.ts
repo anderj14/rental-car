@@ -58,7 +58,6 @@ export class VehicleService {
     return this.http.get<Model[]>(this.baseUrl + 'brands/' + brandId + '/models');
   }
 
-
   getFuels() {
     return this.http.get<Fuel[]>(this.baseUrl + 'fuels');
   }
@@ -70,5 +69,4 @@ export class VehicleService {
   getVehiclesType() {
     return this.http.get<VehicleType[]>(this.baseUrl + 'vehiclesType');
   }
-
 }

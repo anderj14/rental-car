@@ -124,7 +124,7 @@ export class VehicleComponent implements OnInit {
     this.vehicleService.getModelsByBrand(brandId).subscribe({
         next: response => {
             this.models = [{ id: 0, modelName: 'All' }, ...response];
-            this.selectedModelId = null; // Limpiar la selección del modelo al cambiar de marca
+            this.selectedModelId = null;
         },
         error: error => console.log(error)
     });

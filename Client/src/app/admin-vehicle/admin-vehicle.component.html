@@ -94,14 +94,17 @@
 
         <div class="box">
             <h5 class="">Models</h5>
-            <ul class="">
-                <li *ngFor="let model of modelsToShow" (click)="onModelSelected(model.id)" [class.active]="model.id === selectedModelId">
-                    {{ model.modelName }}
-                </li>
-                <li *ngIf="!showAllModels" class="load-more">
-                    <button (click)="showAllModels = true">Show More....</button>
-                </li>
-            </ul>
+            @if (selectedBrandId !== null)
+            {
+                <ul class="">
+                    <li *ngFor="let model of modelsToShow" (click)="onModelSelected(model.id)" [class.active]="model.id === selectedModelId">
+                        {{ model.modelName }}
+                    </li>
+                    <li *ngIf="!showAllModels" class="load-more">
+                        <button (click)="showAllModels = true">Show More....</button>
+                    </li>
+                </ul>
+            }
         </div>
         
 
