@@ -11,7 +11,7 @@ section {
             margin-left: 8px;
             font-size: 25px;
         }
-    
+
         button {
             font-weight: 400;
             border: none;
@@ -19,10 +19,10 @@ section {
             padding: 5px 12px;
             margin-left: 10px;
             border: 1px solid #959595;
-    
+
             &.new-vehicle {
                 background-color: #ffffff;
-    
+
                 &:hover {
                     background-color: #DA5B00;
                     color: #ffffff;
@@ -32,7 +32,7 @@ section {
         }
     }
 
-   
+
 
     .table-wrapper {
         margin-top: 10px;
@@ -62,27 +62,13 @@ section {
                 }
 
                 td {
-                    font-weight: 400;
-                    overflow: hidden;
-                    vertical-align: middle;
-
-                    &.available {
-                        color: #008000;
-                    }
-
-                    &.rented {
-                        color: #FF0000;
-                    }
-
-                    &.reserved {
-                        color: #FFD700;
-                    }
 
                     button {
                         background-color: #fff;
                         border: 1px solid #959595;
                         border-radius: 8px;
                         font-weight: 400;
+                        margin: 0px 5px;
 
                         &.edit:hover {
                             background-color: #4480df;

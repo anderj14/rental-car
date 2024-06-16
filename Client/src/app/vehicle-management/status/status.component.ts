@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Status, StatusFormValues } from 'src/app/shared/models/status';
 import { StatusService } from './status.service';
 import { StatusFormComponent } from './status-form/status-form.component';
@@ -15,12 +14,12 @@ import { FormsModule } from '@angular/forms';
 })
 export class StatusComponent {
 
-
   statuses: Status[] = [];
-  showAddStatusPopup = false;
-  editStatusFormValues: StatusFormValues | null = null;
+  showStatusPopup = false;
+  editingStatusId: number | null = null;
+  editStatusFormValues: StatusFormValues = new StatusFormValues();
 
-  constructor(private statusService: StatusService, private modalService: NgbModal) { }
+  constructor(private statusService: StatusService) { }
 
   ngOnInit(): void {
     this.getStatuses();
@@ -30,60 +29,53 @@ export class StatusComponent {
     this.statusService.getStatuses().subscribe({
       next: (response: Status[]) => {
         this.statuses = response;
-        console.log(this.statuses);
       },
       error: error => console.log(error)
     })
   }
 
-  openAddStatusPopup() {
-    this.showAddStatusPopup = true;
+  openStatusPopup(id?: number) {
+    if (id) {
+      const statusToEdit = this.statuses.find(status => status.id === id);
+      if (statusToEdit) {
+        this.editStatusFormValues = new StatusFormValues({
+          statusName: statusToEdit.statusName
+        });
+        this.editingStatusId = id;
+      }
+    } else {
+      this.editStatusFormValues = new StatusFormValues();
+      this.editingStatusId = null;
+    }
+    this.showStatusPopup = true;
   }
 
   cancelAddStatusPopup() {
-    this.showAddStatusPopup = false;
-    this.editStatusFormValues = null;
+    this.showStatusPopup = false;
   }
 
   saveStatus(statusFormValues: StatusFormValues) {
-    if (this.editStatusFormValues) {
-      // Edit existing status
-      this.statusService.updateStatus(this.editStatusFormValues.id!, statusFormValues).subscribe(
-        (response: Status) => {
-          const index = this.statuses.findIndex(status => status.id === response.id);
-          if (index !== -1) {
-            this.statuses[index] = response;
-          }
-          this.showAddStatusPopup = false;
-          this.editStatusFormValues = null;
-        },
-        error => console.log(error)
-      );
-    } else {
-      // Create new status
+    if (this.editingStatusId == null) {
       this.statusService.createStatus(statusFormValues).subscribe(
         (response: Status) => {
           this.statuses.push(response);
-          this.showAddStatusPopup = false;
+          this.showStatusPopup = false;
         },
         error => console.log(error)
       );
-    }
-  }
-  
-  editStatus(id: number) {
-    const statusToEdit = this.statuses.find(status => status.id === id);
-    if (statusToEdit) {
-      const statusFormValues = new StatusFormValues({
-        id: statusToEdit.id,
-        statusName: statusToEdit.statusName
-      });
-
-      this.showAddStatusPopup = true;
-      this.editStatusFormValues = statusFormValues;
     } else {
-      console.log('Estado no encontrado para editar');
+      this.statusService.updateStatus(this.editingStatusId, statusFormValues).subscribe((response: Status) => {
+        const index = this.statuses.findIndex(b => b.id === response.id);
+        if (index !== -1) {
+          this.statuses[index] = response;
+        }
+        this.showStatusPopup = false;
+        this.editingStatusId = null;
+      },
+        error => console.log(error)
+      );
     }
+
   }
 
   deleteStatus(id: number) {

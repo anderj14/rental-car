@@ -13,13 +13,14 @@ import { VehicleTypeFormComponent } from './vehicle-type-form/vehicle-type-form.
   templateUrl: './vehicle-type.component.html',
   styleUrl: './vehicle-type.component.scss'
 })
-export class VehicleTypeComponent implements OnInit{
+export class VehicleTypeComponent implements OnInit {
 
   vehicleTypes: VehicleType[] = [];
-  showAddVehicleTypePopup = false;
-  editVehicleTypeFormValues: VehicleTypeFormValues | null = null;
+  showVehicleTypePopup = false;
+  editingVehicleTypeId: number | null = null;
+  editVehicleTypeFormValues: VehicleTypeFormValues = new VehicleTypeFormValues();
 
-  constructor(private vehicleTypeService: VehicleTypeService, private modalService: NgbModal) { }
+  constructor(private vehicleTypeService: VehicleTypeService) { }
 
   ngOnInit(): void {
     this.getVehicleTypes();
@@ -29,57 +30,52 @@ export class VehicleTypeComponent implements OnInit{
     this.vehicleTypeService.getVehicleTypes().subscribe({
       next: (response: VehicleType[]) => {
         this.vehicleTypes = response;
-        console.log(this.vehicleTypes);
       },
       error: error => console.log(error)
     })
   }
 
-  openAddVehicleTypePopup() {
-    this.showAddVehicleTypePopup = true;
+  openVehicleTypePopup(id?: number) {
+    if (id) {
+      const vehicleTypeToEdit = this.vehicleTypes.find(vehicleType => vehicleType.id === id);
+      if (vehicleTypeToEdit) {
+        this.editVehicleTypeFormValues = new VehicleTypeFormValues({
+          vehicleTypeName: vehicleTypeToEdit.vehicleTypeName
+        });
+        this.editingVehicleTypeId = id;
+      }
+    } else {
+      this.editVehicleTypeFormValues = new VehicleTypeFormValues();
+      this.editingVehicleTypeId = null;
+    }
+    this.showVehicleTypePopup = true;
   }
 
   cancelAddVehicleTypePopup() {
-    this.showAddVehicleTypePopup = false;
-    this.editVehicleTypeFormValues = null;
+    this.showVehicleTypePopup = false;
   }
 
   saveVehicleType(vehicleTypeFormValues: VehicleTypeFormValues) {
-    if (this.editVehicleTypeFormValues) {
-      this.vehicleTypeService.updateVehicleType(this.editVehicleTypeFormValues.id!, vehicleTypeFormValues).subscribe(
+    if (this.editingVehicleTypeId == null) {
+      this.vehicleTypeService.createVehicleType(vehicleTypeFormValues).subscribe(
+        (response: VehicleType) => {
+          this.vehicleTypes.push(response);
+          this.showVehicleTypePopup = false;
+        },
+        error => console.log(error)
+      );
+    } else {
+      this.vehicleTypeService.updateVehicleType(this.editingVehicleTypeId, vehicleTypeFormValues).subscribe(
         (response: VehicleType) => {
           const index = this.vehicleTypes.findIndex(vehicleType => vehicleType.id === response.id);
           if (index !== -1) {
             this.vehicleTypes[index] = response;
           }
-          this.showAddVehicleTypePopup = false;
-          this.editVehicleTypeFormValues = null;
+          this.showVehicleTypePopup = false;
+          this.editingVehicleTypeId = null;
         },
         error => console.log(error)
       );
-    } else {
-      this.vehicleTypeService.createVehicleType(vehicleTypeFormValues).subscribe(
-        (response: VehicleType) => {
-          this.vehicleTypes.push(response);
-          this.showAddVehicleTypePopup = false;
-        },
-        error => console.log(error)
-      );
-    }
-  }
-  
-  editVehicleType(id: number) {
-    const vehicleTypeToEdit = this.vehicleTypes.find(vehicleType => vehicleType.id === id);
-    if (vehicleTypeToEdit) {
-      const vehicleTypeFormValues = new VehicleTypeFormValues({
-        id: vehicleTypeToEdit.id,
-        vehicleTypeName: vehicleTypeToEdit.vehicleTypeName
-      });
-
-      this.showAddVehicleTypePopup = true;
-      this.editVehicleTypeFormValues = vehicleTypeFormValues;
-    } else {
-      console.log('Tipo de vehículo no encontrado para editar');
     }
   }
 

@@ -24,6 +24,7 @@ namespace API.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<ActionResult<Pagination<InvoiceDto>>> GetInvoices(
             [FromQuery] InvoiceSpecParams invoiceSpecParams
         )
@@ -56,6 +57,7 @@ namespace API.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult<InvoiceDto>> CreateInvoice(CreateInvoiceDto createInvoice)
         {
             var invoice = _mapper.Map<CreateInvoiceDto, Invoice>(createInvoice);
@@ -70,6 +72,7 @@ namespace API.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize]
         public async Task<ActionResult<InvoiceDto>> UpdateInvoice(int id, CreateInvoiceDto updateInvoice)
         {
             var invoice = await _unitOfWork.Repository<Invoice>().GetByIdAsync(id);
@@ -86,7 +89,7 @@ namespace API.Controllers
         }
 
         [HttpDelete("{id}")]
-        [Authorize(Roles = "Admin")]
+        [Authorize]
         public async Task<ActionResult> DeleteInvoice(int id)
         {
             var invoice = await _unitOfWork.Repository<Invoice>().GetByIdAsync(id);

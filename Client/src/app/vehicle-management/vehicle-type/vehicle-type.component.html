@@ -1,7 +1,7 @@
 <section>
     <div class="content">
-        <h2>Tipos de Vehículo</h2>
-        <button class="new-vehicle-type" (click)="openAddVehicleTypePopup()">Agregar Tipo de Vehículo</button>
+        <h2>Vehicle Types</h2>
+        <button class="new-vehicle-type" (click)="openVehicleTypePopup()">Add Vehicle Type</button>
     </div>
 
     <div class="table-wrapper">
@@ -9,8 +9,8 @@
             <thead>
                 <tr>
                     <th>Id</th>
-                    <th>Nombre del Tipo de Vehículo</th>
-                    <th>Acciones</th>
+                    <th>Vehicle Type Name</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -18,8 +18,8 @@
                     <td>{{ vehicleType.id }}</td>
                     <td>{{ vehicleType.vehicleTypeName }}</td>
                     <td>
-                        <button class="edit" (click)="editVehicleType(vehicleType.id)">Editar</button>
-                        <button class="delete" (click)="deleteVehicleType(vehicleType.id)">Eliminar</button>
+                        <button class="edit" (click)="openVehicleTypePopup(vehicleType.id)">Edit</button>
+                        <button class="delete" (click)="deleteVehicleType(vehicleType.id)">delete</button>
                     </td>
                 </tr>
             </tbody>
@@ -27,7 +27,7 @@
     </div>
 
     <app-vehicle-type-form
-        [showPopup]="showAddVehicleTypePopup" 
+        [showPopup]="showVehicleTypePopup" 
         [initialValues]="editVehicleTypeFormValues"
         (save)="saveVehicleType($event)" 
         (cancel)="cancelAddVehicleTypePopup()">

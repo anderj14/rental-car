@@ -13,10 +13,10 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './insurance.component.scss'
 })
 export class InsuranceComponent implements OnInit {
-  insurances: Insurance[] = [];
+  insurances!: Insurance[];
   showAddInsurancePopup = false;
   editingInsuranceId: number | null = null;
-  editInsuranceFormValues: InsuranceFormValues | null = null;
+  editInsuranceFormValues: InsuranceFormValues = new InsuranceFormValues();
 
   constructor(private insuranceService: InsuranceService) { }
 
@@ -33,10 +33,21 @@ export class InsuranceComponent implements OnInit {
     });
   }
 
-  openAddInsurancePopup() {
+  openInsurancePopup(id?: number) {
+    if (id) {
+      const insuranceToEdit = this.insurances.find(insurance => insurance.id === id);
+      if (insuranceToEdit) {
+        this.editInsuranceFormValues = new InsuranceFormValues({
+          insuranceName: this.editInsuranceFormValues.insuranceName,
+          insurancePrice: this.editInsuranceFormValues.insurancePrice
+        });
+        this.editingInsuranceId = id;
+      }
+    } else {
+      this.editInsuranceFormValues = new InsuranceFormValues();
+      this.editingInsuranceId = null;
+    }
     this.showAddInsurancePopup = true;
-    this.editingInsuranceId = null;
-    this.editInsuranceFormValues = null;
   }
 
   cancelAddInsurancePopup() {
@@ -45,10 +56,8 @@ export class InsuranceComponent implements OnInit {
 
   saveInsurance(insuranceFormValues: InsuranceFormValues) {
     if (this.editingInsuranceId) {
-      // Update existing insurance
       this.insuranceService.updateInsurance(this.editingInsuranceId, insuranceFormValues).subscribe(
         (response: Insurance) => {
-          // Update insurance in the list
           const index = this.insurances.findIndex(insurance => insurance.id === response.id);
           if (index !== -1) {
             this.insurances[index] = response;
@@ -58,7 +67,6 @@ export class InsuranceComponent implements OnInit {
         (error: any) => console.log(error)
       );
     } else {
-      // Create new insurance
       this.insuranceService.createInsurance(insuranceFormValues).subscribe(
         (response: Insurance) => {
           this.insurances.push(response);
@@ -66,22 +74,6 @@ export class InsuranceComponent implements OnInit {
         },
         (error: any) => console.log(error)
       );
-    }
-  }
-
-  editInsurance(id: number) {
-    const insuranceToEdit = this.insurances.find(insurance => insurance.id === id);
-    if (insuranceToEdit) {
-      const insuranceFormValues = new InsuranceFormValues({
-        insuranceName: insuranceToEdit.insuranceName,
-        insurancePrice: insuranceToEdit.insurancePrice
-      });
-
-      this.editingInsuranceId = id;
-      this.editInsuranceFormValues = insuranceFormValues;
-      this.showAddInsurancePopup = true;
-    } else {
-      console.log('Seguro no encontrado para editar');
     }
   }
 

@@ -6,6 +6,7 @@ using Core.Dtos.ModelsDtos;
 using Core.Entities;
 using Core.Interfaces;
 using Core.Specifications;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -22,6 +23,7 @@ namespace API.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<ActionResult<IReadOnlyList<ModelDto>>> GetModels()
         {
             var spec = new ModelWithBrandSpecification();
@@ -32,6 +34,7 @@ namespace API.Controllers
         }
 
         [HttpGet("{id}")]
+        [Authorize]
         public async Task<ActionResult<ModelDto>> GetModel(int id)
         {
             var spec = new ModelWithBrandSpecification(id);
@@ -42,6 +45,7 @@ namespace API.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult<ModelDto>> CreateModel(CreateModelDto createModelDto)
         {
             var model = _mapper.Map<CreateModelDto, Model>(createModelDto);
@@ -54,7 +58,9 @@ namespace API.Controllers
             return Ok(model);
         }
 
-        [HttpPut]
+        [HttpPut("{id}")]
+        [Authorize]
+
         public async Task<ActionResult<ModelDto>> UpdateModel(int id, CreateModelDto updateModelDto)
         {
 
@@ -71,7 +77,8 @@ namespace API.Controllers
             return Ok(model);
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
+        [Authorize]
         public async Task<ActionResult> DeleteModel(int id)
         {
 

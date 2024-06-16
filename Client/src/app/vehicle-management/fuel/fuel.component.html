@@ -1,7 +1,7 @@
 <section>
     <div class="content">
-        <h2>Combustibles</h2>
-        <button class="new-vehicle" (click)="openAddFuelPopup()">Agregar Combustible</button>
+        <h2>Fuels</h2>
+        <button class="new-vehicle" (click)="openFuelPopup()">Add Fuel</button>
     </div>
 
     <div class="table-wrapper">
@@ -18,7 +18,7 @@
                     <td>{{ fuel.id }}</td>
                     <td>{{ fuel.fuelName }}</td>
                     <td>
-                        <!-- <button class="edit" (click)="editFuel(fuel.id)">Edit</button> -->
+                        <button class="edit" (click)="openFuelPopup(fuel.id)">Edit</button>
                         <button class="delete" (click)="deleteFuel(fuel.id)">Delete</button>
                     </td>
                 </tr>
@@ -27,7 +27,8 @@
     </div>
 
     <app-fuel-form 
-        [showPopup]="showAddFuelPopup" 
+        [showPopup]="showFuelPopup" 
+        [initialValues]="editFuelFormValues"
         (save)="saveFuel($event)" 
         (cancel)="cancelAddFuelPopup()">
     </app-fuel-form>

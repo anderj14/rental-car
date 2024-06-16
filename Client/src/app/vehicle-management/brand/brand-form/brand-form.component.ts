@@ -8,7 +8,7 @@ import { BrandFormValues } from 'src/app/shared/models/brand';
   standalone: true,
   imports: [FormsModule, CommonModule],
   templateUrl: './brand-form.component.html',
-  styleUrl: './brand-form.component.scss'
+  styleUrls: ['./brand-form.component.scss']
 })
 export class BrandFormComponent implements OnInit{
 

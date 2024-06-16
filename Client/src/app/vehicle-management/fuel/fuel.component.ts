@@ -15,12 +15,11 @@ import { CommonModule } from '@angular/common';
 export class FuelComponent implements OnInit {
 
   fuels: Fuel[] = [];
-  showAddFuelPopup = false;
-  showEditFuelPopup: boolean = false;
+  showFuelPopup = false;
   editingFuelId: number | null = null;
-  editFuelFormValues: FuelFormValues | null = null;
+  editFuelFormValues: FuelFormValues = new FuelFormValues();
 
-  constructor(private fuelService: FuelService, private modalService: NgbModal) { }
+  constructor(private fuelService: FuelService) { }
 
   ngOnInit(): void {
     this.getFuels();
@@ -29,45 +28,53 @@ export class FuelComponent implements OnInit {
   getFuels() {
     this.fuelService.getFuels().subscribe({
       next: (response: Fuel[]) => {
-        this.fuels = response,
-          console.log(this.fuels);
+        this.fuels = response;
       },
       error: error => console.log(error)
     })
   }
 
-  openAddFuelPopup() {
-    this.showAddFuelPopup = true;
-    this.showEditFuelPopup = true;
+  openFuelPopup(id?: number) {
+    if (id) {
+      const fuelToEdit = this.fuels.find(fuel => fuel.id === id);
+      if (fuelToEdit) {
+        this.editFuelFormValues = new FuelFormValues({
+          fuelName: this.editFuelFormValues.fuelName
+        });
+        this.editingFuelId = id;
+      }
+    } else {
+      this.editFuelFormValues = new FuelFormValues();
+      this.editingFuelId = null;
+    }
+    this.showFuelPopup = true;
   }
 
   cancelAddFuelPopup() {
-    this.showAddFuelPopup = false;
-    this.showEditFuelPopup = false;
+    this.showFuelPopup = false;
   }
 
-  saveFuel(fuelFormValues: FuelFormValues) {
-    this.fuelService.createFuel(fuelFormValues).subscribe(
-      (response: Fuel) => {
-        this.fuels.push(response);
-        this.showAddFuelPopup = false;
-      },
-      error => console.log(error)
-    );
-  }
-  
-  editFuel(id: number) {
-    const fuelToEdit = this.fuels.find(fuel => fuel.id === id);
-    if (fuelToEdit) {
-      const fuelFormValues = new FuelFormValues({
-        fuelName: fuelToEdit.fuelName
-      });
-
-      this.showEditFuelPopup = true;
-      this.editingFuelId = id;
-      this.editFuelFormValues = fuelFormValues;
+  saveFuel(brandFormValues: FuelFormValues) {
+    if (this.editingFuelId === null) {
+      this.fuelService.createFuel(brandFormValues).subscribe(
+        (response: Fuel) => {
+          this.fuels.push(response);
+          this.showFuelPopup = false;
+        },
+        error => console.log(error)
+      );
     } else {
-      console.log('Combustible no encontrado para editar');
+      this.fuelService.updateFuel(this.editingFuelId, brandFormValues).subscribe(
+        (response: Fuel) => {
+          const index = this.fuels.findIndex(b => b.id === response.id);
+          if (index !== -1) {
+            this.fuels[index] = response;
+          }
+          this.showFuelPopup = false;
+          this.editingFuelId = null;
+        },
+        error => console.log(error)
+      );
     }
   }
 
@@ -75,8 +82,8 @@ export class FuelComponent implements OnInit {
     this.fuelService.deleteFuel(id).subscribe(
       () => {
         this.fuels = this.fuels.filter(p => p.id !== id);
-        console.log(this.fuels);
-      }
+      },
+      error => console.log(error)
     );
   }
 }

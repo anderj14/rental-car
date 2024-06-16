@@ -1,7 +1,7 @@
 <section>
     <div class="content">
-        <h2>Estados</h2>
-        <button class="new-status" (click)="openAddStatusPopup()">Agregar Estado</button>
+        <h2>Status</h2>
+        <button class="new-status" (click)="openStatusPopup()">Add Status</button>
     </div>
 
     <div class="table-wrapper">
@@ -9,8 +9,8 @@
             <thead>
                 <tr>
                     <th>Id</th>
-                    <th>Nombre del Estado</th>
-                    <th>Acciones</th>
+                    <th>Status Name</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -18,8 +18,8 @@
                     <td>{{ status.id }}</td>
                     <td>{{ status.statusName }}</td>
                     <td>
-                        <button class="edit" (click)="editStatus(status.id)">Editar</button>
-                        <button class="delete" (click)="deleteStatus(status.id)">Eliminar</button>
+                        <button class="edit" (click)="openStatusPopup(status.id)">Edit</button>
+                        <button class="delete" (click)="deleteStatus(status.id)">Delete</button>
                     </td>
                 </tr>
             </tbody>
@@ -27,7 +27,7 @@
     </div>
 
     <app-status-form 
-        [showPopup]="showAddStatusPopup" 
+        [showPopup]="showStatusPopup" 
         [initialValues]="editStatusFormValues"
         (save)="saveStatus($event)" 
         (cancel)="cancelAddStatusPopup()">

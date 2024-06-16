@@ -6,6 +6,7 @@ using Core.Dtos;
 using Core.Entities;
 using Core.Interfaces;
 using Core.Specifications;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -23,6 +24,7 @@ namespace API.Controllers
 
 
         [HttpGet]
+        [Authorize]
         public async Task<ActionResult<IReadOnlyList<BrandDto>>> GetBrands()
         {
             var brands = await _unitOfWork.Repository<Brand>().ListAllAsync();
@@ -32,6 +34,7 @@ namespace API.Controllers
         }
 
         [HttpGet("{id}")]
+        [Authorize]
         public async Task<ActionResult<BrandDto>> GetBrand(int id)
         {
             var brand = await _unitOfWork.Repository<Brand>().GetByIdAsync(id);
@@ -42,6 +45,7 @@ namespace API.Controllers
         }
 
         [HttpGet("{brandId}/models")]
+        [Authorize]
         public async Task<ActionResult<IReadOnlyList<ModelDto>>> GetModelsByBrand(int brandId)
         {
             var spec = new ModelsByBrandSpecificacion(brandId, getByBrandId: true);
@@ -53,6 +57,7 @@ namespace API.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult<BrandDto>> CreateBrand(CreateBrandDto createBrandDto)
         {
             var brand = _mapper.Map<CreateBrandDto, Brand>(createBrandDto);
@@ -65,7 +70,8 @@ namespace API.Controllers
             return Ok(brand);
         }
 
-        [HttpPut]
+        [HttpPut("{id}")]
+        [Authorize]
         public async Task<ActionResult<BrandDto>> UpdateBrand(int id, CreateBrandDto updateBrandDto)
         {
 
@@ -82,7 +88,8 @@ namespace API.Controllers
             return Ok(brand);
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
+        [Authorize]
         public async Task<ActionResult> DeleteBrand(int id)
         {
 

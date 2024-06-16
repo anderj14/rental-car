@@ -1,7 +1,7 @@
 <section>
     <div class="content">
-        <h2>Seguros</h2>
-        <button class="new-insurance" (click)="openAddInsurancePopup()">Agregar Seguro</button>
+        <h2>Insurances</h2>
+        <button class="new-insurance" (click)="openInsurancePopup()">Add Insurance</button>
     </div>
 
     <div class="table-wrapper">
@@ -9,9 +9,9 @@
             <thead>
                 <tr>
                     <th>Id</th>
-                    <th>Nombre del Seguro</th>
-                    <th>Precio del Seguro</th>
-                    <th>Acciones</th>
+                    <th>Insurance Name</th>
+                    <th>Insurance Price</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -19,9 +19,9 @@
                     <td>{{ insurance.id }}</td>
                     <td>{{ insurance.insuranceName }}</td>
                     <td>{{ insurance.insurancePrice }}</td>
-                    <td>
-                        <button class="edit" (click)="editInsurance(insurance.id)">Editar</button>
-                        <button class="delete" (click)="deleteInsurance(insurance.id)">Eliminar</button>
+                    <td class="actions">
+                        <button class="edit" (click)="openInsurancePopup(insurance.id)">Edit</button>
+                        <button class="delete" (click)="deleteInsurance(insurance.id)">Delete</button>
                     </td>
                 </tr>
             </tbody>

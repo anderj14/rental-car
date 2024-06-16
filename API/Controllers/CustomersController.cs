@@ -24,6 +24,7 @@ namespace API.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<ActionResult<Pagination<CustomerDto>>> GetCustomers(
             [FromQuery] CustomerSpecParams customerSpecParams)
         {
@@ -67,6 +68,7 @@ namespace API.Controllers
         
 
         [HttpPut("{id}")]
+        [Authorize]
         public async Task<ActionResult<CustomerDto>> UpdateCustomer(int id, CreateCustomerDto updateCustomer)
         {
             var customer = await _unitOfWork.Repository<Customer>().GetByIdAsync(id);

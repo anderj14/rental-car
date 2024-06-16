@@ -11,17 +11,16 @@ import { BrandService } from './brand.service';
   standalone: true,
   imports: [FormsModule, CommonModule, BrandFormComponent],
   templateUrl: './brand.component.html',
-  styleUrl: './brand.component.scss'
+  styleUrls: ['./brand.component.scss']
 })
 export class BrandComponent implements OnInit {
 
   brands: Brand[] = [];
-  showAddBrandPopup = false;
-  showEditBrandPopup: boolean = false;
+  showPopup = false;
   editingBrandId: number | null = null;
-  editBrandFormValues: BrandFormValues | null = null;
+  editBrandFormValues: BrandFormValues = new BrandFormValues();
 
-  constructor(private brandService: BrandService, private modalService: NgbModal) { }
+  constructor(private brandService: BrandService) { }
 
   ngOnInit(): void {
     this.getBrands();
@@ -30,45 +29,61 @@ export class BrandComponent implements OnInit {
   getBrands() {
     this.brandService.getBrands().subscribe({
       next: (response: Brand[]) => {
-        this.brands = response,
-          console.log(this.brands);
+        this.brands = response;
       },
       error: error => console.log(error)
-    })
+    });
   }
 
-  openAddBrandPopup() {
-    this.showAddBrandPopup = true;
-    this.showEditBrandPopup = true;
+  openPopup(id?: number) {
+    if (id) {
+      // Find the brand with id
+      const brandToEdit = this.brands.find(brand => brand.id === id);
+      if (brandToEdit) {
+        // Set its values to the edit form
+        this.editBrandFormValues = new BrandFormValues({
+          brandName: brandToEdit.brandName
+        });
+        // Store the id of the brand being edited
+        this.editingBrandId = id;
+      }
+    } else {
+      // New brand and initialize empty values
+      this.editBrandFormValues = new BrandFormValues();
+      this.editingBrandId = null;
+    }
+    // Show the popup
+    this.showPopup = true;
   }
 
-  cancelAddBrandPopup() {
-    this.showAddBrandPopup = false;
-    this.showEditBrandPopup = false;
+  cancelPopup() {
+    this.showPopup = false;
   }
 
   saveBrand(brandFormValues: BrandFormValues) {
-    this.brandService.createBrand(brandFormValues).subscribe(
-      (response: Brand) => {
-        this.brands.push(response);
-        this.showAddBrandPopup = false;
-      },
-      error => console.log(error)
-    );
-  }
-
-  editBrand(id: number) {
-    const brandToEdit = this.brands.find(brand => brand.id === id);
-    if (brandToEdit) {
-      const brandFormValues = new BrandFormValues({
-        brandName: brandToEdit.brandName
-      });
-
-      this.showEditBrandPopup = true;
-      this.editingBrandId = id;
-      this.editBrandFormValues = brandFormValues;
+    if (this.editingBrandId === null) {
+      // Create brand
+      this.brandService.createBrand(brandFormValues).subscribe(
+        (response: Brand) => {
+          this.brands.push(response);
+          this.showPopup = false;
+        },
+        error => console.log(error)
+      );
     } else {
-      console.log('Marca no encontrada para editar');
+      // Edit brand
+      this.brandService.updateBrand(this.editingBrandId, brandFormValues).subscribe(
+        (response: Brand) => {
+          // Finds the index of the brand in the brands array that matches the updated brand's ID.
+          const index = this.brands.findIndex(b => b.id === response.id);
+          if (index !== -1) {
+            this.brands[index] = response;
+          }
+          this.showPopup = false;
+          this.editingBrandId = null;
+        },
+        error => console.log(error)
+      );
     }
   }
 
@@ -76,9 +91,8 @@ export class BrandComponent implements OnInit {
     this.brandService.deleteBrand(id).subscribe(
       () => {
         this.brands = this.brands.filter(p => p.id !== id);
-        console.log(this.brands);
-      }
+      },
+      error => console.log(error)
     );
   }
-
 }

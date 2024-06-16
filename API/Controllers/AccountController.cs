@@ -6,7 +6,6 @@ using Core.Entities.Identity;
 using Core.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -20,16 +19,12 @@ namespace API.Controllers
         private readonly IMapper _mapper;
         private readonly IPasswordHasher<AppUser> _passwordHasher;
 
-        // private readonly RoleManager<IdentityRole> _roleManager;
-
         public AccountController(
             UserManager<AppUser> userManager,
             SignInManager<AppUser> signInManager,
             ITokenService tokenService,
             IMapper mapper,
             IPasswordHasher<AppUser> passwordHasher
-
-            // RoleManager<IdentityRole> roleManager
             )
         {
             _signInManager = signInManager;
@@ -38,7 +33,6 @@ namespace API.Controllers
             _mapper = mapper;
             _passwordHasher = passwordHasher;
 
-            // _roleManager = roleManager;
         }
         // [Authorize]
         [HttpGet]
@@ -53,23 +47,6 @@ namespace API.Controllers
                 DisplayName = user.DisplayName
             };
         }
-        // [Authorize]
-        // [HttpGet("allUser")]
-        // public async Task<ActionResult<UserDto>> GetUsers()
-        // {
-        //     var user = await _userManager.SearchUserAsync(HttpContext.User);
-
-
-        //     return new UserDto
-        //     {
-        //         Id = user.Id,
-        //         DisplayName = user.DisplayName,
-        //         Email = user.Email,
-        //         Token = await _tokenService.CreateToken(user),
-        //         // Admin = roles.Contains("ADMIN") ? true : false
-        //     };
-        // }
-
 
         [Authorize]
         [HttpGet("emailexists")]
@@ -161,12 +138,11 @@ namespace API.Controllers
         }
 
         [HttpPut("update/{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<UserDto>> Update(string id, RegisterDto registerDto)
         {
 
             var user = await _userManager.FindByEmailAsync(registerDto.Email);
-
-            // var user = await _userManager.FindByIdAsync(id);
 
             if (user == null)
             {
@@ -194,8 +170,8 @@ namespace API.Controllers
             };
         }
 
-        // [Authorize(Roles = "Admin")]
         [HttpGet("users")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<ICollection<UserDto>>> GetUsers()
         {
             var users = await _userManager.Users.ToListAsync();
@@ -225,7 +201,6 @@ namespace API.Controllers
 
             return Ok();
         }
-
 
         // [HttpPut("role/{id}")]
         // public async Task<ActionResult<UserDto>> UpdateRole(string id, AppRoleDto roleParam)

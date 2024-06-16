@@ -22,6 +22,7 @@ namespace API.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<ActionResult<IReadOnlyList<FuelDto>>> GetFuels()
         {
             var fuels = await _unitOfWork.Repository<Fuel>().ListAllAsync();
@@ -31,6 +32,7 @@ namespace API.Controllers
         }
 
         [HttpGet("{id}")]
+        [Authorize]
         public async Task<ActionResult<FuelDto>> GetFuel(int id)
         {
             var fuel = await _unitOfWork.Repository<Fuel>().GetByIdAsync(id);
@@ -39,7 +41,7 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        // [Authorize(Roles = "Admin")]
+        [Authorize]
         public async Task<ActionResult<FuelDto>> CreateFuel(CreateFuelDto CreateFuelDto)
         {
             var fuel = _mapper.Map<CreateFuelDto, Fuel>(CreateFuelDto);
@@ -55,7 +57,7 @@ namespace API.Controllers
         }
 
         [HttpPut("{id}")]
-        // [Authorize(Roles = "Admin")]
+        [Authorize]
         public async Task<ActionResult<FuelDto>> UpdateFuel(int id, CreateFuelDto updateFuelDto)
         {
             var fuel = await _unitOfWork.Repository<Fuel>().GetByIdAsync(id);
@@ -72,7 +74,7 @@ namespace API.Controllers
         }
 
         [HttpDelete("{id}")]
-        // [Authorize(Roles = "Admin")]
+        [Authorize]
         public async Task<ActionResult<FuelDto>> DeleteFuel(int id)
         {
             var fuel = await _unitOfWork.Repository<Fuel>().GetByIdAsync(id);

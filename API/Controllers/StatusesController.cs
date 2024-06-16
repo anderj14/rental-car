@@ -5,6 +5,7 @@ using AutoMapper;
 using Core.Dtos;
 using Core.Entities;
 using Core.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -21,6 +22,7 @@ namespace API.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<ActionResult<IReadOnlyList<StatusDto>>> GetStatuses()
         {
             var statuses = await _unitOfWork.Repository<Status>().ListAllAsync();
@@ -30,6 +32,7 @@ namespace API.Controllers
         }
 
         [HttpGet("{id}")]
+        [Authorize]
         public async Task<ActionResult<StatusDto>> GetStatus(int id)
         {
             var status = await _unitOfWork.Repository<Status>().GetByIdAsync(id);
@@ -38,7 +41,7 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        // [Authorize(Roles = "Admin")]
+        [Authorize]
         public async Task<ActionResult<StatusDto>> CreateStatus(CreateStatusDto CreateStatusDto)
         {
             var status = _mapper.Map<CreateStatusDto, Status>(CreateStatusDto);
@@ -54,7 +57,7 @@ namespace API.Controllers
         }
 
         [HttpPut("{id}")]
-        // [Authorize(Roles = "Admin")]
+        [Authorize]
         public async Task<ActionResult<StatusDto>> UpdateStatus(int id, CreateStatusDto updateStatusDto)
         {
             var status = await _unitOfWork.Repository<Status>().GetByIdAsync(id);
@@ -71,7 +74,7 @@ namespace API.Controllers
         }
 
         [HttpDelete("{id}")]
-        // [Authorize(Roles = "Admin")]
+        [Authorize]
         public async Task<ActionResult<StatusDto>> DeleteStatus(int id)
         {
             var status = await _unitOfWork.Repository<Status>().GetByIdAsync(id);

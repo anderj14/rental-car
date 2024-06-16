@@ -1,16 +1,16 @@
 <div *ngIf="showPopup" class="popup-overlay" (click)="closePopup()">
     <div class="popup-content" (click)="stopPropagation($event)">
         <div class="box">
-            <h5 class="">Nombre del Seguro</h5>
-            <input type="text" [(ngModel)]="insuranceFormValues.insuranceName" placeholder="Nombre del Seguro">
+            <h5 class="">Insurance Name</h5>
+            <input type="text" [(ngModel)]="insuranceFormValues.insuranceName" placeholder="Insurance Name">
         </div>
         <div class="box">
-            <h5 class="">Precio del Seguro</h5>
-            <input type="number" [(ngModel)]="insuranceFormValues.insurancePrice" placeholder="Precio del Seguro">
+            <h5 class="">Insurance Price</h5>
+            <input type="number" [(ngModel)]="insuranceFormValues.insurancePrice">
         </div>
         <div class="box" style="display: flex; gap: 5px;">
-            <button class="save" (click)="saveInsurance()">Guardar</button>
-            <button class="cancel" (click)="closePopup()">Cancelar</button>
+            <button class="save" (click)="saveInsurance()">Save</button>
+            <button class="cancel" (click)="closePopup()">Cancel</button>
         </div>
     </div>
 </div>
