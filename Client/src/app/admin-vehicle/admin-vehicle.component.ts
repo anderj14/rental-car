@@ -20,7 +20,6 @@ export class AdminVehicleComponent implements OnInit {
 
   vehicles!: IVehicle[];
   totalCount!: number;
-  // vehicleParams: VehicleParams;
   vehicleParams = new VehicleParams();
 
   brands!: Brand[];
@@ -218,5 +217,4 @@ export class AdminVehicleComponent implements OnInit {
   stopPropagation(event: Event) {
     event.stopPropagation();
   }
-
 }

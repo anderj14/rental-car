@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { MaterialModule } from '../material/material.module';
 import { Observable } from 'rxjs';
 import { User } from '../shared/models/user';
 import { AccountService } from './account.service';

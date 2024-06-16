@@ -51,7 +51,6 @@ const routes: Routes = [
   },
   {
     path: 'invoices',
-    // canActivate: [AuthGuard],
     loadChildren: () => import('./invoice/invoice.module').then(m => m.InvoiceModule)
   },
   {
@@ -85,16 +84,9 @@ const routes: Routes = [
   },
   {
     path: 'admin-reservation',
-    // canActivate: [AuthGuard, AdminGuard],
     loadChildren: () => import('./admin-reservation/admin-reservation.module').then(m => m.AdminReservationModule),
     data: { breadcrumb: 'Admin Reservations' }
   },
-  // {
-  //   path: 'admin-invoice',
-  //   canActivate: [AuthGuard, AdminGuard],
-  //   loadChildren: () => import('./admin-invoice/admin-invoice.module').then(m => m.AdminInvoiceModule),
-  //   data: { breadcrumb: 'Admin Invoices' }
-  // },
   { path: '**', redirectTo: 'not-found', pathMatch: 'full' },
 
 ];

@@ -11,8 +11,6 @@ import { BreadcrumbComponent } from "../shared/components/breadcrumb/breadcrumb.
 import { NgSelectModule } from '@ng-select/ng-select';
 import ReservationDetailsComponent from './reservation-details/reservation-details.component';
 
-
-
 @NgModule({
     declarations: [
         AdminReservationComponent,

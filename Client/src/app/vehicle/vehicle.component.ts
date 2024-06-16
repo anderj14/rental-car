@@ -55,7 +55,6 @@ export class VehicleComponent implements OnInit {
     this.getVehiclesType();
   }
 
-
   getVehicles() {
     this.vehicleService.getVehicles(this.vehicleParams).subscribe({
       next: response => {
@@ -74,6 +73,7 @@ export class VehicleComponent implements OnInit {
       error: error => console.log(error)
     });
   }
+
   getModels() {
     this.vehicleService.getModels().subscribe({
       next: response => this.models = [{ id: 0, modelName: 'All' }, ...response],
@@ -110,25 +110,25 @@ export class VehicleComponent implements OnInit {
     this.selectedBrandId = brandId === this.selectedBrandId ? null : brandId;
     this.vehicleParams.brandId = this.selectedBrandId || 0;
     this.vehicleParams.pageNumber = 1;
-    
+
     if (this.selectedBrandId) {
-        this.getModelsByBrand(this.selectedBrandId);
+      this.getModelsByBrand(this.selectedBrandId);
     } else {
-        this.getModels();
-        this.selectedModelId = null;
-        this.getVehicles();
+      this.getModels();
+      this.selectedModelId = null;
+      this.getVehicles();
     }
-}
+  }
 
   getModelsByBrand(brandId: number) {
     this.vehicleService.getModelsByBrand(brandId).subscribe({
-        next: response => {
-            this.models = [{ id: 0, modelName: 'All' }, ...response];
-            this.selectedModelId = null;
-        },
-        error: error => console.log(error)
+      next: response => {
+        this.models = [{ id: 0, modelName: 'All' }, ...response];
+        this.selectedModelId = null;
+      },
+      error: error => console.log(error)
     });
-}
+  }
 
   onModelSelected(modelId: number) {
     this.selectedModelId = modelId === this.selectedModelId ? null : modelId;
@@ -158,8 +158,6 @@ export class VehicleComponent implements OnInit {
     this.getVehicles();
   }
 
-
-
   onSortSelected(event: any) {
     this.vehicleParams.sort = event.target.value;
     this.getVehicles();
@@ -183,7 +181,6 @@ export class VehicleComponent implements OnInit {
     this.vehicleParams = new VehicleParams();
     this.getVehicles();
   }
-
 
   showPopup = false;
 

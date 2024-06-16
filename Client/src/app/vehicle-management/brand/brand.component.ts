@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { BrandFormComponent } from './brand-form/brand-form.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Brand, BrandFormValues } from 'src/app/shared/models/brand';
 import { BrandService } from './brand.service';
 

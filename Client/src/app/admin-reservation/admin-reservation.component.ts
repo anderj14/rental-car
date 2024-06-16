@@ -77,5 +77,4 @@ export class AdminReservationComponent implements OnInit {
     this.reservationParams.sort = event.target.value;
     this.getReservation();
   }
-
 }

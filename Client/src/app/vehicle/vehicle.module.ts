@@ -10,8 +10,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CoreModule } from '../core/core.module';
 import { BreadcrumbComponent } from '../shared/components/breadcrumb/breadcrumb.component';
 
-
-
 @NgModule({
     declarations: [
         VehicleComponent,

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { forkJoin } from 'rxjs';
 import { ReservationService } from 'src/app/reservation-info/reservation.service';
 import { Pagination } from 'src/app/shared/models/Pagination';
@@ -21,7 +21,6 @@ export class EditReservationComponent implements OnInit {
   customers: Customer[] = [];
   vehicles: IVehicle[] = [];
   insurances: Insurance[] = [];
-
 
   constructor(
     private reservationService: ReservationService,
@@ -50,7 +49,6 @@ export class EditReservationComponent implements OnInit {
         this.loadVehicle();
       }
     });
-
   }
 
   private extractData<T>(response: Pagination<T> | T[]): T[] {
@@ -74,7 +72,6 @@ export class EditReservationComponent implements OnInit {
       const insuranceId = this.insurances && this.insurances.find(x => x.insuranceName === response.insurance)?.id;
       this.reservation = response;
       this.reservationFormValues = { ...response, customerId, vehicleId, insuranceId };
-
     });
   }
 
@@ -89,5 +86,4 @@ export class EditReservationComponent implements OnInit {
   getCustomers() {
     return this.reservationService.getCustomers();
   }
-
 }

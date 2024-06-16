@@ -55,15 +55,13 @@ export class EditVehicleFormComponent implements OnInit {
     if (this.route.snapshot.url[0].path === 'edit') {
       const updatedVehicle = { ...this.vehicle, ...vehicle, rentalPrice: +vehicle.rentalPrice };
       this.editVehicleService.updateVehicle(updatedVehicle, +id!).subscribe((response: any) => {
-        this.router.navigate(['/admin']);
+        this.router.navigate(['/admin-vehicle']);
       });
     } else {
       const newVehicle = { ...vehicle, rentalPrice: +vehicle.rentalPrice };
       this.editVehicleService.createVehicle(newVehicle).subscribe((response: any) => {
-        this.router.navigate(['/admin']);
+        this.router.navigate(['/admin-vehicle']);
       });
     }
   }
-
-
 }

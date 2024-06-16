@@ -4,7 +4,7 @@ import { AccountService } from '../../account/account.service';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-export const AdminGuard = (): Observable<boolean> => {
+export const AdminGuard = (p0: unknown): Observable<boolean> => {
   const accountService = inject(AccountService);
   const router = inject(Router);
 

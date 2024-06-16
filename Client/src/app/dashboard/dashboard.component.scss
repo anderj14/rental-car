@@ -20,7 +20,6 @@
             gap: 20px;
 
             .summary-item {
-                // height: 120px;
                 width: 250px;
                 display: flex;
                 align-items: center;
@@ -57,10 +56,7 @@
         }
 
         .data-section {
-            /* Este div se ubicará en la segunda columna */
             grid-column: span 2;
-            /* Ocupará las dos columnas */
-
             display: flex;
             flex-direction: column;
             gap: 30px;
@@ -115,7 +111,6 @@
     @media (max-width: 768px) {
         .dashboard-content {
             grid-template-columns: 1fr;
-            /* Cambiar a una columna en pantallas más pequeñas */
         }
     }
 }

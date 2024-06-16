@@ -18,16 +18,6 @@ import { RouterModule } from '@angular/router';
           <li><a routerLink="/contact" target="_blank">contact</a></li>
         </ul>
       </div>
-      <!-- <div class="footer-col">
-        <h4>get help</h4>
-        <ul>
-          <li><a href="#" target="_blank">FAQ</a></li>
-          <li><a href="#" target="_blank">returns</a></li>
-          <li><a href="#" target="_blank">order status</a></li>
-          <li><a href="#" target="_blank">payment options</a></li>
-        </ul>
-      </div> -->
-      
       <div class="footer-col">
         <h4>follow us</h4>
         <div class="social-links">

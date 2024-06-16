@@ -124,12 +124,10 @@
         .vehicles-content {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            // gap: 20px;
             margin-top: 20px;
 
             app-vehicle-item {
                 margin-top: 20px;
-
             }
 
             @media (max-width: 1250px) {

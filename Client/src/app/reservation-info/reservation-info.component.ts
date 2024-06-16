@@ -10,7 +10,6 @@ import { ReservationService } from './reservation.service';
 
 @Component({
   selector: 'app-reservation-info',
-
   templateUrl: './reservation-info.component.html',
   styleUrl: './reservation-info.component.scss'
 })

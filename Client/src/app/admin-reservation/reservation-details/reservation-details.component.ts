@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Reservation } from 'src/app/shared/models/reservation';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
-import { User } from 'src/app/shared/models/user';
 import { AccountService } from 'src/app/account/account.service';
 import { BreadcrumbService } from 'xng-breadcrumb';
 import { ReservationService } from 'src/app/reservation-info/reservation.service';
@@ -22,13 +20,7 @@ export default class ReservationDetailsComponent implements OnInit {
     private bcService: BreadcrumbService,
   ) { }
 
-  // currentUser$!: Observable<User | null>;
-  // isAdmin$!: Observable<boolean>;
-
   ngOnInit(): void {
-    // this.currentUser$ = this.accountService.currentUser$;
-    // this.isAdmin$ = this.accountService.isAdmin$;
-
     this.getReservation();
   }
 

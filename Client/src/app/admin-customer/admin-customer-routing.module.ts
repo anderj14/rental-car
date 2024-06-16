@@ -12,7 +12,6 @@ const routes: Routes = [
   { path: '', component: AdminCustomerComponent }
 ];
 
-
 @NgModule({
   declarations: [],
   imports: [

@@ -9,7 +9,6 @@ import { EditVehiclePhotosComponent } from "./edit-vehicle-photos/edit-vehicle-p
 import { MaterialModule } from '../material/material.module';
 import { BreadcrumbComponent } from "../shared/components/breadcrumb/breadcrumb.component";
 
-
 @NgModule({
     declarations: [
         AdminVehicleComponent,

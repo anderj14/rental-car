@@ -61,7 +61,6 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-
   getTotalCountVehicle(): number {
     return this.totalCountVehicle;
   }
@@ -109,6 +108,4 @@ export class DashboardComponent implements OnInit {
       error: error => console.log(error)
     })
   }
-
-
 }

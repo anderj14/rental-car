@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { ReservationFormValues } from '../shared/models/reservation';
 import { IVehicle } from '../shared/models/vehicles';
 import { map, Observable } from 'rxjs';
-import { Pagination } from '../shared/models/Pagination';
 
 @Injectable({
   providedIn: 'root'
@@ -28,7 +27,6 @@ export class AdminReservationService {
   getVehicles(pageSize: number = 10000, statusId: number = 3): Observable<IVehicle[]> {
     return this.http.get<any>(`${this.baseUrl}Vehicles?PageSize=${pageSize}&StatusId=${statusId}`)
       .pipe(map(response => {
-        // Manejar ambos formatos de respuesta
         if (Array.isArray(response)) {
           return response;
         } else if ('data' in response) {

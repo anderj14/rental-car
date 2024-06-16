@@ -39,7 +39,6 @@ export class ReservationService {
     return this.reservationParams;
   }
 
-
   getReservation(id: number): Observable<Reservation> {
     return this.http.get<Reservation>(this.baseUrl + 'reservations/' + id);
   }
@@ -50,7 +49,6 @@ export class ReservationService {
   getCustomer(id: number) {
     return this.http.get<Customer[]>(this.baseUrl + 'customers' + id);
   }
-
 
   getVehicles(pageSize: number = 10000, statusId: number = 3): Observable<IVehicle[]> {
     return this.http.get<Pagination<IVehicle[]>>(`${this.baseUrl}Vehicles?PageSize=${pageSize}&StatusId=${statusId}`)

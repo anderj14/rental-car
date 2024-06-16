@@ -5,9 +5,8 @@ import { Model } from 'src/app/shared/models/model';
 import { Status } from 'src/app/shared/models/status';
 import { VehicleType } from 'src/app/shared/models/vehicleType';
 import { IVehicle, VehicleFormValues } from 'src/app/shared/models/vehicles';
-import { EditVehicleService } from '../edit-vehicle.service';
 import { VehicleService } from 'src/app/vehicle/vehicle.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { forkJoin } from 'rxjs';
 
 @Component({
@@ -67,11 +66,9 @@ export class EditVehicleComponent implements OnInit {
       const fuelId = this.fuels && this.fuels.find(x => x.fuelName === response.fuel)?.id;
       const statusId = this.statuses && this.statuses.find(x => x.statusName === response.status)?.id;
       const vehicleTypeId = this.vehiclesType && this.vehiclesType.find(x => x.vehicleTypeName === response.vehicleType)?.id;
-      
+
       this.vehicle = response;
       this.vehicleFormValues = { ...response, brandId, modelId, fuelId, statusId, vehicleTypeId };
-
-      
     });
   }
 

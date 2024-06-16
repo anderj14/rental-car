@@ -13,7 +13,6 @@ export class CustomerService {
 
   constructor(private http: HttpClient) { }
 
-
   getCustomers(customerParams: CustomerParams) {
     let params = new HttpParams();
 

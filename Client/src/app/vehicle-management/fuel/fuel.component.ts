@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FuelService } from './fuel.service';
 import { Fuel, FuelFormValues } from 'src/app/shared/models/fuel';
 import { FuelFormComponent } from './fuel-form/fuel-form.component';
-import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CommonModule } from '@angular/common';
 
 @Component({

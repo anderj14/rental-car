@@ -2,7 +2,6 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Invoice } from '../shared/models/invoice';
 import { InvoiceParams } from '../shared/models/invoiceParams';
 import { InvoiceService } from './invoice.service';
-import { VehicleService } from '../vehicle/vehicle.service';
 import { AccountService } from '../account/account.service';
 import { Observable } from 'rxjs';
 import { User } from '../shared/models/user';

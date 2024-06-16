@@ -9,11 +9,9 @@ input {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 10px;
-    // max-width: 1000px;
 
     @media (max-width: 1000px) {
         grid-template-columns: repeat(2, 1fr);
-        // max-width: 700px;
     }
 
     @media (max-width: 650px) {

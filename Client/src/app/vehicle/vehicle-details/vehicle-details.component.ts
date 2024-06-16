@@ -63,7 +63,6 @@ export class VehicleDetailsComponent implements OnInit {
         big: photo.pictureUrl,
       });
     }
-
     return imageUrls;
   }
 

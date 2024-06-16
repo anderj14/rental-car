@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { VehicleType, VehicleTypeFormValues } from 'src/app/shared/models/vehicleType';
 import { VehicleTypeService } from './vehicle-type.service';
 import { CommonModule } from '@angular/common';

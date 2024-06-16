@@ -36,22 +36,7 @@ section {
                 }
 
                 td {
-                    font-weight: 400;
-                    overflow: hidden;
-                    vertical-align: middle;
-
-                    &.available {
-                        color: #008000;
-                    }
-
-                    &.rented {
-                        color: #FF0000;
-                    }
-
-                    &.reserved {
-                        color: #FFD700;
-                    }
-
+                    
                     button {
                         background-color: #fff;
                         border: 1px solid #959595;
