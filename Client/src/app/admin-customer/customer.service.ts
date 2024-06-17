@@ -3,12 +3,14 @@ import { Injectable } from '@angular/core';
 import { CustomerParams } from '../shared/models/customerParams';
 import { Customer } from '../shared/models/customers';
 import { Pagination } from '../shared/models/Pagination';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CustomerService {
-  baseUrl = 'https://localhost:5001/api/';
+  baseUrl = environment.apiUrl;
+  
   customerParams = new CustomerParams();
 
   constructor(private http: HttpClient) { }

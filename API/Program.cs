@@ -50,6 +50,9 @@ app.UseAuthorization();
 app.MapControllers();
 app.MapFallbackToController("Index", "FallBack");
 
+app.UseDefaultFiles();
+app.UseStaticFiles();
+
 // For migrate the data
 using var scope = app.Services.CreateScope();
 var services = scope.ServiceProvider;

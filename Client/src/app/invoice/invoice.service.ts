@@ -6,13 +6,14 @@ import { Observable } from 'rxjs';
 import { InvoiceParams } from '../shared/models/invoiceParams';
 import { Customer } from '../shared/models/customers';
 import { Reservation } from '../shared/models/reservation';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class InvoiceService {
-  baseUrl = 'https://localhost:5001/api/';
+  baseUrl = environment.apiUrl;
   invoiceParams = new InvoiceParams();
 
   constructor(private http: HttpClient) { }

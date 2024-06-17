@@ -72,13 +72,13 @@ const routes: Routes = [
   },
   {
     path: 'admin-vehicle',
-    canActivate: [AuthGuard, AdminGuard],
+    canActivate: [AuthGuard],
     loadChildren: () => import('./admin-vehicle/admin-vehicle.module').then(m => m.AdminVehicleModule),
     data: { breadcrumb: 'Admin Vehicles' }
   },
   {
     path: 'admin-customer',
-    canActivate: [AuthGuard, AdminGuard],
+    canActivate: [AuthGuard],
     loadChildren: () => import('./admin-customer/admin-customer.module').then(m => m.AdminCustomerModule),
     data: { breadcrumb: 'Admin customers' }
   },
