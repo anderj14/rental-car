@@ -30,7 +30,6 @@ namespace API.Extensions
 
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
-
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             // Message for validation error
             // Configure the behavior of the API by configuring 'ApiBehaviorOptions'

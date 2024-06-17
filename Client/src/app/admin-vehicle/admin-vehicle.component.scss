@@ -1,19 +1,13 @@
+@import "../mixins/base.scss";
+
 .content {
-    background-color: #ffffff;
-    padding: 20px;
-    border-radius: 10px;
+    @include content-container;
 
     .content-cover {
-        background-color: #fff;
-        padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        margin-bottom: 20px;
+        @include card;
 
         .title {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 20px;
+            @include title;
 
             h1 {
                 font-size: 35px;
@@ -23,21 +17,11 @@
 
             .actions {
                 button {
-                    font-weight: 400;
-                    border: none;
-                    border-radius: 5px;
-                    padding: 5px 12px;
-                    margin-left: 10px;
-                    border: 1px solid #959595;
+                    @include button-styles;
 
                     &.new-vehicle {
                         background-color: #ffffff;
-
-                        &:hover {
-                            background-color: #DA5B00;
-                            color: #ffffff;
-                            border: none;
-                        }
+                        @include button-hover;
                     }
                 }
             }

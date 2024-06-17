@@ -1,0 +1,35 @@
+@mixin content-container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+@mixin card {
+    @include content-container;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+@mixin title {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+@mixin button-styles {
+    font-weight: 400;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 12px;
+    margin-left: 10px;
+    border: 1px solid #959595;
+}
+
+@mixin button-hover {
+    &:hover {
+        background-color: #DA5B00;
+        color: #ffffff;
+        border: none;
+    }
+}
+
