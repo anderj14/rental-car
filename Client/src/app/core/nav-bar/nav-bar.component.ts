@@ -19,5 +19,4 @@ export class NavBarComponent implements OnInit {
     this.currentUser$ = this.accountService.currentUser$;
     this.isAdmin$ = this.accountService.isAdmin$;
   }
-
 }
