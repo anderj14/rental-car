@@ -7,7 +7,7 @@ import { AdminVehicleRoutingModule } from './admin-vehicle-routing.module';
 import { EditVehicleFormComponent } from './edit-vehicle-form/edit-vehicle-form.component';
 import { EditVehiclePhotosComponent } from "./edit-vehicle-photos/edit-vehicle-photos.component";
 import { MaterialModule } from '../material/material.module';
-
+import { BreadcrumbComponent } from "../shared/components/breadcrumb/breadcrumb.component";
 
 @NgModule({
     declarations: [
@@ -20,7 +20,8 @@ import { MaterialModule } from '../material/material.module';
         CommonModule,
         SharedModule,
         AdminVehicleRoutingModule,
-        MaterialModule
+        MaterialModule,
+        BreadcrumbComponent
     ]
 })
 export class AdminVehicleModule { }

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, ReplaySubject, catchError, map, of, switchMap } from 'rxjs';
+import { Observable, ReplaySubject, map, of, switchMap } from 'rxjs';
 import { User } from '../shared/models/user';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 })
 export class AccountService {
   baseUrl = 'https://localhost:5001/api/';
+
   private currentUserSource = new ReplaySubject<User | null>(1);
   currentUser$ = this.currentUserSource.asObservable();
   private isAdminSource = new ReplaySubject<boolean>(1);
@@ -42,13 +43,18 @@ export class AccountService {
           this.currentUserSource.next(user);
           this.isAdminSource.next(this.isAdmin(user.token));
         }
-        return of(user) as any; // Return the user as a new observable
+        return of(user) as any;
       })
     );
   }
 
+  getUsers() {
+    return this.http.get<User[]>(`${this.baseUrl}account/users`);
+  }
 
-
+  deleteUser(userId: string): Observable<User> {
+    return this.http.delete<User>(`${this.baseUrl}account/delete/${userId}`);
+  }
 
   login(values: any) {
     return this.http.post<User>(this.baseUrl + 'account/login', values).pipe(
@@ -61,6 +67,7 @@ export class AccountService {
       })
     );
   }
+
   register(values: any) {
     return this.http.post<User>(this.baseUrl + 'account/register', values).pipe(
       map(user => {
@@ -68,6 +75,10 @@ export class AccountService {
         this.currentUserSource.next(user);
       })
     );
+  }
+
+  updateUser(userData: any): Observable<any> {
+    return this.http.put<User>(`${this.baseUrl}account/update/${userData.id}`, userData);
   }
 
   logout() {

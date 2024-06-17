@@ -1,0 +1,35 @@
+<section>
+    <div class="content">
+        <h2>Vehicle Types</h2>
+        <button class="new-vehicle-type" (click)="openVehicleTypePopup()">Add Vehicle Type</button>
+    </div>
+
+    <div class="table-wrapper">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Vehicle Type Name</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let vehicleType of vehicleTypes">
+                    <td>{{ vehicleType.id }}</td>
+                    <td>{{ vehicleType.vehicleTypeName }}</td>
+                    <td>
+                        <button class="edit" (click)="openVehicleTypePopup(vehicleType.id)">Edit</button>
+                        <button class="delete" (click)="deleteVehicleType(vehicleType.id)">delete</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <app-vehicle-type-form
+        [showPopup]="showVehicleTypePopup" 
+        [initialValues]="editVehicleTypeFormValues"
+        (save)="saveVehicleType($event)" 
+        (cancel)="cancelAddVehicleTypePopup()">
+    </app-vehicle-type-form>
+</section>

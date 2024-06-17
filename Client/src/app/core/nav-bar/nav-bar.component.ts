@@ -12,7 +12,7 @@ export class NavBarComponent implements OnInit {
 
   currentUser$!: Observable<User | null>;
   isAdmin$!: Observable<boolean>;
-  
+
   constructor(public accountService: AccountService) { }
 
   ngOnInit(): void {

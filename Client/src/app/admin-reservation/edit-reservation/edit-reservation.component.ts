@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { forkJoin } from 'rxjs';
-import { ReservationService } from 'src/app/reservation/reservation.service';
+import { ReservationService } from 'src/app/reservation-info/reservation.service';
 import { Pagination } from 'src/app/shared/models/Pagination';
 import { Customer } from 'src/app/shared/models/customers';
 import { Insurance } from 'src/app/shared/models/insurance';
@@ -30,7 +30,7 @@ export class EditReservationComponent implements OnInit {
 
   ngOnInit(): void {
     const customers = this.getCustomers();
-    const vehicles = this.getVehicles();
+    const vehicles = this.getVehicles(800, 3); // Llama al servicio con el statusId 3 para vehículos disponibles
     const insurance = this.getInsurance();
 
     forkJoin([customers, vehicles, insurance]).subscribe(results => {
@@ -49,7 +49,6 @@ export class EditReservationComponent implements OnInit {
         this.loadVehicle();
       }
     });
-
   }
 
   private extractData<T>(response: Pagination<T> | T[]): T[] {
@@ -59,7 +58,6 @@ export class EditReservationComponent implements OnInit {
       return Array.isArray(response) ? response : [];
     }
   }
-  
 
   updatePrice(event: any) {
     this.reservation.rentalCost = event;
@@ -74,18 +72,18 @@ export class EditReservationComponent implements OnInit {
       const insuranceId = this.insurances && this.insurances.find(x => x.insuranceName === response.insurance)?.id;
       this.reservation = response;
       this.reservationFormValues = { ...response, customerId, vehicleId, insuranceId };
-
     });
   }
 
   getInsurance() {
     return this.reservationService.getInsurances();
   }
-  getVehicles() {
-    return this.reservationService.getVehicles();
+
+  getVehicles(pageSize: number = 10000, statusId: number = 3) {
+    return this.reservationService.getVehicles(pageSize, statusId); // Pasa el statusId 3 para vehículos disponibles
   }
+
   getCustomers() {
     return this.reservationService.getCustomers();
   }
-
 }

@@ -34,9 +34,14 @@ export class VehicleComponent implements OnInit {
   totalCount = 0;
   currentUser$!: Observable<User | null>;
   isAdmin$!: Observable<boolean>;
+  selectedBrandId: number | null = null;
+  selectedModelId: number | null = null;
+  selectedFuelId: number | null = null;
+  selectedStatusId: number | null = null;
+  selectedVehicleTypeId: number | null = null;
+  showAllModels = false;
 
   constructor(private vehicleService: VehicleService, public accountService: AccountService) { }
-
 
   ngOnInit(): void {
     this.currentUser$ = this.accountService.currentUser$;
@@ -49,7 +54,6 @@ export class VehicleComponent implements OnInit {
     this.getStatuses();
     this.getVehiclesType();
   }
-
 
   getVehicles() {
     this.vehicleService.getVehicles(this.vehicleParams).subscribe({
@@ -69,11 +73,16 @@ export class VehicleComponent implements OnInit {
       error: error => console.log(error)
     });
   }
+
   getModels() {
     this.vehicleService.getModels().subscribe({
       next: response => this.models = [{ id: 0, modelName: 'All' }, ...response],
       error: error => console.log(error)
     });
+  }
+
+  get modelsToShow(): Model[] {
+    return this.showAllModels ? this.models : this.models.slice(0, 5);
   }
 
   getFuels() {
@@ -98,35 +107,56 @@ export class VehicleComponent implements OnInit {
   }
 
   onBrandSelected(brandId: number) {
-    this.vehicleParams.brandId = brandId;
+    this.selectedBrandId = brandId === this.selectedBrandId ? null : brandId;
+    this.vehicleParams.brandId = this.selectedBrandId || 0;
     this.vehicleParams.pageNumber = 1;
-    this.getVehicles();
+
+    if (this.selectedBrandId) {
+      this.getModelsByBrand(this.selectedBrandId);
+    } else {
+      this.getModels();
+      this.selectedModelId = null;
+      this.getVehicles();
+    }
+  }
+
+  getModelsByBrand(brandId: number) {
+    this.vehicleService.getModelsByBrand(brandId).subscribe({
+      next: response => {
+        this.models = [{ id: 0, modelName: 'All' }, ...response];
+        this.selectedModelId = null;
+      },
+      error: error => console.log(error)
+    });
   }
 
   onModelSelected(modelId: number) {
-    this.vehicleParams.modelId = modelId;
+    this.selectedModelId = modelId === this.selectedModelId ? null : modelId;
+    this.vehicleParams.modelId = this.selectedModelId || 0;
     this.vehicleParams.pageNumber = 1;
     this.getVehicles();
   }
 
   onFuelSelected(fuelId: number) {
-    this.vehicleParams.fuelId = fuelId;
+    this.selectedFuelId = fuelId === this.selectedFuelId ? null : fuelId;
+    this.vehicleParams.fuelId = this.selectedFuelId || 0;
     this.vehicleParams.pageNumber = 1;
     this.getVehicles();
   }
 
   onStatusSelected(statusId: number) {
-    this.vehicleParams.statusId = statusId;
+    this.selectedStatusId = statusId === this.selectedStatusId ? null : statusId;
+    this.vehicleParams.statusId = this.selectedStatusId || 0;
     this.vehicleParams.pageNumber = 1;
     this.getVehicles();
   }
 
   onVehicleTypeSelected(vehicleTypeId: number) {
-    this.vehicleParams.vehicleTypeId = vehicleTypeId;
+    this.selectedVehicleTypeId = vehicleTypeId === this.selectedVehicleTypeId ? null : vehicleTypeId;
+    this.vehicleParams.vehicleTypeId = this.selectedVehicleTypeId || 0;
     this.vehicleParams.pageNumber = 1;
     this.getVehicles();
   }
-
 
   onSortSelected(event: any) {
     this.vehicleParams.sort = event.target.value;
@@ -152,7 +182,6 @@ export class VehicleComponent implements OnInit {
     this.getVehicles();
   }
 
-
   showPopup = false;
 
   togglePopup() {
@@ -168,7 +197,7 @@ export class VehicleComponent implements OnInit {
 
   getStatusClass(status: string): string {
     const lowercaseStatus = status.toLowerCase();
-  
+
     switch (lowercaseStatus) {
       case 'available':
         return 'available';

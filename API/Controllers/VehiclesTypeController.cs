@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using API.Dtos.CreateDtos;
+using API.Errors;
 using AutoMapper;
 using Core.Dtos;
 using Core.Entities;
@@ -38,7 +40,54 @@ namespace API.Controllers
             var data = _mapper.Map<VehicleTypeDto>(vehicleType);
 
             return Ok(data);
+        }
 
+        [HttpPost]
+        // [Authorize(Roles = "Admin")]
+        public async Task<ActionResult<VehicleTypeDto>> CreateVehicleType(CreateVehicleTypeDto CreateVehicleTypeDto)
+        {
+            var vehicleType = _mapper.Map<CreateVehicleTypeDto, VehicleType>(CreateVehicleTypeDto);
+
+            _unitOfWork.Repository<VehicleType>().Add(vehicleType);
+
+            var result = await _unitOfWork.Complete();
+
+            if (result <= 0) return BadRequest(new ApiResponse(400, "Problem creating vehicle type item"));
+
+            return Ok(vehicleType);
+
+        }
+
+        [HttpPut("{id}")]
+        // [Authorize(Roles = "Admin")]
+        public async Task<ActionResult<VehicleTypeDto>> UpdateVehicleType(int id, CreateVehicleTypeDto updateVehicleTypeDto)
+        {
+            var vehicleType = await _unitOfWork.Repository<VehicleType>().GetByIdAsync(id);
+
+            _mapper.Map(updateVehicleTypeDto, vehicleType);
+
+            _unitOfWork.Repository<VehicleType>().Update(vehicleType);
+
+            var result = await _unitOfWork.Complete();
+
+            if (result <= 0) return BadRequest(new ApiResponse(400, "Problem updating vehicle type"));
+
+            return Ok(vehicleType);
+        }
+
+        [HttpDelete("{id}")]
+        // [Authorize(Roles = "Admin")]
+        public async Task<ActionResult<VehicleTypeDto>> DeleteVehicleType(int id)
+        {
+            var vehicleType = await _unitOfWork.Repository<VehicleType>().GetByIdAsync(id);
+
+            _unitOfWork.Repository<VehicleType>().Delete(vehicleType);
+
+            var result = await _unitOfWork.Complete();
+
+            if (result <= 0) return BadRequest(new ApiResponse(400, "Problem deleting vehicle type"));
+
+            return Ok(vehicleType);
         }
     }
 }

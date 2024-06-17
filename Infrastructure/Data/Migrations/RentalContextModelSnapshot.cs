@@ -43,9 +43,22 @@ namespace Infrastructure.Data.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Country")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("CustomerName")
                         .IsRequired()
                         .HasMaxLength(100)
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("DOB")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("DriverLicense")
@@ -59,6 +72,21 @@ namespace Infrastructure.Data.Migrations
 
                     b.Property<string>("Phone")
                         .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("SecondAddress")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("State")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Zip")
+                        .IsRequired()
+                        .HasMaxLength(20)
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -367,7 +395,7 @@ namespace Infrastructure.Data.Migrations
             modelBuilder.Entity("Core.Entities.Reservation", b =>
                 {
                     b.HasOne("Core.Entities.Customer", "Customer")
-                        .WithMany()
+                        .WithMany("Reservations")
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -432,6 +460,11 @@ namespace Infrastructure.Data.Migrations
                     b.Navigation("Status");
 
                     b.Navigation("VehicleType");
+                });
+
+            modelBuilder.Entity("Core.Entities.Customer", b =>
+                {
+                    b.Navigation("Reservations");
                 });
 
             modelBuilder.Entity("Core.Entities.Vehicle", b =>

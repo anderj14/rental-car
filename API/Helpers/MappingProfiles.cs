@@ -1,7 +1,9 @@
 
+using API.Dtos.CreateDtos;
 using AutoMapper;
 using Core.Dtos;
 using Core.Dtos.CreateDtos;
+using Core.Dtos.ModelsDtos;
 using Core.Dtos.VehiclesDtos;
 using Core.Entities;
 using Core.Entities.Identity;
@@ -12,6 +14,10 @@ namespace API.Helpers
     {
         public MappingProfiles()
         {
+
+            CreateMap<AppUser, UserDto>();
+
+
             CreateMap<Vehicle, VehicleDto>()
             .ForMember(d => d.Fuel, o => o.MapFrom(s => s.Fuel.FuelName))
             .ForMember(d => d.Brand, o => o.MapFrom(s => s.Brand.BrandName))
@@ -19,6 +25,8 @@ namespace API.Helpers
             .ForMember(d => d.Status, o => o.MapFrom(s => s.Status.StatusName))
             .ForMember(d => d.VehicleType, o => o.MapFrom(s => s.VehicleType.VehicleTypeName))
             .ForMember(d => d.PictureUrl, o => o.MapFrom<VehicleUrlResolver>());
+
+            // CreateMap<AppUser, UserDto>().ReverseMap();
 
             CreateMap<Fuel, FuelDto>();
             CreateMap<Brand, BrandDto>();
@@ -29,6 +37,7 @@ namespace API.Helpers
             CreateMap<Status, StatusDto>();
             CreateMap<VehicleType, VehicleTypeDto>();
             CreateMap<Customer, CustomerDto>();
+
             CreateMap<Insurance, InsuranceDto>();
 
             CreateMap<Reservation, ReservationDto>()
@@ -47,6 +56,12 @@ namespace API.Helpers
             CreateMap<CreateCustomerDto, Customer>();
             CreateMap<CreateReservationDto, Reservation>();
             CreateMap<CreateInvoiceDto, Invoice>();
+            CreateMap<CreateModelDto, Model>();
+            CreateMap<CreateBrandDto, Brand>();
+            CreateMap<CreateFuelDto, Fuel>();
+            CreateMap<CreateInsuranceDto, Insurance>();
+            CreateMap<CreateStatusDto, Status>();
+            CreateMap<CreateVehicleTypeDto, VehicleType>();
 
             CreateMap<Photo, PhotoDto>()
                     .ForMember(d => d.PictureUrl,

@@ -22,5 +22,15 @@ namespace API.Extensions
         {
             return await userManager.Users.SingleOrDefaultAsync(x => x.Email == user.FindFirstValue(ClaimTypes.Email));
         }
+
+        // public static async Task<AppUser> SearchUserAsync(this UserManager<AppUser> userManager, 
+        // ClaimsPrincipal user)
+        // {
+        //     var email = user?.Claims?.FirstOrDefault(x => x.Type == ClaimTypes.Email)?.Value;
+
+        //     var usuario = await userManager.Users.SingleOrDefaultAsync(x => x.Email == email);
+
+        //     return usuario;
+        // }
     }
 }

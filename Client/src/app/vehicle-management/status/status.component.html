@@ -1,0 +1,35 @@
+<section>
+    <div class="content">
+        <h2>Status</h2>
+        <button class="new-status" (click)="openStatusPopup()">Add Status</button>
+    </div>
+
+    <div class="table-wrapper">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Status Name</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let status of statuses">
+                    <td>{{ status.id }}</td>
+                    <td>{{ status.statusName }}</td>
+                    <td>
+                        <button class="edit" (click)="openStatusPopup(status.id)">Edit</button>
+                        <button class="delete" (click)="deleteStatus(status.id)">Delete</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <app-status-form 
+        [showPopup]="showStatusPopup" 
+        [initialValues]="editStatusFormValues"
+        (save)="saveStatus($event)" 
+        (cancel)="cancelAddStatusPopup()">
+    </app-status-form>
+</section>

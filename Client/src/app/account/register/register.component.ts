@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
-import { AbstractControl, AsyncValidatorFn, FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { AccountService } from '../account.service';
 import { Router } from '@angular/router';
-import { finalize, map } from 'rxjs';
 
 @Component({
   selector: 'app-register',

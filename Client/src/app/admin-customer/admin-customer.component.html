@@ -1,10 +1,17 @@
 <section class="content">
+    <app-breadcrumb></app-breadcrumb>
     <div class="content-cover">
         <div class="title">
-            <h1>Customer List</h1>
+            <h1>Customers</h1>
             <div class="actions">
-                <button [routerLink]="['/admin-customer/create-customer']" class="new-vehicle">New Customer</button>
+                <div class="create">
+                    <button [routerLink]="['/admin-customer/create']" class="new-customer">New Customer</button>
+                </div>
             </div>
+        </div>
+        <div class="search">
+            <label>Search</label>
+            <input (keyup.enter)="onSearch()" type="text" placeholder="Search" #search>
         </div>
         <app-paging-header
               [totalCount]="totalCount"
@@ -27,15 +34,17 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let customer of customers">
-                        <td>{{ customer.customerName }}</td>
-                        <td>{{ customer.email }}</td>
-                        <td>{{ customer.phone }}</td>
-                        <td>{{ customer.driverLicense }}</td>
-                        <td>{{ customer.address }}</td>
-                        <td><button [routerLink]="['edit', customer.id]">Edit</button></td>
-                        <td><button *ngIf="(isAdmin$ | async)" (click)="deleteCustomer(customer.id)">Delete</button></td>
-                    </tr>
+                    @for (customer of customers; track $index) {
+                        <tr [routerLink]="'/admin-customer/' + customer.id">
+                            <td>{{ customer.customerName }}</td>
+                            <td>{{ customer.email }}</td>
+                            <td>{{ customer.phone }}</td>
+                            <td>{{ customer.driverLicense }}</td>
+                            <td>{{ customer.address }}</td>
+                            <td><button class="edit" [routerLink]="['edit', customer.id]">Edit</button></td>
+                            <td><button class="delete" *ngIf="(isAdmin$ | async)" (click)="deleteCustomer(customer.id)">Delete</button></td>
+                        </tr>
+                    }
                 </tbody>
             </table>
         </div>

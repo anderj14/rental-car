@@ -1,33 +1,45 @@
-<header>
+<div class="content">
+    <header>
+        <div class="title-content">
+            <div class="title">
+                <h1>Car rental in</h1>
+                <span>Queens, New York</span>
+            </div>
+            <div class="adds">
+                <p><i class="bi bi-check-circle-fill"></i> No credit card</p>
+                <p><i class="bi bi-check-circle-fill"></i> Free cancellation</p>
+            </div>
+            <div class="description">
+                <p>
+                    Discover the pleasure of the road with our service
+                    car rental. Your journey, your choice, your freedom.
+                    Rent with us and turn each trip into a
+                    unforgetable experience..
+                </p>
+            </div>
+        </div>
+        <div class="img">
+            <div class="box"></div>
+            <div class="img">
+                <img src="./assets/images/jeep.png" alt="">
+            </div>
+            <img class="reback" src="./assets/images/reback.png" alt="">
+        </div>
+    </header>
 
-    <div class="title-content">
-        <div class="title">
-            <h1>Car rental in</h1>
-            <span>Queens, New York</span>
+    <div class="title">
+        <div class="veh">
+            <span>Choose your vehicle</span>
+            <div class="bar"></div>
         </div>
-        <div class="adds">
-            <p><i class="bi bi-check-circle-fill"></i> No credit card</p>
-            <p><i class="bi bi-check-circle-fill"></i> Free cancellation</p>
-        </div>
-        <div class="description">
-            <p>
-                Descubre el placer de la carretera con nuestro servicio
-                de alquiler de autos. Tu viaje, tu elección, tu libertad.
-                Alquila con nosotros y convierte cada trayecto en una
-                experiencia inolvidable.
-            </p>
+        <h1>Pick Your Vehicle</h1>
+
+    </div>
+
+    <div class="cards">
+        <div class="body" *ngFor="let vehicle of vehicles.slice(0, 6)">
+            <app-vehicle-item [vehicle]="vehicle"></app-vehicle-item>
         </div>
     </div>
-    <div class="img">
-        <div class="box"></div>
-        <div class="img"> 
-            <img src="./assets/images/jeep.png" alt="">
-        </div>
-        <img class="reback" src="./assets/images/reback.png" alt="">
-    </div>
-
-</header>
-
-<div class="search">
 
 </div>

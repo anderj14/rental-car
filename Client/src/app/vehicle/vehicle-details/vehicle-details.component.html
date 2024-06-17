@@ -1,47 +1,50 @@
-<!-- <div class="back">
-    <i routerLink="/vehicles" class="bi bi-arrow-left"></i>
-</div>
-<div class="section">
-    <div class="vehicle-details" *ngIf="vehicle">
-        <div class="info-section">
-            <h2>{{ vehicle.brand }} {{ vehicle.model }}</h2>
-            <div class="info">
-                <div class="titles">
-                    <p><strong>Year</strong> </p>
-                    <p><strong>Fuel</strong> </p>
-                    <p><strong>Rental Price</strong></p>
-                    <p><strong>Vehicle Type</strong> </p>
-                    <p><strong>Registration N.</strong> </p>
-                    <p><strong>Vin</strong></p>
-                    <p><strong>F. Consumption</strong></p>
-                    <p><strong>Passengers</strong></p>
-                    <p><strong>Transmission</strong> </p>
-                    <p><strong>Doors</strong> </p>
-                    <p><strong>Color</strong> </p>
-                    <p><strong>Status</strong> </p>
+<section class="section">
+    <div class="content">
+        @if (vehicle) {
+            <div class="header">
+                <div class="title">
+                    <h1>{{vehicle.vehicleName}} {{vehicle.year}}</h1>
+                    <app-breadcrumb></app-breadcrumb>
                 </div>
-
-                <div class="data">
-                    <p>{{ vehicle.year }}</p>
-                    <p>{{ vehicle.fuel }}</p>
-                    <p> {{ vehicle.rentalPrice | currency }}</p>
-                    <p>{{ vehicle.vehicleType }}</p>
-                    <p>AL456S</p>
-                    <p> {{ vehicle.vin }}</p>
-                    <p> {{ vehicle.fuelConsumption }} MPG</p>
-                    <p> {{ vehicle.passengers }}</p>
-                    <p>{{ vehicle.transmission }}</p>
-                    <p>{{ vehicle.doors }}</p>
-                    <p>{{ vehicle.color }}</p>
-                    <p>{{ vehicle.status }}</p>
+                <div class="image-section">
+                    <ngx-gallery 
+                    [options]="galleryOptions" 
+                    [images]="galleryImages" 
+                    style="display: inline-block; margin-bottom: 20px;"></ngx-gallery>
                 </div>
+                <h1>{{vehicle.vehicleName}}, 111th Corona, Queens, New York</h1>
             </div>
-        </div>
-        <div class="image-section">
-
-            <ngx-gallery [options]="galleryOptions" [images]="galleryImages" style="display: inline-block; margin-bottom: 20px;"></ngx-gallery>
-        </div>
+            <div class="car-description">
+                <section class="about">
+                    <hr>
+                    <div class="description">
+                        <h3>Description</h3>
+                        <p>
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+                            Deserunt eos qui ex quis tenetur, dolore ipsa natus quod pariatur 
+                            maxime reiciendis corporis iure magnam ducimus eveniet molestias 
+                            explicabo dicta dolorem!
+                        </p>
+                    </div>
+                    <hr>
+                    <div class="offers">
+                        <h3>Car Offers</h3>
+                        <p><span>Rental price: </span>${{vehicle.rentalPrice}}</p>
+                        <p><span>Passengers: </span>{{vehicle.passengers}} <span>passengers</span></p>
+                        <p><span>Transmission: </span>{{vehicle.transmission}}</p>
+                        <p><span>Doors: </span>{{vehicle.doors}} <span>doors</span></p>
+                        <p><span>Fuel Consumption: </span>{{vehicle.fuelConsumption}} <span>MPG</span></p>
+                    </div>
+                </section>
+                <section class="reservation">
+                    <mat-card class="create">
+                        <p>${{vehicle.rentalPrice}} per day</p>
+                        <h3>Create a reservation</h3>
+                        <p class="description">Create reservation for {{vehicle.vehicleName}} {{vehicle.year}}. Click on the button to continue the reservation</p>
+                        <button (click)="addReservation()">Add Reservation</button>
+                    </mat-card>
+                </section>
+            </div>
+        }
     </div>
-</div> -->
-
-<!-- Nuevo UI -->
+</section>

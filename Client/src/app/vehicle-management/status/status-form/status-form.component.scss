@@ -1,0 +1,63 @@
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+  
+    .popup-content {
+      background-color: #fff;
+      padding: 20px;
+      max-width: 80%;
+      max-height: 80%;
+      overflow-y: auto;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      display: flex;
+      align-items: flex-start;
+      gap: 30px;
+  
+      .box {
+        margin-bottom: 20px;
+  
+        h5 {
+          font-size: 1.2rem;
+          margin-bottom: 10px;
+        }
+  
+        input {
+          margin-top: 10px;
+          width: 100%;
+          padding: 8px;
+          font-size: 16px;
+          border-radius: 6px;
+          border: 1px solid #ccc;
+        }
+  
+        button {
+          padding: 5px 10px;
+          background-color: #fff;
+          border: 1px solid #959595;
+          border-radius: 8px;
+          font-weight: 400;
+  
+          &.save:hover {
+            background-color: #4480df;
+            color: #ffffff;
+            border: none;
+          }
+  
+          &.cancel:hover {
+            background-color: #e42e2e;
+            color: #ffffff;
+            border: none;
+          }
+        }
+      }
+    }
+  }

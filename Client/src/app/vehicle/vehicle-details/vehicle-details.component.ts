@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { IVehicle } from 'src/app/shared/models/vehicles';
 import { VehicleService } from '../vehicle.service';
 import { NgxGalleryAnimation, NgxGalleryImage, NgxGalleryImageSize, NgxGalleryOptions } from '@kolkov/ngx-gallery';
 import { BreadcrumbService } from 'xng-breadcrumb';
+import { SessionStorageService } from 'ngx-webstorage';
 
 @Component({
   selector: 'app-vehicle-details',
@@ -18,25 +19,19 @@ export class VehicleDetailsComponent implements OnInit {
   constructor(
     private vehicleService: VehicleService, 
     private activateRoute: ActivatedRoute, 
-    private bcService: BreadcrumbService
-    ) { }
+    private bcService: BreadcrumbService,
+    private sessionStorage: SessionStorageService,
+    private router: Router,
+  ) { }
 
   ngOnInit(): void {
     this.loadVehicle();
   }
 
-  // getVehicle() {
-  //   const id = this.activateRoute.snapshot.paramMap.get('id');
-  //   if (id) this.vehicleService.getVehicle(+id).subscribe({
-  //     next: vehicle => this.vehicle = vehicle,
-  //     error: error => console.log(error)
-  //   });
-  // }
-
   loadVehicle() {
     this.vehicleService.getVehicle(+this.activateRoute.snapshot.paramMap.get('id')!).subscribe(vehicle => {
       this.vehicle = vehicle;
-      this.bcService.set('@vehicleDetails', vehicle.vehicleName);
+      this.bcService.set('@vehicleDetails', vehicle.vehicleName + " " + vehicle.year);
       this.initializeGallery();
     }, error => {
       console.log(error);
@@ -46,13 +41,13 @@ export class VehicleDetailsComponent implements OnInit {
   initializeGallery() {
     this.galleryOptions = [
       {
-        width: '500px',
-        height: '600px',
+        width: '1000px',
+        height: '700px',
         imagePercent: 100,
         thumbnailsColumns: 4,
         imageAnimation: NgxGalleryAnimation.Fade,
         imageSize: NgxGalleryImageSize.Contain,
-        thumbnailSize: NgxGalleryImageSize.Contain,
+        thumbnailSize: NgxGalleryImageSize.Cover,
         preview: false
       }
     ];
@@ -68,8 +63,12 @@ export class VehicleDetailsComponent implements OnInit {
         big: photo.pictureUrl,
       });
     }
-
     return imageUrls;
   }
 
+  addReservation() {
+    const vehicleId = this.vehicle.id;
+    this.sessionStorage.store('vehicleId', vehicleId);
+    this.router.navigate(['customer-info']);
+  }
 }

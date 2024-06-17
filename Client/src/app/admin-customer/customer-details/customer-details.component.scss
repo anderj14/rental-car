@@ -1,0 +1,46 @@
+
+.customer-details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 30px;
+
+  mat-card  {
+    padding: 20px;
+
+    .body {
+      margin-top: 20px;
+      display: flex;
+      gap: 70px;
+
+      p {
+        font-size: 16px;
+        color: #505050;
+      }
+
+      .info {
+        margin-right: 15px;
+      }
+    }
+
+    .box {
+      margin: 30px;
+
+      h2 {
+        font-size: 25px;
+        font-weight: 400;
+        color: #505050;
+      }
+
+      .header {
+
+
+        h3 {
+          font-size: 20px;
+          font-weight: 500;
+        }
+      }
+    }
+  }
+
+}

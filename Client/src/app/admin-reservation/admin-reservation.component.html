@@ -1,17 +1,19 @@
 <section class="content">
+  <app-breadcrumb></app-breadcrumb>
     <div class="content-cover">
         <div class="title">
             <h1>Reservation List</h1>
             <div class="actions">
-                <button [routerLink]="['/admin-reservation/create']" class="new-vehicle">New Reservation</button>
-                <div class="search">
-                    <input (keyup.enter)="onSearch()" type="text" placeholder="Search" #search>
-                </div>
+                <button [routerLink]="['/admin-reservation/create']" class="new-reservation">New Reservation</button>
             </div>
         </div>
         <div class="box-filter">
+            <div class="search">
+                <label>Search</label>
+                <input (keyup.enter)="onSearch()" type="text" placeholder="Search" #search>
+            </div>
             <div class="select">
-              <h5 class="">Sort</h5>
+              <label class="">Sort</label>
               <select class="" (change)="onSortSelected($event)">
                   <option *ngFor="let sort of sortOption" [value]="sort.value">
                       {{sort.name}}
@@ -31,7 +33,7 @@
             <table class="table table-hover">
                 <thead>
                     <tr>
-                        <th>Id</th>
+                        <th>Res. Number</th>
                         <th>Customer Name</th>
                         <th>Vehicle</th>
                         <th>Start Date</th>
@@ -44,8 +46,8 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let reservation of reservations">
-                        <td>{{ reservation.id }}</td>
+                    <tr *ngFor="let reservation of reservations" routerLink="/admin-reservation/{{reservation.id}}">
+                        <td>{{ reservation.reservationNumber }}</td>
                         <td>{{ reservation.customer }}</td>
                         <td>{{ reservation.vehicle }}</td>
                         <td>{{ reservation.startDate | date}}</td>
@@ -53,8 +55,8 @@
                         <td>{{ reservation.days }}</td>
                         <td>{{ reservation.rentalCost }}</td>
                         <td>{{ reservation.insurance }}</td>
-                        <td><button [routerLink]="['edit', reservation.id]">Edit</button></td>
-                        <td><button *ngIf="(isAdmin$ | async)" (click)="deleteReservation(reservation.id)">Delete</button></td>
+                        <td><button class="edit" [routerLink]="['edit', reservation.id]">Edit</button></td>
+                        <td><button class="delete" *ngIf="(isAdmin$ | async)" (click)="deleteReservation(reservation.id)">Delete</button></td>
                     </tr>
                 </tbody>
             </table>

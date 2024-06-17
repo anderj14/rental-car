@@ -1,12 +1,16 @@
-.content {
-    display: grid;
-    justify-content: center;
+section {
+    margin: 50px;
 
-    .card {
-        max-width: 1000px;
-    }
+    .content {
+        display: grid;
+        justify-content: center;
 
-    mat-card-header {
-        margin-bottom: 20px;
+        .card {
+            max-width: 1000px;
+        }
+
+        mat-card-header {
+            margin-bottom: 20px;
+        }
     }
 }

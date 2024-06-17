@@ -4,9 +4,9 @@ import { AdminVehicleComponent } from './admin-vehicle.component';
 import { EditVehicleComponent } from './edit-vehicle/edit-vehicle.component';
 
 const routes: Routes = [
-  {path: '', component: AdminVehicleComponent},
-  {path: 'create', component: EditVehicleComponent, data: {breadcrumb: 'Create'}},
-  {path: 'edit/:id', component: EditVehicleComponent, data: {breadcrumb: 'Edit'}},
+  { path: '', component: AdminVehicleComponent },
+  { path: 'create', component: EditVehicleComponent, data: { breadcrumb: 'Create' } },
+  { path: 'edit/:id', component: EditVehicleComponent, data: { breadcrumb: 'Edit' } },
 ]
 
 @NgModule({

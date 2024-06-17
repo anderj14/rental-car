@@ -60,7 +60,7 @@ h1 {
 }
 
 body {
-  background-color: #f3f3f3;
+  background-color: #ffffff;
 }
 
 html,
@@ -72,4 +72,22 @@ body {
 
 body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
+  display: flex;
+  flex-direction: column;
 }
+
+.main-content {
+  flex: 1;
+  // Si deseas agregar un padding o un margen específico
+  // padding: 20px;
+}
+
+.breadcrumb {
+  label.xng-breadcrumb-trail {
+    color: #DA5B00;
+    font-weight: 500;
+  }
+}
+
+/* Importing Bootstrap SCSS file. */
+@import 'bootstrap/scss/bootstrap';

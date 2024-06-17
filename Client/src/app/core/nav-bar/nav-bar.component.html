@@ -1,29 +1,14 @@
-<header class="d-flex flex-row align-items-center justify-content-between  
-    bg-white border-bottom shadow-sm">
-    <img src="/assets/images/elipson.png" alt="logo" class="logo" style="width: 80px; margin-left: 20px;"
-        routerLink="/">
-    <nav class="my-2" *ngIf="(isAdmin$ | async)">
-        <a  class="p-2" routerLink="/dashboard" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Dashboard</a>
-        <a  class="p-2" routerLink="admin" routerLinkActive="active">Vehicles</a>
-        <a  class="p-2" routerLink="/admin-customer" routerLinkActive="active">Customers</a>
-        <a  class="p-2" routerLink="/admin-reservation" routerLinkActive="active">Reservations</a>
-        <!-- <a class="p-2" routerLink="/invoices" routerLinkActive="active">Invoices</a> -->
-        <a  class="p-2" routerLink="/test-error" routerLinkActive="active">Error</a>
-    </nav>
-    <nav class="my-2">
-        <a  class="p-2" routerLink="admin" routerLinkActive="active">Vehicles</a>
-        <a  class="p-2" routerLink="/admin-reservation" routerLinkActive="active">Reservations</a>
-    </nav>
-
-
-    <ng-container *ngIf="(accountService.currentUser$ | async) == null">
-        <div class="d-flex align-items-center">
-            <a routerLink="/account/login" class="me-4">Log In</a>
-            <a routerLink="/account/register" class="me-2">Sign Up</a>
-        </div>
-    </ng-container>
-
-    <ng-container *ngIf="accountService.currentUser$ | async as user">
+<header class="d-flex flex-row align-items-center justify-content-between bg-white border-bottom shadow-sm">
+    <img src="/assets/images/elipson.png" alt="logo" class="logo" style="width: 80px; margin-left: 20px;" routerLink="/">
+    
+    <ng-container *ngIf="currentUser$ | async as user">
+        <nav class="my-2 admin">
+            <a class="p-2" routerLink="/dashboard" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Dashboard</a>
+            <a class="p-2" routerLink="admin-vehicle" routerLinkActive="active">Vehicles</a>
+            <a class="p-2" routerLink="/admin-customer" routerLinkActive="active">Customers</a>
+            <a class="p-2" routerLink="/admin-reservation" routerLinkActive="active">Reservations</a>
+        </nav>
+        
         <div class="dropdown me-5" style="cursor: pointer;" dropdown>
             <a dropdownToggle class="dropdown-toggle">
                 <strong>Welcome {{user.displayName}}</strong>
@@ -31,10 +16,16 @@
             <ul *dropdownMenu class="dropdown-menu dropdown-menu-right">
                 <li class="py-1">
                     <a (click)="accountService.logout()" class="dropdown-item">Log Out</a>
-                    <a routerLink="/settings" class="dropdown-item">Settings</a>
-                    <a routerLink="/help center" class="dropdown-item">Help Center</a>
+                    <a routerLink="/account" class="dropdown-item">Settings</a>
                 </li>
             </ul>
         </div>
     </ng-container>
+
+    <!-- Menú para usuarios no logueados -->
+    <nav class="my-2 nav" *ngIf="!(currentUser$ | async)">
+        <a class="p-2" routerLink="vehicles" routerLinkActive="active">Vehicles</a>
+        <a class="p-2" routerLink="/about-us" routerLinkActive="active">About Us</a>
+        <a class="p-2" routerLink="/contact" routerLinkActive="active">Contact</a>
+    </nav>
 </header>

@@ -1,0 +1,36 @@
+<section>
+    <div class="content">
+      <h2>Brands</h2>
+      <button class="new-brand" (click)="openPopup()">Add Brand</button>
+    </div>
+  
+    <div class="table-wrapper">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Brand Name</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let brand of brands">
+            <td>{{ brand.id }}</td>
+            <td>{{ brand.brandName }}</td>
+            <td>
+              <button class="edit" (click)="openPopup(brand.id)">Edit</button>
+              <button class="delete" (click)="deleteBrand(brand.id)">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  
+    <app-brand-form 
+      [showPopup]="showPopup" 
+      [initialValues]="editBrandFormValues"
+      (save)="saveBrand($event)" 
+      (cancel)="cancelPopup()">
+    </app-brand-form>
+</section>
+  

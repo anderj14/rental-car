@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { CustomerService } from 'src/app/customer/customer.service';
 import { Customer, CustomerFormValues } from 'src/app/shared/models/customers';
+import { CustomerService } from '../customer.service';
 
 @Component({
   selector: 'app-edit-customer',
@@ -34,6 +34,4 @@ export class EditCustomerComponent implements OnInit {
     });
 
   }
-
-
 }

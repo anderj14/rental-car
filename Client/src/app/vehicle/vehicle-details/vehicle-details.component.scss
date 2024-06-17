@@ -1,101 +1,50 @@
-// .back {
-//   margin-left: 20px;
-// }
 
-// i {
-//   font-size: 35px;
-//   color: #303D50;
-//   cursor: pointer;
-//   transition: 0.5s;
+.section {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
 
-//   &:hover {
-//     color: #6985af;
-//     padding: 5px;
-//   }
-// }
+    .content {
+        width: 1000px;
 
-// .section {
-//   display: flex;
-//   justify-content: center;
-// }
+        .car-description {
+            margin-top: 30px;
+            display: flex;
+            justify-content: space-between;
+            gap: 70px;
 
-// .vehicle-details {
-//   max-width: 1000px;
-//   display: flex;
-//   align-items: center;
-//   padding: 50px;
-//   border: 1px solid #ddd;
-//   border-radius: 8px;
-//   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-//   background-color: #fff;
-//   margin: 20px;
+            .about {
+                max-width: 550px;
 
-//   .info-section {
-//     margin-right: 30px;
+                hr {
+                    margin-top: 30px;
+                    margin-bottom: 30px;
+                }
+            }
 
-//     .info {
-//       display: flex;
+            .reservation {
+                margin-top: 30px;
 
-//       .titles {
-//         width: 200px;
-//       }
-//     }
+                .create {
+                    padding: 20px;
+                    box-shadow: 0 6px 6px rgba(0, 0, 0, 0.1);
 
-//     h2 {
-//       font-size: 28px;
-//       margin-bottom: 10px;
-//     }
+                    .description {
+                        font-size: 14px;
+                    }
 
-//     p {
-//       margin: 5px 0;
+                    button {
+                        padding: 5px;
+                        border: none;
+                        background-color: #230086;
+                        color: #ffffff;
 
-//       strong {
-//         margin-right: 60px;
-//       }
-//     }
-
-//     .action-buttons {
-//       margin-top: 20px;
-
-//       button {
-//         margin-right: 10px;
-//       }
-//     }
-//   }
-
-
-
-//   .image-section {
-
-//     ngx-gallery {
-//       width: 100%;
-//       border: 1px solid #ddd;
-//       border-radius: 8px;
-//       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-//       background-color: #fff;
-//       padding: 30px;
-//     }
-//   }
-
-//   @media (max-width: 1070px) {
-//     flex-direction: column;
-
-
-//     .image-section,
-//     .info-section {
-//       max-width: 100%;
-//       margin-top: 40px;
-//     }
-
-//     .image-section {
-//       display: flex;
-//       justify-content: center;
-
-//       ngx-gallery {
-//         width: 80%;
-//       }
-//     }
-//   }
-// }
-
-// <!-- Nuevo UI -->
+                        &:hover {
+                            background-color: #1a0060;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

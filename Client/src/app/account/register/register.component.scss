@@ -1,13 +1,9 @@
-.content {
-    background-color: #f3f3f3;
-    padding: 20px;
-    border-radius: 10px;
 
-    .content-cover {
-        background-color: #fff;
-        padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+.content {
+    margin: 20px 0 10px 5px;
+
+    h2 {
         margin-bottom: 20px;
+        font-size: 25px;
     }
 }

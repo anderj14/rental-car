@@ -1,5 +1,53 @@
 input {
-    width: 15em;
+    width: 20em;
     margin-top: 3px;
     margin-bottom: 10px;
+}
+
+mat-card {
+    mat-card-header {
+        margin-left: 15px;
+
+        mat-card-title {
+            font-size: 25px;
+            font-weight: 500;
+        }
+    }
+
+    mat-card-content {
+        display: flex;
+        align-items: center;
+        padding: 10px;
+    }
+}
+
+form {
+
+    .form-group {
+        margin: 20px;
+    }
+
+    .form-row {
+        display: flex;
+        gap: 50px;
+
+        .form-info {
+            // width: 400px;
+        }
+    }
+
+    mat-card-actions {
+        margin-left: 10px;
+
+        button {
+            font-size: 18px;
+            font-weight: 500;
+            border-radius: 4px;
+            padding: 5px 25px;
+            border: 1px solid #959595;
+            // background-color: #ffffff;
+            background-color: #00da50;
+            color: #fff;
+        }
+    }
 }

@@ -1,0 +1,16 @@
+
+<section class="reservation-edit mt-5">
+    <div class="content">
+      <mat-card class="card">
+        <mat-card-header>Reservation Information</mat-card-header>
+        <mat-card-content>
+          <app-reservation-info-form
+            [reservation]="reservationFormValues"
+            [customers]="customers"
+            [vehicles]="vehicles"
+            [insurances]="insurances"
+          ></app-reservation-info-form>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </section>

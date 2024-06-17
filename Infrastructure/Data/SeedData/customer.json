@@ -5,7 +5,13 @@
         "Email": "john@example.com",
         "Phone": "123-456-7890",
         "DriverLicense": "DL12345",
-        "Address": "123 Main St"
+        "DOB": "1980-01-01",
+        "Address": "123 Main St",
+        "SecondAddress": "",
+        "City": "Anytown",
+        "State": "New York",
+        "Zip": "12345",
+        "Country": "US"
     },
     {
         "Id": 2,
@@ -13,6 +19,12 @@
         "Email": "jane@example.com",
         "Phone": "456-789-0123",
         "DriverLicense": "DL67890",
-        "Address": "456 Elm St"
+        "DOB": "1975-05-10",
+        "Address": "456 Elm St",
+        "SecondAddress": "Apt 2B",
+        "City": "Smallville",
+        "State": "New York",
+        "Zip": "54321",
+        "Country": "US"
     }
 ]

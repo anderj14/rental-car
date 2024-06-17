@@ -2,21 +2,23 @@ import { Component, OnInit } from '@angular/core';
 import { IVehicle } from '../shared/models/vehicles';
 import { VehicleParams } from '../shared/models/vehicleParams';
 import { Customer } from '../shared/models/customers';
-import { CustomerService } from '../customer/customer.service';
-import { ReservationService } from '../reservation/reservation.service';
 import { CustomerParams } from '../shared/models/customerParams';
 import { Reservation } from '../shared/models/reservation';
 import { ReservationParams } from '../shared/models/reservationParams';
 import { VehicleService } from '../vehicle/vehicle.service';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { ReservationService } from '../reservation-info/reservation.service';
+import { CustomerService } from '../admin-customer/customer.service';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [],
+  imports: [CommonModule, RouterModule],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss'
 })
-export class DashboardComponent implements OnInit{
+export class DashboardComponent implements OnInit {
 
   vehicles!: IVehicle[];
   vehicleParams = new VehicleParams();
@@ -28,17 +30,35 @@ export class DashboardComponent implements OnInit{
   totalCountVehicle = 0;
   totalCountCustomer = 0;
   totalCountReservation = 0;
+  totalCount!: number;
 
   constructor(
     private vehicleService: VehicleService,
     private reservationService: ReservationService,
     private customerService: CustomerService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.getVehicles();
     this.getCustomers();
     this.getReservations();
+    this.getRentedVehicles(); // Load rented vehicles initially
+
+  }
+
+  getRentedVehicles() {
+    this.vehicleParams.statusId = 2; // Set statusId to filter rented vehicles
+    this.vehicleService.getVehicles(this.vehicleParams).subscribe({
+      next: response => {
+        this.vehicles = response.data;
+        this.totalCount = response.count;
+        console.log(this.totalCount);
+        console.log(this.vehicles);
+        
+        
+      },
+      error: error => console.log(error)
+    });
   }
 
   getTotalCountVehicle(): number {

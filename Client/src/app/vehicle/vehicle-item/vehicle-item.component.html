@@ -1,31 +1,15 @@
-<!-- <table class="table table-hover">
-  <thead>
-    <tr>
-      <th>Picture</th>
-      <th>Brand</th>
-      <th>Model</th>
-      <th>Year</th>
-      <th>Rental Price</th>
-      <th>Vehicle Type</th>
-      <th>Vin</th>
-      <th>Consumption</th>
-      <th>Passengers</th>
-      <th>Status</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let vehicle of vehicles" 
-    routerLink="/vehicles/{{vehicle.id}}">
-      <td><img src="{{ vehicle.pictureUrl }}" alt="{{ vehicle.vehicleName }}" class="img-fluid" style="max-height: 50px"></td>
-      <td>{{ vehicle.brand }}</td>
-      <td>{{ vehicle.model }}</td>
-      <td>{{ vehicle.year }}</td>
-      <td>{{ vehicle.rentalPrice | currency }}</td>
-      <td>{{ vehicle.vehicleType }}</td>
-      <td>{{ vehicle.vin }}</td>
-      <td>{{ vehicle.fuelConsumption }} MPG</td>
-      <td>{{ vehicle.passengers }}</td>
-      <td [class]="getStatusClass(vehicle.status)">{{ vehicle.status }}</td>
-    </tr>
-  </tbody>
-</table> -->
+<div class="container">
+  <mat-card *ngIf="vehicle" routerLink="/vehicles/{{vehicle.id}}">
+    <div class="image-container">
+      <img mat-card-image src="{{vehicle.pictureUrl}}" alt="{{vehicle.vehicleName}}">
+    </div>
+    <mat-card-header class="header">
+      <mat-card-title>
+        Corona Queens, United States
+      </mat-card-title>
+      <mat-card-subtitle class="vehicle">{{vehicle.vehicleName}} {{vehicle.year}}</mat-card-subtitle>
+      <mat-card-subtitle>$ {{vehicle.rentalPrice}} <span>per day</span></mat-card-subtitle>
+      <mat-card-subtitle></mat-card-subtitle>
+    </mat-card-header>
+  </mat-card>
+</div>

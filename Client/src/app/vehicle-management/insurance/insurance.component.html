@@ -1,0 +1,37 @@
+<section>
+    <div class="content">
+        <h2>Insurances</h2>
+        <button class="new-insurance" (click)="openInsurancePopup()">Add Insurance</button>
+    </div>
+
+    <div class="table-wrapper">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Insurance Name</th>
+                    <th>Insurance Price</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let insurance of insurances">
+                    <td>{{ insurance.id }}</td>
+                    <td>{{ insurance.insuranceName }}</td>
+                    <td>{{ insurance.insurancePrice }}</td>
+                    <td class="actions">
+                        <button class="edit" (click)="openInsurancePopup(insurance.id)">Edit</button>
+                        <button class="delete" (click)="deleteInsurance(insurance.id)">Delete</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <app-insurance-form 
+        [showPopup]="showAddInsurancePopup" 
+        [initialValues]="editInsuranceFormValues"
+        (save)="saveInsurance($event)" 
+        (cancel)="cancelAddInsurancePopup()">
+    </app-insurance-form>
+</section>

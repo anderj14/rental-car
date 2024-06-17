@@ -7,7 +7,7 @@ import { IVehicle } from 'src/app/shared/models/vehicles';
   styleUrls: ['./vehicle-item.component.scss']
 })
 export class VehicleItemComponent {
-  @Input() vehicles!: IVehicle[];
+  @Input() vehicle!: IVehicle;
 
   getStatusClass(status: string): string {
     const lowercaseStatus = status.toLowerCase();

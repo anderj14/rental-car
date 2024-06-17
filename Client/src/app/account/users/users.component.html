@@ -1,0 +1,26 @@
+<section *ngIf="isAdmin$ | async">
+    <h2>All Users</h2>
+
+    <div class="table-wrapper">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (user of users; track $index) {
+                <tr>
+                    <td>{{ user.id }}</td>
+                    <td>{{ user.displayName }}</td>
+                    <td>{{ user.email }}</td>
+                    <td><button class="delete" (click)="deleteCustomer(user.id)">Delete</button></td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</section>

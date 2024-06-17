@@ -1,0 +1,35 @@
+<section>
+    <div class="content">
+        <h2>Fuels</h2>
+        <button class="new-vehicle" (click)="openFuelPopup()">Add Fuel</button>
+    </div>
+
+    <div class="table-wrapper">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Fuel Name</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let fuel of fuels">
+                    <td>{{ fuel.id }}</td>
+                    <td>{{ fuel.fuelName }}</td>
+                    <td>
+                        <button class="edit" (click)="openFuelPopup(fuel.id)">Edit</button>
+                        <button class="delete" (click)="deleteFuel(fuel.id)">Delete</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <app-fuel-form 
+        [showPopup]="showFuelPopup" 
+        [initialValues]="editFuelFormValues"
+        (save)="saveFuel($event)" 
+        (cancel)="cancelAddFuelPopup()">
+    </app-fuel-form>
+</section>

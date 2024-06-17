@@ -1,11 +1,11 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Reservation } from '../shared/models/reservation';
 import { ReservationParams } from '../shared/models/reservationParams';
-import { ReservationService } from '../reservation/reservation.service';
 import { AdminReservationService } from './admin-reservation.service';
 import { Observable } from 'rxjs';
 import { User } from '../shared/models/user';
 import { AccountService } from '../account/account.service';
+import { ReservationService } from '../reservation-info/reservation.service';
 
 @Component({
   selector: 'app-admin-reservation',
@@ -26,8 +26,6 @@ export class AdminReservationComponent implements OnInit {
     { name: 'Date: Asc To Desc', value: 'dateAsc' },
     { name: 'Date: Desc To Asc', value: 'dateDesc' },
   ];
-
-
 
   constructor(private reservationService: ReservationService,
     private adminReservationService: AdminReservationService,
@@ -79,5 +77,4 @@ export class AdminReservationComponent implements OnInit {
     this.reservationParams.sort = event.target.value;
     this.getReservation();
   }
-
 }

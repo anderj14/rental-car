@@ -1,0 +1,128 @@
+$primary-color: #ffffff;
+$accent-color: #da5b00;
+
+section {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+
+    mat-card {
+        max-width: 1100px;
+        margin: 20px;
+        padding: 20px;
+        background-color: #ffffff;
+        border-radius: 5px;
+        border: #343a40;
+        box-shadow: #343a40;
+    }
+}
+
+.headerAboutUs {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    margin: 20px auto;
+
+    h2 {
+        font-size: 50px;
+        font-weight: 500;
+        color: #343a40;
+        margin-bottom: 25px;
+        position: relative;
+    }
+
+    p {
+        font-size: 20px;
+        color: #343a40;
+        margin-bottom: 35px;
+        text-align: justify;
+    }
+}
+
+.container {
+    margin: 0 auto;
+}
+
+.about {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+
+    .about-image {
+        flex: 1;
+        margin-right: 40px;
+        overflow: hidden;
+        border-radius: 4px;
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            transition: 0.5s ease;
+
+            &:hover {
+                transform: scale(1.2);
+            }
+        }
+    }
+
+    .aboutContent {
+        flex: 1;
+
+        h2 {
+            font-size: 25px;
+            margin-bottom: 15px;
+            color: #343a40;
+        }
+
+        p {
+            font-size: 20px;
+            line-height: 1.5;
+            color: #343a40;
+            text-align: justify;
+        }
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .headerAboutUs {
+        padding: 0px 20px;
+
+        h1 {
+            font-size: 36px;
+        }
+
+        p {
+            font-size: 17px;
+            margin-bottom: 0px;
+        }
+    }
+
+    .container {
+        padding: 0px;
+        flex-direction: column;
+    }
+
+    .about {
+        padding: 20px;
+        flex-direction: column;
+        align-items: center;
+
+        .about-image-1 {
+            margin-right: 0px;
+            margin-bottom: 20px;
+        }
+
+        .aboutContent p {
+            padding: 0px;
+            font-stretch: 16px;
+        }
+
+        .aboutContent .readmore {
+            font-size: 16px;
+        }
+    }
+}
