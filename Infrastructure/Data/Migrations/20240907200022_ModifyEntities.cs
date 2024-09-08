@@ -3,14 +3,30 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace Infrastructure.Identity.Migrations
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
+namespace Infrastructure.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class IdentityInitial : Migration
+    public partial class ModifyEntities : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.AddColumn<string>(
+                name: "AppUserId",
+                table: "Reservations",
+                type: "TEXT",
+                nullable: false,
+                defaultValue: "");
+
+            migrationBuilder.AddColumn<int>(
+                name: "ReservationStatusId",
+                table: "Reservations",
+                type: "INTEGER",
+                nullable: false,
+                defaultValue: 0);
+
             migrationBuilder.CreateTable(
                 name: "AspNetRoles",
                 columns: table => new
@@ -49,6 +65,19 @@ namespace Infrastructure.Identity.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ReservationStatus",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    StatusName = table.Column<string>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ReservationStatus", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -180,6 +209,26 @@ namespace Infrastructure.Identity.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.InsertData(
+                table: "AspNetRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[,]
+                {
+                    { "21e3bdce-edd2-47d3-b9a6-cfcde8c7b3f3", null, "Member", "MEMBER" },
+                    { "87797aec-5088-4ce6-a39b-35c144c617b5", null, "Moderator", "MODERATOR" },
+                    { "e52dfb61-8247-4d32-b038-43581e4b7fdf", null, "Admin", "ADMIN" }
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Reservations_AppUserId",
+                table: "Reservations",
+                column: "AppUserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Reservations_ReservationStatusId",
+                table: "Reservations",
+                column: "ReservationStatusId");
+
             migrationBuilder.CreateIndex(
                 name: "IX_Address_AppUserId",
                 table: "Address",
@@ -222,11 +271,35 @@ namespace Infrastructure.Identity.Migrations
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
                 unique: true);
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_Reservations_AspNetUsers_AppUserId",
+                table: "Reservations",
+                column: "AppUserId",
+                principalTable: "AspNetUsers",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Cascade);
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_Reservations_ReservationStatus_ReservationStatusId",
+                table: "Reservations",
+                column: "ReservationStatusId",
+                principalTable: "ReservationStatus",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Cascade);
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropForeignKey(
+                name: "FK_Reservations_AspNetUsers_AppUserId",
+                table: "Reservations");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_Reservations_ReservationStatus_ReservationStatusId",
+                table: "Reservations");
+
             migrationBuilder.DropTable(
                 name: "Address");
 
@@ -246,10 +319,29 @@ namespace Infrastructure.Identity.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "ReservationStatus");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropIndex(
+                name: "IX_Reservations_AppUserId",
+                table: "Reservations");
+
+            migrationBuilder.DropIndex(
+                name: "IX_Reservations_ReservationStatusId",
+                table: "Reservations");
+
+            migrationBuilder.DropColumn(
+                name: "AppUserId",
+                table: "Reservations");
+
+            migrationBuilder.DropColumn(
+                name: "ReservationStatusId",
+                table: "Reservations");
         }
     }
 }

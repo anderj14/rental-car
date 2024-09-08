@@ -1,9 +1,6 @@
 using API.Extensions;
 using API.Middleware;
-using Core.Entities.Identity;
 using Infrastructure.Data;
-using Infrastructure.Identity;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
 
@@ -16,9 +13,6 @@ builder.Services.AddControllers();
 
 // Use the extensions for cleaning the program class
 builder.Services.AddApplicationServices(builder.Configuration);
-
-// Added extensions Identity
-builder.Services.AddIdentityServices(builder.Configuration); // Identity
 
 
 builder.Services.AddSwaggerDocumentation(); //Swagger extensions
@@ -44,9 +38,6 @@ app.UseStaticFiles(new StaticFileOptions
 
 app.UseCors("CorsPolicy");
 
-app.UseAuthentication(); // Identity
-app.UseAuthorization();
-
 app.MapControllers();
 app.MapFallbackToController("Index", "FallBack");
 
@@ -54,24 +45,13 @@ app.MapFallbackToController("Index", "FallBack");
 using var scope = app.Services.CreateScope();
 var services = scope.ServiceProvider;
 var context = services.GetRequiredService<RentalContext>();
-// var identityContext = services.GetRequiredService<AppIdentityDbContext>(); // Identity
-
 
 var logger = services.GetRequiredService<ILogger<Program>>();
 
 try
 {
     await context.Database.MigrateAsync();
-    // await identityContext.Database.MigrateAsync(); // Identity
-    await RentalContextSeed.SeedAsync(context);
-
-    var userManager = services.GetRequiredService<UserManager<AppUser>>(); // Identity
-    var roleManager = services.GetRequiredService<RoleManager<AppRole>>();
-    var identityContext = services.GetRequiredService<AppIdentityDbContext>();
-    await identityContext.Database.MigrateAsync();
-    await AppIdentityDbContextSeed.SeedUsersAsync(userManager, roleManager);
-
-    // await AppIdentityDbContextSeed.SeedUsersAsync(userManager); // Identity
+    logger.LogInformation("Database migrated successfully!");
 }
 catch (Exception ex)
 {

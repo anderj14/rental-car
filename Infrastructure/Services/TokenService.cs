@@ -16,6 +16,7 @@ namespace Infrastructure.Services
         private readonly IConfiguration _config;
         private readonly SymmetricSecurityKey _key;
         private readonly UserManager<AppUser> _userManager;
+
         public TokenService(IConfiguration config, UserManager<AppUser> userManager)
         {
             _userManager = userManager;

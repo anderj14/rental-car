@@ -1,12 +1,17 @@
 
+using System.Text;
 using API.Errors;
+using Core.Entities.Identity;
 using Core.Interfaces;
 using Infraestructure.Data;
 using Infrastructure.Data;
 using Infrastructure.Data.Repository;
 using Infrastructure.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 namespace API.Extensions
 {
@@ -22,11 +27,58 @@ namespace API.Extensions
             {
                 opt.UseSqlite(config.GetConnectionString("DefaultConnection"));
             });
+
+            var builder = services.AddIdentityCore<AppUser>();
+            builder = new IdentityBuilder(builder.UserType, typeof(AppRole), builder.Services);
+            builder.AddSignInManager<SignInManager<AppUser>>();
+            builder.AddRoleValidator<RoleValidator<AppRole>>();
+            builder.AddRoleManager<RoleManager<AppRole>>();
+            services.AddIdentity<AppUser, IdentityRole>(opt =>
+               {
+                   opt.User.RequireUniqueEmail = true;
+                   opt.Password.RequireDigit = true;
+                   opt.Password.RequireLowercase = true;
+                   opt.Password.RequireUppercase = true;
+                   opt.Password.RequireNonAlphanumeric = true;
+                   opt.Password.RequiredLength = 8;
+               })
+               .AddEntityFrameworkStores<RentalContext>();
+
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    var tokenKey = config["Token:Key"];
+                    var tokenIssuer = config["Token:Issuer"];
+                    if (string.IsNullOrEmpty(tokenKey))
+                    {
+                        throw new ArgumentNullException(nameof(tokenKey), "Token key must be provided in configuration.");
+                    }
+
+                    if (string.IsNullOrEmpty(tokenIssuer))
+                    {
+                        throw new ArgumentNullException(nameof(tokenIssuer), "Token issuer must be provided in configuration.");
+                    }
+
+
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(tokenKey)),
+                        ValidIssuer = tokenIssuer,
+                        ValidateIssuer = true,
+                        ValidateAudience = false
+                    };
+                });
+                
+            services.AddAuthentication();
+            services.AddAuthorization();
+
+
             services.AddScoped<IPhotoService, PhotoService>();
 
             services.AddScoped<ITokenService, TokenService>(); // Identity
 
-            services.AddScoped<IUnitOfWork, UnitOfWork>(); // unit of work
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 

@@ -1,10 +1,12 @@
 using System.Reflection;
 using Core.Entities;
+using Core.Entities.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Data
 {
-    public class RentalContext : DbContext
+    public class RentalContext : IdentityDbContext<AppUser>
     {
         public RentalContext(DbContextOptions<RentalContext> options) : base(options)
         {
@@ -20,6 +22,7 @@ namespace Infrastructure.Data
         public DbSet<Status> Statuses { get; set; }
         public DbSet<Vehicle> Vehicles { get; set; }
         public DbSet<VehicleType> VehicleTypes { get; set; }
+        public DbSet<AppUser> Users { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
