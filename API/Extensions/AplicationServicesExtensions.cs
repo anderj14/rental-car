@@ -28,11 +28,11 @@ namespace API.Extensions
                 opt.UseSqlite(config.GetConnectionString("DefaultConnection"));
             });
 
-            var builder = services.AddIdentityCore<AppUser>();
-            builder = new IdentityBuilder(builder.UserType, typeof(AppRole), builder.Services);
-            builder.AddSignInManager<SignInManager<AppUser>>();
-            builder.AddRoleValidator<RoleValidator<AppRole>>();
-            builder.AddRoleManager<RoleManager<AppRole>>();
+            // var builder = services.AddIdentityCore<AppUser>();
+            // builder = new IdentityBuilder(builder.UserType, typeof(AppRole), builder.Services);
+            // builder.AddSignInManager<SignInManager<AppUser>>();
+            // builder.AddRoleValidator<RoleValidator<AppRole>>();
+            // builder.AddRoleManager<RoleManager<AppRole>>();
             services.AddIdentity<AppUser, IdentityRole>(opt =>
                {
                    opt.User.RequireUniqueEmail = true;
@@ -69,7 +69,7 @@ namespace API.Extensions
                         ValidateAudience = false
                     };
                 });
-                
+
             services.AddAuthentication();
             services.AddAuthorization();
 

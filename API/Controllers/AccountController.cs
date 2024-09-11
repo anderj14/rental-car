@@ -34,17 +34,18 @@ namespace API.Controllers
             _passwordHasher = passwordHasher;
 
         }
-        // [Authorize]
+
+        [Authorize]
         [HttpGet]
         public async Task<ActionResult<UserDto>> GetCurrentUser()
         {
-            var user = await _userManager.FindByEmailFromClaimPrincipal(User);
+            var user = await _userManager.FindUserByEmailFromClaimPrincipal(User);
 
             return new UserDto()
             {
                 Email = user.Email,
                 Token = await _tokenService.CreateToken(user),
-                DisplayName = user.DisplayName
+                UserName = user.UserName
             };
         }
 
@@ -55,19 +56,19 @@ namespace API.Controllers
             return await _userManager.FindByEmailAsync(email) != null;
         }
 
+        [Authorize]
         [HttpGet("address")]
         public async Task<ActionResult<AddressDto>> GetUserAddress()
         {
-            var user = await _userManager.FindUserByClaimsPrincipeWithAddressAsync(HttpContext.User);
+            var user = await _userManager.FindUserByEmailWithAddressByClaimsPrincipalAsync(HttpContext.User);
 
             return _mapper.Map<Address, AddressDto>(user.Address);
-
         }
         [Authorize]
         [HttpPut("address")]
         public async Task<ActionResult<AddressDto>> UpdateUserAddress(AddressDto address)
         {
-            var user = await _userManager.FindUserByClaimsPrincipeWithAddressAsync(HttpContext.User);
+            var user = await _userManager.FindUserByEmailWithAddressByClaimsPrincipalAsync(HttpContext.User);
 
             user.Address = _mapper.Map<AddressDto, Address>(address);
 
@@ -97,12 +98,11 @@ namespace API.Controllers
                 Id = user.Id,
                 Email = user.Email,
                 Token = await _tokenService.CreateToken(user),
-                DisplayName = user.DisplayName
+                UserName = user.UserName
             };
         }
 
         [HttpPost("register")]
-        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<UserDto>> Register(RegisterDto registerDto)
         {
 
@@ -116,9 +116,8 @@ namespace API.Controllers
 
             var user = new AppUser
             {
-                DisplayName = registerDto.DisplayName,
-                Email = registerDto.Email,
-                UserName = registerDto.Email
+                UserName = registerDto.UserName,
+                Email = registerDto.Email
             };
 
             var result = await _userManager.CreateAsync(user, registerDto.Password);
@@ -131,15 +130,15 @@ namespace API.Controllers
 
             return new UserDto
             {
-                DisplayName = user.DisplayName,
+                UserName = user.UserName,
                 Token = await _tokenService.CreateToken(user),
                 Email = user.Email
             };
         }
 
-        [HttpPut("update/{id}")]
+        [HttpPut("update")]
         [Authorize(Roles = "Admin")]
-        public async Task<ActionResult<UserDto>> Update(string id, RegisterDto registerDto)
+        public async Task<ActionResult<UserDto>> Update(RegisterDto registerDto)
         {
 
             var user = await _userManager.FindByEmailAsync(registerDto.Email);
@@ -149,7 +148,7 @@ namespace API.Controllers
                 return NotFound(new ApiResponse(404));
             }
 
-            user.DisplayName = registerDto.DisplayName;
+            user.UserName = registerDto.UserName;
             user.PasswordHash = _passwordHasher.HashPassword(user, registerDto.Password);
 
             if (!string.IsNullOrEmpty(registerDto.Password))
@@ -164,7 +163,7 @@ namespace API.Controllers
             return new UserDto
             {
                 Id = user.Id,
-                DisplayName = user.DisplayName,
+                UserName = user.UserName,
                 Email = user.Email,
                 Token = await _tokenService.CreateToken(user)
             };
@@ -182,7 +181,7 @@ namespace API.Controllers
         }
 
         [HttpDelete("delete/{id}")]
-        [Authorize(Roles = "Admin")]
+        [Authorize]
         public async Task<ActionResult> DeleteUser(string id)
         {
             var user = await _userManager.FindByIdAsync(id);
@@ -201,48 +200,5 @@ namespace API.Controllers
 
             return Ok();
         }
-
-        // [HttpPut("role/{id}")]
-        // public async Task<ActionResult<UserDto>> UpdateRole(string id, AppRoleDto roleParam)
-        // {
-        //     var role = _roleManager.FindByNameAsync(roleParam.Name);
-
-        //     if (role == null) return NotFound(new ApiResponse(404));
-
-        //     var user = await _userManager.FindByIdAsync(id);
-
-        //     if (user == null) return NotFound(new ApiResponse(404));
-
-        //     var userDto = _mapper.Map<AppUser, UserDto>(user);
-
-        //     if (roleParam.Status)
-        //     {
-        //         var result = await _userManager.AddToRoleAsync(user, roleParam.Name);
-
-        //         if (result.Succeeded)
-        //         {
-        //             userDto.Admin = true;
-        //         }
-
-        //         if (result.Errors.Any())
-        //         {
-        //             if (result.Errors.Where(x => x.Code == "UserAlreadyInRole").Any())
-        //             {
-        //                 userDto.Admin = true;
-        //             }
-        //         }
-        //     }
-        //     else
-        //     {
-        //         var result = await _userManager.RemoveFromRoleAsync(user, roleParam.Name);
-        //         if (result.Succeeded)
-        //         {
-        //             userDto.Admin = false;
-        //         }
-        //     }
-
-        //     return userDto;
-        // }
-
     }
 }

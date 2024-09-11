@@ -12,17 +12,17 @@ namespace Infrastructure.Data
         {
         }
 
-        public DbSet<Customer> Customers { get; set; }
         public DbSet<Brand> Brands { get; set; }
         public DbSet<Fuel> Fuels { get; set; }
         public DbSet<Insurance> Insurances { get; set; }
-        public DbSet<Invoice> Invoices { get; set; }
         public DbSet<Model> Models { get; set; }
         public DbSet<Reservation> Reservations { get; set; }
         public DbSet<Status> Statuses { get; set; }
         public DbSet<Vehicle> Vehicles { get; set; }
         public DbSet<VehicleType> VehicleTypes { get; set; }
-        public DbSet<AppUser> Users { get; set; }
+        public DbSet<AppUser> AppUsers { get; set; }
+        public DbSet<Address> Address { get; set; }
+        public DbSet<UserProfile> UserProfiles { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

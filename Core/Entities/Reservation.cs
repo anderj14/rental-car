@@ -29,9 +29,6 @@ namespace Core.Entities
         public string AppUserId { get; set; }
         public AppUser AppUser { get; set; }
 
-        public int CustomerId { get; set; }
-        public Customer Customer { get; set; }
-
         public int VehicleId { get; set; }
         public Vehicle Vehicle { get; set; }
 

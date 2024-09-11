@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Data.Migrations
 {
     [DbContext(typeof(RentalContext))]
-    [Migration("20240907200022_ModifyEntities")]
-    partial class ModifyEntities
+    [Migration("20240909013258_UpdateUserProfileForVehicleRental")]
+    partial class UpdateUserProfileForVehicleRental
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -34,67 +34,6 @@ namespace Infrastructure.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Brands");
-                });
-
-            modelBuilder.Entity("Core.Entities.Customer", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("City")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Country")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("CustomerName")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime>("DOB")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("DriverLicense")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasMaxLength(70)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Phone")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("SecondAddress")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("State")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Zip")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Customers");
                 });
 
             modelBuilder.Entity("Core.Entities.Fuel", b =>
@@ -127,11 +66,15 @@ namespace Infrastructure.Data.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("FirstName")
+                    b.Property<string>("Country")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("LastName")
+                    b.Property<string>("FirstAddress")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("SecondAddress")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
@@ -157,10 +100,6 @@ namespace Infrastructure.Data.Migrations
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("DisplayName")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Email")
@@ -215,6 +154,47 @@ namespace Infrastructure.Data.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
+            modelBuilder.Entity("Core.Entities.Identity.UserProfile", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("AppUserId")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("DateOfBirth")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("DriverLicense")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("IdentificationNumber")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AppUserId")
+                        .IsUnique();
+
+                    b.ToTable("UserProfiles");
+                });
+
             modelBuilder.Entity("Core.Entities.Insurance", b =>
                 {
                     b.Property<int>("Id")
@@ -231,37 +211,6 @@ namespace Infrastructure.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Insurances");
-                });
-
-            modelBuilder.Entity("Core.Entities.Invoice", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("CustomerId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("PaymentType")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("ReservationId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<double>("TotalAmount")
-                        .HasColumnType("REAL");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CustomerId");
-
-                    b.HasIndex("ReservationId");
-
-                    b.ToTable("Invoices");
                 });
 
             modelBuilder.Entity("Core.Entities.Model", b =>
@@ -324,9 +273,6 @@ namespace Infrastructure.Data.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("CustomerId")
-                        .HasColumnType("INTEGER");
-
                     b.Property<int>("Days")
                         .HasColumnType("INTEGER");
 
@@ -355,8 +301,6 @@ namespace Infrastructure.Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("AppUserId");
-
-                    b.HasIndex("CustomerId");
 
                     b.HasIndex("InsuranceId");
 
@@ -510,19 +454,19 @@ namespace Infrastructure.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "e52dfb61-8247-4d32-b038-43581e4b7fdf",
+                            Id = "ff33a52c-4757-44d1-a68e-dfcf42411c79",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "21e3bdce-edd2-47d3-b9a6-cfcde8c7b3f3",
+                            Id = "14c4935e-2ffb-40ca-954f-f25f541dd2e5",
                             Name = "Member",
                             NormalizedName = "MEMBER"
                         },
                         new
                         {
-                            Id = "87797aec-5088-4ce6-a39b-35c144c617b5",
+                            Id = "e977dc94-6593-415c-a198-ee8887cdcaf1",
                             Name = "Moderator",
                             NormalizedName = "MODERATOR"
                         });
@@ -641,23 +585,15 @@ namespace Infrastructure.Data.Migrations
                     b.Navigation("AppUser");
                 });
 
-            modelBuilder.Entity("Core.Entities.Invoice", b =>
+            modelBuilder.Entity("Core.Entities.Identity.UserProfile", b =>
                 {
-                    b.HasOne("Core.Entities.Customer", "Customer")
-                        .WithMany()
-                        .HasForeignKey("CustomerId")
+                    b.HasOne("Core.Entities.Identity.AppUser", "AppUser")
+                        .WithOne("UserProfile")
+                        .HasForeignKey("Core.Entities.Identity.UserProfile", "AppUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Core.Entities.Reservation", "Reservation")
-                        .WithMany()
-                        .HasForeignKey("ReservationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Customer");
-
-                    b.Navigation("Reservation");
+                    b.Navigation("AppUser");
                 });
 
             modelBuilder.Entity("Core.Entities.Model", b =>
@@ -690,12 +626,6 @@ namespace Infrastructure.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Core.Entities.Customer", "Customer")
-                        .WithMany("Reservations")
-                        .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Core.Entities.Insurance", "Insurance")
                         .WithMany()
                         .HasForeignKey("InsuranceId")
@@ -715,8 +645,6 @@ namespace Infrastructure.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("AppUser");
-
-                    b.Navigation("Customer");
 
                     b.Navigation("Insurance");
 
@@ -819,17 +747,15 @@ namespace Infrastructure.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Core.Entities.Customer", b =>
-                {
-                    b.Navigation("Reservations");
-                });
-
             modelBuilder.Entity("Core.Entities.Identity.AppUser", b =>
                 {
                     b.Navigation("Address")
                         .IsRequired();
 
                     b.Navigation("Reservations");
+
+                    b.Navigation("UserProfile")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Core.Entities.Vehicle", b =>

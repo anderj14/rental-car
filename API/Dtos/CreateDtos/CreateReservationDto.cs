@@ -18,8 +18,6 @@ namespace Core.Dtos.CreateDtos
         public decimal RentalCost { get; set; }
 
         [Required]
-        public int CustomerId { get; set; }
-        [Required]
         public int VehicleId { get; set; }
         [Required]
         public int InsuranceId { get; set; }
