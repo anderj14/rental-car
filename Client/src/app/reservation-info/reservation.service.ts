@@ -7,12 +7,14 @@ import { map, Observable } from 'rxjs';
 import { Customer } from '../shared/models/customers';
 import { Insurance } from '../shared/models/insurance';
 import { IVehicle } from '../shared/models/vehicles';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ReservationService {
-  baseUrl = 'https://localhost:5001/api/';
+  baseUrl = environment.apiUrl;
+  
   reservationParams = new ReservationParams();
 
   constructor(private http: HttpClient) { }

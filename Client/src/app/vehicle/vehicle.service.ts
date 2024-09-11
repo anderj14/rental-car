@@ -8,12 +8,13 @@ import { Model } from '../shared/models/model';
 import { Status } from '../shared/models/status';
 import { Fuel } from '../shared/models/fuel';
 import { VehicleType } from '../shared/models/vehicleType';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class VehicleService {
-  baseUrl = 'https://localhost:5001/api/';
+  baseUrl = environment.apiUrl;
   vehicleParams = new VehicleParams();
 
   constructor(private http: HttpClient) { }
