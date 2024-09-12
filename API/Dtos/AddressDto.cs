@@ -1,20 +1,15 @@
 
-using System.ComponentModel.DataAnnotations;
 
 namespace Core.Dtos
 {
     public class AddressDto
     {
-        [Required]
-        public string FirstName { get; set; }
-
-        [Required]
-        public string LastName { get; set; }
-
-        [Required]
+        public string FirstAddress { get; set; }
+        public string SecondAddress { get; set; }
+        public string Country { get; set; }
         public string City { get; set; }
-        
-        [Required]
         public string ZipCode { get; set; }
+
+        public string AppUserId { get; set; }
     }
 }

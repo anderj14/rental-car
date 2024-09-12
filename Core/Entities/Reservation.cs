@@ -1,4 +1,6 @@
 
+using Core.Entities.Identity;
+
 namespace Core.Entities
 {
     public class Reservation : BaseEntity
@@ -10,20 +12,31 @@ namespace Core.Entities
             ReservationNumber = GenerateReservationNumber();
         }
 
+        public void ValidateDates()
+        {
+            if (EndDate <= StartDate)
+            {
+                throw new ArgumentException("EndDate must be after StartDate.");
+            }
+        }
+
         public string ReservationNumber { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public int Days { get; set; }
         public decimal RentalCost { get; set; }
 
-        public int CustomerId { get; set; }
-        public Customer Customer { get; set; }
+        public string AppUserId { get; set; }
+        public AppUser AppUser { get; set; }
 
         public int VehicleId { get; set; }
         public Vehicle Vehicle { get; set; }
 
         public int InsuranceId { get; set; }
         public Insurance Insurance { get; set; }
+
+        public int ReservationStatusId { get; set; }
+        public ReservationStatus ReservationStatus { get; set; }
 
         private string GenerateReservationNumber()
         {
@@ -32,6 +45,19 @@ namespace Core.Entities
                 .Select(s => s[new Random().Next(s.Length)]).ToArray());
 
             return $"{DateTime.Now:yyyyMMdd}-{randomLetters}-{_reservationCounter++}";
+        }
+
+        public void CalculateRentalCost()
+        {
+            ValidateDates();
+
+            var rentalDays = Math.Max((EndDate - StartDate).Days, 1);
+            RentalCost = rentalDays * Vehicle.RentalPrice;
+
+            if (Insurance != null)
+            {
+                RentalCost += Insurance.InsurancePrice;
+            }
         }
     }
 }

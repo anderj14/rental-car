@@ -1,3 +1,5 @@
+using API.Dtos;
+using API.Dtos.CreateDtos;
 using API.Errors;
 using API.Extensions;
 using AutoMapper;
@@ -18,13 +20,15 @@ namespace API.Controllers
         private readonly ITokenService _tokenService;
         private readonly IMapper _mapper;
         private readonly IPasswordHasher<AppUser> _passwordHasher;
+        private readonly IUnitOfWork _unitOfWork;
 
         public AccountController(
             UserManager<AppUser> userManager,
             SignInManager<AppUser> signInManager,
             ITokenService tokenService,
             IMapper mapper,
-            IPasswordHasher<AppUser> passwordHasher
+            IPasswordHasher<AppUser> passwordHasher,
+            IUnitOfWork unitOfWork
             )
         {
             _signInManager = signInManager;
@@ -32,20 +36,31 @@ namespace API.Controllers
             _tokenService = tokenService;
             _mapper = mapper;
             _passwordHasher = passwordHasher;
-
+            _unitOfWork = unitOfWork;
         }
-        // [Authorize]
-        [HttpGet]
+
+        protected async Task<AppUser> GetAuthenticatedUserAsync()
+        {
+            return await _userManager.FindUserByEmailFromClaimPrincipal(User);
+        }
+
+        [Authorize]
+        [HttpGet("currentuser")]
         public async Task<ActionResult<UserDto>> GetCurrentUser()
         {
-            var user = await _userManager.FindByEmailFromClaimPrincipal(User);
+            var user = await GetAuthenticatedUserAsync();
 
-            return new UserDto()
+            if (user == null)
             {
-                Email = user.Email,
+                return Unauthorized(new ApiResponse(401, "User not authenticated"));
+            }
+
+            return Ok(new
+            {
+                user.Email,
                 Token = await _tokenService.CreateToken(user),
-                DisplayName = user.DisplayName
-            };
+                user.UserName
+            });
         }
 
         [Authorize]
@@ -53,30 +68,6 @@ namespace API.Controllers
         public async Task<ActionResult<bool>> CheckEmailExitsAsync([FromQuery] string email)
         {
             return await _userManager.FindByEmailAsync(email) != null;
-        }
-
-        [HttpGet("address")]
-        public async Task<ActionResult<AddressDto>> GetUserAddress()
-        {
-            var user = await _userManager.FindUserByClaimsPrincipeWithAddressAsync(HttpContext.User);
-
-            return _mapper.Map<Address, AddressDto>(user.Address);
-
-        }
-        [Authorize]
-        [HttpPut("address")]
-        public async Task<ActionResult<AddressDto>> UpdateUserAddress(AddressDto address)
-        {
-            var user = await _userManager.FindUserByClaimsPrincipeWithAddressAsync(HttpContext.User);
-
-            user.Address = _mapper.Map<AddressDto, Address>(address);
-
-            var result = await _userManager.UpdateAsync(user);
-
-            if (result.Succeeded) return Ok(_mapper.Map<Address, AddressDto>(user.Address));
-
-            return BadRequest("Problem updating the user...");
-
         }
 
         [HttpPost("login")]
@@ -97,12 +88,11 @@ namespace API.Controllers
                 Id = user.Id,
                 Email = user.Email,
                 Token = await _tokenService.CreateToken(user),
-                DisplayName = user.DisplayName
+                UserName = user.UserName
             };
         }
 
         [HttpPost("register")]
-        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<UserDto>> Register(RegisterDto registerDto)
         {
 
@@ -116,40 +106,178 @@ namespace API.Controllers
 
             var user = new AppUser
             {
-                DisplayName = registerDto.DisplayName,
-                Email = registerDto.Email,
-                UserName = registerDto.Email
+                UserName = registerDto.UserName,
+                Email = registerDto.Email
             };
 
             var result = await _userManager.CreateAsync(user, registerDto.Password);
 
             if (!result.Succeeded) return BadRequest(new ApiResponse(400));
 
-            var roleAddResult = await _userManager.AddToRoleAsync(user, "Member");
+            var roleAddResult = await _userManager.AddToRoleAsync(user, "Admin");
 
             if (!roleAddResult.Succeeded) return BadRequest("Failed to add to role");
 
             return new UserDto
             {
-                DisplayName = user.DisplayName,
+                UserName = user.UserName,
                 Token = await _tokenService.CreateToken(user),
                 Email = user.Email
             };
         }
 
-        [HttpPut("update/{id}")]
-        [Authorize(Roles = "Admin")]
-        public async Task<ActionResult<UserDto>> Update(string id, RegisterDto registerDto)
+        [Authorize]
+        [HttpGet("address")]
+        public async Task<ActionResult<AddressDto>> GetUserAddress()
+        {
+            var user = await _userManager.FindUserByEmailWithAddressByClaimsPrincipalAsync(HttpContext.User);
+
+            return _mapper.Map<AddressDto>(user.Address);
+        }
+
+        [Authorize]
+        [HttpPost("address")]
+        public async Task<ActionResult<AddressDto>> CreateUserAddress([FromBody] CreateAddressDto createAddressDto)
+        {
+            if (!ModelState.IsValid) return BadRequest(new ApiResponse(400, "Invalid Model"));
+
+            try
+            {
+                var user = await GetAuthenticatedUserAsync();
+
+                if (user == null)
+                {
+                    return Unauthorized(new ApiResponse(401, "User not authenticated"));
+                }
+
+                var existingAddress = await _unitOfWork.Repository<Address>().GetByConditionAsync(up => up.AppUserId == user.Id);
+
+                if (existingAddress != null)
+                {
+                    return BadRequest(new ApiResponse(400, "Address already exists"));
+                }
+
+
+                var createAddress = _mapper.Map<CreateAddressDto, Address>(createAddressDto);
+                createAddress.AppUserId = user.Id;
+
+                _unitOfWork.Repository<Address>().Add(createAddress);
+                await _unitOfWork.Complete();
+
+                var data = _mapper.Map<AddressDto>(createAddress);
+
+                return Ok(data);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}, Inner exception: {ex.InnerException?.Message}");
+            }
+        }
+
+        [Authorize]
+        [HttpPut("address")]
+        public async Task<ActionResult<AddressDto>> UpdateUserAddress(CreateAddressDto updateAddressDto)
+        {
+            if (!ModelState.IsValid) return BadRequest(new ApiResponse(400, "Invalid Model"));
+            try
+            {
+                var user = await _userManager.FindUserByEmailWithAddressByClaimsPrincipalAsync(HttpContext.User);
+
+                user.Address = _mapper.Map<CreateAddressDto, Address>(updateAddressDto);
+
+                var result = await _userManager.UpdateAsync(user);
+
+                if (result.Succeeded) return Ok(_mapper.Map<Address, AddressDto>(user.Address));
+
+                return BadRequest("Problem updating the user...");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}, Inner exception: {ex.InnerException?.Message}");
+            }
+        }
+
+        [Authorize]
+        [HttpGet("userprofile")]
+        public async Task<ActionResult<UserProfileDto>> GetUserProfile()
+        {
+            var user = await _userManager.FindUserByEmailWithProfileByClaimsPrincipalAsync(HttpContext.User);
+
+            return _mapper.Map<UserProfileDto>(user.UserProfile);
+        }
+
+        [Authorize]
+        [HttpPost("userprofile")]
+        public async Task<ActionResult<UserProfileDto>> CreateUserProfile(CreateUserProfileDto createUserProfileDto)
+        {
+            if (!ModelState.IsValid) return BadRequest(new ApiResponse(400, "Invalid Model"));
+
+            try
+            {
+                var user = await GetAuthenticatedUserAsync();
+                if (user == null) return Unauthorized(new ApiResponse(401, "User not authenticated"));
+
+                var existingUserProfile = await _unitOfWork.Repository<UserProfile>().GetByConditionAsync(up => up.AppUserId == user.Id);
+
+                if (existingUserProfile != null)
+                {
+                    return BadRequest(new ApiResponse(400, "User profile already exists"));
+                }
+
+                var createUserProfile = _mapper.Map<CreateUserProfileDto, UserProfile>(createUserProfileDto);
+                createUserProfile.AppUserId = user.Id;
+
+                _unitOfWork.Repository<UserProfile>().Add(createUserProfile);
+                await _unitOfWork.Complete();
+
+                var data = _mapper.Map<UserProfileDto>(createUserProfile);
+
+                return Ok(data);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}, Inner exception: {ex.InnerException?.Message}");
+            }
+        }
+
+        [Authorize]
+        [HttpPut("userprofile")]
+        public async Task<ActionResult<UserProfileDto>> UpdateUserProfile(CreateUserProfileDto updateUserProfileDto)
+        {
+            if (!ModelState.IsValid) return BadRequest(new ApiResponse(400, "Invalid Model"));
+            try
+            {
+                var user = await _userManager.FindUserByEmailWithProfileByClaimsPrincipalAsync(HttpContext.User);
+
+                user.UserProfile = _mapper.Map<CreateUserProfileDto, UserProfile>(updateUserProfileDto);
+
+                var result = await _userManager.UpdateAsync(user);
+
+                if (result.Succeeded) return Ok(_mapper.Map<UserProfile, UserProfileDto>(user.UserProfile));
+
+                return BadRequest("Problem updating the user...");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}, Inner exception: {ex.InnerException?.Message}");
+            }
+        }
+
+
+        [Authorize]
+        [HttpPut("update")]
+        public async Task<ActionResult<UserDto>> Update(RegisterDto registerDto)
         {
 
-            var user = await _userManager.FindByEmailAsync(registerDto.Email);
+            var user = await GetAuthenticatedUserAsync();
 
             if (user == null)
             {
                 return NotFound(new ApiResponse(404));
             }
 
-            user.DisplayName = registerDto.DisplayName;
+            user.UserName = registerDto.UserName;
+            user.Email = registerDto.Email;
             user.PasswordHash = _passwordHasher.HashPassword(user, registerDto.Password);
 
             if (!string.IsNullOrEmpty(registerDto.Password))
@@ -164,7 +292,7 @@ namespace API.Controllers
             return new UserDto
             {
                 Id = user.Id,
-                DisplayName = user.DisplayName,
+                UserName = user.UserName,
                 Email = user.Email,
                 Token = await _tokenService.CreateToken(user)
             };
@@ -182,7 +310,7 @@ namespace API.Controllers
         }
 
         [HttpDelete("delete/{id}")]
-        [Authorize(Roles = "Admin")]
+        [Authorize]
         public async Task<ActionResult> DeleteUser(string id)
         {
             var user = await _userManager.FindByIdAsync(id);
@@ -201,48 +329,5 @@ namespace API.Controllers
 
             return Ok();
         }
-
-        // [HttpPut("role/{id}")]
-        // public async Task<ActionResult<UserDto>> UpdateRole(string id, AppRoleDto roleParam)
-        // {
-        //     var role = _roleManager.FindByNameAsync(roleParam.Name);
-
-        //     if (role == null) return NotFound(new ApiResponse(404));
-
-        //     var user = await _userManager.FindByIdAsync(id);
-
-        //     if (user == null) return NotFound(new ApiResponse(404));
-
-        //     var userDto = _mapper.Map<AppUser, UserDto>(user);
-
-        //     if (roleParam.Status)
-        //     {
-        //         var result = await _userManager.AddToRoleAsync(user, roleParam.Name);
-
-        //         if (result.Succeeded)
-        //         {
-        //             userDto.Admin = true;
-        //         }
-
-        //         if (result.Errors.Any())
-        //         {
-        //             if (result.Errors.Where(x => x.Code == "UserAlreadyInRole").Any())
-        //             {
-        //                 userDto.Admin = true;
-        //             }
-        //         }
-        //     }
-        //     else
-        //     {
-        //         var result = await _userManager.RemoveFromRoleAsync(user, roleParam.Name);
-        //         if (result.Succeeded)
-        //         {
-        //             userDto.Admin = false;
-        //         }
-        //     }
-
-        //     return userDto;
-        // }
-
     }
 }

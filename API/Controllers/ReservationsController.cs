@@ -74,7 +74,7 @@ namespace API.Controllers
                 EndDate = createReservation.EndDate,
                 Days = createReservation.Days,
                 RentalCost = createReservation.RentalCost,
-                CustomerId = createReservation.CustomerId,
+                // AppUserId = createReservation.CustomerId,
                 VehicleId = createReservation.VehicleId,
                 InsuranceId = createReservation.InsuranceId
             };

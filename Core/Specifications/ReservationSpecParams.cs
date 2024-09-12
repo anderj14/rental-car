@@ -15,7 +15,6 @@ namespace Core.Specifications
             set => _pageSize = (value > MaxPageSize) ? MaxPageSize : value;
         }
 
-        public int? CustomerId { get; set; }
         public int? VehicleId { get; set; }
         public int? InsuranceId { get; set; }
 

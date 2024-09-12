@@ -1,4 +1,5 @@
 
+using System.Linq.Expressions;
 using Core.Entities;
 using Core.Specifications;
 
@@ -11,6 +12,8 @@ namespace Core.Interfaces
 
         Task<T> GetEntityWithSpec(ISpecification<T> spec);
         Task<IReadOnlyList<T>> ListAsync(ISpecification<T> spec);
+
+        Task<T> GetByConditionAsync(Expression<Func<T, bool>> predicate);
 
         Task<int> CountAsync(ISpecification<T> spec);
 
