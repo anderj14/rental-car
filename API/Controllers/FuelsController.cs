@@ -22,17 +22,17 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        [Authorize]
         public async Task<ActionResult<IReadOnlyList<FuelDto>>> GetFuels()
         {
             var fuels = await _unitOfWork.Repository<Fuel>().ListAllAsync();
-            var data = _mapper.Map<IReadOnlyList<FuelDto>>(fuels);
 
+            if (fuels == null || !fuels.Any()) return NoContent();
+
+            var data = _mapper.Map<IReadOnlyList<FuelDto>>(fuels);
             return Ok(data);
         }
 
         [HttpGet("{id}")]
-        [Authorize]
         public async Task<ActionResult<FuelDto>> GetFuel(int id)
         {
             var fuel = await _unitOfWork.Repository<Fuel>().GetByIdAsync(id);

@@ -1,4 +1,5 @@
 
+using System.Linq.Expressions;
 using Core.Entities;
 using Core.Interfaces;
 using Core.Specifications;
@@ -33,6 +34,11 @@ namespace Infrastructure.Data.Repository
         public async Task<IReadOnlyList<T>> ListAsync(ISpecification<T> spec)
         {
             return await ApplySpecification(spec).ToListAsync();
+        }
+
+        public async Task<T> GetByConditionAsync(Expression<Func<T, bool>> predicate)
+        {
+            return await _context.Set<T>().FirstOrDefaultAsync(predicate);
         }
 
         public async Task<int> CountAsync(ISpecification<T> spec)

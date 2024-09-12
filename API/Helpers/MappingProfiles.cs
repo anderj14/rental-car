@@ -1,4 +1,5 @@
 
+using API.Dtos;
 using API.Dtos.CreateDtos;
 using AutoMapper;
 using Core.Dtos;
@@ -44,7 +45,8 @@ namespace API.Helpers
             .ForMember(d => d.Vehicle, o => o.MapFrom(s => s.Vehicle.VehicleName))
             .ForMember(d => d.Insurance, o => o.MapFrom(s => s.Insurance.InsuranceName));
 
-            CreateMap<Address, AddressDto>().ReverseMap();
+            CreateMap<Address, AddressDto>();
+            CreateMap<UserProfile, UserProfileDto>();
 
             // Add
             CreateMap<CreateVehicleDto, Vehicle>();
@@ -55,6 +57,8 @@ namespace API.Helpers
             CreateMap<CreateInsuranceDto, Insurance>();
             CreateMap<CreateStatusDto, Status>();
             CreateMap<CreateVehicleTypeDto, VehicleType>();
+            CreateMap<CreateAddressDto, Address>();
+            CreateMap<CreateUserProfileDto, UserProfile>();
 
             CreateMap<Photo, PhotoDto>()
                     .ForMember(d => d.PictureUrl,

@@ -38,11 +38,17 @@ app.UseStaticFiles(new StaticFileOptions
 
 app.UseCors("CorsPolicy");
 
+
+app.UseAuthentication();
+app.UseAuthorization();
+
 app.MapControllers();
 app.MapFallbackToController("Index", "FallBack");
+// app.MapFallbackToFile("index.html");
 
 app.UseDefaultFiles();
 app.UseStaticFiles();
+
 
 // For migrate the data
 using var scope = app.Services.CreateScope();

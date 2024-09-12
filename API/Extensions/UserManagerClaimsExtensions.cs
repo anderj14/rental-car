@@ -17,11 +17,20 @@ namespace API.Extensions
                 .SingleOrDefaultAsync(x => x.Email == email);
         }
 
+        public static async Task<AppUser> FindUserByEmailWithProfileByClaimsPrincipalAsync(
+           this UserManager<AppUser> userManager, ClaimsPrincipal user)
+        {
+            var email = user.FindFirstValue(ClaimTypes.Email);
+
+            return await userManager.Users.Include(x => x.UserProfile)
+                .SingleOrDefaultAsync(x => x.Email == email);
+        }
+
         public static async Task<AppUser> FindUserByEmailFromClaimPrincipal(
             this UserManager<AppUser> userManager, ClaimsPrincipal user)
         {
             var email = user.FindFirstValue(ClaimTypes.Email);
-            
+
             return await userManager.Users.SingleOrDefaultAsync(x => x.Email == email);
         }
     }

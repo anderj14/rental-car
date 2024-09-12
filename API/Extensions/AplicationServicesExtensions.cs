@@ -27,52 +27,42 @@ namespace API.Extensions
             {
                 opt.UseSqlite(config.GetConnectionString("DefaultConnection"));
             });
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
-            // var builder = services.AddIdentityCore<AppUser>();
-            // builder = new IdentityBuilder(builder.UserType, typeof(AppRole), builder.Services);
-            // builder.AddSignInManager<SignInManager<AppUser>>();
-            // builder.AddRoleValidator<RoleValidator<AppRole>>();
-            // builder.AddRoleManager<RoleManager<AppRole>>();
             services.AddIdentity<AppUser, IdentityRole>(opt =>
-               {
-                   opt.User.RequireUniqueEmail = true;
-                   opt.Password.RequireDigit = true;
-                   opt.Password.RequireLowercase = true;
-                   opt.Password.RequireUppercase = true;
-                   opt.Password.RequireNonAlphanumeric = true;
-                   opt.Password.RequiredLength = 8;
-               })
-               .AddEntityFrameworkStores<RentalContext>();
+            {
+                opt.User.RequireUniqueEmail = true;
+                opt.Password.RequireDigit = true;
+                opt.Password.RequireLowercase = true;
+                opt.Password.RequireUppercase = true;
+                opt.Password.RequireNonAlphanumeric = true;
+                opt.Password.RequiredLength = 8;
+            })
+            .AddEntityFrameworkStores<RentalContext>();
 
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddJwtBearer(options =>
+            services.AddAuthentication(opt =>
+            {
+                opt.DefaultAuthenticateScheme =
+                opt.DefaultChallengeScheme =
+                opt.DefaultForbidScheme =
+                opt.DefaultScheme =
+                opt.DefaultSignInScheme =
+                opt.DefaultSignOutScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(opt =>
+            {
+                opt.TokenValidationParameters = new TokenValidationParameters
                 {
-                    var tokenKey = config["Token:Key"];
-                    var tokenIssuer = config["Token:Issuer"];
-                    if (string.IsNullOrEmpty(tokenKey))
-                    {
-                        throw new ArgumentNullException(nameof(tokenKey), "Token key must be provided in configuration.");
-                    }
-
-                    if (string.IsNullOrEmpty(tokenIssuer))
-                    {
-                        throw new ArgumentNullException(nameof(tokenIssuer), "Token issuer must be provided in configuration.");
-                    }
-
-
-                    options.TokenValidationParameters = new TokenValidationParameters
-                    {
-                        ValidateIssuerSigningKey = true,
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(tokenKey)),
-                        ValidIssuer = tokenIssuer,
-                        ValidateIssuer = true,
-                        ValidateAudience = false
-                    };
-                });
-
-            services.AddAuthentication();
-            services.AddAuthorization();
-
+                    ValidateIssuer = true,
+                    ValidIssuer = config["Token:Issuer"], // asegúrate de que el emisor esté correcto
+                    ValidateAudience = true,
+                    ValidAudience = config["Token:Audience"], // valida que la audiencia también esté correcta
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(
+                        Encoding.UTF8.GetBytes(config["Token:Key"]) // clave de firma correcta
+                    ),
+                    ValidateLifetime = true // asegúrate de que la fecha de expiración del token sea válida
+                };
+            });
 
             services.AddScoped<IPhotoService, PhotoService>();
 
@@ -82,7 +72,6 @@ namespace API.Extensions
 
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
-            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             // Message for validation error
             // Configure the behavior of the API by configuring 'ApiBehaviorOptions'
             services.Configure<ApiBehaviorOptions>(options =>

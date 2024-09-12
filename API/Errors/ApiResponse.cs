@@ -12,12 +12,13 @@ namespace API.Errors
         public int StatusCode { get; set; }
         public string Message { get; set; }
 
-// #pragma warning disable CS8603
+        // #pragma warning disable CS8603
 
         private string GetStatusCode(int statusCode)
         {
             return statusCode switch
             {
+                204 => "Not Content.",
                 400 => "A bad request, you have made.",
                 401 => "Authorized, are you not.",
                 403 => "Forbidden from doing this, you are.",
