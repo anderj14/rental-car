@@ -10,6 +10,7 @@ namespace Core.Entities
         public Reservation()
         {
             ReservationNumber = GenerateReservationNumber();
+            ReservationStatusId = 1;
         }
 
         public void ValidateDates()
@@ -45,6 +46,12 @@ namespace Core.Entities
                 .Select(s => s[new Random().Next(s.Length)]).ToArray());
 
             return $"{DateTime.Now:yyyyMMdd}-{randomLetters}-{_reservationCounter++}";
+        }
+
+        public void CalculateDays()
+        {
+            ValidateDates();
+            Days = (EndDate - StartDate).Days;
         }
 
         public void CalculateRentalCost()

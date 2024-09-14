@@ -23,7 +23,7 @@ namespace API.Helpers
                 return _config["ApiUrl"] + photo.PictureUrl;
             }
 
-            return _config["ApiUrl"] + "images/vehicles/vehicle.jpg";
+            return _config["ApiUrl"] + "images/vehicles/vehicle.png";
         }
     }
 }

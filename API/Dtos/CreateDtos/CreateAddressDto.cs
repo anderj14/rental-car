@@ -7,7 +7,6 @@ namespace API.Dtos.CreateDtos
     {
         [Required]
         public string FirstAddress { get; set; }
-        [Required]
         public string SecondAddress { get; set; }
         [Required]
         public string Country { get; set; }

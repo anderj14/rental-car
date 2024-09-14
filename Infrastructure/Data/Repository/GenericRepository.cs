@@ -36,6 +36,18 @@ namespace Infrastructure.Data.Repository
             return await ApplySpecification(spec).ToListAsync();
         }
 
+
+        public async Task<IReadOnlyList<T>> ListAllByUserAsync(Expression<Func<T, bool>> filter, ISpecification<T> spec, int pageIndex, int pageSize)
+        {
+            var query = ApplySpecification(spec)
+            .Where(filter)
+            .Skip((pageIndex - 1) * pageSize)
+            .Take(pageSize);
+
+            return await query.ToListAsync();
+        }
+
+
         public async Task<T> GetByConditionAsync(Expression<Func<T, bool>> predicate)
         {
             return await _context.Set<T>().FirstOrDefaultAsync(predicate);
@@ -44,6 +56,11 @@ namespace Infrastructure.Data.Repository
         public async Task<int> CountAsync(ISpecification<T> spec)
         {
             return await ApplySpecification(spec).CountAsync();
+        }
+
+        public async Task<int> CountByUserAsync(Expression<Func<T, bool>> filter, ISpecification<T> spec)
+        {
+            return await ApplySpecification(spec).Where(filter).CountAsync();
         }
 
         public void Add(T entity)
@@ -66,5 +83,7 @@ namespace Infrastructure.Data.Repository
         {
             return SpecificationEvaluator<T>.GetQuery(_context.Set<T>().AsQueryable(), spec);
         }
+
+
     }
 }

@@ -172,7 +172,7 @@ namespace API.Controllers
             return Ok();
         }
 
-        [HttpPost("{id}/photo/{photoId}")]
+        [HttpPost("{id}/mainphoto/{photoId}")]
         [Authorize(Roles = "Admin")]
         public async Task<ActionResult<VehicleDto>> SetMainPhoto(int id, int photoId)
         {
