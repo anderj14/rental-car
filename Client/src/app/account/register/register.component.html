@@ -1,21 +1,29 @@
-<div class=" content d-flex justify-content-flex-start">
-    <div class="content-cover ">
-        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="login-form">
-            <h2>Sign Up</h2>
+<div class="content d-flex justify-content-center align-items-center">
+    <mat-card>
+        <div class="image">
+            <img src="./assets/images/form.jpg" alt="">
+        </div>
+        <div class="content-form">
+            <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="register-form">
+                <div class="title">
+                    <h2>Create an account</h2>
+                    <p>Already have an account <a routerLink="/account/login">Log In</a></p>
+                </div>
 
-            <app-text-input [formControl]="registerForm.controls['displayName']" [label]="'Username'"></app-text-input>
-            <app-text-input [formControl]="registerForm.controls['email']" [label]="'Email'"></app-text-input>
-            <app-text-input [formControl]="registerForm.controls['password']" [label]="'Password'"
-                [type]="'password'"></app-text-input>
-
-            <ul class="text-danger list-unstyled" *ngIf="errors">
-                <li *ngFor="let error of errors">
-                    {{error}}
-                </li>
-            </ul>
-            <div>
-                <button [disabled]="registerForm.invalid" type="submit" class="btn btn-primary">LogIn</button>
-            </div>
-        </form>
-    </div>
+                <app-text-input [formControl]="registerForm.controls['userName']" [label]="'Username'"></app-text-input>
+                <app-text-input [formControl]="registerForm.controls['email']" [label]="'Email'"></app-text-input>
+                <app-text-input [formControl]="registerForm.controls['password']" [label]="'Password'"
+                    [type]="'password'"></app-text-input>
+    
+                <ul class="text-danger list-unstyled" *ngIf="errors">
+                    <li *ngFor="let error of errors">
+                        {{error}}
+                    </li>
+                </ul>
+                <div class="action">
+                    <button [disabled]="registerForm.invalid" type="submit">Create account</button>
+                </div>
+            </form>
+        </div>
+    </mat-card>
 </div>

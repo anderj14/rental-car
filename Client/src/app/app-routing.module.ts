@@ -31,7 +31,6 @@ const routes: Routes = [
   {
     path: 'vehicles',
     title: "Vehicles",
-    // canActivate: [AuthGuard],
     loadChildren: () => import('./vehicle/vehicle.module').then(m => m.VehicleModule)
   },
   {
@@ -66,24 +65,28 @@ const routes: Routes = [
   {
     path: 'dashboard',
     title: "Dashboard",
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuard, AdminGuard],
     component: DashboardComponent,
     data: { breadcrumb: 'Dashboard' }
   },
   {
     path: 'admin-vehicle',
-    canActivate: [AuthGuard],
+    title: "Admin Vehicle",
+    canActivate: [AuthGuard, AdminGuard],
     loadChildren: () => import('./admin-vehicle/admin-vehicle.module').then(m => m.AdminVehicleModule),
     data: { breadcrumb: 'Admin Vehicles' }
   },
   {
     path: 'admin-customer',
-    canActivate: [AuthGuard],
+    title: "Admin Customer",
+    canActivate: [AuthGuard, AdminGuard],
     loadChildren: () => import('./admin-customer/admin-customer.module').then(m => m.AdminCustomerModule),
     data: { breadcrumb: 'Admin customers' }
   },
   {
     path: 'admin-reservation',
+    title: "Admin Reservation",
+    canActivate: [AuthGuard, AdminGuard],
     loadChildren: () => import('./admin-reservation/admin-reservation.module').then(m => m.AdminReservationModule),
     data: { breadcrumb: 'Admin Reservations' }
   },

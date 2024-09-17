@@ -1,16 +1,22 @@
-<div class="content d-flex justify-content-center mt-5">
-    <div class="content-cover col-3">
-        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
-            <div class="text-center mb-4">
-                <h1 class="mb-3">Login</h1>
-            </div>
+<div class="content d-flex justify-content-center align-items-center">
+    <mat-card>
+        <div class="image">
+            <img src="./assets/images/form.jpg" alt="">
+        </div>
+        <div class="content-form">
+            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
+                <div class="title">
+                    <h2>Welcome back!</h2>
+                    <p>Don't have an account <a routerLink="/account/register">Sign Up</a></p>
+                </div>
 
-            <app-text-input [formControl]="loginForm.controls['email']" [label]="'Email'"></app-text-input>
-            <app-text-input [formControl]="loginForm.controls['password']" [label]="'Password'" [type]="'password'"></app-text-input>
+                <app-text-input [formControl]="loginForm.controls['email']" [label]="'Email'"></app-text-input>
+                <app-text-input [formControl]="loginForm.controls['password']" [label]="'Password'" [type]="'password'"></app-text-input>
 
-            <div class="d-grid">
-                <button [disabled]="loginForm.invalid" class="btn btn-lg btn-primary mt-3" type="submit">Log In</button>
-            </div>
-        </form>
-    </div>
+                <div class="action">
+                    <button [disabled]="loginForm.invalid" type="submit">Log In</button>
+                </div>
+            </form>
+        </div>
+    </mat-card>
 </div>

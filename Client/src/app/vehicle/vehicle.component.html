@@ -10,7 +10,6 @@
                     <label>Search</label>
                     <input type="text" (keyup.enter)="onSearch()" placeholder="Search" #search>
                 </div>
-
             </div>
 
             <div class="sort">
@@ -32,9 +31,7 @@
         <div class="section">
             <div class="vehicles-content">
                 @for (vehicle of vehicles; track $index) {
-
-                <app-vehicle-item [vehicle]="vehicle"></app-vehicle-item>
-
+                    <app-vehicle-item [vehicle]="vehicle"></app-vehicle-item>
                 }
             </div>
 
@@ -73,7 +70,7 @@
                 </ul>
             }
         </div>
-        
+
 
         <div class="box">
             <h5 class="">Fuels</h5>

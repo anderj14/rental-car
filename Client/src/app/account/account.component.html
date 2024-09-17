@@ -6,8 +6,8 @@
         <mat-card-content>
             <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
                 <mat-tab  label="Account"><app-update /></mat-tab>
-                <mat-tab *ngIf="isAdmin$ | async" label="Admin users"><app-users /></mat-tab>
-                <mat-tab *ngIf="isAdmin$ | async" label="Register Users"><app-register /></mat-tab>
+                <!-- <mat-tab  label="User Profile"><app-update /></mat-tab> -->
+                <!-- <mat-tab *ngIf="isAdmin$ | async" label="Admin users"><app-users /></mat-tab> -->
             </mat-tab-group>
         </mat-card-content>
     </mat-card>

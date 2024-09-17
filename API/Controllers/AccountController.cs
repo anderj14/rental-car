@@ -45,7 +45,7 @@ namespace API.Controllers
         }
 
         [Authorize]
-        [HttpGet("currentuser")]
+        // [HttpGet("currentuser")]
         public async Task<ActionResult<UserDto>> GetCurrentUser()
         {
             var user = await GetAuthenticatedUserAsync();
@@ -114,7 +114,7 @@ namespace API.Controllers
 
             if (!result.Succeeded) return BadRequest(new ApiResponse(400));
 
-            var roleAddResult = await _userManager.AddToRoleAsync(user, "Admin");
+            var roleAddResult = await _userManager.AddToRoleAsync(user, "Member");
 
             if (!roleAddResult.Succeeded) return BadRequest("Failed to add to role");
 

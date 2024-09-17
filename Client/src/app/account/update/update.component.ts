@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
             <h2>Update User</h2>
 
             <div class="mb-3">
-                <label for="displayName" class="form-label">Display Name</label>
+                <label for="displayName" class="form-label">Username</label>
                 <input type="text" class="form-control" id="displayName" formControlName="displayName">
             </div>
 

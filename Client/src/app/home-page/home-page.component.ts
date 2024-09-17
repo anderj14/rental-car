@@ -10,16 +10,9 @@ import { VehicleParams } from '../shared/models/vehicleParams';
 })
 export class HomePageComponent implements OnInit {
 
-  @ViewChild('search') searchTerm?: ElementRef;
   vehicles!: IVehicle[];
   vehicleParams = new VehicleParams();
-  sortOption = [
-    { name: 'Alphabetical', value: 'vehicleName' },
-    { name: 'Price: Low To High', value: 'priceAsc' },
-    { name: 'Price: High To Low', value: 'priceDesc' },
-  ];
-  totalCount = 0;
-
+  
   constructor(private vehicleService: VehicleService) { }
 
   ngOnInit(): void {
@@ -30,10 +23,7 @@ export class HomePageComponent implements OnInit {
   getVehicles() {
     this.vehicleService.getVehicles(this.vehicleParams).subscribe({
       next: response => {
-        this.vehicles = response.data;
-        this.vehicleParams.pageNumber = response.pageIndex;
-        this.vehicleParams.pageSize = response.pageSize;
-        this.totalCount = response.count;
+        this.vehicles = response.data.slice(0, 6);
       },
       error: error => console.log(error)
     });

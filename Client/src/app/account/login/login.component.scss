@@ -1,13 +1,76 @@
 .content {
-    background-color: #f3f3f3;
-    padding: 20px;
-    border-radius: 10px;
-
-    .content-cover {
-        background-color: #fff;
-        padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        margin-bottom: 20px;
+    height: 100%;
+    //   background-color: rgb(249, 168, 168);
+  
+    mat-card {
+      margin: 20px;
+      padding: 20px;
+      flex-direction: row;
+      gap: 0px;
+  
+      .image {
+        img {
+          width: 380px;
+          border-radius: 5px;
+        }
+      }
+      .content-form {
+        padding: 70px;
+        display: flex;
+        align-items: center;
+  
+        .login-form {
+          .title {
+            margin-bottom: 50px;
+  
+            h2 {
+              font-size: 35px;
+              margin-bottom: 20px;
+            }
+  
+            p {
+              font-weight: 300;
+              font-size: 15px;
+  
+              a {
+                color: #da5b00;
+                font-weight: 400;
+                cursor: pointer;
+              }
+            }
+          }
+          .action {
+            margin-top: 40px;
+            button {
+              width: 100%;
+              padding: 15px;
+              font-size: 18px;
+              font-weight: 400;
+              background-color: #da5b00;
+              color: #ffffff;
+              border: none;
+              border-radius: 8px;
+              cursor: pointer;
+              transition: 0.2s;
+  
+              &:hover {
+                background-color: #c95400;
+              }
+            }
+          }
+        }
+      }
+  
+      @media (max-width: 945px) {
+        flex-direction: column;
+  
+        .image {
+          img {
+            width: 470px;
+            border-radius: 5px;
+          }
+        }
+      }
     }
-}
+  }
+  
