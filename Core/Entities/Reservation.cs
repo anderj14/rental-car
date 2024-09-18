@@ -10,7 +10,6 @@ namespace Core.Entities
         public Reservation()
         {
             ReservationNumber = GenerateReservationNumber();
-            ReservationStatusId = 1;
         }
 
         public void ValidateDates()
@@ -35,9 +34,8 @@ namespace Core.Entities
 
         public int InsuranceId { get; set; }
         public Insurance Insurance { get; set; }
+        public ReservationStatus Status { get; set; } = ReservationStatus.Pending;
 
-        public int ReservationStatusId { get; set; }
-        public ReservationStatus ReservationStatus { get; set; }
 
         private string GenerateReservationNumber()
         {

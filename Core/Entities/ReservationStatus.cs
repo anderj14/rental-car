@@ -1,8 +1,20 @@
 
+using System.Runtime.Serialization;
+
 namespace Core.Entities
 {
-    public class ReservationStatus: BaseEntity
+    public enum ReservationStatus
     {
-        public string StatusName { get; set; }
+        [EnumMember(Value = "Pending")]
+        Pending,
+
+        [EnumMember(Value = "Confirmed")]
+        Confirmed,
+
+        [EnumMember(Value = "Cancelled")]
+        Cancelled,
+
+        [EnumMember(Value = "Completed")]
+        Completed
     }
 }

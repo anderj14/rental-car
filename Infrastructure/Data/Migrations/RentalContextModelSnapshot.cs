@@ -286,10 +286,11 @@ namespace Infrastructure.Data.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("ReservationStatusId")
-                        .HasColumnType("INTEGER");
-
                     b.Property<DateTime>("StartDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<int>("VehicleId")
@@ -301,42 +302,9 @@ namespace Infrastructure.Data.Migrations
 
                     b.HasIndex("InsuranceId");
 
-                    b.HasIndex("ReservationStatusId");
-
                     b.HasIndex("VehicleId");
 
                     b.ToTable("Reservations");
-                });
-
-            modelBuilder.Entity("Core.Entities.ReservationStatus", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("StatusName")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ReservationStatus");
-                });
-
-            modelBuilder.Entity("Core.Entities.Status", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("StatusName")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Statuses");
                 });
 
             modelBuilder.Entity("Core.Entities.Vehicle", b =>
@@ -370,8 +338,9 @@ namespace Infrastructure.Data.Migrations
                     b.Property<double>("RentalPrice")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("StatusId")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Transmission")
                         .IsRequired()
@@ -399,8 +368,6 @@ namespace Infrastructure.Data.Migrations
                     b.HasIndex("FuelId");
 
                     b.HasIndex("ModelId");
-
-                    b.HasIndex("StatusId");
 
                     b.HasIndex("VehicleTypeId");
 
@@ -451,19 +418,19 @@ namespace Infrastructure.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "ff33a52c-4757-44d1-a68e-dfcf42411c79",
+                            Id = "ec9ecf39-6558-4a7c-ac8e-d00e87807a48",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "14c4935e-2ffb-40ca-954f-f25f541dd2e5",
+                            Id = "2ba25d30-7bfe-457f-bb54-a9177be0f2c1",
                             Name = "Member",
                             NormalizedName = "MEMBER"
                         },
                         new
                         {
-                            Id = "e977dc94-6593-415c-a198-ee8887cdcaf1",
+                            Id = "27df1d5c-96cc-4449-a13c-3d6e192e4578",
                             Name = "Moderator",
                             NormalizedName = "MODERATOR"
                         });
@@ -629,12 +596,6 @@ namespace Infrastructure.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Core.Entities.ReservationStatus", "ReservationStatus")
-                        .WithMany()
-                        .HasForeignKey("ReservationStatusId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Core.Entities.Vehicle", "Vehicle")
                         .WithMany()
                         .HasForeignKey("VehicleId")
@@ -644,8 +605,6 @@ namespace Infrastructure.Data.Migrations
                     b.Navigation("AppUser");
 
                     b.Navigation("Insurance");
-
-                    b.Navigation("ReservationStatus");
 
                     b.Navigation("Vehicle");
                 });
@@ -670,12 +629,6 @@ namespace Infrastructure.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Core.Entities.Status", "Status")
-                        .WithMany()
-                        .HasForeignKey("StatusId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Core.Entities.VehicleType", "VehicleType")
                         .WithMany()
                         .HasForeignKey("VehicleTypeId")
@@ -687,8 +640,6 @@ namespace Infrastructure.Data.Migrations
                     b.Navigation("Fuel");
 
                     b.Navigation("Model");
-
-                    b.Navigation("Status");
 
                     b.Navigation("VehicleType");
                 });

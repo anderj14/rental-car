@@ -26,19 +26,6 @@ INSERT INTO Models (Id, ModelName, BrandId) VALUES
 (3, 'Mustang', 3),
 (4, 'X5', 4);
 
--- Insertar datos para ReservationStatus
-INSERT INTO ReservationStatus (Id, StatusName) VALUES
-(1, 'Pending'),
-(2, 'Confirmed'),
-(3, 'Cancelled'),
-(4, 'Completed');
-
--- Insertar datos para Status
-INSERT INTO Statuses (Id, StatusName) VALUES
-(1, 'Available'),
-(2, 'Unavailable'),
-(3, 'Under Maintenance'),
-(4, 'Sold');
 
 -- Insertar datos para VehicleType
 INSERT INTO VehicleTypes (Id, VehicleTypeName) VALUES

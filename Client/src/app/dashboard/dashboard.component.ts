@@ -43,7 +43,6 @@ export class DashboardComponent implements OnInit {
     this.getCustomers();
     this.getReservations();
     this.getRentedVehicles(); // Load rented vehicles initially
-
   }
 
   getRentedVehicles() {

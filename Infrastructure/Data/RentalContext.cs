@@ -17,7 +17,6 @@ namespace Infrastructure.Data
         public DbSet<Insurance> Insurances { get; set; }
         public DbSet<Model> Models { get; set; }
         public DbSet<Reservation> Reservations { get; set; }
-        public DbSet<Status> Statuses { get; set; }
         public DbSet<Vehicle> Vehicles { get; set; }
         public DbSet<VehicleType> VehicleTypes { get; set; }
         public DbSet<AppUser> AppUsers { get; set; }

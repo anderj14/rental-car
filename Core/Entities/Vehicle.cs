@@ -22,12 +22,11 @@ namespace Core.Entities
         public int ModelId { get; set; }
         public Model Model { get; set; }
 
-        public int StatusId { get; set; }
-        public Status Status { get; set; }
+        public VehicleStatus Status { get; set; } = VehicleStatus.Available;
 
         public int VehicleTypeId { get; set; }
         public VehicleType VehicleType { get; set; }
-        
+
         private readonly List<Photo> _photos = new List<Photo>();
         public IReadOnlyList<Photo> Photos => _photos.AsReadOnly();
 
@@ -43,7 +42,7 @@ namespace Core.Entities
 
             _photos.Add(photo);
         }
-        
+
         public void RemovePhoto(int id)
         {
             var photo = _photos.Find(x => x.Id == id);

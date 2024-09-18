@@ -17,19 +17,23 @@ namespace Infrastructure.Data.Config
             builder.Property(v => v.Transmission).IsRequired();
             builder.Property(v => v.Doors).IsRequired();
             builder.Property(v => v.FuelConsumption).IsRequired();
-            builder.Property(v => v.RentalPrice).IsRequired().HasColumnType("decimal(18,2)");;
-            // builder.Property(v => v.Picture).IsRequired();
+            builder.Property(v => v.RentalPrice).IsRequired().HasColumnType("decimal(18,2)");
+
+            builder.Property(s => s.Status)
+            .HasConversion(
+                o => o.ToString(),
+                o => (VehicleStatus)Enum.Parse(typeof(VehicleStatus), o)
+            );
 
             builder.HasOne(i => i.Brand).WithMany()
                 .HasForeignKey(i => i.BrandId);
             builder.HasOne(i => i.Model).WithMany()
                 .HasForeignKey(i => i.ModelId);
-            builder.HasOne(i => i.Status).WithMany()
-                .HasForeignKey(i => i.StatusId);
             builder.HasOne(i => i.VehicleType).WithMany()
                 .HasForeignKey(i => i.VehicleTypeId);
             builder.HasOne(i => i.Fuel).WithMany()
                 .HasForeignKey(i => i.FuelId);
+
         }
     }
 }

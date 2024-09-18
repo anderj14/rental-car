@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Infrastructure.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class UpdateUserProfileForVehicleRental : Migration
+    public partial class AddReservationAndVehicleStatusEnums : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -90,32 +90,6 @@ namespace Infrastructure.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Insurances", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ReservationStatus",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    StatusName = table.Column<string>(type: "TEXT", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ReservationStatus", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Statuses",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    StatusName = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Statuses", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -324,7 +298,7 @@ namespace Infrastructure.Data.Migrations
                     FuelId = table.Column<int>(type: "INTEGER", nullable: false),
                     BrandId = table.Column<int>(type: "INTEGER", nullable: false),
                     ModelId = table.Column<int>(type: "INTEGER", nullable: false),
-                    StatusId = table.Column<int>(type: "INTEGER", nullable: false),
+                    Status = table.Column<string>(type: "TEXT", nullable: false),
                     VehicleTypeId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
@@ -346,12 +320,6 @@ namespace Infrastructure.Data.Migrations
                         name: "FK_Vehicles_Models_ModelId",
                         column: x => x.ModelId,
                         principalTable: "Models",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Vehicles_Statuses_StatusId",
-                        column: x => x.StatusId,
-                        principalTable: "Statuses",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -399,7 +367,7 @@ namespace Infrastructure.Data.Migrations
                     AppUserId = table.Column<string>(type: "TEXT", nullable: false),
                     VehicleId = table.Column<int>(type: "INTEGER", nullable: false),
                     InsuranceId = table.Column<int>(type: "INTEGER", nullable: false),
-                    ReservationStatusId = table.Column<int>(type: "INTEGER", nullable: false)
+                    Status = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -417,12 +385,6 @@ namespace Infrastructure.Data.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Reservations_ReservationStatus_ReservationStatusId",
-                        column: x => x.ReservationStatusId,
-                        principalTable: "ReservationStatus",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
                         name: "FK_Reservations_Vehicles_VehicleId",
                         column: x => x.VehicleId,
                         principalTable: "Vehicles",
@@ -435,9 +397,9 @@ namespace Infrastructure.Data.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "14c4935e-2ffb-40ca-954f-f25f541dd2e5", null, "Member", "MEMBER" },
-                    { "e977dc94-6593-415c-a198-ee8887cdcaf1", null, "Moderator", "MODERATOR" },
-                    { "ff33a52c-4757-44d1-a68e-dfcf42411c79", null, "Admin", "ADMIN" }
+                    { "27df1d5c-96cc-4449-a13c-3d6e192e4578", null, "Moderator", "MODERATOR" },
+                    { "2ba25d30-7bfe-457f-bb54-a9177be0f2c1", null, "Member", "MEMBER" },
+                    { "ec9ecf39-6558-4a7c-ac8e-d00e87807a48", null, "Admin", "ADMIN" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -504,11 +466,6 @@ namespace Infrastructure.Data.Migrations
                 column: "InsuranceId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Reservations_ReservationStatusId",
-                table: "Reservations",
-                column: "ReservationStatusId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Reservations_VehicleId",
                 table: "Reservations",
                 column: "VehicleId");
@@ -533,11 +490,6 @@ namespace Infrastructure.Data.Migrations
                 name: "IX_Vehicles_ModelId",
                 table: "Vehicles",
                 column: "ModelId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Vehicles_StatusId",
-                table: "Vehicles",
-                column: "StatusId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Vehicles_VehicleTypeId",
@@ -582,9 +534,6 @@ namespace Infrastructure.Data.Migrations
                 name: "Insurances");
 
             migrationBuilder.DropTable(
-                name: "ReservationStatus");
-
-            migrationBuilder.DropTable(
                 name: "Vehicles");
 
             migrationBuilder.DropTable(
@@ -595,9 +544,6 @@ namespace Infrastructure.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "Models");
-
-            migrationBuilder.DropTable(
-                name: "Statuses");
 
             migrationBuilder.DropTable(
                 name: "VehicleTypes");

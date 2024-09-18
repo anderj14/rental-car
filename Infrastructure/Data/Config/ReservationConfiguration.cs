@@ -16,12 +16,16 @@ namespace Infrastructure.Data.Config
             builder.Property(r => r.Days).IsRequired();
             builder.Property(r => r.RentalCost).IsRequired().HasColumnType("decimal(18,2)");
 
+            builder.Property(s => s.Status)
+            .HasConversion(
+                o => o.ToString(),
+                o => (ReservationStatus)Enum.Parse(typeof(ReservationStatus), o)
+            );
+
+
             builder.HasOne(u => u.AppUser)
             .WithMany(u => u.Reservations)
             .HasForeignKey(r => r.AppUserId);
-
-            builder.HasOne(r => r.ReservationStatus).WithMany()
-                .HasForeignKey(r => r.ReservationStatusId).IsRequired();
 
             builder.HasOne(r => r.Vehicle).WithMany()
                 .HasForeignKey(r => r.VehicleId).IsRequired();
