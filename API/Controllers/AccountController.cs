@@ -39,6 +39,7 @@ namespace API.Controllers
             _unitOfWork = unitOfWork;
         }
 
+        // [HttpGet]
         protected async Task<AppUser> GetAuthenticatedUserAsync()
         {
             return await _userManager.FindUserByEmailFromClaimPrincipal(User);
@@ -46,6 +47,7 @@ namespace API.Controllers
 
         [Authorize]
         // [HttpGet("currentuser")]
+        [HttpGet]
         public async Task<ActionResult<UserDto>> GetCurrentUser()
         {
             var user = await GetAuthenticatedUserAsync();
@@ -95,35 +97,42 @@ namespace API.Controllers
         [HttpPost("register")]
         public async Task<ActionResult<UserDto>> Register(RegisterDto registerDto)
         {
-
-            if (CheckEmailExitsAsync(registerDto.Email).Result.Value)
+            if (!ModelState.IsValid)
             {
-                return new BadRequestObjectResult(new ApiValidationErrorResponse
-                {
-                    Errors = new[] { "Email address is in use" }
-                });
+                return BadRequest(new ApiResponse(400));
             }
-
-            var user = new AppUser
+            try
             {
-                UserName = registerDto.UserName,
-                Email = registerDto.Email
-            };
+                if (CheckEmailExitsAsync(registerDto.Email).Result.Value)
+                {
+                    return BadRequest(new { Errors = new[] { "Email address is in use: ", registerDto.Email } });
+                }
 
-            var result = await _userManager.CreateAsync(user, registerDto.Password);
+                var user = new AppUser
+                {
+                    UserName = registerDto.UserName,
+                    Email = registerDto.Email
+                };
 
-            if (!result.Succeeded) return BadRequest(new ApiResponse(400));
+                var result = await _userManager.CreateAsync(user, registerDto.Password);
 
-            var roleAddResult = await _userManager.AddToRoleAsync(user, "Member");
+                if (!result.Succeeded) return BadRequest(new ApiResponse(400));
 
-            if (!roleAddResult.Succeeded) return BadRequest("Failed to add to role");
+                var roleAddResult = await _userManager.AddToRoleAsync(user, "MEMBER");
 
-            return new UserDto
+                if (!roleAddResult.Succeeded) return BadRequest("Failed to add to role");
+
+                return new UserDto
+                {
+                    UserName = user.UserName,
+                    Token = await _tokenService.CreateToken(user),
+                    Email = user.Email
+                };
+            }
+            catch (Exception ex)
             {
-                UserName = user.UserName,
-                Token = await _tokenService.CreateToken(user),
-                Email = user.Email
-            };
+                return StatusCode(500, ex.Message);
+            }
         }
 
         [Authorize]

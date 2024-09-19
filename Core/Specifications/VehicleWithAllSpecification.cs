@@ -11,7 +11,7 @@ namespace Core.Specifications
             (vehicleSpecParams.Search)) &&
             (!vehicleSpecParams.BrandId.HasValue || x.BrandId == vehicleSpecParams.BrandId) &&
             (!vehicleSpecParams.ModelId.HasValue || x.ModelId == vehicleSpecParams.ModelId) &&
-            // (!vehicleSpecParams.StatusId.HasValue || x.StatusId == vehicleSpecParams.StatusId) &&
+            (!vehicleSpecParams.Status.HasValue || x.Status == vehicleSpecParams.Status) &&
             (!vehicleSpecParams.FuelId.HasValue || x.FuelId == vehicleSpecParams.FuelId) &&
             (!vehicleSpecParams.VehicleTypeId.HasValue || x.VehicleTypeId == vehicleSpecParams.VehicleTypeId)
             )
@@ -19,7 +19,6 @@ namespace Core.Specifications
             AddInclude(v => v.Brand);
             AddInclude(v => v.Model);
             AddInclude(v => v.Fuel);
-            AddInclude(v => v.Status);
             AddInclude(v => v.VehicleType);
             AddInclude(x => x.Photos);
             AddOrderBy(x => x.VehicleName);
@@ -48,7 +47,6 @@ namespace Core.Specifications
             AddInclude(v => v.Brand);
             AddInclude(v => v.Model);
             AddInclude(v => v.Fuel);
-            AddInclude(v => v.Status);
             AddInclude(v => v.VehicleType);
             AddInclude(x => x.Photos);
         }

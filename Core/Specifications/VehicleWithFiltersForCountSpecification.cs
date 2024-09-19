@@ -11,7 +11,7 @@ namespace Core.Specifications
             .Contains(vehicleSpecParams.Search)) &&
             (!vehicleSpecParams.BrandId.HasValue || x.BrandId == vehicleSpecParams.BrandId) &&
             (!vehicleSpecParams.ModelId.HasValue || x.ModelId == vehicleSpecParams.ModelId) &&
-            // (!vehicleSpecParams.StatusId.HasValue || x.StatusId == vehicleSpecParams.StatusId) &&
+            (!vehicleSpecParams.Status.HasValue || x.Status == vehicleSpecParams.Status) &&
             (!vehicleSpecParams.FuelId.HasValue || x.FuelId == vehicleSpecParams.FuelId) &&
             (!vehicleSpecParams.VehicleTypeId.HasValue || x.VehicleTypeId == vehicleSpecParams.VehicleTypeId)
             )

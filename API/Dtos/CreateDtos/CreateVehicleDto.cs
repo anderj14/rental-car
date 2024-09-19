@@ -1,5 +1,6 @@
 
 using System.ComponentModel.DataAnnotations;
+using Core.Entities;
 
 namespace Core.Dtos.VehiclesDtos
 {
@@ -32,8 +33,6 @@ namespace Core.Dtos.VehiclesDtos
 
         [Required]
         public int FuelConsumption { get; set; }
-        
-        // public string PictureUrl { get; set; }
 
         [Required]
         public int BrandId { get; set; }
@@ -45,9 +44,9 @@ namespace Core.Dtos.VehiclesDtos
         public int FuelId { get; set; }
 
         [Required]
-        public int StatusId { get; set; }
-
-        [Required]
         public int VehicleTypeId { get; set; }
+
+        public VehicleStatus Status { get; set; }
+
     }
 }

@@ -59,9 +59,11 @@ namespace API.Controllers
 
         [HttpPost]
         [Authorize(Roles = "Admin")]
-        public async Task<ActionResult<VehicleDto>> CreateVehicle(CreateVehicleDto createVehicle)
+        public async Task<ActionResult<VehicleDto>> CreateVehicle([FromBody] CreateVehicleDto createVehicle)
         {
             var vehicle = _mapper.Map<CreateVehicleDto, Vehicle>(createVehicle);
+
+            vehicle.Status = VehicleStatus.Available;
 
             _unitOfWork.Repository<Vehicle>().Add(vehicle);
 
@@ -75,11 +77,13 @@ namespace API.Controllers
 
         [HttpPut("{id}")]
         [Authorize(Roles = "Admin")]
-        public async Task<ActionResult<VehicleDto>> UpdateVehicle(int id, CreateVehicleDto updateVehicle)
+        public async Task<ActionResult<VehicleDto>> UpdateVehicle(int id, CreateVehicleDto updateVehicleDto)
         {
             var vehicle = await _unitOfWork.Repository<Vehicle>().GetByIdAsync(id);
 
-            _mapper.Map(updateVehicle, vehicle);
+            _mapper.Map(updateVehicleDto, vehicle);
+
+            vehicle.Status = updateVehicleDto.Status;
 
             _unitOfWork.Repository<Vehicle>().Update(vehicle);
 
@@ -96,9 +100,14 @@ namespace API.Controllers
         {
             var vehicle = await _unitOfWork.Repository<Vehicle>().GetByIdAsync(id);
 
+            if (vehicle.Status != VehicleStatus.Available)
+            {
+                return BadRequest(new ApiResponse(400, "Cannot delete a vehicle that is not available"));
+            }
+
             foreach (var photo in vehicle.Photos)
             {
-                if(photo.Id > 18)
+                if (photo.Id > 18)
                 {
                     _photoService.DeleteFromDisk(photo);
                 }
@@ -179,7 +188,7 @@ namespace API.Controllers
             var spec = new VehicleWithAllSpecification(id);
             var vehicle = await _unitOfWork.Repository<Vehicle>().GetEntityWithSpec(spec);
 
-            if(vehicle.Photos.All(x => x.Id != photoId)) return NotFound();
+            if (vehicle.Photos.All(x => x.Id != photoId)) return NotFound();
 
             vehicle.SetMainPhoto(photoId);
 
@@ -187,7 +196,7 @@ namespace API.Controllers
 
             var result = await _unitOfWork.Complete();
 
-            if(result <= 0) return BadRequest(new ApiResponse(400, "Problem adding photo vehicle"));
+            if (result <= 0) return BadRequest(new ApiResponse(400, "Problem adding photo vehicle"));
 
             return _mapper.Map<Vehicle, VehicleDto>(vehicle);
         }

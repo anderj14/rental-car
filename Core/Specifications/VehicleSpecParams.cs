@@ -1,4 +1,6 @@
 
+using Core.Entities;
+
 namespace Core.Specifications
 {
     public class VehicleSpecParams
@@ -16,7 +18,7 @@ namespace Core.Specifications
         
         public int? BrandId { get; set; }
         public int? ModelId { get; set; }
-        public int? StatusId { get; set; }
+        public VehicleStatus? Status { get; set; }
         public int? FuelId { get; set; }
         public int? VehicleTypeId { get; set; }
         

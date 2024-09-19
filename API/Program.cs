@@ -43,7 +43,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
-app.MapFallbackToController("Index", "FallBack");
+// app.MapFallbackToController("Index", "FallBack");
 // app.MapFallbackToFile("index.html");
 
 app.UseDefaultFiles();
@@ -66,6 +66,5 @@ catch (Exception ex)
 {
     logger.LogError(ex, "An error ocurring during migration");
 }
-
 
 app.Run();
