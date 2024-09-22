@@ -2,6 +2,7 @@
 using System.Linq.Expressions;
 using Core.Entities;
 using Core.Specifications;
+using Microsoft.EntityFrameworkCore.Query;
 
 namespace Core.Interfaces
 {
@@ -15,7 +16,12 @@ namespace Core.Interfaces
         Task<IReadOnlyList<T>> ListAllByUserAsync(Expression<Func<T, bool>> filter, ISpecification<T> spec, int pageIndex, int pageSize);
 
         Task<T> GetByConditionAsync(Expression<Func<T, bool>> predicate);
-
+        Task<IEnumerable<T>> FindAsync(
+            Expression<Func<T, bool>> predicate,
+            Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null,
+            bool disableTracking = true
+        );
+        
         Task<int> CountAsync(ISpecification<T> spec);
         Task<int> CountByUserAsync(Expression<Func<T, bool>> filter, ISpecification<T> spec);
 

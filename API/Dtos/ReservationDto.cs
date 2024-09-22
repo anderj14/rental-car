@@ -13,5 +13,8 @@ namespace Core.Dtos
         public string Customer { get; set; }
         public string Vehicle { get; set; }
         public string Insurance { get; set; }
+
+        public string Status { get; set; }
+
     }
 }

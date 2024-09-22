@@ -1,5 +1,6 @@
 using API.Extensions;
 using API.Middleware;
+using API.Services;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
@@ -13,7 +14,6 @@ builder.Services.AddControllers();
 
 // Use the extensions for cleaning the program class
 builder.Services.AddApplicationServices(builder.Configuration);
-
 
 builder.Services.AddSwaggerDocumentation(); //Swagger extensions
 

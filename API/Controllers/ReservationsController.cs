@@ -3,6 +3,7 @@ using System.Linq.Expressions;
 using API.Errors;
 using API.Extensions;
 using API.Helpers;
+using API.Services;
 using AutoMapper;
 using Core.Dtos;
 using Core.Dtos.CreateDtos;
@@ -21,12 +22,14 @@ namespace API.Controllers
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
         private readonly UserManager<AppUser> _userManager;
+        private readonly ReservationServices _reservationService;
 
-        public ReservationsController(IMapper mapper, IUnitOfWork unitOfWork, UserManager<AppUser> userManager)
+        public ReservationsController(IMapper mapper, IUnitOfWork unitOfWork, UserManager<AppUser> userManager, ReservationServices reservationService)
         {
             _mapper = mapper;
             _unitOfWork = unitOfWork;
             _userManager = userManager;
+            _reservationService = reservationService;
         }
 
         protected async Task<AppUser> GetAuthenticatedUserAsync()
@@ -99,7 +102,6 @@ namespace API.Controllers
         [HttpPost]
         public async Task<ActionResult<ReservationDto>> CreateReservation(CreateReservationDto createReservationDto)
         {
-
             if (!ModelState.IsValid) return BadRequest(new ApiResponse(400, "Invalid data"));
 
             try
@@ -107,35 +109,18 @@ namespace API.Controllers
                 var user = await GetAuthenticatedUserAsync();
                 if (user == null) return Unauthorized(new ApiResponse(401, "Authorized are you not."));
 
-                var createReservation = _mapper.Map<CreateReservationDto, Reservation>(createReservationDto);
-                createReservation.AppUserId = user.Id;
-
-                createReservation.ValidateDates();
-                createReservation.CalculateDays();
-
-                var vehicle = await _unitOfWork.Repository<Vehicle>().GetByIdAsync(createReservationDto.VehicleId);
-                var insurance = await _unitOfWork.Repository<Insurance>().GetByIdAsync(createReservationDto.InsuranceId);
-
-                if (vehicle == null) return NotFound(new ApiResponse(404, "Vehicle not found"));
-                if (insurance == null) return NotFound(new ApiResponse(404, "Insurance not found"));
-
-                createReservation.Vehicle = vehicle;
-                createReservation.Insurance = insurance;
-                createReservation.CalculateRentalCost();
-
-                _unitOfWork.Repository<Reservation>().Add(createReservation);
-
-                var result = await _unitOfWork.Complete();
-                if (result <= 0) return BadRequest(new ApiResponse(400, "Problem creating reservation"));
-
-                var reservationDto = _mapper.Map<Reservation, ReservationDto>(createReservation);
-                reservationDto.RentalCost = decimal.Round(reservationDto.RentalCost, 2);
-
-                return Ok(reservationDto);
+                var reservation = await _reservationService.CreateReservationAsync(
+                    user.Id,
+                    createReservationDto.VehicleId,
+                    createReservationDto.InsuranceId,
+                    createReservationDto.StartDate,
+                    createReservationDto.EndDate
+                );
+                return Ok(reservation);
             }
             catch (Exception ex)
             {
-                return StatusCode(500, $"Internal server error: {ex.Message}, Inner exception: {ex.InnerException?.Message}");
+                return StatusCode(500, $"Internal server error: {ex.Message}, Inner exception: {ex.InnerException.Message}");
             }
         }
 
@@ -177,16 +162,7 @@ namespace API.Controllers
                 var user = await GetAuthenticatedUserAsync();
                 if (user == null) return Unauthorized(new ApiResponse(401, "Authorized are you not."));
 
-                var reservation = await _unitOfWork.Repository<Reservation>().GetByIdAsync(id);
-                
-                if (reservation == null || reservation.AppUserId != user.Id) return NotFound(new ApiResponse(404, " Reservation not found ot not Authorize"));
-
-                _unitOfWork.Repository<Reservation>().Delete(reservation);
-
-                var result = await _unitOfWork.Complete();
-
-                if (result <= 0) return BadRequest(new ApiResponse(400, "Problem deleting reservation"));
-
+                await _reservationService.DeleteReservationAsync(id);
                 return NoContent();
             }
             catch (Exception ex)

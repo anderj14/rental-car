@@ -4,6 +4,7 @@ using Core.Entities;
 using Core.Interfaces;
 using Core.Specifications;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query;
 
 namespace Infrastructure.Data.Repository
 {
@@ -53,6 +54,33 @@ namespace Infrastructure.Data.Repository
             return await _context.Set<T>().FirstOrDefaultAsync(predicate);
         }
 
+        public async Task<IEnumerable<T>> FindAsync(
+            Expression<Func<T, bool>> predicate,
+            Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null,
+            bool disableTracking = true)
+        {
+            IQueryable<T> query = _context.Set<T>();
+
+            // Opcionalmente deshabilita el seguimiento de cambios (tracking) si es necesario
+            if (disableTracking)
+            {
+                query = query.AsNoTracking();
+            }
+
+            // Aplica la condición de búsqueda
+            query = query.Where(predicate);
+
+            // Aplica las inclusiones de relaciones si se proporcionan
+            if (include != null)
+            {
+                query = include(query);
+            }
+
+            // Retorna los resultados de la consulta
+            return await query.ToListAsync();
+        }
+
+
         public async Task<int> CountAsync(ISpecification<T> spec)
         {
             return await ApplySpecification(spec).CountAsync();
@@ -83,7 +111,5 @@ namespace Infrastructure.Data.Repository
         {
             return SpecificationEvaluator<T>.GetQuery(_context.Set<T>().AsQueryable(), spec);
         }
-
-
     }
 }

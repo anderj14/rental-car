@@ -1,6 +1,7 @@
 
 using System.Text;
 using API.Errors;
+using API.Services;
 using Core.Entities.Identity;
 using Core.Interfaces;
 using Infraestructure.Data;
@@ -71,6 +72,9 @@ namespace API.Extensions
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+            services.AddScoped<ReservationServices>();
+            services.AddHostedService<ReservationBackgroundService>();
+
 
             // Message for validation error
             // Configure the behavior of the API by configuring 'ApiBehaviorOptions'
