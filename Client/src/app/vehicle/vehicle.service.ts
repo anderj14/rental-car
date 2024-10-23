@@ -25,7 +25,7 @@ export class VehicleService {
     if (vehicleParams.brandId > 0) params = params.append('brandId', vehicleParams.brandId);
     if (vehicleParams.modelId) params = params.append('modelId', vehicleParams.modelId);
     if (vehicleParams.fuelId) params = params.append('fuelId', vehicleParams.fuelId);
-    if (vehicleParams.statusId) params = params.append('statusId', vehicleParams.statusId);
+    if (vehicleParams.status) params = params.append('status', vehicleParams.status);
     if (vehicleParams.vehicleTypeId) params = params.append('vehicleTypeId', vehicleParams.vehicleTypeId);
     params = params.append('sort', vehicleParams.sort);
     params = params.append('pageIndex', vehicleParams.pageNumber);
@@ -64,7 +64,7 @@ export class VehicleService {
   }
 
   getStatutes() {
-    return this.http.get<Status[]>(this.baseUrl + 'statuses');
+    return this.http.get<Status[]>(this.baseUrl + 'vehicles/statuses');
   }
 
   getVehiclesType() {

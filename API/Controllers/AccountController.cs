@@ -2,10 +2,12 @@ using API.Dtos;
 using API.Dtos.CreateDtos;
 using API.Errors;
 using API.Extensions;
+using API.Helpers;
 using AutoMapper;
 using Core.Dtos;
 using Core.Entities.Identity;
 using Core.Interfaces;
+using Core.Specifications;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -39,14 +41,12 @@ namespace API.Controllers
             _unitOfWork = unitOfWork;
         }
 
-        // [HttpGet]
         protected async Task<AppUser> GetAuthenticatedUserAsync()
         {
             return await _userManager.FindUserByEmailFromClaimPrincipal(User);
         }
 
         [Authorize]
-        // [HttpGet("currentuser")]
         [HttpGet]
         public async Task<ActionResult<UserDto>> GetCurrentUser()
         {
@@ -307,15 +307,33 @@ namespace API.Controllers
             };
         }
 
+        
         [HttpGet("users")]
         [Authorize(Roles = "Admin")]
-        public async Task<ActionResult<ICollection<UserDto>>> GetUsers()
+        public async Task<ActionResult<Pagination<UserDto>>> GetUsers(
+            [FromQuery] UserSpecParams userSpecParams
+        )
         {
-            var users = await _userManager.Users.ToListAsync();
+            var query = _userManager.Users.AsQueryable();
+
+            if (!string.IsNullOrEmpty(userSpecParams.Search))
+            {
+                query = query.Where(u => u.Email.ToLower().Contains(userSpecParams.Search.ToLower()));
+            }
+
+            var totalItems = await query.CountAsync();
+
+            var users = await query
+                .Include(x => x.UserProfile)
+                .Include(x => x.Address)
+                .OrderBy(u => u.UserName)
+                .Skip((userSpecParams.PageIndex - 1) * userSpecParams.PageSize)
+                .Take(userSpecParams.PageSize)
+                .ToListAsync();
 
             var userDtos = _mapper.Map<IEnumerable<AppUser>, IEnumerable<UserDto>>(users);
 
-            return Ok(userDtos);
+            return Ok(new Pagination<UserDto>(userSpecParams.PageIndex, userSpecParams.PageSize, totalItems, userDtos.ToList()));
         }
 
         [HttpDelete("delete/{id}")]

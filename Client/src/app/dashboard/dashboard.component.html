@@ -12,13 +12,13 @@
                         <span>{{ totalCountVehicle }}</span>
                     </div>
                 </div>
-                <div class="summary-item" [routerLink]="'/admin-customer'">
+                <div class="summary-item" [routerLink]="'/admin-users'">
                     <div class="icon">
                         <i class="bi bi-person"></i>
                     </div>
                     <div class="details">
-                        <p>Customers</p>
-                        <span>{{ totalCountCustomer }}</span>
+                        <p>Users</p>
+                        <span>{{ totalCountUser }}</span>
                     </div>
                 </div>
                 <div class="summary-item" [routerLink]="'/admin-reservation'">
@@ -32,7 +32,7 @@
                 </div>
             </div>
             <div class="data-section">
-                <div class="data-table-customer">
+                <!-- <div class="data-table-customer">
                     <h2>Customers</h2>
                     <div class="table-wrapper">
                         <table>
@@ -52,7 +52,7 @@
                             </tbody>
                         </table>
                     </div>
-                </div>
+                </div> -->
                 <div class="data-table">
                     <h2>Rented Vehicles</h2>
                     <div class="table-wrapper">
@@ -91,7 +91,7 @@
 
         <div class="data-section">
             <div class="data-table">
-                <h2>Recent Reservations</h2>
+                <h2>Pending Reservations</h2>
                 <div class="table-wrapper">
                     <table>
                         <thead>

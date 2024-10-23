@@ -29,10 +29,10 @@ export class AdminCustomerComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.currentUser$ = this.accountService.currentUser$;
-    this.isAdmin$ = this.accountService.isAdmin$;
+    // this.currentUser$ = this.accountService.currentUser$;
+    // this.isAdmin$ = this.accountService.isAdmin$;
 
-    this.getCustomers();
+    // this.getCustomers();
   }
 
   getCustomers() {

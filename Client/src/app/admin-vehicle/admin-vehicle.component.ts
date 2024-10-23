@@ -174,12 +174,12 @@ export class AdminVehicleComponent implements OnInit {
     this.getVehicles();
   }
 
-  onStatusSelected(statusId: number) {
-    this.selectedStatusId = statusId === this.selectedStatusId ? null : statusId;
-    this.vehicleParams.statusId = this.selectedStatusId || 0;
-    this.vehicleParams.pageNumber = 1;
-    this.getVehicles();
-  }
+  // onStatusSelected(statusId: number) {
+  //   this.selectedStatusId = statusId === this.selectedStatusId ? null : statusId;
+  //   this.vehicleParams.statusId = this.selectedStatusId || 0;
+  //   this.vehicleParams.pageNumber = 1;
+  //   this.getVehicles();
+  // }
 
   onVehicleTypeSelected(vehicleTypeId: number) {
     this.selectedVehicleTypeId = vehicleTypeId === this.selectedVehicleTypeId ? null : vehicleTypeId;
@@ -196,12 +196,6 @@ export class AdminVehicleComponent implements OnInit {
   onSearch() {
     this.vehicleParams.search = this.searchTerm?.nativeElement.value;
     this.vehicleParams.pageNumber = 1;
-    this.getVehicles();
-  }
-
-  onReset() {
-    if (this.searchTerm) this.searchTerm.nativeElement.value = '';
-    this.vehicleParams = new VehicleParams();
     this.getVehicles();
   }
 

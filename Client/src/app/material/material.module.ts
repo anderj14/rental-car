@@ -29,6 +29,7 @@ import { MatSelectModule } from '@angular/material/select';
     MatInputModule,
     FormsModule,
     MatSelectModule,
+    // MatDialog
   ], exports: [
     MatTableModule,
     MatIconModule,
@@ -41,7 +42,7 @@ import { MatSelectModule } from '@angular/material/select';
     MatAutocompleteModule,
     MatInputModule,
     FormsModule,
-    MatSelectModule
+    MatSelectModule,
   ]
 })
 export class MaterialModule { }

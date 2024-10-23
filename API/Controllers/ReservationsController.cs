@@ -54,6 +54,7 @@ namespace API.Controllers
             return Ok(new Pagination<ReservationDto>(reservationSpecParams.PageIndex,
                 reservationSpecParams.PageSize, totalItems, data));
         }
+        
         [HttpGet("byuser")]
         public async Task<ActionResult<Pagination<ReservationDto>>> GetReservationsByUser(
            [FromQuery] ReservationSpecParams reservationSpecParams

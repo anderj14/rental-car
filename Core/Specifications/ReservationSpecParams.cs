@@ -1,4 +1,6 @@
 
+using Core.Entities;
+
 namespace Core.Specifications
 {
     public class ReservationSpecParams
@@ -17,6 +19,7 @@ namespace Core.Specifications
 
         public int? VehicleId { get; set; }
         public int? InsuranceId { get; set; }
+        public ReservationStatus? Status { get; set; }
 
         public string? Sort { get; set; }
 

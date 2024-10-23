@@ -1,0 +1,47 @@
+<div class="section">
+  <h2 mat-dialog-title class="mb-3">
+    {{ data.userProfile ? "Edit Profile" : "Create Profile" }}
+  </h2>
+  <div mat-dialog-content class="form">
+    <div class="mb-3">
+      <mat-label class="form-label">First Name</mat-label>
+      <input class="form-control" [(ngModel)]="formValues.firstName" />
+    </div>
+
+    <div class="mb-3">
+      <mat-label class="form-label">Last Name</mat-label>
+      <input class="form-control" [(ngModel)]="formValues.lastName" />
+    </div>
+
+    <div class="mb-3">
+      <mat-label class="form-label">Phone</mat-label>
+      <input class="form-control" [(ngModel)]="formValues.phone" />
+    </div>
+
+    <div class="mb-3">
+      <mat-label class="form-label">Driver License</mat-label>
+      <input class="form-control" [(ngModel)]="formValues.driverLicense" />
+    </div>
+
+    <div class="mb-3">
+      <mat-label class="form-label">Identification Number</mat-label>
+      <input
+        class="form-control"
+        [(ngModel)]="formValues.identificationNumber"
+      />
+    </div>
+
+    <div class="mb-3">
+      <mat-label class="form-label">Date of Birth</mat-label>
+      <input
+        class="form-control"
+        [(ngModel)]="formValues.dateOfBirth"
+        type="date"
+      />
+    </div>
+  </div>
+  <div class="actions" mat-dialog-actions>
+    <button class="cancel"  mat-button (click)="onCancel()">Cancel</button>
+    <button class="edit" mat-button (click)="onSave()">Save</button>
+  </div>
+</div>

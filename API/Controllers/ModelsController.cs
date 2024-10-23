@@ -23,7 +23,6 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        [Authorize]
         public async Task<ActionResult<IReadOnlyList<ModelDto>>> GetModels()
         {
             var spec = new ModelWithBrandSpecification();
@@ -34,7 +33,6 @@ namespace API.Controllers
         }
 
         [HttpGet("{id}")]
-        [Authorize]
         public async Task<ActionResult<ModelDto>> GetModel(int id)
         {
             var spec = new ModelWithBrandSpecification(id);

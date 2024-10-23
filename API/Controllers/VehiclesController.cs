@@ -1,4 +1,5 @@
 
+using API.Dtos;
 using API.Errors;
 using API.Helpers;
 using AutoMapper;
@@ -199,6 +200,20 @@ namespace API.Controllers
             if (result <= 0) return BadRequest(new ApiResponse(400, "Problem adding photo vehicle"));
 
             return _mapper.Map<Vehicle, VehicleDto>(vehicle);
+        }
+
+        [HttpGet("statuses")]
+        public IActionResult GetVehicleStatuses()
+        {
+            var statuses = Enum.GetValues(typeof(VehicleStatus))
+                .Cast<VehicleStatus>()
+                .Select(e => new VehicleStatusDto
+                {
+                    Value = (int)e + 1,
+                    StatusName = e.ToString()
+                }).ToList();
+
+            return Ok(statuses);
         }
     }
 }

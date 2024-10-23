@@ -12,6 +12,7 @@ import { ContactComponent } from './components/contact/contact.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AboutUsComponent } from './components/about-us/about-us.component';
 import { VehicleManagementComponent } from './vehicle-management/vehicle-management.component';
+import { AdminUsersComponent } from './admin-users/admin-users.component';
 
 const routes: Routes = [
   {
@@ -54,7 +55,7 @@ const routes: Routes = [
   },
   {
     path: 'vehicle-management',
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuard, AdminGuard],
     component: VehicleManagementComponent
   },
   {
@@ -77,11 +78,11 @@ const routes: Routes = [
     data: { breadcrumb: 'Admin Vehicles' }
   },
   {
-    path: 'admin-customer',
-    title: "Admin Customer",
+    path: 'admin-users',
+    title: "Admin User",
     canActivate: [AuthGuard, AdminGuard],
-    loadChildren: () => import('./admin-customer/admin-customer.module').then(m => m.AdminCustomerModule),
-    data: { breadcrumb: 'Admin customers' }
+    loadChildren: () => import('./admin-users/admin-users.module').then(m => m.AdminUsersModule),
+    data: { breadcrumb: 'Admin users' }
   },
   {
     path: 'admin-reservation',

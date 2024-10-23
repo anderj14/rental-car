@@ -1,0 +1,28 @@
+
+<div class="content">
+    <div class="box mb-3">
+        <label class="form-label">First Address</label>
+        <input class="form-control" type="text" [(ngModel)]="editAddressFormValues.firstAddress" placeholder="First Address">
+    </div>
+    <div class="box mb-3">
+        <label class="form-label">Second Address</label>
+        <input class="form-control" type="text" [(ngModel)]="editAddressFormValues.secondAddress" placeholder="Second Address">
+    </div>
+    <div class="box-city d-flex  gap-3">
+        <div class="box mb-3">
+            <label class="form-label">Zip Code</label>
+            <input class="form-control" type="text" [(ngModel)]="editAddressFormValues.zipCode" placeholder="Zip Code">
+        </div>
+        <div class="box mb-3">
+            <label class="form-label">City</label>
+            <input class="form-control" type="text" [(ngModel)]="editAddressFormValues.city" placeholder="City">
+        </div>
+        <div class="box mb-3">
+            <label class="form-label">Country</label>
+            <input class="form-control" type="text" [(ngModel)]="editAddressFormValues.country" placeholder="Country">
+        </div>
+    </div>
+    <div class="box mt-3" style="display: flex; gap: 5px;">
+        <button class="save" (click)="saveAddress(editAddressFormValues)">Save Address</button>
+    </div>
+</div>

@@ -7,7 +7,9 @@ import { SharedModule } from '../shared/shared.module';
 import { UpdateComponent } from './update/update.component';
 import { MaterialModule } from '../material/material.module';
 import { AccountComponent } from './account.component';
-import { UsersComponent } from './users/users.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
+import { UserAddressComponent } from './user-address/user-address.component';
+import { UserProfileFormComponent } from './user-profile/user-profile-form/user-profile-form.component';
 
 
 @NgModule({
@@ -16,7 +18,9 @@ import { UsersComponent } from './users/users.component';
     RegisterComponent,
     UpdateComponent,
     AccountComponent,
-    UsersComponent
+    UserProfileComponent,
+    UserProfileFormComponent,
+    UserAddressComponent,
   ],
   imports: [
     CommonModule,

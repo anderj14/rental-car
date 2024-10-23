@@ -21,6 +21,7 @@ import { ReservationInfoFormComponent } from './reservation-info/reservation-inf
 import { FooterComponent } from './core/footer/footer.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { AdminUsersComponent } from './admin-users/admin-users.component';
 
 @NgModule({
   declarations: [

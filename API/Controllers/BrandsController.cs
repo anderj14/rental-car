@@ -24,7 +24,6 @@ namespace API.Controllers
 
 
         [HttpGet]
-        [Authorize]
         public async Task<ActionResult<IReadOnlyList<BrandDto>>> GetBrands()
         {
             var brands = await _unitOfWork.Repository<Brand>().ListAllAsync();
@@ -34,7 +33,6 @@ namespace API.Controllers
         }
 
         [HttpGet("{id}")]
-        [Authorize]
         public async Task<ActionResult<BrandDto>> GetBrand(int id)
         {
             var brand = await _unitOfWork.Repository<Brand>().GetByIdAsync(id);
@@ -45,7 +43,6 @@ namespace API.Controllers
         }
 
         [HttpGet("{brandId}/models")]
-        [Authorize]
         public async Task<ActionResult<IReadOnlyList<ModelDto>>> GetModelsByBrand(int brandId)
         {
             var spec = new ModelsByBrandSpecificacion(brandId, getByBrandId: true);

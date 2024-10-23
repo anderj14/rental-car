@@ -38,7 +38,6 @@ import { MaterialModule } from '../material/material.module';
     NgxDropzoneModule,
     ImageCropperModule,
     MaterialModule
-
   ],
   exports: [
     PagerComponent,

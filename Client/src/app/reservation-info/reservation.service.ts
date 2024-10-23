@@ -25,6 +25,7 @@ export class ReservationService {
     if (reservationParams.customerId > 0) params = params.append('customerId', reservationParams.customerId);
     if (reservationParams.vehicleId) params = params.append('vehicleId', reservationParams.vehicleId);
     if (reservationParams.insuranceId) params = params.append('insuranceId', reservationParams.insuranceId);
+    if (reservationParams.status) params = params.append('status', reservationParams.status);
     params = params.append('sort', reservationParams.sort);
     params = params.append('pageIndex', reservationParams.pageNumber);
     params = params.append('pageSize', reservationParams.pageSize);

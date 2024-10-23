@@ -18,7 +18,7 @@ const routes: Routes = [
     path: 'register',
     title: 'Register',
     component: RegisterComponent
-  },
+  }
 ]
 
 @NgModule({

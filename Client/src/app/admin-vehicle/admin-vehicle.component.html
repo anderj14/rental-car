@@ -116,16 +116,6 @@
                 </li>
             </ul>
         </div>
-
-        <div class="box">
-            <h5 class="">Statuses</h5>
-            <ul class="">
-                <li class="" *ngFor="let status of statuses" (click)="onStatusSelected(status.id)" [class.active]="status.id === selectedStatusId">
-                    {{ status.statusName }}
-                </li>
-            </ul>
-        </div>
-
         <div class="box">
             <h5 class="">Vehicles Type</h5>
             <ul class="">
