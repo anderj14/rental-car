@@ -129,29 +129,14 @@
     </div>
     <!--  -->
     <div class="box section-3">
-      <!-- <div class="form-group">
+      <div class="form-group">
         <label for="brand">Brand</label>
         <select name="brandId" id="brand" class="form-control" [(ngModel)]="vehicle.brandId" required>
           <option *ngFor="let brand of brands" [selected]="vehicle.brandId === brand.id" [ngValue]="brand.id">
             {{brand.brandName}}</option>
         </select>
-      </div> -->
-      <div class="form-group">
-        <label for="brand">Brand</label>
-        <select name="brandId" id="brand" class="form-control" [(ngModel)]="vehicle.brandId" required (change)="loadModelsByBrand(vehicle.brandId)">
-          <option *ngFor="let brand of brands" [selected]="vehicle.brandId === brand.id" [ngValue]="brand.id">
-            {{brand.brandName}}
-          </option>
-        </select>
       </div>
       <!--  -->
-      <!-- <div class="form-group">
-        <label for="model">Model</label>
-        <select name="modelId" id="model" class="form-control" [(ngModel)]="vehicle.modelId" required>
-          <option *ngFor="let model of models" [selected]="vehicle.modelId === model.id" [ngValue]="model.id">
-            {{model.modelName}}</option>
-        </select>
-      </div> -->
       <div class="form-group">
         <label for="model">Model</label>
         <select name="modelId" id="model" class="form-control" [(ngModel)]="vehicle.modelId" [disabled]="!vehicle.brandId" required>
@@ -164,8 +149,8 @@
       <!--  -->
       <div class="form-group ">
         <label for="status">Status</label>
-        <select name="statusId" id="status" class="form-control" [(ngModel)]="vehicle.statusId" required>
-          <option *ngFor="let status of statuses" [selected]="vehicle.statusId === status.id" [ngValue]="status.id">
+        <select name="statusId" id="status" class="form-control" [(ngModel)]="vehicle.statusId" required [disabled]="!isEditMode">
+          <option *ngFor="let status of statuses" [selected]="vehicle.statusId === status.value" [ngValue]="status.value">
             {{status.statusName}}</option>
         </select>
       </div>
@@ -189,5 +174,5 @@
   </div>
 
   <!--  -->
-  <button [disabled]="!vehicleForm.valid" type="submit" class="button">Submit</button>
+  <button type="submit" class="button">Submit</button>
 </form>

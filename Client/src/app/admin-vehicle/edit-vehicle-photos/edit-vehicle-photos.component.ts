@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { IVehicle } from 'src/app/shared/models/vehicles';
 import { EditVehicleService } from '../edit-vehicle.service';
 import { ToastrService } from 'ngx-toastr';
@@ -9,7 +9,7 @@ import { HttpEvent, HttpEventType } from '@angular/common/http';
   templateUrl: './edit-vehicle-photos.component.html',
   styleUrl: './edit-vehicle-photos.component.scss'
 })
-export class EditVehiclePhotosComponent implements OnInit {
+export class EditVehiclePhotosComponent {
 
   @Input() vehicle!: IVehicle;
   progress = 0;
@@ -19,10 +19,6 @@ export class EditVehiclePhotosComponent implements OnInit {
 
   addPhotoModeToggle() {
     this.addPhotoMode = !this.addPhotoMode;
-  }
-
-  ngOnInit(): void {
-
   }
 
   uploadFile(file: File) {
@@ -63,5 +59,4 @@ export class EditVehiclePhotosComponent implements OnInit {
       this.vehicle = vehicle;
     });
   }
-
 }

@@ -122,7 +122,7 @@ export class AdminVehicleComponent implements OnInit {
 
   getStatuses() {
     this.vehicleService.getStatutes().subscribe({
-      next: response => this.statuses = [{ id: 0, statusName: 'All' }, ...response],
+      next: response => this.statuses = [{ value: 0, statusName: 'All' }, ...response],
       error: error => console.log(error)
     });
   }

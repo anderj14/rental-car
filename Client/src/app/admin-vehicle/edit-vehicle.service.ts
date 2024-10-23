@@ -5,12 +5,12 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class EditVehicleService {
   baseUrl = environment.apiUrl;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   createVehicle(vehicle: VehicleFormValues) {
     return this.http.post(this.baseUrl + 'vehicles', vehicle);
@@ -29,15 +29,20 @@ export class EditVehicleService {
     formData.append('photo', file, 'image.png');
     return this.http.put(this.baseUrl + 'vehicles/' + id + '/photo', formData, {
       reportProgress: true,
-      observe: 'events'
+      observe: 'events',
     });
   }
 
   deleteVehiclePhoto(photoId: number, vehicleId: number) {
-    return this.http.delete(this.baseUrl + 'vehicles/' + vehicleId + '/photo/' + photoId);
+    return this.http.delete(
+      this.baseUrl + 'vehicles/' + vehicleId + '/photo/' + photoId
+    );
   }
 
   setMainPhoto(photoId: number, vehicleId: number): Observable<IVehicle> {
-    return this.http.post<IVehicle>(this.baseUrl + 'vehicles/' + vehicleId + '/photo/' + photoId, {});
+    return this.http.post<IVehicle>(
+      this.baseUrl + 'vehicles/' + vehicleId + '/photo/' + photoId,
+      {}
+    );
   }
 }
