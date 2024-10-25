@@ -12,6 +12,8 @@ namespace Core.Interfaces
         Task<IReadOnlyList<T>> ListAllAsync();
 
         Task<T> GetEntityWithSpec(ISpecification<T> spec);
+        Task<T> GetEntityWithUserSpec(Expression<Func<T, bool>> filter, ISpecification<T> spec);
+
         Task<IReadOnlyList<T>> ListAsync(ISpecification<T> spec);
         Task<IReadOnlyList<T>> ListAllByUserAsync(Expression<Func<T, bool>> filter, ISpecification<T> spec, int pageIndex, int pageSize);
 
@@ -21,7 +23,7 @@ namespace Core.Interfaces
             Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null,
             bool disableTracking = true
         );
-        
+
         Task<int> CountAsync(ISpecification<T> spec);
         Task<int> CountByUserAsync(Expression<Func<T, bool>> filter, ISpecification<T> spec);
 

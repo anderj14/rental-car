@@ -11,6 +11,12 @@
         gap: 30px;
         grid-template-columns: 1fr 1fr 1fr;
 
+        section {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
         .data-table-customer {
             margin-top: 35px;
         }

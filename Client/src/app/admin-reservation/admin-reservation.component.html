@@ -1,12 +1,6 @@
 <section class="content">
   <app-breadcrumb></app-breadcrumb>
     <div class="content-cover">
-        <div class="title">
-            <h1>Reservation List</h1>
-            <div class="actions">
-                <button [routerLink]="['/admin-reservation/create']" class="new-reservation">New Reservation</button>
-            </div>
-        </div>
         <div class="box-filter">
             <div class="search">
                 <label>Search</label>
@@ -34,15 +28,13 @@
                 <thead>
                     <tr>
                         <th>Res. Number</th>
-                        <th>Customer Name</th>
                         <th>Vehicle</th>
                         <th>Start Date</th>
                         <th>End Date</th>
                         <th>Days</th>
                         <th>RentalCost</th>
                         <th>Insurance</th>
-                        <th>Edit</th>
-                        <th *ngIf="(isAdmin$ | async)">Delete</th>
+                        <th *ngIf="(isAdmin$ | async)">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -52,9 +44,8 @@
                         <td>{{ reservation.startDate | date}}</td>
                         <td>{{ reservation.endDate | date}}</td>
                         <td>{{ reservation.days }}</td>
-                        <td>{{ reservation.rentalCost }}</td>
+                        <td>{{ reservation.rentalCost | currency}}</td>
                         <td>{{ reservation.insurance }}</td>
-                        <td><button class="edit" [routerLink]="['edit', reservation.id]">Edit</button></td>
                         <td><button class="delete" *ngIf="(isAdmin$ | async)" (click)="deleteReservation(reservation.id)">Delete</button></td>
                     </tr>
                 </tbody>

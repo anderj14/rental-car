@@ -23,7 +23,6 @@ namespace API.Helpers
             .ForMember(d => d.Fuel, o => o.MapFrom(s => s.Fuel.FuelName))
             .ForMember(d => d.Brand, o => o.MapFrom(s => s.Brand.BrandName))
             .ForMember(d => d.Model, o => o.MapFrom(s => s.Model.ModelName))
-            // .ForMember(d => d.Status, o => o.MapFrom(s => s.Status.StatusName))
             .ForMember(d => d.VehicleType, o => o.MapFrom(s => s.VehicleType.VehicleTypeName))
             .ForMember(d => d.PictureUrl, o => o.MapFrom<VehicleUrlResolver>());
 
@@ -41,9 +40,19 @@ namespace API.Helpers
             CreateMap<Insurance, InsuranceDto>();
 
             CreateMap<Reservation, ReservationDto>()
-            .ForMember(d => d.Customer, o => o.MapFrom(s => s.AppUser.UserName))
             .ForMember(d => d.Vehicle, o => o.MapFrom(s => s.Vehicle.VehicleName))
-            .ForMember(d => d.Insurance, o => o.MapFrom(s => s.Insurance.InsuranceName));
+            .ForMember(d => d.Insurance, o => o.MapFrom(s => s.Insurance.InsuranceName))
+            .ForMember(dest => dest.VehicleYear, opt => opt.MapFrom(src => src.Vehicle.Year))
+            .ForMember(dest => dest.UserFirstName, opt => opt.MapFrom(src => src.AppUser.UserProfile.FirstName))
+            .ForMember(dest => dest.UserLastName, opt => opt.MapFrom(src => src.AppUser.UserProfile.LastName))
+            .ForMember(dest => dest.Phone, opt => opt.MapFrom(src => src.AppUser.UserProfile.Phone))
+            .ForMember(dest => dest.IdentificationNumber, opt => opt.MapFrom(src => src.AppUser.UserProfile.IdentificationNumber))
+            .ForMember(dest => dest.DriverLicense, opt => opt.MapFrom(src => src.AppUser.UserProfile.DriverLicense))
+            .ForMember(dest => dest.FirstAddress, opt => opt.MapFrom(src => src.AppUser.Address.FirstAddress))
+            .ForMember(dest => dest.FirstAddress, opt => opt.MapFrom(src => src.AppUser.Address.FirstAddress))
+            .ForMember(dest => dest.City, opt => opt.MapFrom(src => src.AppUser.Address.City))
+            .ForMember(dest => dest.Country, opt => opt.MapFrom(src => src.AppUser.Address.Country))
+            .ForMember(dest => dest.ZipCode, opt => opt.MapFrom(src => src.AppUser.Address.ZipCode));
 
             CreateMap<Address, AddressDto>();
             CreateMap<UserProfile, UserProfileDto>();

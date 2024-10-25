@@ -1,55 +1,66 @@
 <div class="content">
+  <div *ngIf="reservation">
+    <mat-card class="card">
+      <mat-card-header>
+        <mat-card-title>Reservation</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <h2>Reservation Information</h2>
+        <div class="info">
+          <mat-card>
+            <div class="date-info">
+              <strong>Reservation Number</strong>
+              <p>{{ reservation.reservationNumber }}</p>
+              <strong>Pickup Date</strong>
+              <p>{{ reservation.startDate | date }}</p>
+              <strong>Return Date</strong>
+              <p>{{ reservation.endDate | date }}</p>
+              <strong>Days</strong>
+              <p>{{ reservation.days }} days</p>
+              <strong>Location</strong>
+              <p>111th Corona, Queens, New York</p>
+              <strong>Insurance</strong>
+              <p>{{ reservation.insurance }}</p>
+            </div>
+          </mat-card>
 
-    <div *ngIf="reservation">
-
-        <mat-card class="card">
-            <mat-card-header>
-                <mat-card-title>Reservation</mat-card-title>
-            </mat-card-header>
-            <mat-card-content>
-
-                <h2>Reservation Information</h2>
-                <div class="info">
-                    <mat-card>
-                        <div class="date-info">
-                            <strong>Pickup Date</strong>
-                            <p>{{reservation.startDate | date}}</p>
-                            <strong>Return Date</strong>
-                            <p>{{reservation.endDate | date}}</p>
-                            <strong>Days</strong>
-                            <p>{{reservation.days}} days</p>
-                            <strong>Location</strong>
-                            <p>111th Corona, Queens, New York</p>
-                            <strong>Insurance</strong>
-                            <p>{{reservation.insurance}}</p>
-                        </div>
-                    </mat-card>
-
-                    <mat-card>
-                        <div class="body">
-                            <div class="info-vehicle">
-                                <p>Reservation Number</p>
-                                <p>Vehicle Rental Price</p>
-                                <p>Customer Name</p>
-                                <p>Vehicle</p>
-                            </div>
-                            <div class="data">
-                                <p>{{reservation.reservationNumber}}</p>
-                                <p>{{reservation.rentalCost | currency}}</p>
-                                <p>{{reservation.vehicle}}</p>
-                            </div>
-                        </div>
-                    </mat-card>
-                </div>
-                <hr>
-                <div class="total">
-                    <strong>Total Rental Cost</strong>
-                    <strong>{{ reservation.rentalCost | currency}}</strong>
-                </div>
-                <div class="add">
-                    <strong>Remember to take a screenshot of your reservation!</strong>
-                </div>
-            </mat-card-content>
-        </mat-card>
-    </div>
+          <mat-card>
+            <div class="body">
+              <div class="info-vehicle-user">
+                <p>Vehicle</p>
+                <p>Vehicle Year</p>
+                <p>Full Name</p>
+                <p>Phone</p>
+                <p>Identification Number</p>
+                <p>Driver License</p>
+                <p>First Address</p>
+                <p>City</p>
+                <p>Country</p>
+                <p>ZipCode</p>
+              </div>
+              <div class="data">
+                <p>{{ reservation.vehicle }}</p>
+                <p>{{ reservation.vehicleYear }}</p>
+                <p>
+                  {{ reservation.userFirstName }} {{ reservation.userLastName }}
+                </p>
+                <p>{{ reservation.phone }}</p>
+                <p>{{ reservation.identificationNumber }}</p>
+                <p>{{ reservation.driverLicense }}</p>
+                <p>{{ reservation.firstAddress }}</p>
+                <p>{{ reservation.city }}</p>
+                <p>{{ reservation.country }}</p>
+                <p>{{ reservation.zipCode }}</p>
+              </div>
+            </div>
+          </mat-card>
+        </div>
+        <hr />
+        <div class="total">
+          <strong>Total Rental Cost</strong>
+          <strong>{{ reservation.rentalCost | currency }}</strong>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
 </div>

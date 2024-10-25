@@ -7,8 +7,18 @@ export interface Reservation {
   rentalCost: number;
   vehicle: string;
   insurance: string;
-  status: string
+  status: string;
   appUserId: string;
+  vehicleYear: number;
+  userFirstName: string;
+  userLastName: string;
+  phone: string;
+  identificationNumber: string;
+  driverLicense: string;
+  firstAddress: string;
+  city: string;
+  country: string;
+  zipCode: string;
 }
 
 export interface IReservationToCreate {

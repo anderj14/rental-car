@@ -37,6 +37,8 @@ namespace API.Controllers
             return await _userManager.FindUserByEmailFromClaimPrincipal(User);
         }
 
+        [Authorize(Roles = "Admin")]
+        [Authorize]
         [HttpGet]
         public async Task<ActionResult<Pagination<ReservationDto>>> GetReservations(
             [FromQuery] ReservationSpecParams reservationSpecParams
@@ -54,7 +56,8 @@ namespace API.Controllers
             return Ok(new Pagination<ReservationDto>(reservationSpecParams.PageIndex,
                 reservationSpecParams.PageSize, totalItems, data));
         }
-        
+
+        [Authorize]
         [HttpGet("byuser")]
         public async Task<ActionResult<Pagination<ReservationDto>>> GetReservationsByUser(
            [FromQuery] ReservationSpecParams reservationSpecParams
@@ -87,6 +90,7 @@ namespace API.Controllers
                 reservationSpecParams.PageSize, totalItems, data));
         }
 
+        [Authorize]
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
@@ -100,6 +104,27 @@ namespace API.Controllers
             return _mapper.Map<Reservation, ReservationDto>(reservation);
         }
 
+        [Authorize]
+        [HttpGet("{id}/user")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<ReservationDto>> GetReservationByUser(int id)
+        {
+            var user = await GetAuthenticatedUserAsync();
+            if (user == null) return Unauthorized(new ApiResponse(401, "Unauthorized are you not."));
+
+            Expression<Func<Reservation, bool>> filter = (reservation) => reservation.AppUserId == user.Id;
+
+            var spec = new ReservationWithDetailsSpecification(id);
+
+            var reservation = await _unitOfWork.Repository<Reservation>().GetEntityWithUserSpec(filter, spec);
+
+            if (reservation == null) return NotFound(new ApiResponse(404));
+
+            return _mapper.Map<Reservation, ReservationDto>(reservation);
+        }
+
+        [Authorize]
         [HttpGet("vehicle/{vehicleId}/reservations")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
@@ -112,6 +137,7 @@ namespace API.Controllers
             return Ok(reservationsDtos);
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<ActionResult<ReservationDto>> CreateReservation(CreateReservationDto createReservationDto)
         {
@@ -137,8 +163,8 @@ namespace API.Controllers
             }
         }
 
-        [HttpPut("{id}")]
         [Authorize]
+        [HttpPut("{id}")]
         public async Task<ActionResult<ReservationDto>> UpdateReservation(int id, CreateReservationDto updateReservationDto)
         {
             if (!ModelState.IsValid) return BadRequest(new ApiResponse(400, "Invalid data"));
@@ -166,8 +192,8 @@ namespace API.Controllers
             }
         }
 
-        [HttpDelete("{id}")]
         [Authorize]
+        [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteReservation(int id)
         {
             try

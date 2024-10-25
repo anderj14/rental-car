@@ -18,6 +18,8 @@ namespace Core.Specifications
             AddInclude(r => r.Vehicle);
             AddInclude(r => r.Insurance);
             AddOrderBy(x => x.ReservationNumber);
+            AddInclude(x => x.AppUser.UserProfile);
+            AddInclude(x => x.AppUser.Address);
 
             ApplyPaging(reservationSpecParams.PageSize * (reservationSpecParams.PageIndex - 1), reservationSpecParams.PageSize);
 
@@ -42,15 +44,19 @@ namespace Core.Specifications
             AddInclude(r => r.AppUser);
             AddInclude(r => r.Vehicle);
             AddInclude(r => r.Insurance);
+            AddInclude(x => x.AppUser.UserProfile);
+            AddInclude(x => x.AppUser.Address);
         }
 
-         public ReservationWithDetailsSpecification(int id, bool getByVehicleId = false)
-        : base(a => getByVehicleId ? a.VehicleId == id : a.Id == id)
+        public ReservationWithDetailsSpecification(int id, bool getByVehicleId = false)
+       : base(a => getByVehicleId ? a.VehicleId == id : a.Id == id)
         {
             AddInclude(r => r.AppUser);
             AddInclude(r => r.Vehicle);
             AddInclude(r => r.Insurance);
             AddOrderBy(x => x.ReservationNumber);
+            AddInclude(x => x.AppUser.UserProfile);
+            AddInclude(x => x.AppUser.Address);
         }
     }
 }

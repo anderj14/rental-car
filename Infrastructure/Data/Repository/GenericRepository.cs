@@ -32,6 +32,13 @@ namespace Infrastructure.Data.Repository
             return await ApplySpecification(spec).FirstOrDefaultAsync();
         }
 
+        public async Task<T> GetEntityWithUserSpec(Expression<Func<T, bool>> filter, ISpecification<T> spec)
+        {
+            var query = ApplySpecification(spec).Where(filter);
+
+            return await query.FirstOrDefaultAsync();
+        }
+
         public async Task<IReadOnlyList<T>> ListAsync(ISpecification<T> spec)
         {
             return await ApplySpecification(spec).ToListAsync();

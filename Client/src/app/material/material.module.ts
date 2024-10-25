@@ -33,7 +33,6 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatSelectModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    // MatDialog
   ], exports: [
     MatTableModule,
     MatIconModule,

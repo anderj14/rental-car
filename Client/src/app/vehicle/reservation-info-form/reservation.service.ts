@@ -1,4 +1,4 @@
-import { HttpClient, HttpParams } from "@angular/common/http";
+import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, map } from "rxjs";
 import { Customer } from "src/app/shared/models/customers";
@@ -43,7 +43,9 @@ export class ReservationService {
   }
 
   getReservation(id: number): Observable<Reservation> {
-    return this.http.get<Reservation>(this.baseUrl + 'reservations/' + id);
+    const token = localStorage.getItem('token'); 
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get<Reservation>(this.baseUrl + 'reservations/' + id + '/user', {headers});
   }
 
   getCustomers() {
