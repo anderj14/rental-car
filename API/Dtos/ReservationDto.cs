@@ -15,6 +15,7 @@ namespace Core.Dtos
         public string Insurance { get; set; }
 
         public string Status { get; set; }
-
+        
+        public string AppUserId { get; set; }
     }
 }

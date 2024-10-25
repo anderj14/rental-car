@@ -6,13 +6,11 @@ import { ServerErrorComponent } from './core/server-error/server-error.component
 import { AuthGuard } from './core/guards/auth.guard';
 import { AdminGuard } from './core/guards/admin.guard';
 import { HomePageComponent } from './home-page/home-page.component';
-import { CustomerInfoComponent } from './customer-info/customer-info.component';
-import { ReservationInfoComponent } from './reservation-info/reservation-info.component';
 import { ContactComponent } from './components/contact/contact.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AboutUsComponent } from './components/about-us/about-us.component';
 import { VehicleManagementComponent } from './vehicle-management/vehicle-management.component';
-import { AdminUsersComponent } from './admin-users/admin-users.component';
+import { ReservationInfoComponent } from './core/reservation-info/reservation-info.component';
 
 const routes: Routes = [
   {
@@ -35,16 +33,6 @@ const routes: Routes = [
     loadChildren: () => import('./vehicle/vehicle.module').then(m => m.VehicleModule)
   },
   {
-    path: 'customer-info',
-    title: "Customer Info",
-    component: CustomerInfoComponent
-  },
-  {
-    path: 'reservation-info',
-    title: "Reservation Info",
-    component: ReservationInfoComponent
-  },
-  {
     path: 'about-us',
     title: "About Us",
     component: AboutUsComponent
@@ -57,6 +45,11 @@ const routes: Routes = [
     path: 'vehicle-management',
     canActivate: [AuthGuard, AdminGuard],
     component: VehicleManagementComponent
+  },
+  {
+    path: 'reservation-info/:id',
+    canActivate: [AuthGuard],
+    component: ReservationInfoComponent
   },
   {
     path: 'account',

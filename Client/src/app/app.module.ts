@@ -14,23 +14,14 @@ import { MaterialModule } from './material/material.module';
 import { VehicleModule } from './vehicle/vehicle.module';
 import { NgxWebstorageModule, SessionStorage } from 'ngx-webstorage';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { CustomerInfoComponent } from './customer-info/customer-info.component';
-import { CustomerInfoFormComponent } from './customer-info/customer-info-form/customer-info-form.component';
-import { ReservationInfoComponent } from './reservation-info/reservation-info.component';
-import { ReservationInfoFormComponent } from './reservation-info/reservation-info-form/reservation-info-form.component';
 import { FooterComponent } from './core/footer/footer.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { AdminUsersComponent } from './admin-users/admin-users.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomePageComponent,
-    CustomerInfoComponent,
-    CustomerInfoFormComponent,
-    ReservationInfoComponent,
-    ReservationInfoFormComponent,
   ],
   imports: [
     BrowserModule,

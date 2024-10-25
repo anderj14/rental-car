@@ -6,7 +6,7 @@ import { IVehicle } from 'src/app/shared/models/vehicles';
 import { AdminReservationService } from '../admin-reservation.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
-import { Observable, catchError, map, startWith, take } from 'rxjs';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-edit-reservation-form',
@@ -16,7 +16,6 @@ import { Observable, catchError, map, startWith, take } from 'rxjs';
 export class EditReservationFormComponent implements OnInit {
 
   @Input() reservation!: ReservationFormValues;
-  @Input() customers!: Customer[];
   @Input() vehicles!: IVehicle[];
   @Input() insurances!: Insurance[];
 
@@ -31,87 +30,18 @@ export class EditReservationFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.filteredCustomers = this.customerControl.valueChanges.pipe(
-      startWith(''),
-      map((value) => this._filterCustomers(value))
-    );
-
-    // upload available vehicles
-    this.adminReservationService.getVehicles(10000, 3).pipe(
-      take(1),
-      catchError((error: any) => {
-        console.error('Error fetching vehicles: ', error);
-        return [];
-      })
-    ).subscribe((response: any) => {
-      if (Array.isArray(response)) {
-
-        this.vehicles = response;
-      } else if ('data' in response) {
-
-        this.vehicles = response.data;
-      } else {
-        console.error('Invalid response format:', response);
-      }
-    });
-  }
-
-  private _filterCustomers(value: string): Customer[] {
-    const filterValue = value.toLowerCase();
-    return this.customers.filter(
-      (customer) => customer.customerName.toLowerCase().includes(filterValue)
-    );
-  }
-
-  updatePrice(event: any) {
-    this.reservation.rentalCost = event;
-  }
-
-  calculateRentalCost(): void {
-    if (this.reservation.vehicleId && this.reservation.insuranceId && this.reservation.days) {
-      const selectedVehicle = this.vehicles.find(v => v.id === this.reservation.vehicleId);
-      const selectedInsurance = this.insurances.find(i => i.id === this.reservation.insuranceId);
-
-      if (selectedVehicle && selectedInsurance) {
-        const vehicleRentalPrice = selectedVehicle.rentalPrice;
-        const insurancePrice = selectedInsurance.insurancePrice;
-        const totalDays = this.reservation.days;
-
-        const rentalCost = (vehicleRentalPrice + insurancePrice) * totalDays;
-
-        console.log('Rental Cost:', rentalCost);
-
-        this.reservation.rentalCost = rentalCost;
-        console.log('Reservation:', this.reservation);
-      }
-    }
-  }
-  calculateDays(): void {
-    if (this.reservation.startDate && this.reservation.endDate) {
-      const startDate = new Date(this.reservation.startDate);
-      const endDate = new Date(this.reservation.endDate);
-      const differenceInTime = endDate.getTime() - startDate.getTime();
-      const differenceInDays = differenceInTime / (1000 * 3600 * 24);
-      this.reservation.days = differenceInDays;
-
-      this.calculateRentalCost();
-    }
-  }
-
-  getVehicleDisplay(vehicle: IVehicle): string {
-    return `${vehicle.vehicleName} (${vehicle.year} - ${vehicle.color})`;
   }
 
   onSubmit(reservation: ReservationFormValues) {
     const id = this.route.snapshot.paramMap.get('id');
 
     if (this.route.snapshot.url[0].path === 'edit') {
-      const updatedVehicle = { ...this.reservation, ...reservation, rentalCost: +reservation.rentalCost };
+      const updatedVehicle = { ...this.reservation, ...reservation };
       this.adminReservationService.updateReservation(updatedVehicle, +id!).subscribe((response: any) => {
         this.router.navigate(['/admin-reservation']);
       });
     } else {
-      const newVehicle = { ...reservation, rentalCost: +reservation.rentalCost };
+      const newVehicle = { ...reservation };
       this.adminReservationService.createReservation(newVehicle).subscribe((response: any) => {
         console.log(newVehicle);
         this.router.navigate(['/admin-reservation']);

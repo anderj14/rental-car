@@ -10,7 +10,6 @@
         [ngClass]="{'is-invalid': startDate.invalid && (startDate.dirty || startDate.touched)}"
         #startDate="ngModel"
         [(ngModel)]="reservation.startDate"        
-        (ngModelChange)="calculateDays()"
         >
         <div *ngIf="startDate.invalid && (startDate.dirty || startDate.touched)" class="invalid-feedback">
           <div *ngIf="startDate.errors?.['required']">
@@ -28,7 +27,6 @@
         [ngClass]="{'is-invalid': endDate.invalid && (endDate.dirty || endDate.touched)}"
         #endDate="ngModel"
         [(ngModel)]="reservation.endDate"
-        (ngModelChange)="calculateDays()"
         >
         <div *ngIf="endDate.invalid && (endDate.dirty || endDate.touched)" class="invalid-feedback">
           <div *ngIf="endDate.errors?.['required']">
@@ -36,66 +34,7 @@
           </div>
         </div>
     </div>
-    <div class="form-group col-md-6">
-      <label for="days">Days</label>
-      <input type="number"
-        name="days"
-        id="days"
-        class="form-control"
-        #days="ngModel"
-        [(ngModel)]="reservation.days"
-        disabled    
-        >
-    </div>
-    <div class="form-group col-md-6">
-      <label for="rentalCost">Rental Cost</label>
-      <input type="text"
-        name="rentalCost"
-        id="rentalCost"
-        required
-        class="form-control"
-        [(ngModel)]="reservation.rentalCost"
-        #rentalCost="ngModel"
-        pattern="^\d+(\.\d{1,2})?$"
-        min="0"
-        >
-      <div *ngIf="rentalCost.invalid && (rentalCost.dirty || rentalCost.touched)" class="invalid-feedback">
-        <div *ngIf="rentalCost.errors?.['required']">Reservation rental cost is required</div>
-        <div *ngIf="rentalCost.errors?.['pattern']">Reservation rental cost needs to be decimal value</div>
-        <div *ngIf="rentalCost.errors?.['min']">Reservation rental cost must be greater than zero</div>
-      </div>
-    </div>
     <div class="section-select">
-      <div class="form-group">
-        <label for="customer">Customer</label>
-        <select 
-            name="customerId" 
-            id="customer" 
-            class="form-control"
-            [(ngModel)]="reservation.customerId"
-            required
-            >
-            <option
-            *ngFor="let customer of customers"
-            [ngValue]="customer.id" 
-            >{{customer.customerName}}</option>
-          </select>
-      </div>
-      <div class="form-group">
-        <label for="vehicle">Vehicle</label>
-        <select 
-          name="vehicleId" 
-          id="vehicle" 
-          class="form-control"
-          [(ngModel)]="reservation.vehicleId"
-          required
-        >
-        <option
-          *ngFor="let vehicle of vehicles"
-          [ngValue]="vehicle.id" 
-        >{{getVehicleDisplay(vehicle)}}</option>
-        </select>
-      </div>
       <div class="form-group">
         <label for="insurance">Insurance</label>
         <select 

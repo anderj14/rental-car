@@ -1,0 +1,71 @@
+/* my-component.component.scss */
+:host {
+  display: block;
+  background-color: #da5b00;
+  height: 100%;
+  width: 100%;
+}
+
+.section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+mat-card {
+    margin-top: 50px;
+    margin-bottom: 50px;
+    max-width: 850px;
+    padding: 50px;
+
+    p {
+        font-weight: 500;
+        font-size: 20px;
+    }
+
+    mat-card-header {
+        display: flex;
+        flex-direction: column;
+
+        p {
+            a {
+                color: #da5b00;
+            }
+        }
+    }
+
+    mat-card-content {
+        .code {
+            margin-top: 30px;
+            display: flex;
+            flex-direction: column;
+            p {
+                font-weight: 600;
+                font-size: 25px;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+            span {
+                margin-top: -15px;
+                font-size: 50px;
+                font-weight: 500;
+            }
+        }
+
+        .date {
+            margin-top: 50px;
+        }
+
+        .adv {
+            margin-top: 30px;
+            strong {
+                color: #da0000;
+            }
+        }
+    }
+}
+
+mat-icon {
+    color: #02e73b;
+}

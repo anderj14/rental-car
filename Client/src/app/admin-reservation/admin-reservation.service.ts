@@ -1,6 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ReservationFormValues } from '../shared/models/reservation';
+import { Reservation, ReservationFormValues } from '../shared/models/reservation';
 import { IVehicle } from '../shared/models/vehicles';
 import { map, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -13,8 +13,14 @@ export class AdminReservationService {
 
   constructor(private http: HttpClient) { }
 
-  createReservation(reservation: ReservationFormValues) {
-    return this.http.post(this.baseUrl + 'reservations', reservation);
+  getReservationsByVehicleId(vehicleId: number): Observable<Reservation[]> {
+    return this.http.get<Reservation[]>(`/api/reservations?vehicleId=${vehicleId}`);
+  }
+  
+  createReservation(reservation: ReservationFormValues): Observable<Reservation> {
+    const token = localStorage.getItem('token'); 
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.post<Reservation>(this.baseUrl + 'reservations', reservation, {headers});
   }
 
   updateReservation(reservation: ReservationFormValues, id: number) {

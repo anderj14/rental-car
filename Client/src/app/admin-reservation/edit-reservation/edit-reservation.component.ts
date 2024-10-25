@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { forkJoin } from 'rxjs';
-import { ReservationService } from 'src/app/reservation-info/reservation.service';
 import { Pagination } from 'src/app/shared/models/Pagination';
-import { Customer } from 'src/app/shared/models/customers';
 import { Insurance } from 'src/app/shared/models/insurance';
 import { Reservation, ReservationFormValues } from 'src/app/shared/models/reservation';
 import { IVehicle } from 'src/app/shared/models/vehicles';
+import { ReservationService } from 'src/app/vehicle/reservation-info-form/reservation.service';
 
 @Component({
   selector: 'app-edit-reservation',
@@ -18,7 +17,6 @@ export class EditReservationComponent implements OnInit {
   reservation!: Reservation;
   reservationFormValues!: ReservationFormValues;
 
-  customers: Customer[] = [];
   vehicles: IVehicle[] = [];
   insurances: Insurance[] = [];
 
@@ -29,18 +27,15 @@ export class EditReservationComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const customers = this.getCustomers();
     const vehicles = this.getVehicles(800, 3); // Llama al servicio con el statusId 3 para vehículos disponibles
     const insurance = this.getInsurance();
 
-    forkJoin([customers, vehicles, insurance]).subscribe(results => {
-      this.customers = this.extractData(results[0]);
-      this.vehicles = this.extractData(results[1]);
-      this.insurances = Array.isArray(results[2]) ? results[2] : [];
+    forkJoin([vehicles, insurance]).subscribe(results => {
+      this.vehicles = this.extractData(results[0]);
+      this.insurances = Array.isArray(results[1]) ? results[1] : [];
 
-      console.log('Customers:', results[0]);
-      console.log('Vehicles:', results[1]);
-      console.log('Insurances:', results[2]);
+      console.log('Vehicles:', results[0]);
+      console.log('Insurances:', results[1]);
 
     }, error => {
       console.log(error);
@@ -67,11 +62,10 @@ export class EditReservationComponent implements OnInit {
     const id = this.route.snapshot.paramMap.get('id');
     this.reservationService.getReservation(+id!).subscribe((response: any) => {
 
-      const customerId = this.customers && this.customers.find(x => x.customerName === response.customer)?.id;
       const vehicleId = this.vehicles && this.vehicles.find(x => x.vehicleName === response.vehicle)?.id;
       const insuranceId = this.insurances && this.insurances.find(x => x.insuranceName === response.insurance)?.id;
       this.reservation = response;
-      this.reservationFormValues = { ...response, customerId, vehicleId, insuranceId };
+      this.reservationFormValues = { ...response, vehicleId, insuranceId };
     });
   }
 

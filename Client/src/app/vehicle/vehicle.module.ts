@@ -9,12 +9,14 @@ import { MaterialModule } from '../material/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CoreModule } from '../core/core.module';
 import { BreadcrumbComponent } from '../shared/components/breadcrumb/breadcrumb.component';
+import { ReservationInfoFormComponent } from './reservation-info-form/reservation-info-form.component';
 
 @NgModule({
     declarations: [
         VehicleComponent,
         VehicleDetailsComponent,
         VehicleItemComponent,
+        ReservationInfoFormComponent
     ],
     exports: [
         VehicleItemComponent

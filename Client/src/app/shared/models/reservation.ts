@@ -5,17 +5,15 @@ export interface Reservation {
   endDate: string;
   days: number;
   rentalCost: number;
-  customer: string;
   vehicle: string;
   insurance: string;
+  status: string
+  appUserId: string;
 }
 
 export interface IReservationToCreate {
   startDate: string;
   endDate: string;
-  days: number;
-  rentalCost: number;
-  customerId: number;
   vehicleId: number;
   insuranceId: number;
 }
@@ -23,9 +21,6 @@ export interface IReservationToCreate {
 export class ReservationFormValues implements IReservationToCreate {
   startDate = '';
   endDate = '';
-  days = 0;
-  rentalCost = 0;
-  customerId!: number;
   vehicleId!: number;
   insuranceId!: number;
 

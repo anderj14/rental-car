@@ -100,6 +100,18 @@ namespace API.Controllers
             return _mapper.Map<Reservation, ReservationDto>(reservation);
         }
 
+        [HttpGet("vehicle/{vehicleId}/reservations")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<IReadOnlyList<ReservationDto>>> GetReservationsByVehicleId(int vehicleId)
+        {
+            var spec = new ReservationWithDetailsSpecification(vehicleId, getByVehicleId: true);
+            var reservations = await _unitOfWork.Repository<Reservation>().ListAsync(spec);
+            var reservationsDtos = _mapper.Map<IReadOnlyList<ReservationDto>>(reservations);
+
+            return Ok(reservationsDtos);
+        }
+
         [HttpPost]
         public async Task<ActionResult<ReservationDto>> CreateReservation(CreateReservationDto createReservationDto)
         {

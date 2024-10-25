@@ -3,7 +3,7 @@ import { Reservation } from 'src/app/shared/models/reservation';
 import { ActivatedRoute } from '@angular/router';
 import { AccountService } from 'src/app/account/account.service';
 import { BreadcrumbService } from 'xng-breadcrumb';
-import { ReservationService } from 'src/app/reservation-info/reservation.service';
+import { ReservationService } from 'src/app/vehicle/reservation-info-form/reservation.service';
 
 @Component({
   selector: 'app-reservation-details',
@@ -29,7 +29,7 @@ export default class ReservationDetailsComponent implements OnInit {
     if (id) this.reservationService.getReservation(+id).subscribe({
       next: reservation => {
         this.reservation = reservation;
-        this.bcService.set('@reservationDetails', reservation.reservationNumber + " | " + reservation.customer);
+        this.bcService.set('@reservationDetails', reservation.reservationNumber + " | " + reservation.appUserId);
       },
       error: error => console.log(error)
     });

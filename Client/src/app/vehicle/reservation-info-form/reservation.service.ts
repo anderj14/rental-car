@@ -1,13 +1,13 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { ReservationParams } from '../shared/models/reservationParams';
-import { Reservation } from '../shared/models/reservation';
-import { Pagination } from '../shared/models/Pagination';
-import { map, Observable } from 'rxjs';
-import { Customer } from '../shared/models/customers';
-import { Insurance } from '../shared/models/insurance';
-import { IVehicle } from '../shared/models/vehicles';
-import { environment } from 'src/environments/environment';
+import { HttpClient, HttpParams } from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import { Observable, map } from "rxjs";
+import { Customer } from "src/app/shared/models/customers";
+import { Insurance } from "src/app/shared/models/insurance";
+import { Pagination } from "src/app/shared/models/Pagination";
+import { Reservation } from "src/app/shared/models/reservation";
+import { ReservationParams } from "src/app/shared/models/reservationParams";
+import { IVehicle } from "src/app/shared/models/vehicles";
+import { environment } from "src/environments/environment";
 
 @Injectable({
   providedIn: 'root'

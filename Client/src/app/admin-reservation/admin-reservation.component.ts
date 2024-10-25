@@ -5,7 +5,7 @@ import { AdminReservationService } from './admin-reservation.service';
 import { Observable } from 'rxjs';
 import { User } from '../shared/models/user';
 import { AccountService } from '../account/account.service';
-import { ReservationService } from '../reservation-info/reservation.service';
+import { ReservationService } from '../vehicle/reservation-info-form/reservation.service';
 
 @Component({
   selector: 'app-admin-reservation',

@@ -43,5 +43,14 @@ namespace Core.Specifications
             AddInclude(r => r.Vehicle);
             AddInclude(r => r.Insurance);
         }
+
+         public ReservationWithDetailsSpecification(int id, bool getByVehicleId = false)
+        : base(a => getByVehicleId ? a.VehicleId == id : a.Id == id)
+        {
+            AddInclude(r => r.AppUser);
+            AddInclude(r => r.Vehicle);
+            AddInclude(r => r.Insurance);
+            AddOrderBy(x => x.ReservationNumber);
+        }
     }
 }

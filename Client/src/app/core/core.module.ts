@@ -7,6 +7,8 @@ import { TestErrorComponent } from './test-error/test-error.component';
 import { ServerErrorComponent } from './server-error/server-error.component';
 import { ToastrModule } from 'ngx-toastr';
 import { BreadcrumbModule } from 'xng-breadcrumb';
+import { ReservationInfoComponent } from './reservation-info/reservation-info.component';
+import { MaterialModule } from '../material/material.module';
 
 
 
@@ -14,7 +16,8 @@ import { BreadcrumbModule } from 'xng-breadcrumb';
   declarations: [
     NavBarComponent,
     TestErrorComponent,
-    ServerErrorComponent
+    ServerErrorComponent,
+    ReservationInfoComponent
   ],
   imports: [
     CommonModule,
@@ -24,7 +27,8 @@ import { BreadcrumbModule } from 'xng-breadcrumb';
       positionClass: 'toast-bottom-right',
       preventDuplicates: true
     }),
-    BreadcrumbModule
+    BreadcrumbModule,
+    MaterialModule
   ],
   exports: [
     NavBarComponent,
