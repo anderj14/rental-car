@@ -1,63 +1,113 @@
-# rental-car
-https://github.com/anderj14/rental-car
+# 🚗 Rental Car Platform
 
-## Getting Started
+A complete car rental platform with user management, reservation scheduling, and integration-ready APIs, developed using the latest technologies. The app provides a seamless experience for both customers and administrators to handle reservations, view available cars, and manage rentals.
 
-These instructions will help you set up and run the project on your local machine for development and testing purposes.
+## 📋 Table of Contents
+
+- [Getting Started](#-getting-started)
+- [Prerequisites](#prerequisites)
+- [Installing & Running the App](#-installing--running-the-app)
+- [Database Management](#💾-database-management)
+- [Login Credentials](#🔐-login-credentials)
+- [Troubleshooting](#🛠-troubleshooting)
+- [Future Improvements](#🔮-future-improvements)
+- [Contact](#📞-contact)
+
+## 🚀 Getting Started
+
+Follow these steps to set up the project on your local machine for development and testing purposes.
 
 ### Prerequisites
 
-Make sure you have the following installed on your machine:
+Ensure the following software is installed:
 
-- Node.js and npm - Node 20
-- .NET Core SDK - .NET 7
-- Angular CLI - Angular 17
+- **Node.js** (v22.9) & **npm**
+- **.NET Core SDK** (.NET 8)
+- **Angular CLI** (v17)
 
-### Installing
+## 🔧 Installing & Running the App
 
-Run the following commands to install dependencies and set up the project:
+1. **Clone the repository:**
+    ```bash
+    git clone https://github.com/anderj14/rental-car.git
+    cd rental-car
+    ```
 
-```bash
-# Install npm packages
-npm install
+2. **Install npm packages:**
+    ```bash
+    npm install
+    ```
 
-# Install SQLite Extension in VS Code (to see the database press CTRL + p add > and then sqlite: Opendatabase, then the sqlite tab will appear in the explorer with the database it opens) 
-# Instalar la extension de SQLite en VS Code (para ver la base de datos preciona CTRL + p agrega > y luego sqlite: Opendatabase, luego en el explorador aparecera la pestaña de sqlite con la base de datos que abrio)
+3. **Run the API (from the API folder):**
+    ```bash
+    dotnet watch --no-hot-reload
+    ```
 
-# Run the API (in the API folder) - Correr la API, para esto tiene que estar en la carpeta API del proyecto
-dotnet watch --no-hot-reload
+4. **Run the client (from the Client folder):**
+    ```bash
+    ng serve
+    ```
 
-# Run the client (in the Client folder) - Correr el cliente de la applicacion, para esto tiene que estar dentro de la carpeta Client
-ng serve
+### Database Setup (SQLite)
 
-# Login as Admin (Iniciar sesion como administrador) - email: admin@test.com password: Pa$$w0rd
-# Login as Member User (Iniciar sesion como usuario miembro) - email: andder@test.com password: Pa$$w0rd
+To view the database, use the SQLite extension in Visual Studio Code:
 
-### In case you have problems with the application you can do the following
-### En caso de que tenga problemas con la aplicacion puede hacer lo siguiente
+1. Install the extension.
+2. Open it via `CTRL + P`, then type `> sqlite: Open Database`.
+3. Once opened, you’ll find the SQLite tab in the explorer.
 
-# Delete Database - Eliminar las base de datos
-dotnet ef database drop -p Infrastructure -s API -c StoreContext 
-dotnet ef database drop -p Infrastructure -s API -c AppIdentityDbContex 
+## 💾 Database Management
 
-# Delete Migrations - Eliminar Migracion (Tambien puede eliminar directamente la carpeta migration del proyecto, las cuales se encuentra en el folder Infrastructure)
-dotnet ef migrations remove -p Infrastructure -s API -c RentalContext
-dotnet ef migrations remove -p Infrastructure -s API -c AppIdentityDbContex
+For testing purposes, the project uses SQLite, which will be replaced by PostgreSQL in production.
 
-# Create Migrations - Crear Migracion 
-dotnet ef migrations add InitialEntity -p Infrastructure -s API -c RentalContext -o Data/Migrations
+### Database Commands
 
-# Create Migrations for Identity - Crear Migracion para usuarios
-dotnet ef migrations add IdentityInitial -p Infrastructure -s API -c AppIdentityDbContex
+1. **Delete Database:**
+    ```bash
+    dotnet ef database drop -p Infrastructure -s API -c RentalContext
+    ```
 
-# Run the API (in the API folder) - Correr la API, para esto tiene que estar en la carpeta API del proyecto
-dotnet watch --no-hot-reload
+2. **Delete Migrations:**
+    - You can remove migrations directly by deleting the migrations folder in the Infrastructure project, or run the following commands:
+    ```bash
+    dotnet ef migrations remove -p Infrastructure -s API -c RentalContext
+    ```
 
-# When you run the API, test data will be passed to the SQLite database
+3. **Create Migrations:**
+    ```bash
+    dotnet ef migrations add InitialEntity -p Infrastructure -s API -c RentalContext -o Data/Migrations
+    ```
 
-# Run the client (in the Client folder) - Correr el cliente de la applicacion, para esto tiene que estar dentro de la carpeta Client
-ng serve
+### Database Seeding
 
-# When the project is finished, the SQLite will be transferred to PostgreSQL, for the production pass and the deployment of the app on the web.
+Test data will be automatically populated into the SQLite database each time the API is run.
 
-# Si tiene algun error o algun problema, puede escribirme al correo andersonfrias001@gmail.com
+## 🔐 Login Credentials
+
+To explore the application, you can use the following credentials:
+
+- **Admin Login:**
+    - Email: `admin@test.com`
+    - Password: `Pa$$w0rd`
+
+## 🛠 Troubleshooting
+
+If you encounter issues, try the following solutions:
+
+- **Database or Migration Issues:** If issues arise, consider dropping the database and re-running the migrations.
+- **Reinstalling Dependencies:** Sometimes, re-installing packages can help:
+    ```bash
+    npm install
+    ```
+
+For further assistance, please reach out to the contact email below.
+
+## 🔮 Future Improvements
+
+In the final production version, the SQLite database will be migrated to PostgreSQL to enhance scalability and security. The application will also be prepared for deployment on the web with environment-specific configurations.
+
+## 📞 Contact
+
+For any questions or assistance, feel free to reach out:
+
+- Email: [andersonfrias001@gmail.com](mailto:andersonfrias001@gmail.com)
