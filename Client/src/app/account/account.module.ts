@@ -10,6 +10,8 @@ import { AccountComponent } from './account.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { UserAddressComponent } from './user-address/user-address.component';
 import { UserProfileFormComponent } from './user-profile/user-profile-form/user-profile-form.component';
+import { ReservationDetailsComponent } from './reservations-list/reservation-details/reservation-details.component';
+import { ReservationsListComponent } from './reservations-list/reservations-list.component';
 
 
 @NgModule({
@@ -21,6 +23,8 @@ import { UserProfileFormComponent } from './user-profile/user-profile-form/user-
     UserProfileComponent,
     UserProfileFormComponent,
     UserAddressComponent,
+    ReservationDetailsComponent,
+    ReservationsListComponent
   ],
   imports: [
     CommonModule,

@@ -12,9 +12,7 @@ namespace Core.Dtos
         public string Status { get; set; }
         public string Insurance { get; set; }
 
-        public string Vehicle { get; set; }
-        public int VehicleYear { get; set; }
-
+        public VehicleDto Vehicle { get; set; }
 
         public string AppUserId { get; set; }
         public string UserFirstName { get; set; }

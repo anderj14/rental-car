@@ -27,9 +27,9 @@ export default class ReservationDetailsComponent implements OnInit {
   getReservation() {
     const id = this.activateRoute.snapshot.paramMap.get('id');
     if (id) this.reservationService.getReservation(+id).subscribe({
-      next: reservation => {
-        this.reservation = reservation;
-        this.bcService.set('@reservationDetails', reservation.reservationNumber + " | " + reservation.appUserId);
+      next: response => {
+        this.reservation = response;
+        this.bcService.set('@reservationDetails', response.reservationNumber + " | " + response.appUserId);
       },
       error: error => console.log(error)
     });

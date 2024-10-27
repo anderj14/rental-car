@@ -1,3 +1,5 @@
+import { IVehicle } from "./vehicles";
+
 export interface Reservation {
   id: number;
   reservationNumber: string;
@@ -5,11 +7,10 @@ export interface Reservation {
   endDate: string;
   days: number;
   rentalCost: number;
-  vehicle: string;
+  vehicle: IVehicle;
   insurance: string;
   status: string;
   appUserId: string;
-  vehicleYear: number;
   userFirstName: string;
   userLastName: string;
   phone: string;

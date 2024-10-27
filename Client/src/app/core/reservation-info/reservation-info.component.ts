@@ -22,7 +22,7 @@ export class ReservationInfoComponent implements OnInit {
   ngOnInit(): void {
     const id = this.activateRoute.snapshot.paramMap.get('id');
     if (id)
-      this.reservationService.getReservation(+id).subscribe({
+      this.reservationService.getReservationByUser(+id).subscribe({
         next: (response) => {
           this.reservation = response;
         },

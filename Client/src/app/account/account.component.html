@@ -1,19 +1,17 @@
 <section>
-    <mat-card>
-        <mat-card-header>
-            Account Management
-        </mat-card-header>
-        <div class="section">
-            <mat-card-content>
-                <app-user-profile />
-            </mat-card-content> 
-            <mat-card-content>
-                <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
-                    <mat-tab  label="Account"><app-update /></mat-tab>
-                    <mat-tab  label="Address"><app-user-address /></mat-tab>
-                    <!-- <mat-tab *ngIf="isAdmin$ | async" label="Admin users"><app-users /></mat-tab> -->
-                </mat-tab-group>
-            </mat-card-content>
-        </div>
-    </mat-card>
+  <mat-card>
+    <mat-card-header> Account Management </mat-card-header>
+    <div class="section">
+      <mat-card-content>
+        <app-user-profile />
+      </mat-card-content>
+      <mat-card-content>
+        <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
+          <mat-tab label="Account"><app-update /></mat-tab>
+          <mat-tab label="Address"><app-user-address /></mat-tab>
+          <mat-tab label="Reservations"><app-reservations-list /></mat-tab>
+        </mat-tab-group>
+      </mat-card-content>
+    </div>
+  </mat-card>
 </section>

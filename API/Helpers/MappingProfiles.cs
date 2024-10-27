@@ -13,8 +13,16 @@ namespace API.Helpers
 {
     public class MappingProfiles : Profile
     {
+        private readonly IConfiguration _config;
+
+        public MappingProfiles(IConfiguration config)
+        {
+            _config = config;
+        }
+
         public MappingProfiles()
         {
+
 
             CreateMap<AppUser, UserDto>();
 
@@ -40,9 +48,10 @@ namespace API.Helpers
             CreateMap<Insurance, InsuranceDto>();
 
             CreateMap<Reservation, ReservationDto>()
-            .ForMember(d => d.Vehicle, o => o.MapFrom(s => s.Vehicle.VehicleName))
+            // .ForMember(d => d.Vehicle, o => o.MapFrom(s => s.Vehicle.VehicleName))
             .ForMember(d => d.Insurance, o => o.MapFrom(s => s.Insurance.InsuranceName))
-            .ForMember(dest => dest.VehicleYear, opt => opt.MapFrom(src => src.Vehicle.Year))
+            .ForMember(dest => dest.Vehicle, opt => opt.MapFrom(src => src.Vehicle))
+            // .ForMember(dest => dest.VehiclePhoto, opt => opt.MapFrom(src => src.Vehicle.Photos.FirstOrDefault().PictureUrl))
             .ForMember(dest => dest.UserFirstName, opt => opt.MapFrom(src => src.AppUser.UserProfile.FirstName))
             .ForMember(dest => dest.UserLastName, opt => opt.MapFrom(src => src.AppUser.UserProfile.LastName))
             .ForMember(dest => dest.Phone, opt => opt.MapFrom(src => src.AppUser.UserProfile.Phone))

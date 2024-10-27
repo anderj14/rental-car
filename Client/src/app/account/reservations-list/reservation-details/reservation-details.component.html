@@ -1,32 +1,31 @@
-<div class="content">
-  <div *ngIf="reservation">
+<div *ngIf="data.reservation">
     <mat-card class="card">
-      <mat-card-header>
+    <mat-card-header>
         <mat-card-title>Reservation</mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
+    </mat-card-header>
+    <mat-card-content>
         <h2>Reservation Information</h2>
         <div class="info">
-          <mat-card>
+        <mat-card>
             <div class="date-info">
-              <strong>Reservation Number</strong>
-              <p>{{ reservation.reservationNumber }}</p>
-              <strong>Pickup Date</strong>
-              <p>{{ reservation.startDate | date }}</p>
-              <strong>Return Date</strong>
-              <p>{{ reservation.endDate | date }}</p>
-              <strong>Days</strong>
-              <p>{{ reservation.days }} days</p>
-              <strong>Location</strong>
-              <p>111th Corona, Queens, New York</p>
-              <strong>Insurance</strong>
-              <p>{{ reservation.insurance }}</p>
+            <strong>Reservation Number</strong>
+            <p>{{ reservation.reservationNumber }}</p>
+            <strong>Pickup Date</strong>
+            <p>{{ reservation.startDate | date }}</p>
+            <strong>Return Date</strong>
+            <p>{{ reservation.endDate | date }}</p>
+            <strong>Days</strong>
+            <p>{{ reservation.days }} days</p>
+            <strong>Location</strong>
+            <p>111th Corona, Queens, New York</p>
+            <strong>Insurance</strong>
+            <p>{{ reservation.insurance }}</p>
             </div>
-          </mat-card>
+        </mat-card>
 
-          <mat-card>
+        <mat-card>
             <div class="body">
-              <div class="info-vehicle-user">
+            <div class="info-vehicle-user">
                 <p>Vehicle</p>
                 <p>Vehicle Year</p>
                 <p>Full Name</p>
@@ -37,12 +36,12 @@
                 <p>City</p>
                 <p>Country</p>
                 <p>ZipCode</p>
-              </div>
-              <div class="data">
+            </div>
+            <div class="data">
                 <p>{{ reservation.vehicle.vehicleName }}</p>
                 <p>{{ reservation.vehicle.year }}</p>
                 <p>
-                  {{ reservation.userFirstName }} {{ reservation.userLastName }}
+                {{ reservation.userFirstName }} {{ reservation.userLastName }}
                 </p>
                 <p>{{ reservation.phone }}</p>
                 <p>{{ reservation.identificationNumber }}</p>
@@ -51,16 +50,18 @@
                 <p>{{ reservation.city }}</p>
                 <p>{{ reservation.country }}</p>
                 <p>{{ reservation.zipCode }}</p>
-              </div>
             </div>
-          </mat-card>
+            </div>
+        </mat-card>
         </div>
         <hr />
         <div class="total">
-          <strong>Total Rental Cost</strong>
-          <strong>{{ reservation.rentalCost | currency }}</strong>
+        <strong>Total Rental Cost</strong>
+        <strong>{{ reservation.rentalCost | currency }}</strong>
         </div>
-      </mat-card-content>
+    </mat-card-content>
+    <mat-card-actions>
+        <button (click)="deleteReservation()">Delete Reservation</button>
+    </mat-card-actions>
     </mat-card>
-  </div>
 </div>

@@ -16,12 +16,13 @@ namespace Core.Specifications
         {
             AddInclude(r => r.AppUser);
             AddInclude(r => r.Vehicle);
+            AddInclude(r => r.Vehicle.Photos);
             AddInclude(r => r.Insurance);
             AddOrderBy(x => x.ReservationNumber);
             AddInclude(x => x.AppUser.UserProfile);
             AddInclude(x => x.AppUser.Address);
 
-            ApplyPaging(reservationSpecParams.PageSize * (reservationSpecParams.PageIndex - 1), reservationSpecParams.PageSize);
+            // ApplyPaging(reservationSpecParams.PageSize * (reservationSpecParams.PageIndex - 1), reservationSpecParams.PageSize);
 
             if (!string.IsNullOrEmpty(reservationSpecParams.Sort))
             {
@@ -43,6 +44,7 @@ namespace Core.Specifications
         {
             AddInclude(r => r.AppUser);
             AddInclude(r => r.Vehicle);
+            AddInclude(r => r.Vehicle.Photos);
             AddInclude(r => r.Insurance);
             AddInclude(x => x.AppUser.UserProfile);
             AddInclude(x => x.AppUser.Address);
@@ -53,6 +55,7 @@ namespace Core.Specifications
         {
             AddInclude(r => r.AppUser);
             AddInclude(r => r.Vehicle);
+            AddInclude(r => r.Vehicle.Photos);
             AddInclude(r => r.Insurance);
             AddOrderBy(x => x.ReservationNumber);
             AddInclude(x => x.AppUser.UserProfile);

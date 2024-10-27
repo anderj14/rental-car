@@ -82,7 +82,7 @@ namespace API.Controllers
                     new List<ReservationDto>()
                 ));
             }
-            var reservations = await _unitOfWork.Repository<Reservation>().ListAsync(spec);
+            var reservations = await _unitOfWork.Repository<Reservation>().ListAllByUserAsync(filter, spec, reservationSpecParams.PageIndex, reservationSpecParams.PageSize);
 
             var data = _mapper.Map<IReadOnlyList<ReservationDto>>(reservations);
 
