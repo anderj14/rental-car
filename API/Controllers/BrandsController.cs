@@ -53,8 +53,8 @@ namespace API.Controllers
             return Ok(modelDtos);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
-        [Authorize]
         public async Task<ActionResult<BrandDto>> CreateBrand(CreateBrandDto createBrandDto)
         {
             var brand = _mapper.Map<CreateBrandDto, Brand>(createBrandDto);
@@ -67,8 +67,8 @@ namespace API.Controllers
             return Ok(brand);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPut("{id}")]
-        [Authorize]
         public async Task<ActionResult<BrandDto>> UpdateBrand(int id, CreateBrandDto updateBrandDto)
         {
 
@@ -85,8 +85,8 @@ namespace API.Controllers
             return Ok(brand);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
-        [Authorize]
         public async Task<ActionResult> DeleteBrand(int id)
         {
 

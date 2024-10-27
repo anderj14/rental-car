@@ -1,13 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using API.Dtos.CreateDtos;
 using API.Errors;
 using AutoMapper;
 using Core.Dtos;
 using Core.Entities;
 using Core.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -41,9 +38,9 @@ namespace API.Controllers
 
             return Ok(data);
         }
-
+        
+        [Authorize(Roles = "Admin")]
         [HttpPost]
-        // [Authorize(Roles = "Admin")]
         public async Task<ActionResult<VehicleTypeDto>> CreateVehicleType(CreateVehicleTypeDto CreateVehicleTypeDto)
         {
             var vehicleType = _mapper.Map<CreateVehicleTypeDto, VehicleType>(CreateVehicleTypeDto);
@@ -58,8 +55,8 @@ namespace API.Controllers
 
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPut("{id}")]
-        // [Authorize(Roles = "Admin")]
         public async Task<ActionResult<VehicleTypeDto>> UpdateVehicleType(int id, CreateVehicleTypeDto updateVehicleTypeDto)
         {
             var vehicleType = await _unitOfWork.Repository<VehicleType>().GetByIdAsync(id);
@@ -75,8 +72,8 @@ namespace API.Controllers
             return Ok(vehicleType);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
-        // [Authorize(Roles = "Admin")]
         public async Task<ActionResult<VehicleTypeDto>> DeleteVehicleType(int id)
         {
             var vehicleType = await _unitOfWork.Repository<VehicleType>().GetByIdAsync(id);

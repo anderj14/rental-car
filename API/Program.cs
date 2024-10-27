@@ -1,6 +1,5 @@
 using API.Extensions;
 using API.Middleware;
-using API.Services;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;

@@ -38,10 +38,6 @@ const routes: Routes = [
     component: AboutUsComponent
   },
   {
-    path: 'invoices',
-    loadChildren: () => import('./invoice/invoice.module').then(m => m.InvoiceModule)
-  },
-  {
     path: 'vehicle-management',
     canActivate: [AuthGuard, AdminGuard],
     component: VehicleManagementComponent

@@ -40,8 +40,8 @@ namespace API.Controllers
             return Ok(data);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
-        [Authorize]
         public async Task<ActionResult<FuelDto>> CreateFuel(CreateFuelDto CreateFuelDto)
         {
             var fuel = _mapper.Map<CreateFuelDto, Fuel>(CreateFuelDto);
@@ -56,8 +56,8 @@ namespace API.Controllers
 
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPut("{id}")]
-        [Authorize]
         public async Task<ActionResult<FuelDto>> UpdateFuel(int id, CreateFuelDto updateFuelDto)
         {
             var fuel = await _unitOfWork.Repository<Fuel>().GetByIdAsync(id);
@@ -73,8 +73,8 @@ namespace API.Controllers
             return Ok(fuel);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
-        [Authorize]
         public async Task<ActionResult<FuelDto>> DeleteFuel(int id)
         {
             var fuel = await _unitOfWork.Repository<Fuel>().GetByIdAsync(id);

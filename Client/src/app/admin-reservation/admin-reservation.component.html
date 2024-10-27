@@ -40,7 +40,7 @@
                 <tbody>
                     <tr *ngFor="let reservation of reservations" routerLink="/admin-reservation/{{reservation.id}}">
                         <td>{{ reservation.reservationNumber }}</td>
-                        <td>{{ reservation.vehicle }}</td>
+                        <td>{{ reservation.vehicle.vehicleName }}</td>
                         <td>{{ reservation.startDate | date}}</td>
                         <td>{{ reservation.endDate | date}}</td>
                         <td>{{ reservation.days }}</td>

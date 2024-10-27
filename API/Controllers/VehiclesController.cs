@@ -58,8 +58,8 @@ namespace API.Controllers
             return _mapper.Map<Vehicle, VehicleDto>(vehicle);
         }
 
-        [HttpPost]
         [Authorize(Roles = "Admin")]
+        [HttpPost]
         public async Task<ActionResult<VehicleDto>> CreateVehicle([FromBody] CreateVehicleDto createVehicle)
         {
             var vehicle = _mapper.Map<CreateVehicleDto, Vehicle>(createVehicle);
@@ -76,8 +76,8 @@ namespace API.Controllers
 
         }
 
-        [HttpPut("{id}")]
         [Authorize(Roles = "Admin")]
+        [HttpPut("{id}")]
         public async Task<ActionResult<VehicleDto>> UpdateVehicle(int id, CreateVehicleDto updateVehicleDto)
         {
             var vehicle = await _unitOfWork.Repository<Vehicle>().GetByIdAsync(id);
@@ -95,8 +95,8 @@ namespace API.Controllers
             return Ok(vehicle);
         }
 
-        [HttpDelete("{id}")]
         [Authorize(Roles = "Admin")]
+        [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteVehicle(int id)
         {
             var vehicle = await _unitOfWork.Repository<Vehicle>().GetByIdAsync(id);
@@ -123,8 +123,8 @@ namespace API.Controllers
             return Ok();
         }
 
-        [HttpPut("{id}/photo")]
         [Authorize(Roles = "Admin")]
+        [HttpPut("{id}/photo")]
         public async Task<ActionResult<VehicleDto>> AddProductPhoto(int id, [FromForm] VehiclePhotoDto photoDto)
         {
             var spec = new VehicleWithAllSpecification(id);
@@ -153,8 +153,8 @@ namespace API.Controllers
             return _mapper.Map<Vehicle, VehicleDto>(vehicle);
         }
 
-        [HttpDelete("{id}/photo/{photoId}")]
         [Authorize(Roles = "Admin")]
+        [HttpDelete("{id}/photo/{photoId}")]
         public async Task<ActionResult> DeleteVehiclePhoto(int id, int photoId)
         {
             var spec = new VehicleWithAllSpecification(id);
@@ -182,8 +182,8 @@ namespace API.Controllers
             return Ok();
         }
 
-        [HttpPost("{id}/mainphoto/{photoId}")]
         [Authorize(Roles = "Admin")]
+        [HttpPost("{id}/mainphoto/{photoId}")]
         public async Task<ActionResult<VehicleDto>> SetMainPhoto(int id, int photoId)
         {
             var spec = new VehicleWithAllSpecification(id);

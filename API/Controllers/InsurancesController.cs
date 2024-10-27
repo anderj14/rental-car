@@ -22,7 +22,6 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        [Authorize]
         public async Task<ActionResult<IReadOnlyList<InsuranceDto>>> GetInsurances()
         {
             var insurances = await _unitOfWork.Repository<Insurance>().ListAllAsync();
@@ -32,7 +31,6 @@ namespace API.Controllers
         }
 
         [HttpGet("{id}")]
-        [Authorize]
         public async Task<ActionResult<InsuranceDto>> GetInsurance(int id)
         {
             var insurance = await _unitOfWork.Repository<Insurance>().GetByIdAsync(id);
@@ -42,8 +40,8 @@ namespace API.Controllers
 
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
-        [Authorize]
         public async Task<ActionResult<InsuranceDto>> CreateInsurance(CreateInsuranceDto CreateInsuranceDto)
         {
             var insurance = _mapper.Map<CreateInsuranceDto, Insurance>(CreateInsuranceDto);
@@ -58,8 +56,8 @@ namespace API.Controllers
 
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPut("{id}")]
-        [Authorize]
         public async Task<ActionResult<InsuranceDto>> UpdateInsurance(int id, CreateInsuranceDto updateInsuranceDto)
         {
             var insurance = await _unitOfWork.Repository<Insurance>().GetByIdAsync(id);
@@ -75,8 +73,8 @@ namespace API.Controllers
             return Ok(insurance);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
-        [Authorize]
         public async Task<ActionResult<InsuranceDto>> DeleteInsurance(int id)
         {
             var insurance = await _unitOfWork.Repository<Insurance>().GetByIdAsync(id);

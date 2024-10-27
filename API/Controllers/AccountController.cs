@@ -121,7 +121,6 @@ namespace API.Controllers
                 var roleAddResult = await _userManager.AddToRoleAsync(user, "MEMBER");
                 // var roleAddResult = await _userManager.AddToRolesAsync(user, new[] { "MEMBER", "ADMIN", "MODERATOR" });
 
-
                 if (!roleAddResult.Succeeded) return BadRequest("Failed to add to role");
 
                 return new UserDto
@@ -310,8 +309,8 @@ namespace API.Controllers
         }
 
 
-        [HttpGet("users")]
         [Authorize(Roles = "Admin")]
+        [HttpGet("users")]
         public async Task<ActionResult<Pagination<UserDto>>> GetUsers(
             [FromQuery] UserSpecParams userSpecParams
         )
@@ -338,8 +337,8 @@ namespace API.Controllers
             return Ok(new Pagination<UserDto>(userSpecParams.PageIndex, userSpecParams.PageSize, totalItems, userDtos.ToList()));
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpDelete("delete/{id}")]
-        [Authorize]
         public async Task<ActionResult> DeleteUser(string id)
         {
             var user = await _userManager.FindByIdAsync(id);

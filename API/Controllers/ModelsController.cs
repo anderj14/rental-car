@@ -42,8 +42,8 @@ namespace API.Controllers
             return Ok(data);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
-        [Authorize]
         public async Task<ActionResult<ModelDto>> CreateModel(CreateModelDto createModelDto)
         {
             var model = _mapper.Map<CreateModelDto, Model>(createModelDto);
@@ -56,9 +56,8 @@ namespace API.Controllers
             return Ok(model);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPut("{id}")]
-        [Authorize]
-
         public async Task<ActionResult<ModelDto>> UpdateModel(int id, CreateModelDto updateModelDto)
         {
 
@@ -75,8 +74,8 @@ namespace API.Controllers
             return Ok(model);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
-        [Authorize]
         public async Task<ActionResult> DeleteModel(int id)
         {
 
