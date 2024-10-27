@@ -23,9 +23,30 @@ namespace API.Services
             var vehicle = await _unitOfWork.Repository<Vehicle>().GetByIdAsync(vehicleId);
             var insurance = await _unitOfWork.Repository<Insurance>().GetByIdAsync(insuranceId);
 
-            if (vehicle.Status != VehicleStatus.Available)
+            if (vehicle == null) throw new Exception("Vehicle not found!");
+            if (insurance == null) throw new Exception("Insurance not found!");
+
+            if (vehicle.Status != VehicleStatus.Available && vehicle.Status != VehicleStatus.Reserved)
             {
                 throw new Exception("Vehicle is not available for reservation!");
+            }
+
+            try
+            {
+                var existingReservations = await _unitOfWork.Repository<Reservation>().FindAsync(
+                    r => r.VehicleId == vehicleId &&
+                         r.Status != ReservationStatus.Cancelled &&
+                         r.EndDate > startTime && r.StartDate < endTime
+                );
+
+                if (existingReservations.Any())
+                {
+                    throw new Exception("Vehicle is already reserved for the selected dates.");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("An error occurred while checking existing reservations.", ex);
             }
 
             var reservation = new Reservation

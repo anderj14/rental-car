@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Data.Migrations
 {
     [DbContext(typeof(RentalContext))]
-    [Migration("20240918212041_AddReservationAndVehicleStatusEnums")]
-    partial class AddReservationAndVehicleStatusEnums
+    [Migration("20241027161051_VehicleReservationR")]
+    partial class VehicleReservationR
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -421,19 +421,19 @@ namespace Infrastructure.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "ec9ecf39-6558-4a7c-ac8e-d00e87807a48",
+                            Id = "50106b39-ade2-4db6-b4ed-3c7192d6cf13",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "2ba25d30-7bfe-457f-bb54-a9177be0f2c1",
+                            Id = "d084e18b-dfe6-4dfb-99b4-49eeebdcb92f",
                             Name = "Member",
                             NormalizedName = "MEMBER"
                         },
                         new
                         {
-                            Id = "27df1d5c-96cc-4449-a13c-3d6e192e4578",
+                            Id = "a862e2bb-57cb-43ef-83f8-28ce4640ca24",
                             Name = "Moderator",
                             NormalizedName = "MODERATOR"
                         });
@@ -600,7 +600,7 @@ namespace Infrastructure.Data.Migrations
                         .IsRequired();
 
                     b.HasOne("Core.Entities.Vehicle", "Vehicle")
-                        .WithMany()
+                        .WithMany("Reservations")
                         .HasForeignKey("VehicleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -712,6 +712,8 @@ namespace Infrastructure.Data.Migrations
             modelBuilder.Entity("Core.Entities.Vehicle", b =>
                 {
                     b.Navigation("Photos");
+
+                    b.Navigation("Reservations");
                 });
 #pragma warning restore 612, 618
         }

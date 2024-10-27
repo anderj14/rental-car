@@ -34,6 +34,10 @@ namespace Infrastructure.Data.Config
             builder.HasOne(i => i.Fuel).WithMany()
                 .HasForeignKey(i => i.FuelId);
 
+            builder.HasMany(v => v.Reservations)
+                .WithOne(r => r.Vehicle)
+                .HasForeignKey(r => r.VehicleId) 
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

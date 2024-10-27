@@ -35,11 +35,17 @@ INSERT INTO VehicleTypes (Id, VehicleTypeName) VALUES
 (4, 'Coupe');
 
 -- Insertar datos para Vehicle
-INSERT INTO Vehicles (Id, VehicleName, Year, Vin, Passengers, Transmission, Doors, Color, RentalPrice, FuelConsumption, FuelId, BrandId, ModelId, StatusId, VehicleTypeId) VALUES
-(1, 'Corolla LE', 2020, '1HGBH41JXMN109186', 5, 'Automatic', 4, 'Blue', 30.00, 25, 1, 1, 1, 1, 1),
-(2, 'Civic EX', 2021, '2HGEJ6576TH007258', 5, 'Manual', 4, 'Red', 35.00, 28, 1, 2, 2, 1, 2),
-(3, 'Mustang GT', 2022, '1FATP8FF4J5101234', 4, 'Automatic', 2, 'Black', 50.00, 20, 1, 3, 3, 1, 3),
-(4, 'X5 M', 2023, '5UXKW8C52L9A00001', 5, 'Automatic', 5, 'White', 70.00, 18, 1, 4, 4, 1, 4);
+INSERT INTO Vehicles (Id, VehicleName, Year, Vin, Passengers, Transmission, Doors, Color, RentalPrice, FuelConsumption, FuelId, BrandId, ModelId, VehicleTypeId)
+VALUES
+(1, 'Toyota Corolla', 2020, '1HGBH41JXMN109186', 5, 'Automatic', 4, 'Blue', 50.00, 30, 1, 1, 1, 1),
+(2, 'Honda Civic', 2021, '2HGBH41JXMN109186', 5, 'Manual', 4, 'Red', 45.00, 35, 2, 2, 2, 1),
+(3, 'Ford Mustang', 2019, '3HGBH41JXMN109186', 4, 'Automatic', 2, 'Black', 100.00, 20, 1, 3, 3, 4),
+(4, 'BMW X5', 2022, '4HGBH41JXMN109186', 5, 'Automatic', 4, 'White', 120.00, 25, 3, 4, 4, 2),
+(5, 'Toyota RAV4', 2020, '5HGBH41JXMN109186', 5, 'Automatic', 4, 'Gray', 75.00, 28, 1, 1, 1, 2),
+(6, 'Honda CR-V', 2021, '6HGBH41JXMN109186', 5, 'Automatic', 4, 'Silver', 70.00, 30, 2, 2, 2, 2),
+(7, 'Ford F-150', 2021, '7HGBH41JXMN109186', 5, 'Automatic', 4, 'Green', 80.00, 15, 1, 3, 3, 3),
+(8, 'BMW 3 Series', 2020, '8HGBH41JXMN109186', 5, 'Automatic', 4, 'Blue', 90.00, 22, 4, 4, 4, 1);
+
 
 -- Insertar datos para Photo
 -- INSERT INTO Photos (Id, VehicleId, FileName, PictureUrl, IsMain) VALUES

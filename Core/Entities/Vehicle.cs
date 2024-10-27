@@ -27,6 +27,8 @@ namespace Core.Entities
         public int VehicleTypeId { get; set; }
         public VehicleType VehicleType { get; set; }
 
+        public IReadOnlyList<Reservation> Reservations { get; set; }
+
         private readonly List<Photo> _photos = new List<Photo>();
         public IReadOnlyList<Photo> Photos => _photos.AsReadOnly();
 

@@ -119,6 +119,8 @@ namespace API.Controllers
                 if (!result.Succeeded) return BadRequest(new ApiResponse(400));
 
                 var roleAddResult = await _userManager.AddToRoleAsync(user, "MEMBER");
+                // var roleAddResult = await _userManager.AddToRolesAsync(user, new[] { "MEMBER", "ADMIN", "MODERATOR" });
+
 
                 if (!roleAddResult.Succeeded) return BadRequest("Failed to add to role");
 
@@ -307,7 +309,7 @@ namespace API.Controllers
             };
         }
 
-        
+
         [HttpGet("users")]
         [Authorize(Roles = "Admin")]
         public async Task<ActionResult<Pagination<UserDto>>> GetUsers(

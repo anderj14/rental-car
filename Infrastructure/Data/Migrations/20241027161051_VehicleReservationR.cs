@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Infrastructure.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class AddReservationAndVehicleStatusEnums : Migration
+    public partial class VehicleReservationR : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -397,9 +397,9 @@ namespace Infrastructure.Data.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "27df1d5c-96cc-4449-a13c-3d6e192e4578", null, "Moderator", "MODERATOR" },
-                    { "2ba25d30-7bfe-457f-bb54-a9177be0f2c1", null, "Member", "MEMBER" },
-                    { "ec9ecf39-6558-4a7c-ac8e-d00e87807a48", null, "Admin", "ADMIN" }
+                    { "50106b39-ade2-4db6-b4ed-3c7192d6cf13", null, "Admin", "ADMIN" },
+                    { "a862e2bb-57cb-43ef-83f8-28ce4640ca24", null, "Moderator", "MODERATOR" },
+                    { "d084e18b-dfe6-4dfb-99b4-49eeebdcb92f", null, "Member", "MEMBER" }
                 });
 
             migrationBuilder.CreateIndex(
